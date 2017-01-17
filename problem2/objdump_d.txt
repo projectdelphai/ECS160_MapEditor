@@ -1,0 +1,108 @@
+0000000000401986 <_ZN11CTFTPServer4OpenEiRKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE>:
+  401986: 55                    push   %rbp
+  401987: 48 89 e5              mov    %rsp,%rbp
+  40198a: 48 83 ec 50           sub    $0x50,%rsp
+  40198e: 48 89 7d c8           mov    %rdi,-0x38(%rbp)
+  401992: 89 75 c4              mov    %esi,-0x3c(%rbp)
+  401995: 48 89 55 b8           mov    %rdx,-0x48(%rbp)
+  401999: 83 7d c4 00           cmpl   $0x0,-0x3c(%rbp)
+  40199d: 7e 09                 jle    4019a8 <_ZN11CTFTPServer4OpenEiRKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE+0x22>
+  40199f: 81 7d c4 ff ff 00 00  cmpl   $0xffff,-0x3c(%rbp)
+  4019a6: 7e 0a                 jle    4019b2 <_ZN11CTFTPServer4OpenEiRKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE+0x2c>
+  4019a8: b8 00 00 00 00        mov    $0x0,%eax
+  4019ad: e9 4f 01 00 00        jmpq   401b01 <_ZN11CTFTPServer4OpenEiRKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE+0x17b>
+  4019b2: 48 8b 45 b8           mov    -0x48(%rbp),%rax
+  4019b6: 48 89 c7              mov    %rax,%rdi
+  4019b9: e8 d2 f6 ff ff        callq  401090 <_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE6lengthEv@plt>
+  4019be: 48 8d 50 ff           lea    -0x1(%rax),%rdx
+  4019c2: 48 8b 45 b8           mov    -0x48(%rbp),%rax
+  4019c6: 48 89 d6              mov    %rdx,%rsi
+  4019c9: 48 89 c7              mov    %rax,%rdi
+  4019cc: e8 8f f7 ff ff        callq  401160 <_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEixEm@plt>
+  4019d1: 0f b6 00              movzbl (%rax),%eax
+  4019d4: 3c 2f                 cmp    $0x2f,%al
+  4019d6: 0f 94 c0              sete   %al
+  4019d9: 84 c0                 test   %al,%al
+  4019db: 74 4d                 je     401a2a <_ZN11CTFTPServer4OpenEiRKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE+0xa4>
+  4019dd: 48 8b 45 b8           mov    -0x48(%rbp),%rax
+  4019e1: 48 89 c7              mov    %rax,%rdi
+  4019e4: e8 a7 f6 ff ff        callq  401090 <_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE6lengthEv@plt>
+  4019e9: 48 8d 50 ff           lea    -0x1(%rax),%rdx
+  4019ed: 48 8d 45 e0           lea    -0x20(%rbp),%rax
+  4019f1: 48 8b 75 b8           mov    -0x48(%rbp),%rsi
+  4019f5: 48 89 d1              mov    %rdx,%rcx
+  4019f8: ba 00 00 00 00        mov    $0x0,%edx
+  4019fd: 48 89 c7              mov    %rax,%rdi
+  401a00: e8 0b f6 ff ff        callq  401010 <_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE6substrEmm@plt>
+  401a05: 48 8b 45 c8           mov    -0x38(%rbp),%rax
+  401a09: 48 8d 50 08           lea    0x8(%rax),%rdx
+  401a0d: 48 8d 45 e0           lea    -0x20(%rbp),%rax
+  401a11: 48 89 c6              mov    %rax,%rsi
+  401a14: 48 89 d7              mov    %rdx,%rdi
+  401a17: e8 14 f6 ff ff        callq  401030 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEaSEOS4_@plt>
+  401a1c: 48 8d 45 e0           lea    -0x20(%rbp),%rax
+  401a20: 48 89 c7              mov    %rax,%rdi
+  401a23: e8 c8 f6 ff ff        callq  4010f0 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED1Ev@plt>
+  401a28: eb 17                 jmp    401a41 <_ZN11CTFTPServer4OpenEiRKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE+0xbb>
+  401a2a: 48 8b 45 c8           mov    -0x38(%rbp),%rax
+  401a2e: 48 8d 50 08           lea    0x8(%rax),%rdx
+  401a32: 48 8b 45 b8           mov    -0x48(%rbp),%rax
+  401a36: 48 89 c6              mov    %rax,%rsi
+  401a39: 48 89 d7              mov    %rdx,%rdi
+  401a3c: e8 2f f7 ff ff        callq  401170 <_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEaSERKS4_@plt>
+  401a41: 48 8b 45 c8           mov    -0x38(%rbp),%rax
+  401a45: 48 83 c0 08           add    $0x8,%rax
+  401a49: 48 89 c7              mov    %rax,%rdi
+  401a4c: e8 2f f7 ff ff        callq  401180 <_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE5c_strEv@plt>
+  401a51: 48 89 c7              mov    %rax,%rdi
+  401a54: e8 97 f5 ff ff        callq  400ff0 <chdir@plt>
+  401a59: 85 c0                 test   %eax,%eax
+  401a5b: 0f 95 c0              setne  %al
+  401a5e: 84 c0                 test   %al,%al
+  401a60: 74 0a                 je     401a6c <_ZN11CTFTPServer4OpenEiRKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE+0xe6>
+  401a62: b8 00 00 00 00        mov    $0x0,%eax
+  401a67: e9 95 00 00 00        jmpq   401b01 <_ZN11CTFTPServer4OpenEiRKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE+0x17b>
+  401a6c: ba 11 00 00 00        mov    $0x11,%edx
+  401a71: be 02 00 00 00        mov    $0x2,%esi
+  401a76: bf 02 00 00 00        mov    $0x2,%edi
+  401a7b: e8 a0 f6 ff ff        callq  401120 <socket@plt>
+  401a80: 89 c2                 mov    %eax,%edx
+  401a82: 48 8b 45 c8           mov    -0x38(%rbp),%rax
+  401a86: 89 10                 mov    %edx,(%rax)
+  401a88: 48 8b 45 c8           mov    -0x38(%rbp),%rax
+  401a8c: 8b 00                 mov    (%rax),%eax
+  401a8e: 85 c0                 test   %eax,%eax
+  401a90: 79 07                 jns    401a99 <_ZN11CTFTPServer4OpenEiRKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE+0x113>
+  401a92: b8 00 00 00 00        mov    $0x0,%eax
+  401a97: eb 68                 jmp    401b01 <_ZN11CTFTPServer4OpenEiRKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE+0x17b>
+  401a99: 48 8d 45 d0           lea    -0x30(%rbp),%rax
+  401a9d: be 10 00 00 00        mov    $0x10,%esi
+  401aa2: 48 89 c7              mov    %rax,%rdi
+  401aa5: e8 26 f6 ff ff        callq  4010d0 <bzero@plt>
+  401aaa: 66 c7 45 d0 02 00     movw   $0x2,-0x30(%rbp)
+  401ab0: c7 45 d4 00 00 00 00  movl   $0x0,-0x2c(%rbp)
+  401ab7: 8b 45 c4              mov    -0x3c(%rbp),%eax
+  401aba: 0f b7 c0              movzwl %ax,%eax
+  401abd: 89 c7                 mov    %eax,%edi
+  401abf: e8 9c f5 ff ff        callq  401060 <htons@plt>
+  401ac4: 66 89 45 d2           mov    %ax,-0x2e(%rbp)
+  401ac8: 48 8b 45 c8           mov    -0x38(%rbp),%rax
+  401acc: 8b 00                 mov    (%rax),%eax
+  401ace: 48 8d 4d d0           lea    -0x30(%rbp),%rcx
+  401ad2: ba 10 00 00 00        mov    $0x10,%edx
+  401ad7: 48 89 ce              mov    %rcx,%rsi
+  401ada: 89 c7                 mov    %eax,%edi
+  401adc: e8 af f6 ff ff        callq  401190 <bind@plt>
+  401ae1: c1 e8 1f              shr    $0x1f,%eax
+  401ae4: 84 c0                 test   %al,%al
+  401ae6: 74 14                 je     401afc <_ZN11CTFTPServer4OpenEiRKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE+0x176>
+  401ae8: 48 8b 45 c8           mov    -0x38(%rbp),%rax
+  401aec: 8b 00                 mov    (%rax),%eax
+  401aee: 89 c7                 mov    %eax,%edi
+  401af0: e8 2b f5 ff ff        callq  401020 <close@plt>
+  401af5: b8 00 00 00 00        mov    $0x0,%eax
+  401afa: eb 05                 jmp    401b01 <_ZN11CTFTPServer4OpenEiRKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE+0x17b>
+  401afc: b8 01 00 00 00        mov    $0x1,%eax
+  401b01: c9                    leaveq 
+  401b02: c3                    retq   
+  401b03: 90                    nop
