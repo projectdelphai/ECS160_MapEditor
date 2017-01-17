@@ -1,0 +1,31 @@
+bool CTFTPServer::Open(int port, const std::string &rootdir){
+    struct sockaddr_in ServerAddress;
+    
+    if((1 > port)||(65535 < port)){
+        return false;   
+    }
+    if('/' == rootdir[rootdir.length() - 1]){
+        DRootDirectory = rootdir.substr(0,rootdir.length() - 1);
+    }
+    else{
+        DRootDirectory = rootdir;
+    }
+    if(0 != chdir(DRootDirectory.c_str())){
+        return false;
+    }
+    DListeningSocket = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
+    if(0 > DListeningSocket){
+        return false;
+    }
+    // Setup ServerAddress data structure
+    bzero((char *) &ServerAddress, sizeof(ServerAddress));
+    ServerAddress.sin_family = AF_INET;
+    ServerAddress.sin_addr.s_addr = INADDR_ANY;
+    ServerAddress.sin_port = htons(port);
+    // Binding socket to port
+    if(0 > bind(DListeningSocket, (struct sockaddr *)&ServerAddress, sizeof(ServerAddress))){ 
+        close(DListeningSocket);
+        return false;
+    }
+    return true;
+}
