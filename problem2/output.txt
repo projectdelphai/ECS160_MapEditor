@@ -1,0 +1,882 @@
+
+tftpserver:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+0000000000400fb8 <_init>:
+  400fc6:	74 05                	je     400fcd <_init+0x15>
+  400fd1:	c3                   	retq   
+
+Disassembly of section .plt:
+
+0000000000400fe0 <chdir@plt-0x10>:
+
+  400ff6:	68 00 00 00 00       	pushq  $0x0
+  400ffb:	e9 e0 ff ff ff       	jmpq   400fe0 <_init+0x28>
+
+  401006:	68 01 00 00 00       	pushq  $0x1
+  40100b:	e9 d0 ff ff ff       	jmpq   400fe0 <_init+0x28>
+
+  401016:	68 02 00 00 00       	pushq  $0x2
+  40101b:	e9 c0 ff ff ff       	jmpq   400fe0 <_init+0x28>
+
+  401026:	68 03 00 00 00       	pushq  $0x3
+  40102b:	e9 b0 ff ff ff       	jmpq   400fe0 <_init+0x28>
+
+  401036:	68 04 00 00 00       	pushq  $0x4
+  40103b:	e9 a0 ff ff ff       	jmpq   400fe0 <_init+0x28>
+
+  401046:	68 05 00 00 00       	pushq  $0x5
+  40104b:	e9 90 ff ff ff       	jmpq   400fe0 <_init+0x28>
+
+  401056:	68 06 00 00 00       	pushq  $0x6
+  40105b:	e9 80 ff ff ff       	jmpq   400fe0 <_init+0x28>
+
+  401066:	68 07 00 00 00       	pushq  $0x7
+  40106b:	e9 70 ff ff ff       	jmpq   400fe0 <_init+0x28>
+
+  401076:	68 08 00 00 00       	pushq  $0x8
+  40107b:	e9 60 ff ff ff       	jmpq   400fe0 <_init+0x28>
+
+  401086:	68 09 00 00 00       	pushq  $0x9
+  40108b:	e9 50 ff ff ff       	jmpq   400fe0 <_init+0x28>
+
+  401096:	68 0a 00 00 00       	pushq  $0xa
+  40109b:	e9 40 ff ff ff       	jmpq   400fe0 <_init+0x28>
+
+  4010a6:	68 0b 00 00 00       	pushq  $0xb
+  4010ab:	e9 30 ff ff ff       	jmpq   400fe0 <_init+0x28>
+
+  4010b6:	68 0c 00 00 00       	pushq  $0xc
+  4010bb:	e9 20 ff ff ff       	jmpq   400fe0 <_init+0x28>
+
+  4010c6:	68 0d 00 00 00       	pushq  $0xd
+  4010cb:	e9 10 ff ff ff       	jmpq   400fe0 <_init+0x28>
+
+  4010d6:	68 0e 00 00 00       	pushq  $0xe
+  4010db:	e9 00 ff ff ff       	jmpq   400fe0 <_init+0x28>
+
+  4010e6:	68 0f 00 00 00       	pushq  $0xf
+  4010eb:	e9 f0 fe ff ff       	jmpq   400fe0 <_init+0x28>
+
+  4010f6:	68 10 00 00 00       	pushq  $0x10
+  4010fb:	e9 e0 fe ff ff       	jmpq   400fe0 <_init+0x28>
+
+  401106:	68 11 00 00 00       	pushq  $0x11
+  40110b:	e9 d0 fe ff ff       	jmpq   400fe0 <_init+0x28>
+
+  401116:	68 12 00 00 00       	pushq  $0x12
+  40111b:	e9 c0 fe ff ff       	jmpq   400fe0 <_init+0x28>
+
+  401126:	68 13 00 00 00       	pushq  $0x13
+  40112b:	e9 b0 fe ff ff       	jmpq   400fe0 <_init+0x28>
+
+  401136:	68 14 00 00 00       	pushq  $0x14
+  40113b:	e9 a0 fe ff ff       	jmpq   400fe0 <_init+0x28>
+
+  401146:	68 15 00 00 00       	pushq  $0x15
+  40114b:	e9 90 fe ff ff       	jmpq   400fe0 <_init+0x28>
+
+  401156:	68 16 00 00 00       	pushq  $0x16
+  40115b:	e9 80 fe ff ff       	jmpq   400fe0 <_init+0x28>
+
+  401166:	68 17 00 00 00       	pushq  $0x17
+  40116b:	e9 70 fe ff ff       	jmpq   400fe0 <_init+0x28>
+
+  401176:	68 18 00 00 00       	pushq  $0x18
+  40117b:	e9 60 fe ff ff       	jmpq   400fe0 <_init+0x28>
+
+  401186:	68 19 00 00 00       	pushq  $0x19
+  40118b:	e9 50 fe ff ff       	jmpq   400fe0 <_init+0x28>
+
+  401196:	68 1a 00 00 00       	pushq  $0x1a
+  40119b:	e9 40 fe ff ff       	jmpq   400fe0 <_init+0x28>
+
+  4011a6:	68 1b 00 00 00       	pushq  $0x1b
+  4011ab:	e9 30 fe ff ff       	jmpq   400fe0 <_init+0x28>
+
+  4011b6:	68 1c 00 00 00       	pushq  $0x1c
+  4011bb:	e9 20 fe ff ff       	jmpq   400fe0 <_init+0x28>
+
+  4011c6:	68 1d 00 00 00       	pushq  $0x1d
+  4011cb:	e9 10 fe ff ff       	jmpq   400fe0 <_init+0x28>
+
+  4011d6:	68 1e 00 00 00       	pushq  $0x1e
+  4011db:	e9 00 fe ff ff       	jmpq   400fe0 <_init+0x28>
+
+  4011e6:	68 1f 00 00 00       	pushq  $0x1f
+  4011eb:	e9 f0 fd ff ff       	jmpq   400fe0 <_init+0x28>
+
+  4011f6:	68 20 00 00 00       	pushq  $0x20
+  4011fb:	e9 e0 fd ff ff       	jmpq   400fe0 <_init+0x28>
+
+  401206:	68 21 00 00 00       	pushq  $0x21
+  40120b:	e9 d0 fd ff ff       	jmpq   400fe0 <_init+0x28>
+
+  401216:	68 22 00 00 00       	pushq  $0x22
+  40121b:	e9 c0 fd ff ff       	jmpq   400fe0 <_init+0x28>
+
+Disassembly of section .plt.got:
+
+0000000000401220 <.plt.got>:
+
+Disassembly of section .text:
+
+0000000000401230 <_start>:
+  401259:	f4                   	hlt    
+
+0000000000401260 <deregister_tm_clones>:
+  401273:	76 1b                	jbe    401290 <deregister_tm_clones+0x30>
+  40127d:	74 11                	je     401290 <deregister_tm_clones+0x30>
+  40128e:	00 00 
+  401291:	c3                   	retq   
+  40129d:	00 00 00 
+
+00000000004012a0 <register_tm_clones>:
+  4012c1:	74 15                	je     4012d8 <register_tm_clones+0x38>
+  4012cb:	74 0b                	je     4012d8 <register_tm_clones+0x38>
+  4012d9:	c3                   	retq   
+
+00000000004012e0 <__do_global_dtors_aux>:
+  4012e7:	75 11                	jne    4012fa <__do_global_dtors_aux+0x1a>
+  4012ed:	e8 6e ff ff ff       	callq  401260 <deregister_tm_clones>
+  4012fa:	f3 c3                	repz retq 
+
+0000000000401300 <frame_dummy>:
+  401309:	75 05                	jne    401310 <frame_dummy+0x10>
+  40130b:	eb 93                	jmp    4012a0 <register_tm_clones>
+  401318:	74 f1                	je     40130b <frame_dummy+0xb>
+  401321:	e9 7a ff ff ff       	jmpq   4012a0 <register_tm_clones>
+
+0000000000401326 <main>:
+
+void SignalHandler(int param);
+
+CTFTPServer MainTFTPServer;
+
+int main(int argc, char * argv[]){
+    std::string RootDirectory = ".";
+    int MainPort = 49999;
+    struct timeval CurrentTime;
+    
+    
+    if(2 <= argc){
+  40136e:	7e 73                	jle    4013e3 <main+0xbd>
+        MainPort = atoi(argv[1]);
+        if((1 > MainPort)||(65535 < MainPort)){
+  40138a:	7e 09                	jle    401395 <main+0x6f>
+  401393:	7e 2e                	jle    4013c3 <main+0x9d>
+            return 0;
+  4013be:	e9 a9 00 00 00       	jmpq   40146c <main+0x146>
+        }
+        if(3 <= argc){
+  4013c7:	7e 1a                	jle    4013e3 <main+0xbd>
+            RootDirectory = argv[2];
+        }
+    }
+    if(!MainTFTPServer.Open(MainPort, RootDirectory)){
+  4013fb:	74 23                	je     401420 <main+0xfa>
+        return 0;
+  40141e:	eb 4c                	jmp    40146c <main+0x146>
+    }
+    
+    signal(SIGTERM, SignalHandler);
+    signal(SIGINT, SignalHandler);
+    signal(SIGUSR1, SignalHandler);
+    while(MainTFTPServer.ProcessMessages());
+  401452:	e8 df 06 00 00       	callq  401b36 <_ZN11CTFTPServer15ProcessMessagesEv>
+  401459:	74 02                	je     40145d <main+0x137>
+  40145b:	eb f0                	jmp    40144d <main+0x127>
+
+    MainTFTPServer.Close();
+  401462:	e8 9d 06 00 00       	callq  401b04 <_ZN11CTFTPServer5CloseEv>
+    return 0;
+void SignalHandler(int param);
+
+CTFTPServer MainTFTPServer;
+
+int main(int argc, char * argv[]){
+    std::string RootDirectory = ".";
+  40147a:	eb 34                	jmp    4014b0 <main+0x18a>
+    signal(SIGUSR1, SignalHandler);
+    while(MainTFTPServer.ProcessMessages());
+
+    MainTFTPServer.Close();
+    return 0;
+}
+  4014b6:	c3                   	retq   
+
+00000000004014b7 <_Z13SignalHandleri>:
+
+
+void SignalHandler(int param){
+    char Buffer[1024];
+    printf("Do you want to terminate? ");
+    fflush(stdout);
+    fgets(Buffer,1024, stdin);
+    if(('y' == Buffer[0])||('Y' == Buffer[0])){
+  40150a:	74 0b                	je     401517 <_Z13SignalHandleri+0x60>
+  401515:	75 14                	jne    40152b <_Z13SignalHandleri+0x74>
+        MainTFTPServer.Close();
+  40151c:	e8 e3 05 00 00       	callq  401b04 <_ZN11CTFTPServer5CloseEv>
+        exit(0);
+    }
+}
+  40152b:	90                   	nop
+  40152c:	c9                   	leaveq 
+  40152d:	c3                   	retq   
+
+000000000040152e <_ZN11CTFTPServerC1Ev>:
+
+
+CTFTPServer::CTFTPServer(){
+  401556:	e8 55 06 00 00       	callq  401bb0 <_ZNSt7__cxx114listI17STransferProgressSaIS1_EEC1Ev>
+    DListeningSocket = -1;
+    DRootDirectory = ".";
+    DPollFDSize = 0;
+    DPollFDs = NULL;
+  401590:	00 
+}
+  401591:	eb 2e                	jmp    4015c1 <_ZN11CTFTPServerC1Ev+0x93>
+        exit(0);
+    }
+}
+
+
+CTFTPServer::CTFTPServer(){
+  4015a1:	e8 ee 05 00 00       	callq  401b94 <_ZNSt7__cxx114listI17STransferProgressSaIS1_EED1Ev>
+    DListeningSocket = -1;
+    DRootDirectory = ".";
+    DPollFDSize = 0;
+    DPollFDs = NULL;
+}
+  4015c7:	c3                   	retq   
+
+00000000004015c8 <_ZN11CTFTPServerD1Ev>:
+
+CTFTPServer::~CTFTPServer(){
+    if(NULL != DPollFDs){
+  4015df:	74 1d                	je     4015fe <_ZN11CTFTPServerD1Ev+0x36>
+        delete [] DPollFDs;
+  4015ec:	74 10                	je     4015fe <_ZN11CTFTPServerD1Ev+0x36>
+    DRootDirectory = ".";
+    DPollFDSize = 0;
+    DPollFDs = NULL;
+}
+
+CTFTPServer::~CTFTPServer(){
+  401609:	e8 86 05 00 00       	callq  401b94 <_ZNSt7__cxx114listI17STransferProgressSaIS1_EED1Ev>
+    if(NULL != DPollFDs){
+        delete [] DPollFDs;
+    }
+}
+  40161e:	90                   	nop
+  40161f:	c9                   	leaveq 
+  401620:	c3                   	retq   
+  401621:	90                   	nop
+
+0000000000401622 <_ZN11CTFTPServer13ResizePollFDsEv>:
+
+bool CTFTPServer::ResizePollFDs(){
+    if(DPollFDSize < 128){
+  401638:	7f 0d                	jg     401647 <_ZN11CTFTPServer13ResizePollFDsEv+0x25>
+        DPollFDSize = 128;
+  401645:	eb 11                	jmp    401658 <_ZN11CTFTPServer13ResizePollFDsEv+0x36>
+    }
+    else{
+        DPollFDSize *= 2;
+    }
+    if(NULL != DPollFDs){
+  401663:	74 1d                	je     401682 <_ZN11CTFTPServer13ResizePollFDsEv+0x60>
+        delete [] DPollFDs;
+  401670:	74 10                	je     401682 <_ZN11CTFTPServer13ResizePollFDsEv+0x60>
+    }
+    DPollFDs = new struct pollfd[DPollFDSize];
+  401689:	48 98                	cltq   
+  401692:	ff ff 0f 
+  401698:	77 06                	ja     4016a0 <_ZN11CTFTPServer13ResizePollFDsEv+0x7e>
+  40169e:	eb 05                	jmp    4016a5 <_ZN11CTFTPServer13ResizePollFDsEv+0x83>
+    return DPollFDs != NULL;
+}
+  4016c6:	c9                   	leaveq 
+  4016c7:	c3                   	retq   
+
+00000000004016c8 <_ZN11CTFTPServer14CompareAddressERK11sockaddr_inS2_>:
+
+bool CTFTPServer::CompareAddress(const struct sockaddr_in &left, const struct sockaddr_in &right){
+    if(left.sin_port != right.sin_port){
+  4016eb:	74 07                	je     4016f4 <_ZN11CTFTPServer14CompareAddressERK11sockaddr_inS2_+0x2c>
+        return false;
+  4016f2:	eb 30                	jmp    401724 <_ZN11CTFTPServer14CompareAddressERK11sockaddr_inS2_+0x5c>
+    }
+    if(memcmp(&left.sin_addr, &right.sin_addr, sizeof(struct in_addr))){
+  401716:	74 07                	je     40171f <_ZN11CTFTPServer14CompareAddressERK11sockaddr_inS2_+0x57>
+        return false;
+  40171d:	eb 05                	jmp    401724 <_ZN11CTFTPServer14CompareAddressERK11sockaddr_inS2_+0x5c>
+    }
+    return true;
+}
+  401724:	c9                   	leaveq 
+  401725:	c3                   	retq   
+
+
+bool CTFTPServer::ParseRequestMessage(uint8_t *payload, int length, std::string &filename, std::string &txmode){
+    bool EndOfStringFound = false;
+    int Index = 0, Anchor;
+    
+    while(Index < length){
+        if('\0' == payload[Index]){
+            EndOfStringFound = true;
+            break;
+        }
+        Index++;
+
+bool CTFTPServer::ParseRequestMessage(uint8_t *payload, int length, std::string &filename, std::string &txmode){
+    bool EndOfStringFound = false;
+    int Index = 0, Anchor;
+    
+    while(Index < length){
+            EndOfStringFound = true;
+            break;
+        }
+        Index++;
+    } 
+    if(!EndOfStringFound){
+        return false;
+    }
+    filename = (char *)payload;
+    Index++;
+    Anchor = Index;
+    EndOfStringFound = false;
+    while(Index < length){
+        if('\0' == payload[Index]){
+            EndOfStringFound = true;
+            break;
+        }
+        Index++;
+    }
+    filename = (char *)payload;
+    Index++;
+    Anchor = Index;
+    EndOfStringFound = false;
+    while(Index < length){
+            EndOfStringFound = true;
+            break;
+        }
+        Index++;
+    }
+    if(!EndOfStringFound){
+        return false;
+    }
+    txmode = (char *)(payload + Anchor);
+    return true;
+}
+  4017fe:	c9                   	leaveq 
+  4017ff:	c3                   	retq   
+
+0000000000401800 <_ZN11CTFTPServer17CreateDataMessageEP12STFTPMessagetPhi>:
+
+int CTFTPServer::CreateDataMessage(STFTPMessageRef messageref, uint16_t block, uint8_t *data, int length){
+    messageref->DOpcode = htons(TFTP_OP_DATA);
+    *(uint16_t *)messageref->DPayload = htons(block);
+    if((0 > length)||(512 < length)){
+  401847:	78 09                	js     401852 <_ZN11CTFTPServer17CreateDataMessageEP12STFTPMessagetPhi+0x52>
+  401850:	7e 07                	jle    401859 <_ZN11CTFTPServer17CreateDataMessageEP12STFTPMessagetPhi+0x59>
+        return 0;
+  401857:	eb 2d                	jmp    401886 <_ZN11CTFTPServer17CreateDataMessageEP12STFTPMessagetPhi+0x86>
+    }
+    if(length){
+  40185d:	74 21                	je     401880 <_ZN11CTFTPServer17CreateDataMessageEP12STFTPMessagetPhi+0x80>
+        memcpy(messageref->DPayload + 2, data, length);
+    }
+    return length + 4;
+}
+  40188c:	c3                   	retq   
+  40188d:	90                   	nop
+
+000000000040188e <_ZN11CTFTPServer16CreateACKMessageEP12STFTPMessaget>:
+
+int CTFTPServer::CreateACKMessage(STFTPMessageRef messageref, uint16_t block){
+    messageref->DOpcode = htons(TFTP_OP_ACK);
+    *(uint16_t *)messageref->DPayload = htons(block);
+    return 4;
+}
+  4018d5:	c3                   	retq   
+
+
+int CTFTPServer::CreateErrorMessage(STFTPMessageRef messageref, uint16_t code, const std::string &errormess){
+    messageref->DOpcode = htons(TFTP_OP_ERROR);
+    *(uint16_t *)messageref->DPayload = htons(code);
+    if(errormess.length() >= 1022){
+        return 0;
+    }
+    memcpy(messageref->DPayload + 2, errormess.c_str(), errormess.length() + 1);
+    return errormess.length() + 5;
+}
+  401984:	c3                   	retq   
+  401985:	90                   	nop
+
+
+bool CTFTPServer::Open(int port, const std::string &rootdir){
+    struct sockaddr_in ServerAddress;
+    
+    if((1 > port)||(65535 < port)){
+        return false;   
+    }
+    if('/' == rootdir[rootdir.length() - 1]){
+        DRootDirectory = rootdir.substr(0,rootdir.length() - 1);
+    }
+    else{
+        DRootDirectory = rootdir;
+    }
+    if(0 != chdir(DRootDirectory.c_str())){
+        return false;
+    }
+    DListeningSocket = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
+    if(0 > DListeningSocket){
+        return false;
+    }
+    // Setup ServerAddress data structure
+    bzero((char *) &ServerAddress, sizeof(ServerAddress));
+    ServerAddress.sin_family = AF_INET;
+    ServerAddress.sin_addr.s_addr = INADDR_ANY;
+    ServerAddress.sin_port = htons(port);
+    // Binding socket to port
+    if(0 > bind(DListeningSocket, (struct sockaddr *)&ServerAddress, sizeof(ServerAddress))){ 
+        close(DListeningSocket);
+        return false;
+    }
+    return true;
+}
+  401b01:	c9                   	leaveq 
+  401b02:	c3                   	retq   
+  401b03:	90                   	nop
+
+0000000000401b04 <_ZN11CTFTPServer5CloseEv>:
+
+bool CTFTPServer::Close(){
+    if(-1 != DListeningSocket){
+  401b19:	74 14                	je     401b2f <_ZN11CTFTPServer5CloseEv+0x2b>
+        close(DListeningSocket);
+        return true;
+  401b2d:	eb 05                	jmp    401b34 <_ZN11CTFTPServer5CloseEv+0x30>
+    }
+    return false;
+}
+  401b34:	c9                   	leaveq 
+  401b35:	c3                   	retq   
+
+0000000000401b36 <_ZN11CTFTPServer15ProcessMessagesEv>:
+
+bool CTFTPServer::ProcessMessages(){
+
+}
+  401b3e:	90                   	nop
+  401b40:	c3                   	retq   
+
+0000000000401b41 <_Z41__static_initialization_and_destruction_0ii>:
+  401b53:	75 27                	jne    401b7c <_Z41__static_initialization_and_destruction_0ii+0x3b>
+  401b5c:	75 1e                	jne    401b7c <_Z41__static_initialization_and_destruction_0ii+0x3b>
+        
+};
+
+void SignalHandler(int param);
+
+CTFTPServer MainTFTPServer;
+  401b63:	e8 c6 f9 ff ff       	callq  40152e <_ZN11CTFTPServerC1Ev>
+    return false;
+}
+
+bool CTFTPServer::ProcessMessages(){
+
+}
+  401b7c:	90                   	nop
+  401b7d:	c9                   	leaveq 
+  401b7e:	c3                   	retq   
+
+0000000000401b7f <_GLOBAL__sub_I_MainTFTPServer>:
+  401b8d:	e8 af ff ff ff       	callq  401b41 <_Z41__static_initialization_and_destruction_0ii>
+  401b93:	c3                   	retq   
+
+0000000000401b94 <_ZNSt7__cxx114listI17STransferProgressSaIS1_EED1Ev>:
+   *  we start at the tail and move forward by one.  When this member
+  */
+  template<typename _Tp, typename _Alloc = std::allocator<_Tp> >
+    class list : protected _List_base<_Tp, _Alloc>
+  401ba7:	e8 3c 00 00 00       	callq  401be8 <_ZNSt7__cxx1110_List_baseI17STransferProgressSaIS1_EED1Ev>
+  401bac:	90                   	nop
+  401bad:	c9                   	leaveq 
+  401bae:	c3                   	retq   
+  401baf:	90                   	nop
+
+0000000000401bb0 <_ZNSt7__cxx114listI17STransferProgressSaIS1_EEC1Ev>:
+      // (assign() and get_allocator() are also listed in this section)
+
+      /**
+       */
+      list()
+#if __cplusplus >= 201103L
+      noexcept(is_nothrow_default_constructible<_Node_alloc_type>::value)
+#endif
+      : _Base() { }
+  401bc3:	e8 48 00 00 00       	callq  401c10 <_ZNSt7__cxx1110_List_baseI17STransferProgressSaIS1_EEC1Ev>
+  401bc8:	90                   	nop
+  401bc9:	c9                   	leaveq 
+  401bca:	c3                   	retq   
+  401bcb:	90                   	nop
+
+0000000000401bcc <_ZNSt7__cxx1110_List_baseI17STransferProgressSaIS1_EE10_List_implD1Ev>:
+	    ++__n;
+	  }
+	return __n;
+      }
+
+      struct _List_impl
+  401bdf:	e8 54 00 00 00       	callq  401c38 <_ZNSaISt10_List_nodeI17STransferProgressEED1Ev>
+  401be4:	90                   	nop
+  401be5:	c9                   	leaveq 
+  401be6:	c3                   	retq   
+  401be7:	90                   	nop
+
+0000000000401be8 <_ZNSt7__cxx1110_List_baseI17STransferProgressSaIS1_EED1Ev>:
+	  }
+      }
+#endif
+
+      // This is what actually destroys the list.
+      ~_List_base() _GLIBCXX_NOEXCEPT
+      { _M_clear(); }
+  401bfb:	e8 54 00 00 00       	callq  401c54 <_ZNSt7__cxx1110_List_baseI17STransferProgressSaIS1_EE8_M_clearEv>
+  401c07:	e8 c0 ff ff ff       	callq  401bcc <_ZNSt7__cxx1110_List_baseI17STransferProgressSaIS1_EE10_List_implD1Ev>
+  401c0c:	90                   	nop
+  401c0d:	c9                   	leaveq 
+  401c0e:	c3                   	retq   
+  401c0f:	90                   	nop
+
+0000000000401c10 <_ZNSt7__cxx1110_List_baseI17STransferProgressSaIS1_EEC1Ev>:
+
+      const _Node_alloc_type&
+      _M_get_Node_allocator() const _GLIBCXX_NOEXCEPT
+      { return _M_impl; }
+
+      _List_base()
+      : _M_impl()
+  401c23:	e8 a6 00 00 00       	callq  401cce <_ZNSt7__cxx1110_List_baseI17STransferProgressSaIS1_EE10_List_implC1Ev>
+      { _M_init(); }
+  401c2f:	e8 d0 00 00 00       	callq  401d04 <_ZNSt7__cxx1110_List_baseI17STransferProgressSaIS1_EE7_M_initEv>
+  401c34:	90                   	nop
+  401c35:	c9                   	leaveq 
+  401c36:	c3                   	retq   
+  401c37:	90                   	nop
+
+0000000000401c38 <_ZNSaISt10_List_nodeI17STransferProgressEED1Ev>:
+      : __allocator_base<_Tp>(__a) { }
+
+      template<typename _Tp1>
+        allocator(const allocator<_Tp1>&) throw() { }
+
+      ~allocator() throw() { }
+  401c4b:	e8 ec 00 00 00       	callq  401d3c <_ZN9__gnu_cxx13new_allocatorISt10_List_nodeI17STransferProgressEED1Ev>
+  401c50:	90                   	nop
+  401c51:	c9                   	leaveq 
+  401c52:	c3                   	retq   
+  401c53:	90                   	nop
+
+0000000000401c54 <_ZNSt7__cxx1110_List_baseI17STransferProgressSaIS1_EE8_M_clearEv>:
+{
+_GLIBCXX_BEGIN_NAMESPACE_CONTAINER
+
+  template<typename _Tp, typename _Alloc>
+    void
+    _List_base<_Tp, _Alloc>::
+    _M_clear() _GLIBCXX_NOEXCEPT
+    {
+      typedef _List_node<_Tp>  _Node;
+      __detail::_List_node_base* __cur = _M_impl._M_node._M_next;
+      while (__cur != &_M_impl._M_node)
+  401c73:	74 56                	je     401ccb <_ZNSt7__cxx1110_List_baseI17STransferProgressSaIS1_EE8_M_clearEv+0x77>
+	{
+	  _Node* __tmp = static_cast<_Node*>(__cur);
+	  __cur = __tmp->_M_next;
+	  _Tp* __val = __tmp->_M_valptr();
+  401c8f:	e8 b4 00 00 00       	callq  401d48 <_ZNSt10_List_nodeI17STransferProgressE9_M_valptrEv>
+#if __cplusplus >= 201103L
+	  _Node_alloc_traits::destroy(_M_get_Node_allocator(), __val);
+  401c9f:	e8 c2 00 00 00       	callq  401d66 <_ZNSt7__cxx1110_List_baseI17STransferProgressSaIS1_EE21_M_get_Node_allocatorEv>
+  401cb1:	e8 be 00 00 00       	callq  401d74 <_ZNSt16allocator_traitsISaISt10_List_nodeI17STransferProgressEEE7destroyIS1_EEvRS3_PT_>
+#else
+	  _Tp_alloc_type(_M_get_Node_allocator()).destroy(__val);
+#endif
+	  _M_put_node(__tmp);
+  401cc4:	e8 d1 00 00 00       	callq  401d9a <_ZNSt7__cxx1110_List_baseI17STransferProgressSaIS1_EE11_M_put_nodeEPSt10_List_nodeIS1_E>
+    _List_base<_Tp, _Alloc>::
+    _M_clear() _GLIBCXX_NOEXCEPT
+    {
+      typedef _List_node<_Tp>  _Node;
+      __detail::_List_node_base* __cur = _M_impl._M_node._M_next;
+      while (__cur != &_M_impl._M_node)
+  401cc9:	eb a0                	jmp    401c6b <_ZNSt7__cxx1110_List_baseI17STransferProgressSaIS1_EE8_M_clearEv+0x17>
+#else
+	  _Tp_alloc_type(_M_get_Node_allocator()).destroy(__val);
+#endif
+	  _M_put_node(__tmp);
+	}
+    }
+  401ccb:	90                   	nop
+  401ccc:	c9                   	leaveq 
+  401ccd:	c3                   	retq   
+
+0000000000401cce <_ZNSt7__cxx1110_List_baseI17STransferProgressSaIS1_EE10_List_implC1Ev>:
+	_List_node<size_t> _M_node;
+#else
+	__detail::_List_node_base _M_node;
+#endif
+
+	_List_impl() _GLIBCXX_NOEXCEPT
+	: _Node_alloc_type(), _M_node()
+  401ce1:	e8 e0 00 00 00       	callq  401dc6 <_ZNSaISt10_List_nodeI17STransferProgressEEC1Ev>
+  401cf8:	00 
+  401d00:	00 
+	{ }
+  401d01:	90                   	nop
+  401d02:	c9                   	leaveq 
+  401d03:	c3                   	retq   
+
+0000000000401d04 <_ZNSt7__cxx1110_List_baseI17STransferProgressSaIS1_EE7_M_initEv>:
+
+      void
+      _M_clear() _GLIBCXX_NOEXCEPT;
+
+      void
+      _M_init() _GLIBCXX_NOEXCEPT
+      {
+        this->_M_impl._M_node._M_next = &this->_M_impl._M_node;
+        this->_M_impl._M_node._M_prev = &this->_M_impl._M_node;
+	_M_set_size(0);
+  401d33:	e8 aa 00 00 00       	callq  401de2 <_ZNSt7__cxx1110_List_baseI17STransferProgressSaIS1_EE11_M_set_sizeEm>
+      }
+  401d38:	90                   	nop
+  401d39:	c9                   	leaveq 
+  401d3a:	c3                   	retq   
+  401d3b:	90                   	nop
+
+0000000000401d3c <_ZN9__gnu_cxx13new_allocatorISt10_List_nodeI17STransferProgressEED1Ev>:
+      new_allocator(const new_allocator&) _GLIBCXX_USE_NOEXCEPT { }
+
+      template<typename _Tp1>
+        new_allocator(const new_allocator<_Tp1>&) _GLIBCXX_USE_NOEXCEPT { }
+
+      ~new_allocator() _GLIBCXX_USE_NOEXCEPT { }
+  401d44:	90                   	nop
+  401d46:	c3                   	retq   
+  401d47:	90                   	nop
+
+0000000000401d48 <_ZNSt10_List_nodeI17STransferProgressE9_M_valptrEv>:
+  template<typename _Tp>
+    struct _List_node : public __detail::_List_node_base
+    {
+#if __cplusplus >= 201103L
+      __gnu_cxx::__aligned_membuf<_Tp> _M_storage;
+      _Tp*       _M_valptr()       { return _M_storage._M_ptr(); }
+  401d5f:	e8 a8 00 00 00       	callq  401e0c <_ZN9__gnu_cxx16__aligned_membufI17STransferProgressE6_M_ptrEv>
+  401d64:	c9                   	leaveq 
+  401d65:	c3                   	retq   
+
+0000000000401d66 <_ZNSt7__cxx1110_List_baseI17STransferProgressSaIS1_EE21_M_get_Node_allocatorEv>:
+
+  public:
+      typedef _Alloc allocator_type;
+
+      _Node_alloc_type&
+      _M_get_Node_allocator() _GLIBCXX_NOEXCEPT
+      { return _M_impl; }
+  401d73:	c3                   	retq   
+
+0000000000401d74 <_ZNSt16allocator_traitsISaISt10_List_nodeI17STransferProgressEEE7destroyIS1_EEvRS3_PT_>:
+       *
+       *  Calls @c __a.destroy(__p).
+      */
+      template<typename _Up>
+	static void
+	destroy(allocator_type& __a, _Up* __p)
+	{ __a.destroy(__p); }
+  401d92:	e8 af 00 00 00       	callq  401e46 <_ZN9__gnu_cxx13new_allocatorISt10_List_nodeI17STransferProgressEE7destroyIS2_EEvPT_>
+  401d97:	90                   	nop
+  401d98:	c9                   	leaveq 
+  401d99:	c3                   	retq   
+
+0000000000401d9a <_ZNSt7__cxx1110_List_baseI17STransferProgressSaIS1_EE11_M_put_nodeEPSt10_List_nodeIS1_E>:
+      typename _Node_alloc_traits::pointer
+      _M_get_node()
+      { return _Node_alloc_traits::allocate(_M_impl, 1); }
+
+      void
+      _M_put_node(typename _Node_alloc_traits::pointer __p) _GLIBCXX_NOEXCEPT
+      { _Node_alloc_traits::deallocate(_M_impl, __p, 1); }
+  401dbd:	e8 a3 00 00 00       	callq  401e65 <_ZNSt16allocator_traitsISaISt10_List_nodeI17STransferProgressEEE10deallocateERS3_PS2_m>
+  401dc2:	90                   	nop
+  401dc3:	c9                   	leaveq 
+  401dc4:	c3                   	retq   
+  401dc5:	90                   	nop
+
+0000000000401dc6 <_ZNSaISt10_List_nodeI17STransferProgressEEC1Ev>:
+      typedef true_type propagate_on_container_move_assignment;
+
+      typedef true_type is_always_equal;
+#endif
+
+      allocator() throw() { }
+  401dd9:	e8 b6 00 00 00       	callq  401e94 <_ZN9__gnu_cxx13new_allocatorISt10_List_nodeI17STransferProgressEEC1Ev>
+  401dde:	90                   	nop
+  401ddf:	c9                   	leaveq 
+  401de0:	c3                   	retq   
+  401de1:	90                   	nop
+
+0000000000401de2 <_ZNSt7__cxx1110_List_baseI17STransferProgressSaIS1_EE11_M_set_sizeEm>:
+      _List_impl _M_impl;
+
+#if _GLIBCXX_USE_CXX11_ABI
+      size_t _M_get_size() const { return *_M_impl._M_node._M_valptr(); }
+
+      void _M_set_size(size_t __n) { *_M_impl._M_node._M_valptr() = __n; }
+  401df9:	e8 a2 00 00 00       	callq  401ea0 <_ZNSt10_List_nodeImE9_M_valptrEv>
+  401e08:	90                   	nop
+  401e09:	c9                   	leaveq 
+  401e0a:	c3                   	retq   
+  401e0b:	90                   	nop
+
+0000000000401e0c <_ZN9__gnu_cxx16__aligned_membufI17STransferProgressE6_M_ptrEv>:
+      const void*
+      _M_addr() const noexcept
+      { return static_cast<const void*>(&_M_storage); }
+
+      _Tp*
+      _M_ptr() noexcept
+      { return static_cast<_Tp*>(_M_addr()); }
+  401e1f:	e8 9a 00 00 00       	callq  401ebe <_ZN9__gnu_cxx16__aligned_membufI17STransferProgressE7_M_addrEv>
+  401e24:	c9                   	leaveq 
+  401e25:	c3                   	retq   
+
+0000000000401e26 <_ZN17STransferProgressD1Ev>:
+    int DConsecutiveTimeouts;
+    int DBytesInBlock;
+    uint16_t DBlock;
+    uint8_t DData[512];
+    
+} STransferProgress, *STransferProgressRef;
+  401e42:	90                   	nop
+  401e43:	c9                   	leaveq 
+  401e44:	c3                   	retq   
+  401e45:	90                   	nop
+
+0000000000401e46 <_ZN9__gnu_cxx13new_allocatorISt10_List_nodeI17STransferProgressEE7destroyIS2_EEvPT_>:
+        construct(_Up* __p, _Args&&... __args)
+	{ ::new((void *)__p) _Up(std::forward<_Args>(__args)...); }
+
+      template<typename _Up>
+        void 
+        destroy(_Up* __p) { __p->~_Up(); }
+  401e5d:	e8 c4 ff ff ff       	callq  401e26 <_ZN17STransferProgressD1Ev>
+  401e62:	90                   	nop
+  401e63:	c9                   	leaveq 
+  401e64:	c3                   	retq   
+
+0000000000401e65 <_ZNSt16allocator_traitsISaISt10_List_nodeI17STransferProgressEEE10deallocateERS3_PS2_m>:
+       *  @param  __n  The number of objects space was allocated for.
+       *
+       *  Calls <tt> a.deallocate(p, n) </tt>
+      */
+      static void
+      deallocate(allocator_type& __a, pointer __p, size_type __n)
+      { __a.deallocate(__p, __n); }
+  401e8b:	e8 3c 00 00 00       	callq  401ecc <_ZN9__gnu_cxx13new_allocatorISt10_List_nodeI17STransferProgressEE10deallocateEPS3_m>
+  401e90:	90                   	nop
+  401e91:	c9                   	leaveq 
+  401e92:	c3                   	retq   
+  401e93:	90                   	nop
+
+0000000000401e94 <_ZN9__gnu_cxx13new_allocatorISt10_List_nodeI17STransferProgressEEC1Ev>:
+      // _GLIBCXX_RESOLVE_LIB_DEFECTS
+      // 2103. propagate_on_container_move_assignment
+      typedef std::true_type propagate_on_container_move_assignment;
+#endif
+
+      new_allocator() _GLIBCXX_USE_NOEXCEPT { }
+  401e9c:	90                   	nop
+  401e9e:	c3                   	retq   
+  401e9f:	90                   	nop
+
+0000000000401ea0 <_ZNSt10_List_nodeImE9_M_valptrEv>:
+  template<typename _Tp>
+    struct _List_node : public __detail::_List_node_base
+    {
+#if __cplusplus >= 201103L
+      __gnu_cxx::__aligned_membuf<_Tp> _M_storage;
+      _Tp*       _M_valptr()       { return _M_storage._M_ptr(); }
+  401eb7:	e8 34 00 00 00       	callq  401ef0 <_ZN9__gnu_cxx16__aligned_membufImE6_M_ptrEv>
+  401ebc:	c9                   	leaveq 
+  401ebd:	c3                   	retq   
+
+0000000000401ebe <_ZN9__gnu_cxx16__aligned_membufI17STransferProgressE7_M_addrEv>:
+
+      // Can be used to avoid value-initialization zeroing _M_storage.
+      __aligned_membuf(std::nullptr_t) { }
+
+      void*
+      _M_addr() noexcept
+      { return static_cast<void*>(&_M_storage); }
+  401ecb:	c3                   	retq   
+
+0000000000401ecc <_ZN9__gnu_cxx13new_allocatorISt10_List_nodeI17STransferProgressEE10deallocateEPS3_m>:
+	return static_cast<_Tp*>(::operator new(__n * sizeof(_Tp)));
+      }
+
+      // __p is not permitted to be a null pointer.
+      void
+      deallocate(pointer __p, size_type)
+      { ::operator delete(__p); }
+  401eec:	90                   	nop
+  401eed:	c9                   	leaveq 
+  401eee:	c3                   	retq   
+  401eef:	90                   	nop
+
+0000000000401ef0 <_ZN9__gnu_cxx16__aligned_membufImE6_M_ptrEv>:
+      const void*
+      _M_addr() const noexcept
+      { return static_cast<const void*>(&_M_storage); }
+
+      _Tp*
+      _M_ptr() noexcept
+      { return static_cast<_Tp*>(_M_addr()); }
+  401f03:	e8 02 00 00 00       	callq  401f0a <_ZN9__gnu_cxx16__aligned_membufImE7_M_addrEv>
+  401f08:	c9                   	leaveq 
+  401f09:	c3                   	retq   
+
+0000000000401f0a <_ZN9__gnu_cxx16__aligned_membufImE7_M_addrEv>:
+
+      // Can be used to avoid value-initialization zeroing _M_storage.
+      __aligned_membuf(std::nullptr_t) { }
+
+      void*
+      _M_addr() noexcept
+      { return static_cast<void*>(&_M_storage); }
+  401f17:	c3                   	retq   
+  401f1f:	00 
+
+0000000000401f20 <__libc_csu_init>:
+  401f4c:	e8 67 f0 ff ff       	callq  400fb8 <_init>
+  401f54:	74 20                	je     401f76 <__libc_csu_init+0x56>
+  401f5f:	00 
+  401f74:	75 ea                	jne    401f60 <__libc_csu_init+0x40>
+  401f84:	c3                   	retq   
+  401f85:	90                   	nop
+  401f8d:	00 00 00 
+
+0000000000401f90 <__libc_csu_fini>:
+  401f90:	f3 c3                	repz retq 
+
+Disassembly of section .fini:
+
+0000000000401f94 <_fini>:
+  401f9c:	c3                   	retq   
