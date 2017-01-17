@@ -37,11 +37,12 @@ The file structure is as follows:
 	Peasant 2 94 59    
 	TownHall 2 92 54
 	```
-- 2 empty new lines (not sure if necessary, but all the .map files have them)
+- 2 empty new lines (not sure if necessary, but all the .map files have them)  
+
 # Code Example (with comments)
 ```
-North-South Divide  // map name in map selection screen
-96 64   // Xsize Ysize
+North-South Divide  	// map name in map selection screen
+96 64   		// Xsize Ysize
 GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
 GFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFG
 GFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFG
