@@ -20,9 +20,9 @@ The file structure is as follows:
   ```
 - Number of players
 - Resource values
-	* Global Cap: 
+	* Global Cap:  
 	`0 30000 500 ==> Maximum any player can have is 30000 gold, 500 lumber`
-	* PlayerNum GoldStarting LumberStarting 
+	* PlayerNum GoldStarting LumberStarting  
 	`1 1000 0 => player 1 starts with 1000 gold, 0 lumber`
 - Number of units to render (should match number of lines below)
 - Buildings and Units
