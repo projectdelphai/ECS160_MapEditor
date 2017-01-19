@@ -1,11 +1,15 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+
+
 }
 
 MainWindow::~MainWindow()
@@ -13,6 +17,39 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+#ifndef QT_NO_CONTEXTMENU
+void MainWindow::contextMenuEvent(QContextMenuEvent *event)
+{
+    QMenu menu(this);
+    menu.addAction(ui->actionOpen);
+    menu.addAction(ui->actionSave);
+
+    menu.exec(event->globalPos());
+}
+#endif // QT_NO_CONTEXTMENU
+
+void MainWindow::mousePressEvent(QMouseEvent *event){
+
+    if (event->button() == Qt::LeftButton ){
+
+        // something happens
+    }
+    else if (event->button() == Qt::RightButton ){
+        // something else
+    }
+}
+
+void MainWindow::mouseMoveEvent(QMouseEvent *event){
+   if (event->button() == Qt::LeftButton ){
+       // something else
+   }
+}
+
+void MainWindow::mouseReleaseEvent(QMouseEvent *event){
+    if (event->button() == Qt::LeftButton ){
+        // something
+    }
+}
 
 void MainWindow::resizeEvent(QResizeEvent *event)
 {
@@ -29,7 +66,6 @@ void MainWindow::resizeEvent(QResizeEvent *event)
     }
     QWidget::resizeEvent(event);
 }
-
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
