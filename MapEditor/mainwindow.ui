@@ -1,24 +1,418 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow" >
-  <property name="geometry" >
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>571</width>
+    <height>467</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QMenuBar" name="menuBar" />
-  <widget class="QToolBar" name="mainToolBar" />
-  <widget class="QWidget" name="centralWidget" />
-  <widget class="QStatusBar" name="statusBar" />
+  <property name="windowIcon">
+   <iconset resource="icons.qrc">
+    <normaloff>:/icons/icons/icon.ico</normaloff>:/icons/icons/icon.ico</iconset>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="QGraphicsView" name="graphicsView">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>571</width>
+      <height>421</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>571</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionNew"/>
+    <addaction name="actionOpen"/>
+    <addaction name="actionSave"/>
+    <addaction name="actionSave_As"/>
+    <addaction name="separator"/>
+    <addaction name="actionClose"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuEdit">
+    <property name="title">
+     <string>Edit</string>
+    </property>
+    <addaction name="actionDelete"/>
+   </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>View</string>
+    </property>
+    <addaction name="actionToolbar"/>
+    <addaction name="actionStatus_bar"/>
+    <addaction name="actionAnimate"/>
+    <addaction name="actionMini_Map"/>
+   </widget>
+   <widget class="QMenu" name="menuTools">
+    <property name="title">
+     <string>Tools</string>
+    </property>
+    <addaction name="actionSelect"/>
+    <addaction name="separator"/>
+    <addaction name="actionMap_Brush"/>
+    <addaction name="separator"/>
+    <addaction name="actionHuman_Start_Location"/>
+    <addaction name="actionHuman_Air"/>
+    <addaction name="actionHuman_Land"/>
+    <addaction name="actionHuman_Water"/>
+    <addaction name="actionHuman_Buildings"/>
+    <addaction name="separator"/>
+    <addaction name="actionOrc_Start_Location"/>
+    <addaction name="actionOrc_Air"/>
+    <addaction name="actionOrc_Land"/>
+    <addaction name="actionOrc_Water"/>
+    <addaction name="actionOrc_Buildings"/>
+    <addaction name="separator"/>
+    <addaction name="actionGold_Mine"/>
+    <addaction name="actionOil_Patch"/>
+    <addaction name="actionCritter"/>
+    <addaction name="actionCircle_of_Power"/>
+    <addaction name="actionDark_Portal"/>
+    <addaction name="actionRunestone"/>
+    <addaction name="separator"/>
+    <addaction name="actionNPC_s"/>
+   </widget>
+   <widget class="QMenu" name="menuPlayer">
+    <property name="title">
+     <string>Player</string>
+    </property>
+    <addaction name="actionPlayer_1_Red"/>
+    <addaction name="actionPlayer_2_Blue"/>
+    <addaction name="actionPlayer_3_Green"/>
+    <addaction name="actionPlayer_4_Violet"/>
+    <addaction name="actionPlayer_5_Orange"/>
+    <addaction name="actionPlayer_6_Black"/>
+    <addaction name="actionPlayer_7_White"/>
+    <addaction name="actionPlayer_8_Yellow"/>
+    <addaction name="separator"/>
+    <addaction name="actionMap_Properties"/>
+    <addaction name="actionPlayer_Properties"/>
+    <addaction name="actionStarting_Conditions"/>
+    <addaction name="actionUnit_Properties"/>
+    <addaction name="actionUpgrade_Properties"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionAbout_MapEditor"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuEdit"/>
+   <addaction name="menuView"/>
+   <addaction name="menuTools"/>
+   <addaction name="menuPlayer"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionNew"/>
+   <addaction name="actionOpen"/>
+   <addaction name="actionSave"/>
+   <addaction name="separator"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionNew">
+   <property name="text">
+    <string>New...</string>
+   </property>
+  </action>
+  <action name="actionOpen">
+   <property name="text">
+    <string>Open...</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="text">
+    <string>Save</string>
+   </property>
+  </action>
+  <action name="actionSave_As">
+   <property name="text">
+    <string>Save As...</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionDelete">
+   <property name="text">
+    <string>Delete</string>
+   </property>
+  </action>
+  <action name="actionToolbar">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Toolbar</string>
+   </property>
+  </action>
+  <action name="actionStatus_bar">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Status Bar</string>
+   </property>
+  </action>
+  <action name="actionAnimate">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Animate</string>
+   </property>
+  </action>
+  <action name="actionMini_Map">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Mini Map</string>
+   </property>
+  </action>
+  <action name="actionSelect">
+   <property name="text">
+    <string>Select</string>
+   </property>
+  </action>
+  <action name="actionMap_Brush">
+   <property name="text">
+    <string>Map Brush</string>
+   </property>
+  </action>
+  <action name="actionHuman_Start_Location">
+   <property name="text">
+    <string>Human Start Location</string>
+   </property>
+  </action>
+  <action name="actionHuman_Air">
+   <property name="text">
+    <string>Human Air</string>
+   </property>
+  </action>
+  <action name="actionHuman_Land">
+   <property name="text">
+    <string>Human Land</string>
+   </property>
+  </action>
+  <action name="actionHuman_Water">
+   <property name="text">
+    <string>Human Water</string>
+   </property>
+  </action>
+  <action name="actionHuman_Buildings">
+   <property name="text">
+    <string>Human Buildings</string>
+   </property>
+  </action>
+  <action name="actionOrc_Start_Location">
+   <property name="text">
+    <string>Orc Start Location</string>
+   </property>
+  </action>
+  <action name="actionOrc_Air">
+   <property name="text">
+    <string>Orc Air</string>
+   </property>
+  </action>
+  <action name="actionOrc_Land">
+   <property name="text">
+    <string>Orc Land</string>
+   </property>
+  </action>
+  <action name="actionOrc_Water">
+   <property name="text">
+    <string>Orc Water</string>
+   </property>
+  </action>
+  <action name="actionOrc_Buildings">
+   <property name="text">
+    <string>Orc Buildings</string>
+   </property>
+  </action>
+  <action name="actionGold_Mine">
+   <property name="text">
+    <string>Gold Mine</string>
+   </property>
+  </action>
+  <action name="actionOil_Patch">
+   <property name="text">
+    <string>Oil Patch</string>
+   </property>
+  </action>
+  <action name="actionCritter">
+   <property name="text">
+    <string>Critter</string>
+   </property>
+  </action>
+  <action name="actionCircle_of_Power">
+   <property name="text">
+    <string>Circle of Power</string>
+   </property>
+  </action>
+  <action name="actionDark_Portal">
+   <property name="text">
+    <string>Dark Portal</string>
+   </property>
+  </action>
+  <action name="actionRunestone">
+   <property name="text">
+    <string>Runestone</string>
+   </property>
+  </action>
+  <action name="actionNPC_s">
+   <property name="text">
+    <string>NPC's</string>
+   </property>
+  </action>
+  <action name="actionPlayer_1_Red">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Player 1 (Red)</string>
+   </property>
+  </action>
+  <action name="actionPlayer_2_Blue">
+   <property name="text">
+    <string>Player 2 (Blue)</string>
+   </property>
+  </action>
+  <action name="actionPlayer_3_Green">
+   <property name="text">
+    <string>Player 3 (Green)</string>
+   </property>
+  </action>
+  <action name="actionPlayer_4_Violet">
+   <property name="text">
+    <string>Player 4 (Violet)</string>
+   </property>
+  </action>
+  <action name="actionPlayer_5_Orange">
+   <property name="text">
+    <string>Player 5 (Orange)</string>
+   </property>
+  </action>
+  <action name="actionPlayer_6_Black">
+   <property name="text">
+    <string>Player 6 (Black)</string>
+   </property>
+  </action>
+  <action name="actionPlayer_7_White">
+   <property name="text">
+    <string>Player 7 (White)</string>
+   </property>
+  </action>
+  <action name="actionPlayer_8_Yellow">
+   <property name="text">
+    <string>Player 8 (Yellow)</string>
+   </property>
+  </action>
+  <action name="actionMap_Properties">
+   <property name="text">
+    <string>Map Properties...</string>
+   </property>
+  </action>
+  <action name="actionPlayer_Properties">
+   <property name="text">
+    <string>Player Properties...</string>
+   </property>
+  </action>
+  <action name="actionStarting_Conditions">
+   <property name="text">
+    <string>Starting Conditions...</string>
+   </property>
+  </action>
+  <action name="actionUnit_Properties">
+   <property name="text">
+    <string>Unit Properties...</string>
+   </property>
+  </action>
+  <action name="actionUpgrade_Properties">
+   <property name="text">
+    <string>Upgrade Properties...</string>
+   </property>
+  </action>
+  <action name="actionAbout_MapEditor">
+   <property name="text">
+    <string>About MapEditor...</string>
+   </property>
+  </action>
+  <action name="actionClose">
+   <property name="text">
+    <string>Close</string>
+   </property>
+  </action>
  </widget>
- <layoutDefault spacing="6" margin="11" />
- <pixmapfunction></pixmapfunction>
- <resources/>
- <connections/>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="icons.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>actionClose</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>284</x>
+     <y>233</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
