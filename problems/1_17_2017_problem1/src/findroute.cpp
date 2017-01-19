@@ -9,6 +9,10 @@
  */
 #include "findroute.h"
 
+#include <iostream>
+
+using namespace std;
+
 CRouteFinder::CRouteFinder(const std::vector<std::vector<char > > &map){
     DMap = map;
     DSearchMap.resize(DMap.size());
@@ -134,14 +138,16 @@ CRouteFinder::EDirection CRouteFinder::FindRoute(int sx, int sy, int dx, int dy)
                 SecondDirection = ReturnDirection[LoopIndex];
             }
         }
+
         int Sum = static_cast<int>(FirstDirection) + static_cast<int>(SecondDirection);
         if((6 == Sum) && ((EDirection::North != FirstDirection) || (EDirection::North != SecondDirection))){ // NW wrap around
-            Sum += 8;
+            if ((FirstDirection != EDirection::South) && (SecondDirection != EDirection::South))
+              Sum += 8;
         }
         Sum /= 2;
         return static_cast<EDirection>(Sum);
     }
-
+    
     for(int LoopIndex = 0; LoopIndex < sizeof(SearchDirecitons) / sizeof(EDirection); LoopIndex++){
         if(LastInDirection == SearchDirecitons[LoopIndex]){
             return ReturnDirection[LoopIndex];
