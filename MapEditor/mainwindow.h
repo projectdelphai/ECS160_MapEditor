@@ -20,6 +20,7 @@ public:
 
 
 protected:
+    void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
     void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
     void open();
     bool save();
