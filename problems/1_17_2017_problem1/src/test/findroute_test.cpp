@@ -44,11 +44,18 @@ TEST(RouteFinder, IsTraversableTest) {
     EXPECT_EQ(false, TestMapRouteFinder.IsTraversable(1, 1));
     EXPECT_EQ(false, TestMapRouteFinder.IsTraversable(-1, 1));
     EXPECT_EQ(false, TestMapRouteFinder.IsTraversable(1, -1));
+    EXPECT_EQ(true, TestMapRouteFinder.IsTraversable(4, 3));
     EXPECT_EQ(true, TestMapRouteFinder.IsTraversable(0, 0));
 
 }
 
 TEST(RouteFinder, FindRouteTest) {
     CRouteFinder TestMapRouteFinder(TestMap);
+
+    // move right
+    EXPECT_EQ(CRouteFinder::EDirection::East , TestMapRouteFinder.FindRoute(3, 3, 4, 3));
+    EXPECT_EQ(CRouteFinder::EDirection::East , TestMapRouteFinder.FindRoute(4, 3, 5, 3));
+    EXPECT_EQ(CRouteFinder::EDirection::SouthEast , TestMapRouteFinder.FindRoute(4, 3, 5, 4));
+    EXPECT_EQ(CRouteFinder::EDirection::SouthWest , TestMapRouteFinder.FindRoute(5, 4, 4, 5));
 
 }

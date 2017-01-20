@@ -41,7 +41,7 @@ class CRouteFinder{
             if(y + 1 >= DMap.size()){
                 return false;
             }
-            return ' ' == DMap[x+1][y+1];
+            return ' ' == DMap[y+1][x+1];
         };
         
         void PrintMapWithCharacterAndDestination(int cx, int cy, int dx, int dy) const;
