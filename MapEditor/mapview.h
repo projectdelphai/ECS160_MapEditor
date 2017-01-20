@@ -6,6 +6,7 @@
 #include <QTextStream>
 #include <QMessageBox>
 
+
 class MapView
 {
 public:
@@ -19,6 +20,8 @@ private:
     QImage createImageTile(QImage* image, const QRect &rect);
 
     QImage currentImage;
+    QString mapName;
+    QVector<QChar> mapLayOut;
     QRect tileDim;
 
 };
