@@ -8,4 +8,5 @@
         <file>icons/icon small.ico</file>
         <file>icons/icon.ico</file>
     </qresource>
+    <qresource prefix="/"/>
 </RCC>
