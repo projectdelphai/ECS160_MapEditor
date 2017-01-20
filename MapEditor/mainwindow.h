@@ -21,7 +21,6 @@ public:
 
     void loadFile(const QString &fileName);
 
-
 protected:
 #ifndef QT_NO_CONTEXTMENU
     void contextMenuEvent(QContextMenuEvent *event) Q_DECL_OVERRIDE;
@@ -33,9 +32,12 @@ protected:
     void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
 
 private slots:
-    void open();
     bool save();
     bool saveAs();
+
+    void on_actionOpen_triggered();
+
+    void on_actionSave_triggered();
 
 private:
     Ui::MainWindow *ui;

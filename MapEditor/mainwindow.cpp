@@ -1,14 +1,12 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QDebug>
 
 
-MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow)
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
-
+    setMouseTracking(true);
 
 }
 
@@ -31,18 +29,15 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event)
 void MainWindow::mousePressEvent(QMouseEvent *event){
 
     if (event->button() == Qt::LeftButton ){
-
-        // something happens
+         qDebug() << event->pos();
     }
     else if (event->button() == Qt::RightButton ){
-        // something else
+         qDebug() << event->pos();
     }
 }
 
 void MainWindow::mouseMoveEvent(QMouseEvent *event){
-   if (event->button() == Qt::LeftButton ){
-       // something else
-   }
+   qDebug() << event->pos();
 }
 
 void MainWindow::mouseReleaseEvent(QMouseEvent *event){
@@ -77,7 +72,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
     }
 }
 
-void MainWindow::open()
+void MainWindow::on_actionOpen_triggered()
 {
     if (maybeSave()) {
         QString fileName = QFileDialog::getOpenFileName(this);
@@ -85,6 +80,7 @@ void MainWindow::open()
             loadFile(fileName);
     }
 }
+
 
 bool MainWindow::maybeSave()
 {
@@ -103,6 +99,11 @@ bool MainWindow::maybeSave()
         break;
     }
     return true;
+}
+
+void MainWindow::on_actionSave_triggered()
+{
+    save();
 }
 
 bool MainWindow::save()
@@ -173,3 +174,4 @@ void MainWindow::setCurrentFile(const QString &fileName)
         shownName = "untitled.txt";
     setWindowFilePath(shownName);
 }
+
