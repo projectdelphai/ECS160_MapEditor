@@ -37,7 +37,7 @@ void MainWindow::mousePressEvent(QMouseEvent *event){
 }
 
 void MainWindow::mouseMoveEvent(QMouseEvent *event){
-   qDebug() << event->pos();
+    statusBar()->showMessage(QString::number(event->x()) + ", " + QString::number(event->y()), 500);
 }
 
 void MainWindow::mouseReleaseEvent(QMouseEvent *event){

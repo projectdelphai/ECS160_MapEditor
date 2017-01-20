@@ -1,11 +1,11 @@
 <RCC>
-    <qresource prefix="/toolbar">
-        <file>icons/toolbar.bmp</file>
-        <file>icons/toolbarWasteland.bmp</file>
-        <file>icons/toolbarWinter.bmp</file>
-    </qresource>
     <qresource prefix="/icons">
         <file>icons/icon small.ico</file>
         <file>icons/icon.ico</file>
+    </qresource>
+    <qresource prefix="/toolbar">
+        <file>icons/toolbar/toolbar1.bmp</file>
+        <file>icons/toolbar/toolbar2.bmp</file>
+        <file>icons/toolbar/toolbar3.bmp</file>
     </qresource>
 </RCC>
