@@ -18,16 +18,8 @@ private:
     void openMapTexture(const QString &mapTexture);
     QImage createImageTile(QImage* image, const QRect &rect);
 
-
-
     QImage currentImage;
-    QSize currentSize;
-
     QRect tileDim;
-
-
-
-
 
 };
 

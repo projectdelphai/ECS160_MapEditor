@@ -4,10 +4,8 @@ MapView::MapView(const QString &mapFileName , const QString &mapTexName )
 {
     openMap(mapFileName);
     openMapTexture(mapTexName);
-
     // upper-left corner and the rectangle size of width and height
     tileDim.setRect(1,1,32,32);
-
 
 }
 
@@ -47,7 +45,6 @@ void MapView::openMapTexture(const QString &textureName){
     }
     */
 
-    currentSize = img.size();
     currentImage = img;
 
 }
@@ -64,10 +61,8 @@ void MapView::displayMap(){
 
     QGraphicsScene* scene = new QGraphicsScene();
     QGraphicsView* view = new QGraphicsView(scene);
-
     // single tile from texture image
     QImage imageDx = createImageTile( &currentImage, tileDim);
-
 
     QPixmap pixmap = QPixmap::fromImage(imageDx);
     scene->addPixmap(pixmap);
