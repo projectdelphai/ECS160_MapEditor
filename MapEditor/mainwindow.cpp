@@ -8,7 +8,10 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-
+    QString mapName = ":/data/map/maze.map";
+    QString texture = ":/data/img/Terrain.png";
+    MapView map(mapName, texture);
+    map.displayMap();
 
 }
 
