@@ -75,12 +75,6 @@ void MapView::openMapTexture(const QString &textureName){
     if( !img.load(textureName)){
         QMessageBox::information(0,"error","image");
     }
-    // just a test
-    /*
-    else{
-        QMessageBox::information(0,"Loaded Image", "Succuss");
-    }
-    */
 
     currentImage = img;
 
