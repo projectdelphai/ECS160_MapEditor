@@ -29,8 +29,7 @@ SOURCES += main.cpp\
     mapview2.cpp
 
 HEADERS  += mainwindow.h \
-    mapview2.h \
-    mapview.h
+    mapview2.h
 
 FORMS    += mainwindow.ui
 

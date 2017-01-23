@@ -42,10 +42,10 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event)
 void MainWindow::mousePressEvent(QMouseEvent *event){
 
     if (event->button() == Qt::LeftButton ){
-         qDebug() << event->pos();
+         statusBar()->showMessage("Left Click");
     }
     else if (event->button() == Qt::RightButton ){
-         qDebug() << event->pos();
+        statusBar()->showMessage("Right Click");
     }
 }
 
