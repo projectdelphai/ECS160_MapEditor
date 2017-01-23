@@ -26,10 +26,10 @@ CONFIG += console
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    mapview.cpp
+    mapview2.cpp
 
 HEADERS  += mainwindow.h \
-    mapview.h
+    mapview2.h
 
 FORMS    += mainwindow.ui
 

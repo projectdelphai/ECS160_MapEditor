@@ -9,9 +9,18 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     QString mapName = ":/data/map/maze.map";
     QString texture = ":/data/img/Terrain.png";
-    MapView map(mapName, texture);
-    map.displayMap();
 
+    MapView2 map(mapName, texture);
+
+    QImage imageDx = map.createImageTile(&map.currentImage, map.tileDim);
+    QPixmap pixmap = QPixmap::fromImage(imageDx);
+
+    QGraphicsScene* scene = new QGraphicsScene();
+    scene->addPixmap(pixmap);
+
+    ui->graphicsView->setMouseTracking(true);
+    ui->graphicsView->setScene(scene);
+    ui->graphicsView->show();
 }
 
 MainWindow::~MainWindow()
@@ -33,10 +42,10 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event)
 void MainWindow::mousePressEvent(QMouseEvent *event){
 
     if (event->button() == Qt::LeftButton ){
-         qDebug() << event->pos();
+         statusBar()->showMessage("Left Click");
     }
     else if (event->button() == Qt::RightButton ){
-         qDebug() << event->pos();
+        statusBar()->showMessage("Right Click");
     }
 }
 
@@ -55,14 +64,10 @@ void MainWindow::resizeEvent(QResizeEvent *event)
     // On the event of resizing the main window
     // resize the graphicsview to match the main window
 
-    if ( ui->graphicsView->width() < ui->centralWidget->width() || ui->graphicsView->width() > ui->centralWidget->width()
-         || ui->graphicsView->height() < ui->centralWidget->height() || ui->graphicsView->height() > ui->centralWidget->height() ){
+    int newWidth =  ui->centralWidget->width();
+    int newHeight = ui->centralWidget->height();
+    ui->graphicsView->setGeometry(0,0,newWidth,newHeight);
 
-        int newWidth =  ui->centralWidget->width();
-        int newHeight = ui->centralWidget->height();
-        ui->graphicsView->resize(newWidth,newHeight);
-    //  update();
-    }
     QWidget::resizeEvent(event);
 }
 
@@ -76,7 +81,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
     }
 }
 
-void MainWindow::on_actionOpen_triggered()
+void MainWindow::open()
 {
     if (maybeSave()) {
         QString fileName = QFileDialog::getOpenFileName(this);
@@ -103,11 +108,6 @@ bool MainWindow::maybeSave()
         break;
     }
     return true;
-}
-
-void MainWindow::on_actionSave_triggered()
-{
-    save();
 }
 
 bool MainWindow::save()
@@ -178,4 +178,3 @@ void MainWindow::setCurrentFile(const QString &fileName)
         shownName = "untitled.txt";
     setWindowFilePath(shownName);
 }
-
