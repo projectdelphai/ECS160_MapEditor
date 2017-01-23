@@ -35,9 +35,8 @@ private slots:
     bool save();
     bool saveAs();
 
-    void on_actionOpen_triggered();
+    void open();
 
-    void on_actionSave_triggered();
 
 private:
     Ui::MainWindow *ui;

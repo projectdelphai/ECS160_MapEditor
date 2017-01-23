@@ -51,14 +51,10 @@ void MainWindow::resizeEvent(QResizeEvent *event)
     // On the event of resizing the main window
     // resize the graphicsview to match the main window
 
-    if ( ui->graphicsView->width() < ui->centralWidget->width() || ui->graphicsView->width() > ui->centralWidget->width()
-         || ui->graphicsView->height() < ui->centralWidget->height() || ui->graphicsView->height() > ui->centralWidget->height() ){
+    int newWidth =  ui->centralWidget->width();
+    int newHeight = ui->centralWidget->height();
+    ui->graphicsView->setGeometry(0,0,newWidth,newHeight);
 
-        int newWidth =  ui->centralWidget->width();
-        int newHeight = ui->centralWidget->height();
-        ui->graphicsView->resize(newWidth,newHeight);
-    //  update();
-    }
     QWidget::resizeEvent(event);
 }
 
@@ -72,7 +68,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
     }
 }
 
-void MainWindow::on_actionOpen_triggered()
+void MainWindow::open()
 {
     if (maybeSave()) {
         QString fileName = QFileDialog::getOpenFileName(this);
@@ -99,11 +95,6 @@ bool MainWindow::maybeSave()
         break;
     }
     return true;
-}
-
-void MainWindow::on_actionSave_triggered()
-{
-    save();
 }
 
 bool MainWindow::save()
