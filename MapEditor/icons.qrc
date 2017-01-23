@@ -3,13 +3,9 @@
         <file>icons/icon small.ico</file>
         <file>icons/icon.ico</file>
     </qresource>
-<<<<<<< HEAD
-    <qresource prefix="/"/>
-=======
     <qresource prefix="/toolbar">
         <file>icons/toolbar/toolbar1.bmp</file>
         <file>icons/toolbar/toolbar2.bmp</file>
         <file>icons/toolbar/toolbar3.bmp</file>
     </qresource>
->>>>>>> develop-ui
 </RCC>

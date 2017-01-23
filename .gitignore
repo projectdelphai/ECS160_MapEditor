@@ -36,3 +36,11 @@ MapEditor/MapEditor.pro.user
 MapEditor/MapEditor.pro.user
 
 MapEditor/MapEditor.pro.user
+
+build-MapEditor-Desktop_Qt_5_7_1_clang_64bit-Debug/mapview.o
+
+build-MapEditor-Desktop_Qt_5_7_1_clang_64bit-Debug/qrc_images.cpp
+
+*.o
+
+build-MapEditor-Desktop_Qt_5_7_1_clang_64bit-Debug/qrc_maps.cpp
