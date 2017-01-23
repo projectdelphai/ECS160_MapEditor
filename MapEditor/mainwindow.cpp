@@ -9,9 +9,18 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     QString mapName = ":/data/map/maze.map";
     QString texture = ":/data/img/Terrain.png";
-    MapView2 map(mapName, texture);
-    map.displayMap();
 
+    MapView2 map(mapName, texture);
+
+    QImage imageDx = map.createImageTile(&map.currentImage, map.tileDim);
+    QPixmap pixmap = QPixmap::fromImage(imageDx);
+
+    QGraphicsScene* scene = new QGraphicsScene();
+    scene->addPixmap(pixmap);
+
+    ui->graphicsView->setMouseTracking(true);
+    ui->graphicsView->setScene(scene);
+    ui->graphicsView->show();
 }
 
 MainWindow::~MainWindow()
@@ -169,4 +178,3 @@ void MainWindow::setCurrentFile(const QString &fileName)
         shownName = "untitled.txt";
     setWindowFilePath(shownName);
 }
-

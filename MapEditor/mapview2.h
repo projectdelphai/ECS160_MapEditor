@@ -14,7 +14,7 @@ public:
 
     void displayMap();
 
-private:
+//private:
     void openMap(const QString &mapName);
     void openMapTexture(const QString &mapTexture);
     QImage createImageTile(QImage* image, const QRect &rect);

@@ -38,7 +38,6 @@ private slots:
 
     void open();
 
-
 private:
     Ui::MainWindow *ui;
     void writeSettings();

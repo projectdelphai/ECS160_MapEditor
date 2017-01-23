@@ -88,6 +88,8 @@ QImage MapView2::createImageTile(QImage* image, const QRect & rect) {
                   image->bytesPerLine(), image->format());
 }
 
+
+
 void MapView2::displayMap(){
 
     QGraphicsScene* scene = new QGraphicsScene();
