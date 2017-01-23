@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     QString mapName = ":/data/map/maze.map";
     QString texture = ":/data/img/Terrain.png";
-    MapView map(mapName, texture);
+    MapView2 map(mapName, texture);
     map.displayMap();
 
 }

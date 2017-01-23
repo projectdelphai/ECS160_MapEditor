@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include <QtWidgets>
-#include "mapview.h"
+#include "mapview2.h"
 
 namespace Ui {
 class MainWindow;

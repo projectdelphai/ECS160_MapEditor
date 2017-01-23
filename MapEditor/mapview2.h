@@ -1,5 +1,5 @@
-#ifndef MAPVIEW_H
-#define MAPVIEW_H
+#ifndef MAPVIEW2_H
+#define MAPVIEW2_H
 
 #include <QGraphicsView>
 #include <QFile>
@@ -7,10 +7,10 @@
 #include <QMessageBox>
 
 
-class MapView
+class MapView2
 {
 public:
-    MapView(const QString &mapFileName, const QString &mapTexName);
+    MapView2(const QString &mapFileName, const QString &mapTexName);
 
     void displayMap();
 
@@ -26,4 +26,4 @@ private:
 
 };
 
-#endif // MAPVIEW_H
+#endif // MAPVIEW2_H
