@@ -6,7 +6,11 @@
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    setMouseTracking(true);
+
+    QString mapName = ":/data/map/maze.map";
+    QString texture = ":/data/img/Terrain.png";
+    MapView map(mapName, texture);
+    map.displayMap();
 
 }
 

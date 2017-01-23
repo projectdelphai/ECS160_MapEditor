@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>../data/map/maze.map</file>
+        <file>../data/map/2playerdivide.map</file>
+        <file>../data/map/2player.map</file>
+    </qresource>
+</RCC>

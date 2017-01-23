@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>../data/img/Terrain.dat</file>
+        <file>../data/img/Terrain.png</file>
+    </qresource>
+</RCC>
