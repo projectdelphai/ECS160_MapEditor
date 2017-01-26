@@ -2,7 +2,7 @@ build-MapEditor-Desktop_Qt_5_7_1_clang_64bit-Debug/*
 
 MapEditor/icons/Thumbs.db
 
-MapEditor/MapEditor.pro.user
+MapEditor/MapEditor.pro.user*
 
 *.o
 
