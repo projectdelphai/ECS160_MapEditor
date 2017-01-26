@@ -1,42 +1,8 @@
-splashscreen/splashscreen.pro.user
-build-MapEditor-Desktop_Qt_5_7_1_clang_64bit-Debug/main.o
-
-build-MapEditor-Desktop_Qt_5_7_1_clang_64bit-Debug/.qmake.stash
-
-build-MapEditor-Desktop_Qt_5_7_1_clang_64bit-Debug/Makefile
-
-build-MapEditor-Desktop_Qt_5_7_1_clang_64bit-Debug/mainwindow.o
-
-build-MapEditor-Desktop_Qt_5_7_1_clang_64bit-Debug/MapEditor.app/Contents/Info.plist
-
-build-MapEditor-Desktop_Qt_5_7_1_clang_64bit-Debug/MapEditor.app/Contents/MacOS/MapEditor
-
-build-MapEditor-Desktop_Qt_5_7_1_clang_64bit-Debug/MapEditor.app/Contents/PkgInfo
-
-build-MapEditor-Desktop_Qt_5_7_1_clang_64bit-Debug/moc_mainwindow.cpp
-
-build-MapEditor-Desktop_Qt_5_7_1_clang_64bit-Debug/MapEditor.app/Contents/Resources/empty.lproj
-
-build-MapEditor-Desktop_Qt_5_7_1_clang_64bit-Debug/moc_mainwindow.o
-
-build-MapEditor-Desktop_Qt_5_7_1_clang_64bit-Debug/qrc_icons.o
-
-build-MapEditor-Desktop_Qt_5_7_1_clang_64bit-Debug/qrc_icons.cpp
-
-build-MapEditor-Desktop_Qt_5_7_1_clang_64bit-Debug/ui_mainwindow.h
+build-MapEditor-Desktop_Qt_5_7_1_clang_64bit-Debug/*
 
 MapEditor/icons/Thumbs.db
 
 MapEditor/MapEditor.pro.user*
 
-MapEditor/MapEditor.pro.user*
-
-build-MapEditor-Desktop-Debug/*
-
-build-MapEditor-Desktop_Qt_5_7_1_clang_64bit-Debug/mapview.o
-
-build-MapEditor-Desktop_Qt_5_7_1_clang_64bit-Debug/qrc_images.cpp
-
 *.o
 
-build-MapEditor-Desktop_Qt_5_7_1_clang_64bit-Debug/qrc_maps.cpp
