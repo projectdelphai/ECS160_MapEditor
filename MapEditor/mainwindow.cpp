@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "graphicsscene.h"
 #include <QDebug>
 
 
@@ -13,14 +14,16 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     QString texture = ":/data/img/Terrain.png";
     MapView2 map(mapName, texture);
 
-    QGraphicsScene *scene = new QGraphicsScene();
+    GraphicsScene *scene = new GraphicsScene();
     map.displayMap(scene);
 
     ui->graphicsView->setScene(scene);
+    ui->graphicsView->setMouseTracking(true);
     ui->graphicsView->show();
 
     ui->graphicsView_2->setScene(scene);
     ui->graphicsView_2->fitInView(0, 0, 256, 192, Qt::KeepAspectRatioByExpanding);
+    ui->graphicsView_2->setMouseTracking(true);
     ui->graphicsView_2->show();
 
 
