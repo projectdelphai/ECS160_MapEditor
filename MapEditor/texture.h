@@ -22,7 +22,9 @@ public:
     QString texName;
     QVector<QChar> mapLayOut;
     QRect tileDim;
-    void scanTexture();
+    void scanTexture(const QString &str);
+
+    QVector< QVector< QString * > > typeList;
 
 };
 

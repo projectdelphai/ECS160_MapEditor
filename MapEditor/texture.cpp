@@ -31,7 +31,41 @@ QImage Texture::createImageTile(QImage* image, const QRect & rect) {
                   image->bytesPerLine(), image->format());
 }
 
+void Texture::scanTexture(const QString &texFileName){
+    QFile file(texFileName);
 
+    if (!file.open(QIODevice::ReadOnly)){
+        QMessageBox::information(0,"errror",file.errorString());
+    }
+
+    QVector<QString> grass;
+    QVector<QString> wall;
+    QVector<QString> water;
+    QVector<QString> dirt;
+    QVector<QString> wallD;
+    QVector<QString> rock;
+    QVector<QString> rubble;
+    QVector<QString> tree;
+    QString name;
+    int size = 0;
+    int lineNum = 0;
+
+    QTextStream in(&file);
+    while(!in.atEnd()){
+        QString line  = in.readLine();
+        if (line == QString(" "))
+            continue;
+        lineNum++;
+        if (lineNum == 1){
+            name = line;
+        }
+        else if(lineNum == 2){
+           size =  line.toInt();
+        }
+
+    }
+
+}
 
 void Texture::display(){
 

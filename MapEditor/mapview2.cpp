@@ -21,12 +21,14 @@ void MapView2::openMap(const QString &mapFileName){
         QMessageBox::information(0,"error opening map",mapFile.errorString());
     }
 
-    QTextStream in(&mapFile);
 
     QVector<QString> mapConfig;
     QString blankLine = " ";
+
     int maxMapLine = 68;
     int lineNum = 0;
+
+    QTextStream in(&mapFile);
 
     // Parse .map file
     while(!in.atEnd()){
