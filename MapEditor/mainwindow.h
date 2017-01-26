@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include <QtWidgets>
-#include "mapview2.h"
+#include "mapview.h"
 
 namespace Ui {
 class MainWindow;
@@ -36,7 +36,9 @@ private slots:
     bool save();
     bool saveAs();
 
-    void open();
+    void on_actionOpen_triggered();
+
+    void on_actionSave_triggered();
 
 private:
     Ui::MainWindow *ui;

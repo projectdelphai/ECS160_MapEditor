@@ -1,5 +1,5 @@
-#ifndef MAPVIEW2_H
-#define MAPVIEW2_H
+#ifndef MAPVIEW_H
+#define MAPVIEW_H
 
 #include <QGraphicsView>
 #include <QFile>
@@ -7,14 +7,14 @@
 #include <QMessageBox>
 
 
-class MapView2
+class MapView
 {
 public:
-    MapView2(const QString &mapFileName, const QString &mapTexName);
+    MapView(const QString &mapFileName, const QString &mapTexName);
 
     void displayMap();
 
-//private:
+private:
     void openMap(const QString &mapName);
     void openMapTexture(const QString &mapTexture);
     QImage createImageTile(QImage* image, const QRect &rect);
@@ -26,4 +26,4 @@ public:
 
 };
 
-#endif // MAPVIEW2_H
+#endif // MAPVIEW_H

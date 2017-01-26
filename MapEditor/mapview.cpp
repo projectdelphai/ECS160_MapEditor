@@ -1,6 +1,6 @@
-#include "mapview2.h"
+#include "mapview.h"
 
-MapView2::MapView2(const QString &mapFileName , const QString &mapTexName )
+MapView::MapView(const QString &mapFileName , const QString &mapTexName )
 {
     openMap(mapFileName);
     openMapTexture(mapTexName);
@@ -10,7 +10,7 @@ MapView2::MapView2(const QString &mapFileName , const QString &mapTexName )
 }
 
 
-void MapView2::openMap(const QString &mapFileName){
+void MapView::openMap(const QString &mapFileName){
     QFile mapFile(mapFileName);
 
     if ( !mapFile.open(QIODevice::ReadOnly)){
@@ -70,7 +70,7 @@ void MapView2::openMap(const QString &mapFileName){
 }
 
 
-void MapView2::openMapTexture(const QString &textureName){
+void MapView::openMapTexture(const QString &textureName){
     QImage img;
     if( !img.load(textureName)){
         QMessageBox::information(0,"error","image");
@@ -81,16 +81,14 @@ void MapView2::openMapTexture(const QString &textureName){
 }
 
 //Reference: http://stackoverflow.com/questions/12681554/dividing-qimage-to-smaller-pieces
-QImage MapView2::createImageTile(QImage* image, const QRect & rect) {
+QImage MapView::createImageTile(QImage* image, const QRect & rect) {
     size_t offset = rect.x() * image->depth() / 8
                     + rect.y() * image->bytesPerLine();
     return QImage(image->bits() + offset, rect.width(), rect.height(),
                   image->bytesPerLine(), image->format());
 }
 
-
-
-void MapView2::displayMap(){
+void MapView::displayMap(){
 
     QGraphicsScene* scene = new QGraphicsScene();
     QGraphicsView* view = new QGraphicsView(scene);
