@@ -14,7 +14,7 @@ Tile::Tile(QString type,QPixmap texturePix): QGraphicsPixmapItem(texturePix){
 
 void Tile::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    qWarning() << Q_FUNC_INFO << event->scenePos();
+    //qWarning() << Q_FUNC_INFO << event->scenePos();
 }
 
 
