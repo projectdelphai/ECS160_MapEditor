@@ -73,6 +73,15 @@ void MainWindow::closeEvent(QCloseEvent *event)
     }
 }
 
+void MainWindow::newFile()
+{
+    if (maybeSave()) {
+        // fill tile here
+    }
+
+   statusBar()->showMessage("New File created", 2000);
+}
+
 void MainWindow::open()
 {
     if (maybeSave()) {
@@ -125,6 +134,7 @@ void MainWindow::setCurrentFile(const QString &fileName)
 bool MainWindow::maybeSave()
 {
     //if (!ui->textEdit->document()->isModified()) return true;
+    return true;
     const QMessageBox::StandardButton ret
         = QMessageBox::warning(this, tr("Application"),
                                tr("The document has been modified.\n"
@@ -182,4 +192,9 @@ void MainWindow::writeSettings()
 {
     QSettings settings(QCoreApplication::organizationName(), QCoreApplication::applicationName());
     settings.setValue("geometry", saveGeometry());
+}
+
+void MainWindow::on_button_new_released()
+{
+    newFile();
 }

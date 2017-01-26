@@ -34,8 +34,10 @@ protected:
 private slots:
     bool save();
     bool saveAs();
-
+    void newFile();
     void open();
+
+    void on_button_new_released();
 
 private:
     Ui::MainWindow *ui;
