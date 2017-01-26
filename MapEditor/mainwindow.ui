@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
+    <width>934</width>
     <height>687</height>
    </rect>
   </property>
@@ -52,6 +52,9 @@
            <iconset resource="icons.qrc">
             <normaloff>:/toolbar/icons/toolbar/toolbar2.bmp</normaloff>:/toolbar/icons/toolbar/toolbar2.bmp</iconset>
           </property>
+          <property name="shortcut">
+           <string>Meta+O, Ctrl+O</string>
+          </property>
          </widget>
         </item>
         <item row="0" column="3">
@@ -62,6 +65,9 @@
           <property name="icon">
            <iconset resource="icons.qrc">
             <normaloff>:/toolbar/icons/toolbar/toolbar3.bmp</normaloff>:/toolbar/icons/toolbar/toolbar3.bmp</iconset>
+          </property>
+          <property name="shortcut">
+           <string>Meta+S, Ctrl+S</string>
           </property>
          </widget>
         </item>
@@ -114,6 +120,14 @@
          </attribute>
         </widget>
         <widget class="QWidget" name="tools_units">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>254</width>
+           <height>274</height>
+          </rect>
+         </property>
          <attribute name="label">
           <string>Units</string>
          </attribute>
@@ -165,7 +179,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>934</width>
      <height>22</height>
     </rect>
    </property>

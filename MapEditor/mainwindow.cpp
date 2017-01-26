@@ -198,3 +198,13 @@ void MainWindow::on_button_new_released()
 {
     newFile();
 }
+
+void MainWindow::on_button_open_released()
+{
+    open();
+}
+
+void MainWindow::on_button_save_released()
+{
+    save();
+}
