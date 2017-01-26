@@ -1,30 +1,30 @@
-#include "mapview2.h"
-#include <QDebug>
+#include "mapview.h"
 
-MapView2::MapView2(const QString &mapFileName , const QString &mapTexName )
+MapView::MapView(const QString &mapFileName , const QString &mapTexName )
 {
     openMap(mapFileName);
-    texture = new Texture(mapTexName);
-    currentImage = texture->fullImage;
+    openMapTexture(mapTexName);
     // upper-left corner and the rectangle size of width and height
     tileDim.setRect(1,1,32,32);
-    tileMap.reserve(mapDim.width()*mapDim.height());
-    //scene = new QGraphicsScene();
 
 }
 
 
-void MapView2::openMap(const QString &mapFileName){
+void MapView::openMap(const QString &mapFileName){
     QFile mapFile(mapFileName);
 
     if ( !mapFile.open(QIODevice::ReadOnly)){
-        QMessageBox::information(0,"error opening map",mapFile.errorString());
+        QMessageBox::information(0,"error",mapFile.errorString());
+
     }
+
 
     QTextStream in(&mapFile);
 
-    QVector<QString> mapConfig;
     QString blankLine = " ";
+    QSize mapDim(0,0);
+    QVector<QString> mapConfig;
+
     int maxMapLine = 68;
     int lineNum = 0;
 
@@ -32,17 +32,18 @@ void MapView2::openMap(const QString &mapFileName){
     while(!in.atEnd()){
 
         QString line = in.readLine();
-
+//        QMessageBox::information(0,"file",line);
         if (line == blankLine){
             QMessageBox::information(0,"file","blankLine");
             continue;
-
         }
+
         lineNum++;
 //        if(lineNum > 0 ){
         if ( lineNum == 1){
             // Name of the map
             mapName = line;
+            QMessageBox::information(0,"File line",mapName);
         }
         else if ( lineNum == 2 ){            
             // Dimension of the map
@@ -66,11 +67,10 @@ void MapView2::openMap(const QString &mapFileName){
         }
 
     }
-
 }
 
 
-void MapView2::openMapTexture(const QString &textureName){
+void MapView::openMapTexture(const QString &textureName){
     QImage img;
     if( !img.load(textureName)){
         QMessageBox::information(0,"error","image");
@@ -81,45 +81,23 @@ void MapView2::openMapTexture(const QString &textureName){
 }
 
 //Reference: http://stackoverflow.com/questions/12681554/dividing-qimage-to-smaller-pieces
-QImage MapView2::createImageTile(QImage* image, const QRect & rect) {
+QImage MapView::createImageTile(QImage* image, const QRect & rect) {
     size_t offset = rect.x() * image->depth() / 8
                     + rect.y() * image->bytesPerLine();
     return QImage(image->bits() + offset, rect.width(), rect.height(),
                   image->bytesPerLine(), image->format());
 }
 
-void MapView2::builtmap(QGraphicsScene *scene){
+void MapView::displayMap(){
 
-    QString tileType = " ";
-    int x = 0;
-    int y = 0;
-    for(int i = 0; i < mapDim.width(); ++i){
-        for( int j = 0; j < mapDim.height(); ++j){
-
-            tileType = QString( mapLayOut.at(i*mapDim.height() + j) );
-
-            int offsetHeight = i*mapDim.height() + j;
-            QImage imageDx = currentImage.copy(0,offsetHeight,tileDim.width(),tileDim.height());
-            QPixmap pixmap = QPixmap::fromImage(imageDx);
-            QGraphicsPixmapItem * pixItem = new Tile(tileType , pixmap );
-            // sets each tile image x = 0*32,1*32,2*32,... y= 0*32,1*32,2*32,...
-            x = i*tileDim.width();
-            y = j*tileDim.height();
-            pixItem->setPos(x,y);
-            scene->addItem(pixItem);
-
-        }
-    }
-
-
-}
-
-void MapView2::displayMap(QGraphicsScene *scene){
-
-    //QGraphicsView* view = new QGraphicsView(scene);
+    QGraphicsScene* scene = new QGraphicsScene();
+    QGraphicsView* view = new QGraphicsView(scene);
     // single tile from texture image
-    builtmap(scene);
+    QImage imageDx = createImageTile( &currentImage, tileDim);
 
-    //view->show();
+    QPixmap pixmap = QPixmap::fromImage(imageDx);
+    scene->addPixmap(pixmap);
+
+    view->show();
 }
 

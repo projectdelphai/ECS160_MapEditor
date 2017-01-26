@@ -4,11 +4,11 @@
 #include <QMainWindow>
 #include <QtWidgets>
 #include "mapview2.h"
+#include "texture.h"
 
 namespace Ui {
 class MainWindow;
 }
-
 
 
 class MainWindow : public QMainWindow
@@ -29,7 +29,6 @@ protected:
     void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
     void mouseMoveEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
     void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
-    void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
     void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
 
 private slots:
@@ -46,6 +45,7 @@ private:
     void setCurrentFile(const QString &fileName);
 
     QString curFile;
+    QGraphicsScene* scene;
 };
 
 

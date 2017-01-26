@@ -3,24 +3,27 @@
 #include <QDebug>
 
 
+
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
 
+    // map view
     QString mapName = ":/data/map/maze.map";
     QString texture = ":/data/img/Terrain.png";
-
     MapView2 map(mapName, texture);
 
-    QImage imageDx = map.createImageTile(&map.currentImage, map.tileDim);
-    QPixmap pixmap = QPixmap::fromImage(imageDx);
+    QGraphicsScene *scene = new QGraphicsScene();
+    map.displayMap(scene);
 
-    QGraphicsScene* scene = new QGraphicsScene();
-    scene->addPixmap(pixmap);
-
-    ui->graphicsView->setMouseTracking(true);
     ui->graphicsView->setScene(scene);
     ui->graphicsView->show();
+
+    ui->graphicsView_2->setScene(scene);
+    ui->graphicsView_2->fitInView(0, 0, 256, 192, Qt::KeepAspectRatioByExpanding);
+    ui->graphicsView_2->show();
+
+
 }
 
 MainWindow::~MainWindow()
@@ -59,17 +62,6 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *event){
     }
 }
 
-void MainWindow::resizeEvent(QResizeEvent *event)
-{
-    // On the event of resizing the main window
-    // resize the graphicsview to match the main window
-
-    int newWidth =  ui->centralWidget->width();
-    int newHeight = ui->centralWidget->height();
-    ui->graphicsView->setGeometry(0,0,newWidth,newHeight);
-
-    QWidget::resizeEvent(event);
-}
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
@@ -90,6 +82,45 @@ void MainWindow::open()
     }
 }
 
+void MainWindow::loadFile(const QString &fileName)
+{
+    QFile file(fileName);
+    if (!file.open(QFile::ReadOnly | QFile::Text)) {
+        QMessageBox::warning(this, tr("Application"),
+                             tr("Cannot read file %1:\n%2.")
+                             .arg(QDir::toNativeSeparators(fileName), file.errorString()));
+        return;
+    }
+
+
+    QString mapName = fileName;
+    QString texture = fileName;
+
+    Texture tx(texture);
+
+    QImage imageDx = tx.createImageTile(&tx.fullImage, tx.tileDim);
+    QPixmap pixmap = QPixmap::fromImage(imageDx);
+
+    QGraphicsScene* scene = new QGraphicsScene();
+    scene->addPixmap(pixmap);
+
+    ui->graphicsView->setMouseTracking(true);
+    ui->graphicsView->setScene(scene);
+    ui->graphicsView->show();
+
+    setCurrentFile(fileName);
+    statusBar()->showMessage(fileName + " loaded!", 2000);
+}
+
+void MainWindow::setCurrentFile(const QString &fileName)
+{
+    curFile = fileName;
+
+    QString shownName = curFile;
+    if (curFile.isEmpty())
+        shownName = "untitled.txt";
+    setWindowFilePath(shownName);
+}
 
 bool MainWindow::maybeSave()
 {
@@ -151,30 +182,4 @@ void MainWindow::writeSettings()
 {
     QSettings settings(QCoreApplication::organizationName(), QCoreApplication::applicationName());
     settings.setValue("geometry", saveGeometry());
-}
-
-void MainWindow::loadFile(const QString &fileName)
-{
-    QFile file(fileName);
-    if (!file.open(QFile::ReadOnly | QFile::Text)) {
-        QMessageBox::warning(this, tr("Application"),
-                             tr("Cannot read file %1:\n%2.")
-                             .arg(QDir::toNativeSeparators(fileName), file.errorString()));
-        return;
-    }
-
-    // stuff happens here
-
-    setCurrentFile(fileName);
-    statusBar()->showMessage(tr("File loaded"), 2000);
-}
-
-void MainWindow::setCurrentFile(const QString &fileName)
-{
-    curFile = fileName;
-
-    QString shownName = curFile;
-    if (curFile.isEmpty())
-        shownName = "untitled.txt";
-    setWindowFilePath(shownName);
 }
