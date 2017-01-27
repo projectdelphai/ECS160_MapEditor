@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>571</width>
-    <height>467</height>
+    <width>934</width>
+    <height>687</height>
    </rect>
   </property>
   <property name="mouseTracking">
@@ -31,40 +31,105 @@
     <item>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="1">
+         <widget class="QToolButton" name="button_new">
+          <property name="icon">
+           <iconset resource="icons.qrc">
+            <normaloff>:/toolbar/icons/toolbar/toolbar1.bmp</normaloff>:/toolbar/icons/toolbar/toolbar1.bmp</iconset>
+          </property>
+          <property name="shortcut">
+           <string>Ctrl+N, Meta+N</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QToolButton" name="button_open">
+          <property name="text">
+           <string>...</string>
+          </property>
+          <property name="icon">
+           <iconset resource="icons.qrc">
+            <normaloff>:/toolbar/icons/toolbar/toolbar2.bmp</normaloff>:/toolbar/icons/toolbar/toolbar2.bmp</iconset>
+          </property>
+          <property name="shortcut">
+           <string>Meta+O, Ctrl+O</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="QToolButton" name="button_save">
+          <property name="text">
+           <string>...</string>
+          </property>
+          <property name="icon">
+           <iconset resource="icons.qrc">
+            <normaloff>:/toolbar/icons/toolbar/toolbar3.bmp</normaloff>:/toolbar/icons/toolbar/toolbar3.bmp</iconset>
+          </property>
+          <property name="shortcut">
+           <string>Meta+S, Ctrl+S</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
        <widget class="QToolBox" name="toolBox">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+         <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
-        <property name="currentIndex">
-         <number>0</number>
+        <property name="minimumSize">
+         <size>
+          <width>256</width>
+          <height>0</height>
+         </size>
         </property>
-        <widget class="QWidget" name="page">
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="currentIndex">
+         <number>1</number>
+        </property>
+        <widget class="QWidget" name="tools_terrain">
          <property name="geometry">
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>66</width>
-           <height>94</height>
+           <width>254</width>
+           <height>274</height>
           </rect>
          </property>
          <attribute name="label">
-          <string>Page 1</string>
+          <string>Terrain</string>
          </attribute>
         </widget>
-        <widget class="QWidget" name="page_2">
+        <widget class="QWidget" name="tools_buildings">
          <property name="geometry">
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>66</width>
-           <height>94</height>
+           <width>254</width>
+           <height>274</height>
           </rect>
          </property>
          <attribute name="label">
-          <string>Page 2</string>
+          <string>Buildings</string>
+         </attribute>
+        </widget>
+        <widget class="QWidget" name="tools_units">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>254</width>
+           <height>274</height>
+          </rect>
+         </property>
+         <attribute name="label">
+          <string>Units</string>
          </attribute>
         </widget>
        </widget>
@@ -72,7 +137,7 @@
       <item>
        <widget class="QGraphicsView" name="graphicsView_2">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
@@ -89,6 +154,9 @@
           <height>192</height>
          </size>
         </property>
+        <property name="accessibleName">
+         <string>minimap</string>
+        </property>
        </widget>
       </item>
      </layout>
@@ -96,7 +164,14 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QGraphicsView" name="graphicsView"/>
+       <widget class="QGraphicsView" name="graphicsView">
+        <property name="minimumSize">
+         <size>
+          <width>640</width>
+          <height>480</height>
+         </size>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
@@ -107,8 +182,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>571</width>
-     <height>28</height>
+     <width>934</width>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -198,18 +273,6 @@
    <addaction name="menuTools"/>
    <addaction name="menuPlayer"/>
    <addaction name="menuHelp"/>
-  </widget>
-  <widget class="QToolBar" name="mainToolBar">
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
-   <addaction name="actionNew"/>
-   <addaction name="actionOpen"/>
-   <addaction name="actionSave"/>
-   <addaction name="separator"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionNew">

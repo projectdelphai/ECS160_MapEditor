@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "graphicsscene.h"
 #include <QDebug>
 
 
@@ -13,14 +14,16 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     QString texture = ":/data/img/Terrain.png";
     MapView2 map(mapName, texture);
 
-    QGraphicsScene *scene = new QGraphicsScene();
+    GraphicsScene *scene = new GraphicsScene();
     map.displayMap(scene);
 
     ui->graphicsView->setScene(scene);
+    ui->graphicsView->setMouseTracking(true);
     ui->graphicsView->show();
 
     ui->graphicsView_2->setScene(scene);
     ui->graphicsView_2->fitInView(0, 0, 256, 192, Qt::KeepAspectRatioByExpanding);
+    ui->graphicsView_2->setMouseTracking(true);
     ui->graphicsView_2->show();
 
 
@@ -73,10 +76,21 @@ void MainWindow::closeEvent(QCloseEvent *event)
     }
 }
 
-void MainWindow::open()
+void MainWindow::newFile()
 {
     if (maybeSave()) {
-        QString fileName = QFileDialog::getOpenFileName(this);
+        // fill tile here
+    }
+
+   statusBar()->showMessage("New File created", 2000);
+}
+
+void MainWindow::open()
+{
+    QFileDialog dialog;
+    dialog.setDirectory(QDir::home());
+    if (maybeSave()) {
+        QString fileName = dialog.getOpenFileName(this);
         if (!fileName.isEmpty())
             loadFile(fileName);
     }
@@ -125,6 +139,7 @@ void MainWindow::setCurrentFile(const QString &fileName)
 bool MainWindow::maybeSave()
 {
     //if (!ui->textEdit->document()->isModified()) return true;
+    return true;
     const QMessageBox::StandardButton ret
         = QMessageBox::warning(this, tr("Application"),
                                tr("The document has been modified.\n"
@@ -153,6 +168,7 @@ bool MainWindow::save()
 bool MainWindow::saveAs()
 {
     QFileDialog dialog(this);
+    dialog.setDirectory(QDir::home());
     dialog.setWindowModality(Qt::WindowModal);
     dialog.setAcceptMode(QFileDialog::AcceptSave);
     if (dialog.exec() != QDialog::Accepted)
@@ -182,4 +198,19 @@ void MainWindow::writeSettings()
 {
     QSettings settings(QCoreApplication::organizationName(), QCoreApplication::applicationName());
     settings.setValue("geometry", saveGeometry());
+}
+
+void MainWindow::on_button_new_released()
+{
+    newFile();
+}
+
+void MainWindow::on_button_open_released()
+{
+    open();
+}
+
+void MainWindow::on_button_save_released()
+{
+    save();
 }
