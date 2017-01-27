@@ -1,11 +1,25 @@
 #include "texture.h"
 #include <QDebug>
 
-Texture::Texture(const QString &TexFileName )
+Texture::Texture(const QString &texFileName )
 {
-    open(TexFileName);
+
+    int numTypes = 8;
+    typeList.resize(8);
+
+    // image is initialized
+    open(texFileName);
+
+    QStringList filePath = texFileName.split(".");
+    QStringList pathnames = filePath[0].split("/");
+    texName = pathnames.back();
+
+    scanTexture(QString(":/data/img/Terrain.dat"));
+
     // upper-left corner and the rectangle size of width and height
-    tileDim.setRect(1,1,32,32);
+    tileDim.setRect(0,0,32,32);
+
+
 
 }
 
@@ -17,68 +31,86 @@ void Texture::open(const QString &textureName){
     }
 
     fullImage = img;
-    QStringList filePath = textureName.split(".");
-    QStringList pathnames = filePath[0].split("/");
-    qDebug() << pathnames.back();
-
 }
 
-//Reference: http://stackoverflow.com/questions/12681554/dividing-qimage-to-smaller-pieces
-QImage Texture::createImageTile(QImage* image, const QRect & rect) {
-    size_t offset = rect.x() * image->depth() / 8
-                    + rect.y() * image->bytesPerLine();
-    return QImage(image->bits() + offset, rect.width(), rect.height(),
-                  image->bytesPerLine(), image->format());
-}
 
 void Texture::scanTexture(const QString &texFileName){
     QFile file(texFileName);
 
     if (!file.open(QIODevice::ReadOnly)){
-        QMessageBox::information(0,"errror",file.errorString());
+        QMessageBox::information(0,"error",file.errorString());
     }
 
-    QVector<QString> grass;
-    QVector<QString> wall;
-    QVector<QString> water;
-    QVector<QString> dirt;
-    QVector<QString> wallD;
-    QVector<QString> rock;
-    QVector<QString> rubble;
-    QVector<QString> tree;
+
     QString name;
-    int size = 0;
     int lineNum = 0;
+    int offsetHeight = 0;
+    int tileSize = 32;
+    int size = 0;
 
     QTextStream in(&file);
     while(!in.atEnd()){
+
         QString line  = in.readLine();
+
+        // skip blankline
         if (line == QString(" "))
             continue;
+
         lineNum++;
+
         if (lineNum == 1){
             name = line;
         }
         else if(lineNum == 2){
            size =  line.toInt();
         }
+        // stores textures types together and each specific type is map (sometype,height)
+        // image texture is assume sorted
+        else if(lineNum > 2){
+
+            if( line.contains(QRegExp("grass+")) ){
+                typeList[Grass].insert(line , offsetHeight);
+            }
+            else if ( line.contains(QRegExp("dirt+")) ){
+                typeList[Dirt].insert(line, offsetHeight);
+            }
+            else if (line.contains(QRegExp("tree+")) ){
+                typeList[Tree].insert(line, offsetHeight);
+            }
+            else if (line.contains(QRegExp("water+")) ){
+                typeList[Water].insert(line , offsetHeight);
+            }
+            else if (line.contains(QRegExp("rock+")) ){
+                typeList[Rock].insert( line, offsetHeight);
+            }
+            else if (line.contains(QRegExp("wall-d+")) ){
+                typeList[WallDamage].insert( line , offsetHeight);
+            }
+            else if(line.contains(QRegExp("wall-\\d+"))){
+                typeList[Wall].insert( line , offsetHeight);
+            }
+            else if(line.contains(QRegExp("rubble+"))){
+                typeList[Rubble].insert( line , offsetHeight);
+            }
+
+            offsetHeight += tileSize;
+        }
 
     }
 
+
+
+
 }
 
-void Texture::display(){
-
-    QGraphicsScene* scene = new QGraphicsScene();
-    QGraphicsView* view = new QGraphicsView(scene);
-    // single tile from texture image
-    QImage imageDx = createImageTile( &fullImage, tileDim);
-
-    QPixmap pixmap = QPixmap::fromImage(imageDx);
-
-
-    scene->addPixmap(pixmap);
-
-    view->show();
+QImage Texture::getImageTile(Type type){
+    int width = 32;
+    int height = 32;
+    int offsetH = typeList[type].last();
+    QImage image = fullImage.copy(0,offsetH,width,height);
+    return image;
 }
+
+void Texture::display(){}
 

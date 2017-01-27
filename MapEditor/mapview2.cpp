@@ -53,8 +53,9 @@ void MapView2::openMap(const QString &mapFileName){
             for(auto iter = strNums.begin();iter != strNums.end();iter++){
                 nums.append(iter->toInt());
             }
-            mapDim.setHeight(nums[0]);
-            mapDim.setWidth(nums[1]);
+            // plus 2 for the border
+            mapDim.setHeight(nums[1]+2);
+            mapDim.setWidth(nums[0]+2);
         }
         else if (lineNum > 2 && lineNum <= maxMapLine ){
             // key layout of the map
@@ -68,6 +69,8 @@ void MapView2::openMap(const QString &mapFileName){
         }
 
     }
+
+
 
 }
 
@@ -95,20 +98,43 @@ void MapView2::builtmap(QGraphicsScene *scene){
     QString tileType = " ";
     int x = 0;
     int y = 0;
-    for(int i = 0; i < mapDim.width(); ++i){
-        for( int j = 0; j < mapDim.height(); ++j){
+    Texture::Type type;
+    int n = 0;
 
-            tileType = QString( mapLayOut.at(i*mapDim.height() + j) );
+    for(int i = 0; i < mapDim.height(); ++i){
+        for( int j = 0; j < mapDim.width(); ++j){
 
-            int offsetHeight = i*mapDim.height() + j;
-            QImage imageDx = currentImage.copy(0,offsetHeight,tileDim.width(),tileDim.height());
+            n = i*mapDim.width()+ + j;
+            switch ( mapLayOut.at(n).toLatin1() ){
+                case 'G': type = Texture::Grass;
+                    break;
+                case 'F': type = Texture::Tree;
+                    break;
+                case 'D': type = Texture::Dirt;
+                    break;
+                case 'W': type = Texture::Wall;
+                    break;
+                case 'w': type = Texture::WallDamage;
+                    break;
+                case 'R': type = Texture::Rock;
+                    break;
+                case ' ': type = Texture::Water;
+                    break;
+
+            }
+
+            QImage imageDx = texture->getImageTile(type);
             QPixmap pixmap = QPixmap::fromImage(imageDx);
             QGraphicsPixmapItem * pixItem = new Tile(tileType , pixmap );
             // sets each tile image x = 0*32,1*32,2*32,... y= 0*32,1*32,2*32,...
-            x = i*tileDim.width();
-            y = j*tileDim.height();
+            x = j*tileDim.width();
+            y = i*tileDim.height();
             pixItem->setPos(x,y);
             scene->addItem(pixItem);
+
+//            qDebug() << n;
+//            qDebug() << tileType << ":" << t;
+//            qDebug() << "(" <<  x << "," << y << ")";
 
         }
     }

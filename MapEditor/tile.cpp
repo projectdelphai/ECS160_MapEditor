@@ -1,4 +1,4 @@
-#include "tile.h"
+      #include "tile.h"
 
 Tile::Tile(QString type){
     type = type;
