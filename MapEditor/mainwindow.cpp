@@ -87,8 +87,10 @@ void MainWindow::newFile()
 
 void MainWindow::open()
 {
+    QFileDialog dialog;
+    dialog.setDirectory(QDir::home());
     if (maybeSave()) {
-        QString fileName = QFileDialog::getOpenFileName(this);
+        QString fileName = dialog.getOpenFileName(this);
         if (!fileName.isEmpty())
             loadFile(fileName);
     }
@@ -166,6 +168,7 @@ bool MainWindow::save()
 bool MainWindow::saveAs()
 {
     QFileDialog dialog(this);
+    dialog.setDirectory(QDir::home());
     dialog.setWindowModality(Qt::WindowModal);
     dialog.setAcceptMode(QFileDialog::AcceptSave);
     if (dialog.exec() != QDialog::Accepted)
