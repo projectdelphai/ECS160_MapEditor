@@ -99,7 +99,7 @@
            <x>0</x>
            <y>0</y>
            <width>254</width>
-           <height>274</height>
+           <height>345</height>
           </rect>
          </property>
          <attribute name="label">
@@ -112,7 +112,7 @@
            <x>0</x>
            <y>0</y>
            <width>254</width>
-           <height>274</height>
+           <height>345</height>
           </rect>
          </property>
          <attribute name="label">
@@ -125,7 +125,7 @@
            <x>0</x>
            <y>0</y>
            <width>254</width>
-           <height>274</height>
+           <height>345</height>
           </rect>
          </property>
          <attribute name="label">
@@ -183,7 +183,7 @@
      <x>0</x>
      <y>0</y>
      <width>934</width>
-     <height>22</height>
+     <height>17</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
