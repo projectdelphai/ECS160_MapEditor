@@ -107,20 +107,20 @@ void MainWindow::loadFile(const QString &fileName)
     }
 
 
-    QString mapName = fileName;
-    QString texture = fileName;
+//    QString mapName = fileName;
+//    QString texture = fileName;
 
-    Texture tx(texture);
+//    Texture tx(texture);
 
-    QImage imageDx = tx.createImageTile(&tx.fullImage, tx.tileDim);
-    QPixmap pixmap = QPixmap::fromImage(imageDx);
+//    QImage imageDx = tx.createImageTile(&tx.fullImage, tx.tileDim);
+//    QPixmap pixmap = QPixmap::fromImage(imageDx);
 
-    QGraphicsScene* scene = new QGraphicsScene();
-    scene->addPixmap(pixmap);
+//    QGraphicsScene* scene = new QGraphicsScene();
+//    scene->addPixmap(pixmap);
 
-    ui->graphicsView->setMouseTracking(true);
-    ui->graphicsView->setScene(scene);
-    ui->graphicsView->show();
+//    ui->graphicsView->setMouseTracking(true);
+//    ui->graphicsView->setScene(scene);
+//    ui->graphicsView->show();
 
     setCurrentFile(fileName);
     statusBar()->showMessage(fileName + " loaded!", 2000);
