@@ -1,7 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QDebug>
-
+#include<iostream>
+using namespace std;
 
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
@@ -183,19 +184,22 @@ void MainWindow::writeSettings()
     QSettings settings(QCoreApplication::organizationName(), QCoreApplication::applicationName());
     settings.setValue("geometry", saveGeometry());
 }
-// most of the following code was taken from http://www.qtcentre.org/threads/52603-Zoom-effect-by-mouse-Wheel-in-QGraphicsview
+// reference  http://www.qtcentre.org/threads/52603-Zoom-effect-by-mouse-Wheel-in-QGraphicsview
 void MainWindow::wheelEvent(QWheelEvent *event)
 {
-    ui->graphicsView->setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
-    // Scale the view / do the zoom
-    double scaleFactor = 1.15;
-    if(event->delta() > 0) {
-        // Zoom in
-        ui->graphicsView-> scale(scaleFactor, scaleFactor);
+    if( event->modifiers() & Qt::ControlModifier ) // check if the CTRL key is Pressed
+    {
+        ui->graphicsView->setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
+        // Scale the view / do the zoom
+        double scaleFactor = 1.15;
+        if(event->delta() > 0) {
+            // Zoom in
+            ui->graphicsView-> scale(scaleFactor, scaleFactor);
+            event->accept();
 
-    } else {
-        // Zooming out
-         ui->graphicsView->scale(1.0 / scaleFactor, 1.0 / scaleFactor);
+        } else {
+            // Zooming out
+             ui->graphicsView->scale(1.0 / scaleFactor, 1.0 / scaleFactor);
+        }
     }
-
 }
