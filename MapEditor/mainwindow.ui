@@ -83,7 +83,7 @@
         </property>
         <property name="minimumSize">
          <size>
-          <width>256</width>
+          <width>397</width>
           <height>0</height>
          </size>
         </property>
@@ -91,15 +91,15 @@
          <enum>QFrame::StyledPanel</enum>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>2</number>
         </property>
         <widget class="QWidget" name="tools_terrain">
          <property name="geometry">
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>254</width>
-           <height>274</height>
+           <width>395</width>
+           <height>190</height>
           </rect>
          </property>
          <attribute name="label">
@@ -174,8 +174,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>254</width>
-           <height>274</height>
+           <width>395</width>
+           <height>190</height>
           </rect>
          </property>
          <attribute name="label">
@@ -187,13 +187,14 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>254</width>
-           <height>274</height>
+           <width>395</width>
+           <height>181</height>
           </rect>
          </property>
          <attribute name="label">
           <string>Units</string>
          </attribute>
+         <zorder>graphicsView_2</zorder>
         </widget>
        </widget>
       </item>
@@ -207,14 +208,14 @@
         </property>
         <property name="minimumSize">
          <size>
-          <width>256</width>
-          <height>192</height>
+          <width>397</width>
+          <height>294</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
-          <width>256</width>
-          <height>192</height>
+          <width>397</width>
+          <height>294</height>
          </size>
         </property>
         <property name="accessibleName">
@@ -246,7 +247,7 @@
      <x>0</x>
      <y>0</y>
      <width>934</width>
-     <height>22</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
