@@ -4,7 +4,9 @@
 #include <QDebug>
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
-    ui->setupUi(this);
+    ui->setupUi(this)
+
+    curTool = "hand";
     // map view
     QString mapName = ":/data/map/maze.map";
     QString texture = ":/data/img/Terrain.png";
@@ -99,20 +101,24 @@ void MainWindow::loadFile(const QString &fileName)
     }
 
 
-//    QString mapName = fileName;
-//    QString texture = fileName;
+    // load and display map and minimap
 
-//    Texture tx(texture);
+    QString mapName = fileName;
+    QString texture = ":/data/img/Terrain.png";
+    MapView2 map(mapName, texture);
 
-//    QImage imageDx = tx.createImageTile(&tx.fullImage, tx.tileDim);
-//    QPixmap pixmap = QPixmap::fromImage(imageDx);
+    GraphicsScene *scene = new GraphicsScene();
+    map.displayMap(scene);
 
-//    QGraphicsScene* scene = new QGraphicsScene();
-//    scene->addPixmap(pixmap);
+    ui->graphicsView->setScene(scene);
+    ui->graphicsView->setMouseTracking(true);
+    ui->graphicsView->show();
 
-//    ui->graphicsView->setMouseTracking(true);
-//    ui->graphicsView->setScene(scene);
-//    ui->graphicsView->show();
+    ui->graphicsView_2->setScene(scene);
+    ui->graphicsView_2->fitInView(0, 0, 256, 192, Qt::KeepAspectRatioByExpanding);
+    ui->graphicsView_2->setMouseTracking(true);
+    ui->graphicsView_2->show();
+
 
     setCurrentFile(fileName);
     statusBar()->showMessage(fileName + " loaded!", 2000);
@@ -205,4 +211,22 @@ void MainWindow::on_button_open_released()
 void MainWindow::on_button_save_released()
 {
     save();
+}
+
+void MainWindow::on_tool_grass_released()
+{
+    curTool = "grass";
+    statusBar()->showMessage(tr("Grass tool selected"), 2000);
+}
+
+void MainWindow::on_tool_dirt_released()
+{
+    curTool = "dirt";
+    statusBar()->showMessage(tr("Dirt tool selected"), 2000);
+}
+
+void MainWindow::on_tool_water_released()
+{
+    curTool = "water";
+    statusBar()->showMessage(tr("Water tool selected"), 2000);
 }
