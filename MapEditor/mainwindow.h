@@ -43,6 +43,12 @@ private slots:
 
     void on_button_save_released();
 
+    void on_tool_grass_released();
+
+    void on_tool_dirt_released();
+
+    void on_tool_water_released();
+
 private:
     Ui::MainWindow *ui;
     void writeSettings();
@@ -50,6 +56,7 @@ private:
     bool saveFile(const QString &fileName);
     void setCurrentFile(const QString &fileName);
 
+    QString curTool;
     QString curFile;
     QGraphicsScene* scene;
 };
