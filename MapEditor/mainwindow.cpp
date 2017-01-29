@@ -116,7 +116,6 @@ void MainWindow::loadFile(const QString &fileName)
     ui->graphicsView->show();
 
     ui->graphicsView_2->setScene(scene);
-    ui->graphicsView_2->fitInView(0, 0, 256, 192, Qt::KeepAspectRatio);
     ui->graphicsView_2->setMouseTracking(true);
     ui->graphicsView_2->show();
 
