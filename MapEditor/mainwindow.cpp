@@ -9,6 +9,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 {
     ui->setupUi(this);
 
+    curTool = "hand";
+
     // map view
     QString mapName = ":/data/map/maze.map";
     QString texture = ":/data/img/Terrain.png";
@@ -217,4 +219,22 @@ void MainWindow::on_button_open_released()
 void MainWindow::on_button_save_released()
 {
     save();
+}
+
+void MainWindow::on_tool_grass_released()
+{
+    curTool = "grass";
+    statusBar()->showMessage(tr("Grass tool selected"), 2000);
+}
+
+void MainWindow::on_tool_dirt_released()
+{
+    curTool = "dirt";
+    statusBar()->showMessage(tr("Dirt tool selected"), 2000);
+}
+
+void MainWindow::on_tool_water_released()
+{
+    curTool = "water";
+    statusBar()->showMessage(tr("Water tool selected"), 2000);
 }
