@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     curTool = "hand";
     // map view
-    QString mapName = ":/data/map/maze.map";
+    QString mapName = ":/data/map/2player.map";
     QString texture = ":/data/img/Terrain.png";
     MapView2 map(mapName, texture);
     GraphicsScene *scene = new GraphicsScene();
