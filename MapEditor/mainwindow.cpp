@@ -2,12 +2,9 @@
 #include "ui_mainwindow.h"
 #include "graphicsscene.h"
 #include <QDebug>
-#include<iostream>
-using namespace std;
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
     // map view
     QString mapName = ":/data/map/maze.map";
     QString texture = ":/data/img/Terrain.png";
@@ -17,11 +14,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->graphicsView->setScene(scene);
     ui->graphicsView->setMouseTracking(true);
     ui->graphicsView->show();
+    // this is for the mini map
     ui->graphicsView_2->setScene(scene);
-    //int w = ui->graphicsView_2->geometry().width();
-    //int h= ui->graphicsView_2->geometry().height();
-    //cout << w << "\t" << h << endl;
-    //ui->graphicsView_2->centerOn(0, 0);
     ui->graphicsView_2->fitInView(0,0,256,192, Qt::KeepAspectRatio);
     ui->graphicsView_2->setMouseTracking(true);
     ui->graphicsView_2->show();
