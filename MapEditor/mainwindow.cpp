@@ -4,7 +4,7 @@
 #include <QDebug>
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
-    ui->setupUi(this)
+    ui->setupUi(this);
 
     curTool = "hand";
     // map view
@@ -16,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->graphicsView->setScene(scene);
     ui->graphicsView->setMouseTracking(true);
     ui->graphicsView->show();
+
     // this is for the mini map
     ui->graphicsView_2->setScene(scene);
     ui->graphicsView_2->fitInView(0,0,256,192, Qt::KeepAspectRatio);
@@ -115,7 +116,7 @@ void MainWindow::loadFile(const QString &fileName)
     ui->graphicsView->show();
 
     ui->graphicsView_2->setScene(scene);
-    ui->graphicsView_2->fitInView(0, 0, 256, 192, Qt::KeepAspectRatioByExpanding);
+    ui->graphicsView_2->fitInView(0, 0, 256, 192, Qt::KeepAspectRatio);
     ui->graphicsView_2->setMouseTracking(true);
     ui->graphicsView_2->show();
 
