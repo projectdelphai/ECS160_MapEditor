@@ -18,9 +18,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->graphicsView->setMouseTracking(true);
     ui->graphicsView->show();
     ui->graphicsView_2->setScene(scene);
-    int w = ui->graphicsView_2->geometry().width();
-    int h= ui->graphicsView_2->geometry().height();
-    ui->graphicsView_2->fitInView(0,0,1.5*w,1.55*h, Qt::KeepAspectRatio);
+    //int w = ui->graphicsView_2->geometry().width();
+    //int h= ui->graphicsView_2->geometry().height();
+    //cout << w << "\t" << h << endl;
+    //ui->graphicsView_2->centerOn(0, 0);
+    ui->graphicsView_2->fitInView(0,0,256,192, Qt::KeepAspectRatio);
     ui->graphicsView_2->setMouseTracking(true);
     ui->graphicsView_2->show();
 }
