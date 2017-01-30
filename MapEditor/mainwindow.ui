@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>934</width>
+    <width>1057</width>
     <height>687</height>
    </rect>
   </property>
@@ -99,7 +99,7 @@
            <x>0</x>
            <y>0</y>
            <width>395</width>
-           <height>190</height>
+           <height>243</height>
           </rect>
          </property>
          <attribute name="label">
@@ -175,7 +175,7 @@
            <x>0</x>
            <y>0</y>
            <width>395</width>
-           <height>190</height>
+           <height>243</height>
           </rect>
          </property>
          <attribute name="label">
@@ -188,13 +188,12 @@
            <x>0</x>
            <y>0</y>
            <width>395</width>
-           <height>181</height>
+           <height>267</height>
           </rect>
          </property>
          <attribute name="label">
           <string>Units</string>
          </attribute>
-         <zorder>graphicsView_2</zorder>
         </widget>
        </widget>
       </item>
@@ -209,13 +208,13 @@
         <property name="minimumSize">
          <size>
           <width>397</width>
-          <height>294</height>
+          <height>270</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
           <width>397</width>
-          <height>294</height>
+          <height>265</height>
          </size>
         </property>
         <property name="accessibleName">
@@ -246,8 +245,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>934</width>
-     <height>26</height>
+     <width>1057</width>
+     <height>17</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

@@ -31,6 +31,8 @@ protected:
     void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
     void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
 
+    MapView2 curMap;
+
 private slots:
     bool save();
     bool saveAs();
@@ -55,6 +57,7 @@ private:
     bool maybeSave();
     bool saveFile(const QString &fileName);
     void setCurrentFile(const QString &fileName);
+
 
     QString curTool;
     QString curFile;

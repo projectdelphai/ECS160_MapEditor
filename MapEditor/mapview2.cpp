@@ -1,6 +1,32 @@
 #include "mapview2.h"
 #include <QDebug>
 
+Player::Player()
+{
+}
+
+Player::Player(int n, int g, int l)
+{
+    num = n;
+    gold = g;
+    lumber = l;
+}
+
+Unit::Unit()
+{
+}
+
+Unit::Unit(QString n, int xc, int yc)
+{
+    name = n;
+    x = xc;
+    y = yc;
+}
+
+MapView2::MapView2()
+{
+}
+
 MapView2::MapView2(const QString &mapFileName , const QString &mapTexName )
 {
     openMap(mapFileName);
@@ -15,6 +41,8 @@ MapView2::MapView2(const QString &mapFileName , const QString &mapTexName )
 
 
 void MapView2::openMap(const QString &mapFileName){
+    bool intTest;
+
     QFile mapFile(mapFileName);
 
     if ( !mapFile.open(QIODevice::ReadOnly)){
@@ -33,6 +61,7 @@ void MapView2::openMap(const QString &mapFileName){
     // Parse .map file
     while(!in.atEnd()){
 
+
         QString line = in.readLine();
 
         if (line == blankLine){
@@ -40,6 +69,9 @@ void MapView2::openMap(const QString &mapFileName){
             continue;
 
         }
+
+        int value = line.toInt(&intTest);
+
         lineNum++;
 //        if(lineNum > 0 ){
         if ( lineNum == 1){
@@ -57,21 +89,47 @@ void MapView2::openMap(const QString &mapFileName){
             mapDim.setHeight(nums[1]+2);
             mapDim.setWidth(nums[0]+2);
         }
-        else if (lineNum > 2 && lineNum <= maxMapLine ){
+        else if (!intTest && lineNum > 2 && lineNum <= maxMapLine ){
             // key layout of the map
             for (auto iter = line.begin(); iter != line.end(); iter++ ){
                 mapLayOut.append(*iter);
             }
         }
-        else if (lineNum > maxMapLine ){
-            // the remaining map configurations
-            mapConfig.append(line);
+        else if (intTest){
+            numPlayers = line.toInt();
+            lineNum++;
+            line = in.readLine();
+            for (int i = 0; i < numPlayers + 1; i++)
+            {
+                // create players and add
+                QStringList playerValues = line.split(" ");
+                Player player = Player(playerValues[0].toInt(), playerValues[1].toInt(), playerValues[2].toInt());
+                players.append(player);
+                lineNum++;
+                line = in.readLine();
+            }
+
+            // grab number of units
+            numUnits = line.toInt();
+            lineNum++;
+            line = in.readLine();
+
+            // for each unit
+            for (int i = 0; i < numUnits; i++)
+            {
+                QStringList unitValues = line.split(" ");
+
+                // create unit
+                Unit unit(unitValues[0], unitValues[2].toInt(), unitValues[3].toInt());
+
+                // add to the respective player
+                players[unitValues[1].toInt()].units.append(unit);
+
+                lineNum++;
+                line = in.readLine();
+            }
         }
-
     }
-
-
-
 }
 
 
@@ -104,7 +162,7 @@ void MapView2::builtmap(QGraphicsScene *scene){
     for(int i = 0; i < mapDim.height(); ++i){
         for( int j = 0; j < mapDim.width(); ++j){
 
-            n = i*mapDim.width()+ + j;
+            n = i*mapDim.width() + j;
             switch ( mapLayOut.at(n).toLatin1() ){
                 case 'G': type = Texture::Grass;
                     break;
@@ -151,3 +209,32 @@ void MapView2::displayMap(QGraphicsScene *scene){
     //view->show();
 }
 
+QSize MapView2::getMapDim()
+{
+    return mapDim;
+}
+
+QString MapView2::getMapName()
+{
+    return mapName;
+}
+
+QVector<QChar> MapView2::getMapLayout()
+{
+    return mapLayOut;
+}
+
+QVector<Player> MapView2::getPlayers()
+{
+    return players;
+}
+
+int MapView2::getNumPlayers()
+{
+    return numPlayers;
+}
+
+int MapView2::getNumUnits()
+{
+    return numUnits;
+}
