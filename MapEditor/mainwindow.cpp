@@ -221,9 +221,8 @@ bool MainWindow::saveFile(const QString &fileName)
 
    stream << curMap.getNumPlayers() << endl;
 
-   for (int i = 0; i < curMap.getNumPlayers() + 1; i++)
-   {
-       stream << players[i].num << " " << players[i].gold << " " << players[i].lumber << endl;
+   for (auto iter = players.begin(); iter != players.end(); iter++) {
+        stream << iter->num << " " << iter->gold << " " << iter->lumber << endl;
    }
 
    stream << curMap.getNumUnits() << endl;

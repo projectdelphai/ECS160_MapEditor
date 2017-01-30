@@ -32,7 +32,7 @@ MapView2::MapView2()
     tileMap.reserve(mapDim.width()*mapDim.height());
 }
 
-MapView2::MapView2(const QString &mapFileName , const QString &mapTexName )
+MapView2::MapView2(const QString &mapFileName , const QString &mapTexName = ":/data/img/Terrain.png" )
 {
     openMap(mapFileName);
     texture = new Texture(mapTexName);
@@ -54,8 +54,9 @@ void MapView2::defaultMap(){
             mapLayOut.append('G');
         }
     }
-
     numPlayers = 0;
+    Player player = Player(0, 30000, 500);
+    players.append(player);
     numUnits = 0;
 
 }
