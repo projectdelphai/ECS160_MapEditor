@@ -79,7 +79,7 @@ void MainWindow::newFile()
 
     // map view
     curMap = MapView2();
-    GraphicsScene *scene = new GraphicsScene();
+    GraphicsScene *scene = new GraphicsScene(this);
     curMap.displayMap(scene);
     ui->graphicsView->setScene(scene);
     ui->graphicsView->show();
@@ -119,7 +119,7 @@ void MainWindow::loadFile(const QString &fileName)
     QString texture = ":/data/img/Terrain.png";
     curMap = MapView2(mapName, texture);
 
-    GraphicsScene *scene = new GraphicsScene();
+    GraphicsScene *scene = new GraphicsScene(this);
     curMap.displayMap(scene);
 
     ui->graphicsView->setScene(scene);
