@@ -48,6 +48,7 @@ public:
     int getNumUnits();
 
 //private:
+    void defaultMap();
     void openMap(const QString &mapName);
     void openMapTexture(const QString &mapTexture);
     QImage createImageTile(QImage* image, const QRect &rect);

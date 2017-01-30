@@ -7,22 +7,20 @@
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->graphicsView->setMouseTracking(true);
+    ui->graphicsView_2->setMouseTracking(true);
 
     curTool = "hand";
     // map view
-    QString mapName = ":/data/map/2player.map";
-    QString texture = ":/data/img/Terrain.png";
-    curMap = MapView2(mapName, texture);
+    curMap = MapView2();
     GraphicsScene *scene = new GraphicsScene();
     curMap.displayMap(scene);
     ui->graphicsView->setScene(scene);
-    ui->graphicsView->setMouseTracking(true);
     ui->graphicsView->show();
 
     // this is for the mini map
     ui->graphicsView_2->setScene(scene);
     ui->graphicsView_2->fitInView(0,0,256,192, Qt::KeepAspectRatio);
-    ui->graphicsView_2->setMouseTracking(true);
     ui->graphicsView_2->show();
 }
 
@@ -79,7 +77,18 @@ void MainWindow::newFile()
         // fill tile here
     }
 
-   statusBar()->showMessage("New File created", 2000);
+    // map view
+    curMap = MapView2();
+    GraphicsScene *scene = new GraphicsScene();
+    curMap.displayMap(scene);
+    ui->graphicsView->setScene(scene);
+    ui->graphicsView->show();
+
+    // this is for the mini map
+    ui->graphicsView_2->setScene(scene);
+    ui->graphicsView_2->show();
+
+    statusBar()->showMessage("New File created", 2000);
 }
 
 void MainWindow::open()
@@ -211,9 +220,8 @@ bool MainWindow::saveFile(const QString &fileName)
 
    stream << curMap.getNumPlayers() << endl;
 
-   for (int i = 0; i < curMap.getNumPlayers() + 1; i++)
-   {
-       stream << players[i].num << " " << players[i].gold << " " << players[i].lumber << endl;
+   for (auto iter = players.begin(); iter != players.end(); iter++) {
+        stream << iter->num << " " << iter->gold << " " << iter->lumber << endl;
    }
 
    stream << curMap.getNumUnits() << endl;
