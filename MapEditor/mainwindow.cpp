@@ -13,7 +13,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     curTool = "hand";
     // map view
     curMap = MapView2();
-    GraphicsScene *scene = new GraphicsScene(this);
+    scene = new GraphicsScene(this);
     curMap.displayMap(scene);
     ui->graphicsView->setScene(scene);
     ui->graphicsView->show();
@@ -22,6 +22,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->graphicsView_2->setScene(scene);
     ui->graphicsView_2->fitInView(0,0,256,192, Qt::KeepAspectRatio);
     ui->graphicsView_2->show();
+
+    QObject::connect(scene, &GraphicsScene::changedLayout, this, &MainWindow::changeLayout);
 }
 
 MainWindow::~MainWindow()
@@ -42,16 +44,16 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event)
 
 void MainWindow::mousePressEvent(QMouseEvent *event){
 
-    if (event->button() == Qt::LeftButton ){
+    /*if (event->button() == Qt::LeftButton ){
          statusBar()->showMessage("Left Click");
     }
     else if (event->button() == Qt::RightButton ){
         statusBar()->showMessage("Right Click");
-    }
+    }*/
 }
 
 void MainWindow::mouseMoveEvent(QMouseEvent *event){
-    statusBar()->showMessage(QString::number(event->x()) + ", " + QString::number(event->y()), 500);
+    //statusBar()->showMessage(QString::number(event->x()) + ", " + QString::number(event->y()), 500);
 }
 
 void MainWindow::mouseReleaseEvent(QMouseEvent *event){
@@ -119,7 +121,7 @@ void MainWindow::loadFile(const QString &fileName)
     QString texture = ":/data/img/Terrain.png";
     curMap = MapView2(mapName, texture);
 
-    GraphicsScene *scene = new GraphicsScene(this);
+    scene = new GraphicsScene(this);
     curMap.displayMap(scene);
 
     ui->graphicsView->setScene(scene);
@@ -130,6 +132,7 @@ void MainWindow::loadFile(const QString &fileName)
     ui->graphicsView_2->setMouseTracking(true);
     ui->graphicsView_2->show();
 
+    QObject::connect(scene, &GraphicsScene::changedLayout, this, &MainWindow::changeLayout);
 
     setCurrentFile(fileName);
     statusBar()->showMessage(fileName + " loaded!", 2000);
@@ -267,17 +270,54 @@ void MainWindow::on_button_save_released()
 void MainWindow::on_tool_grass_released()
 {
     curTool = "grass";
+    scene->curTool = "grass";
     statusBar()->showMessage(tr("Grass tool selected"), 2000);
 }
 
 void MainWindow::on_tool_dirt_released()
 {
     curTool = "dirt";
+    scene->curTool = "dirt";
     statusBar()->showMessage(tr("Dirt tool selected"), 2000);
 }
 
 void MainWindow::on_tool_water_released()
 {
     curTool = "water";
+    scene->curTool = "water";
     statusBar()->showMessage(tr("Water tool selected"), 2000);
+}
+
+void MainWindow::changeLayout(int x, int y, Texture::Type type)
+{
+
+
+    int newX = x / 32;
+    int newY = y / 32;
+
+    int n = newY * curMap.getMapDim().width() + newX;
+
+    statusBar()->showMessage("x: " + QString::number(x) + ", y: " + QString::number(y) + ", n: " + QString::number(n));
+
+    QChar c;
+
+    switch (type)
+    {
+    case Texture::Water:
+        c = 'W';
+        break;
+    case Texture::Grass:
+        c = 'G';
+        break;
+    case Texture::Dirt:
+        c = 'D';
+        break;
+    }
+
+
+    QVector<QChar> layout = curMap.getMapLayout();
+    layout[n] = c;
+    curMap.setMapLayout(layout);
+
+
 }
