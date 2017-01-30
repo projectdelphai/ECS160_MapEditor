@@ -25,9 +25,14 @@ Unit::Unit(QString n, int xc, int yc)
 
 MapView2::MapView2()
 {
+    defaultMap();
+    texture = new Texture(":/data/img/Terrain.png");
+    currentImage = texture->fullImage;
+    tileDim.setRect(1,1,32,32);
+    tileMap.reserve(mapDim.width()*mapDim.height());
 }
 
-MapView2::MapView2(const QString &mapFileName , const QString &mapTexName )
+MapView2::MapView2(const QString &mapFileName , const QString &mapTexName = ":/data/img/Terrain.png" )
 {
     openMap(mapFileName);
     texture = new Texture(mapTexName);
@@ -39,6 +44,22 @@ MapView2::MapView2(const QString &mapFileName , const QString &mapTexName )
 
 }
 
+void MapView2::defaultMap(){
+    mapName = "untitled.map";
+    mapDim.setHeight(64 + 2);
+    mapDim.setWidth(96 + 2);
+
+    for(int h = 0; h < mapDim.height(); h++ ){
+        for(int w = 0; w < mapDim.width(); w++) {
+            mapLayOut.append('G');
+        }
+    }
+    numPlayers = 0;
+    Player player = Player(0, 30000, 500);
+    players.append(player);
+    numUnits = 0;
+
+}
 
 void MapView2::openMap(const QString &mapFileName){
     bool intTest;
