@@ -10,5 +10,8 @@
         <file>icons/toolbar/tool_grass.png</file>
         <file>icons/toolbar/tool_dirt.png</file>
         <file>icons/toolbar/tool_water.png</file>
+        <file>icons/toolbar/tool_forest.png</file>
+        <file>icons/toolbar/tool_wall.png</file>
+        <file>icons/toolbar/tool_rock.png</file>
     </qresource>
 </RCC>
