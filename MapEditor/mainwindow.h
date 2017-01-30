@@ -56,6 +56,11 @@ private slots:
 
     void on_tool_water_released();
 
+    void on_tool_rock_released();
+
+    void on_tool_tree_released();
+
+    void on_tool_wall_released();
 private:
     Ui::MainWindow *ui;
     void writeSettings();

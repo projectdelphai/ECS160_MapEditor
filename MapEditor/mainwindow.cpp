@@ -288,6 +288,26 @@ void MainWindow::on_tool_water_released()
     statusBar()->showMessage(tr("Water tool selected"), 2000);
 }
 
+void MainWindow::on_tool_rock_released()
+{
+    curTool = "rock";
+    scene->curTool = "rock";
+    statusBar()->showMessage(tr("Rock tool selected"), 2000);
+}
+
+void MainWindow::on_tool_tree_released()
+{
+    curTool = "tree";
+    scene->curTool = "tree";
+    statusBar()->showMessage(tr("Tree tool selected"), 2000);
+}
+
+void MainWindow::on_tool_wall_released()
+{
+    curTool = "wall";
+    scene->curTool = "wall";
+    statusBar()->showMessage(tr("Wall tool selected"), 2000);
+}
 void MainWindow::changeLayout(int x, int y, Texture::Type type)
 {
 
@@ -321,3 +341,4 @@ void MainWindow::changeLayout(int x, int y, Texture::Type type)
 
 
 }
+
