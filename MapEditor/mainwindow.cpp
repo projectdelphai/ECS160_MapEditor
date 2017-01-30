@@ -13,7 +13,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     curTool = "hand";
     // map view
     curMap = MapView2();
-    GraphicsScene *scene = new GraphicsScene();
+    GraphicsScene *scene = new GraphicsScene(this);
     curMap.displayMap(scene);
     ui->graphicsView->setScene(scene);
     ui->graphicsView->show();
