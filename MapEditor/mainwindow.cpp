@@ -11,7 +11,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     QString mapName = ":/data/map/maze.map";
     QString texture = ":/data/img/Terrain.png";
     MapView2 map(mapName, texture);
-    GraphicsScene *scene = new GraphicsScene();
+    GraphicsScene *scene = new GraphicsScene(this);
     map.displayMap(scene);
     ui->graphicsView->setScene(scene);
     ui->graphicsView->setMouseTracking(true);

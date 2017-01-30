@@ -14,11 +14,13 @@ class GraphicsScene : public QGraphicsScene
 public:
     explicit GraphicsScene(QObject *parent = 0);
     virtual void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent);
+    virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
 signals:
 
 public slots:
 
 private:
+    QObject *parent;
 };
 
 #endif // GRAPHICSSCENE_H
