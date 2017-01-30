@@ -86,7 +86,6 @@ void MainWindow::newFile()
 
     // this is for the mini map
     ui->graphicsView_2->setScene(scene);
-    ui->graphicsView_2->fitInView(0,0,256,192, Qt::KeepAspectRatio);
     ui->graphicsView_2->show();
 
     statusBar()->showMessage("New File created", 2000);
