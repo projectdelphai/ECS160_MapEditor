@@ -265,6 +265,7 @@ void MainWindow::wheelEvent(QWheelEvent *event)
              ui->graphicsView->scale(1.0 / scaleFactor, 1.0 / scaleFactor);
         }
     }
+}
 void MainWindow::on_button_new_released()
 {
     newFile();
