@@ -7,13 +7,15 @@
 class Tile : public QGraphicsPixmapItem
 {
 public:
-    Tile(QString type);
-    Tile(QString type, QPixmap texturePix);
+    Tile(Texture::Type type);
+    Tile(Texture::Type type, QPixmap texturePix);
+    QString toString();
 
 //    QRectF boundingRect()const;
 //    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
-    QString type;
+    Texture::Type type;
+    QString note;
     QPointF pos;
 
     QPixmap texturePix;

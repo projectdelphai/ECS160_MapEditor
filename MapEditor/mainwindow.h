@@ -5,6 +5,7 @@
 #include <QtWidgets>
 #include "mapview2.h"
 #include "texture.h"
+#include "graphicsscene.h"
 
 namespace Ui {
 class MainWindow;
@@ -22,6 +23,9 @@ public:
 
     void loadFile(const QString &fileName);
 
+public slots:
+    void changeLayout(int x, int y, Texture::Type type);
+
 protected:
 #ifndef QT_NO_CONTEXTMENU
     void contextMenuEvent(QContextMenuEvent *event) Q_DECL_OVERRIDE;
@@ -32,6 +36,7 @@ protected:
     void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
 
     MapView2 curMap;
+    GraphicsScene *scene;
 
 private slots:
     bool save();
@@ -61,7 +66,6 @@ private:
 
     QString curTool;
     QString curFile;
-    QGraphicsScene* scene;
 };
 
 
