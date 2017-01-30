@@ -4,11 +4,12 @@
 #include <QMainWindow>
 #include <QtWidgets>
 #include "mapview2.h"
+#include "texture.h"
+#include "graphicsscene.h"
 
 namespace Ui {
 class MainWindow;
 }
-
 
 
 class MainWindow : public QMainWindow
@@ -22,6 +23,9 @@ public:
 
     void loadFile(const QString &fileName);
 
+public slots:
+    void changeLayout(int x, int y, Texture::Type type);
+
 protected:
 #ifndef QT_NO_CONTEXTMENU
     void contextMenuEvent(QContextMenuEvent *event) Q_DECL_OVERRIDE;
@@ -29,14 +33,28 @@ protected:
     void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
     void mouseMoveEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
     void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
-    void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
     void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
+
+    MapView2 curMap;
+    GraphicsScene *scene;
 
 private slots:
     bool save();
     bool saveAs();
-
+    void newFile();
     void open();
+
+    void on_button_new_released();
+
+    void on_button_open_released();
+
+    void on_button_save_released();
+
+    void on_tool_grass_released();
+
+    void on_tool_dirt_released();
+
+    void on_tool_water_released();
 
 private:
     Ui::MainWindow *ui;
@@ -45,6 +63,8 @@ private:
     bool saveFile(const QString &fileName);
     void setCurrentFile(const QString &fileName);
 
+
+    QString curTool;
     QString curFile;
 };
 

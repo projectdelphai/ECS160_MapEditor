@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>571</width>
-    <height>467</height>
+    <width>1057</width>
+    <height>687</height>
    </rect>
   </property>
   <property name="mouseTracking">
@@ -27,94 +27,226 @@
    <property name="mouseTracking">
     <bool>true</bool>
    </property>
-   <widget class="QWidget" name="horizontalLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>171</width>
-      <height>361</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QToolBox" name="toolBox">
-       <property name="currentIndex">
-        <number>0</number>
-       </property>
-       <widget class="QWidget" name="page">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>169</width>
-          <height>291</height>
-         </rect>
+   <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="1">
+         <widget class="QToolButton" name="button_new">
+          <property name="icon">
+           <iconset resource="icons.qrc">
+            <normaloff>:/toolbar/icons/toolbar/toolbar1.bmp</normaloff>:/toolbar/icons/toolbar/toolbar1.bmp</iconset>
+          </property>
+          <property name="shortcut">
+           <string>Ctrl+N, Meta+N</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QToolButton" name="button_open">
+          <property name="text">
+           <string>...</string>
+          </property>
+          <property name="icon">
+           <iconset resource="icons.qrc">
+            <normaloff>:/toolbar/icons/toolbar/toolbar2.bmp</normaloff>:/toolbar/icons/toolbar/toolbar2.bmp</iconset>
+          </property>
+          <property name="shortcut">
+           <string>Meta+O, Ctrl+O</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="QToolButton" name="button_save">
+          <property name="text">
+           <string>...</string>
+          </property>
+          <property name="icon">
+           <iconset resource="icons.qrc">
+            <normaloff>:/toolbar/icons/toolbar/toolbar3.bmp</normaloff>:/toolbar/icons/toolbar/toolbar3.bmp</iconset>
+          </property>
+          <property name="shortcut">
+           <string>Meta+S, Ctrl+S</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QToolBox" name="toolBox">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
         </property>
-        <attribute name="label">
-         <string>Page 1</string>
-        </attribute>
-       </widget>
-       <widget class="QWidget" name="page_2">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>98</width>
-          <height>28</height>
-         </rect>
+        <property name="minimumSize">
+         <size>
+          <width>397</width>
+          <height>0</height>
+         </size>
         </property>
-        <attribute name="label">
-         <string>Page 2</string>
-        </attribute>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="currentIndex">
+         <number>2</number>
+        </property>
+        <widget class="QWidget" name="tools_terrain">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>395</width>
+           <height>243</height>
+          </rect>
+         </property>
+         <attribute name="label">
+          <string>Terrain</string>
+         </attribute>
+         <widget class="QWidget" name="gridLayoutWidget">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>-10</y>
+            <width>251</width>
+            <height>141</height>
+           </rect>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_2">
+           <item row="0" column="0">
+            <widget class="QToolButton" name="tool_grass">
+             <property name="text">
+              <string>...</string>
+             </property>
+             <property name="icon">
+              <iconset resource="icons.qrc">
+               <normaloff>:/toolbar/icons/toolbar/tool_grass.png</normaloff>:/toolbar/icons/toolbar/tool_grass.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>32</width>
+               <height>32</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QToolButton" name="tool_dirt">
+             <property name="text">
+              <string>...</string>
+             </property>
+             <property name="icon">
+              <iconset resource="icons.qrc">
+               <normaloff>:/toolbar/icons/toolbar/tool_dirt.png</normaloff>:/toolbar/icons/toolbar/tool_dirt.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>32</width>
+               <height>32</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QToolButton" name="tool_water">
+             <property name="text">
+              <string>...</string>
+             </property>
+             <property name="icon">
+              <iconset resource="icons.qrc">
+               <normaloff>:/toolbar/icons/toolbar/tool_water.png</normaloff>:/toolbar/icons/toolbar/tool_water.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>32</width>
+               <height>32</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+        <widget class="QWidget" name="tools_buildings">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>395</width>
+           <height>243</height>
+          </rect>
+         </property>
+         <attribute name="label">
+          <string>Buildings</string>
+         </attribute>
+        </widget>
+        <widget class="QWidget" name="tools_units">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>395</width>
+           <height>267</height>
+          </rect>
+         </property>
+         <attribute name="label">
+          <string>Units</string>
+         </attribute>
+        </widget>
        </widget>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="horizontalLayoutWidget_2">
-    <property name="geometry">
-     <rect>
-      <x>190</x>
-      <y>10</y>
-      <width>371</width>
-      <height>361</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
-     <item>
-      <widget class="QGraphicsView" name="graphicsView">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="mouseTracking">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QScrollBar" name="verticalScrollBar">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
+      </item>
+      <item>
+       <widget class="QGraphicsView" name="graphicsView_2">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>397</width>
+          <height>270</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>397</width>
+          <height>265</height>
+         </size>
+        </property>
+        <property name="accessibleName">
+         <string>minimap</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QGraphicsView" name="graphicsView">
+        <property name="minimumSize">
+         <size>
+          <width>640</width>
+          <height>480</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>571</width>
-     <height>22</height>
+     <width>1057</width>
+     <height>17</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -137,7 +269,7 @@
    </widget>
    <widget class="QMenu" name="menuView">
     <property name="title">
-     <string>View</string>
+     <string>&amp;View</string>
     </property>
     <addaction name="actionToolbar"/>
     <addaction name="actionStatus_bar"/>
@@ -148,9 +280,17 @@
     <property name="title">
      <string>Tools</string>
     </property>
+    <widget class="QMenu" name="menu_Map_Brush">
+     <property name="title">
+      <string>&amp;Map Brush</string>
+     </property>
+     <addaction name="actionGrass"/>
+     <addaction name="actionDirt"/>
+     <addaction name="actionWater"/>
+    </widget>
     <addaction name="actionSelect"/>
     <addaction name="separator"/>
-    <addaction name="actionMap_Brush"/>
+    <addaction name="menu_Map_Brush"/>
     <addaction name="separator"/>
     <addaction name="actionHuman_Start_Location"/>
     <addaction name="actionHuman_Air"/>
@@ -175,7 +315,7 @@
    </widget>
    <widget class="QMenu" name="menuPlayer">
     <property name="title">
-     <string>Player</string>
+     <string>P&amp;layer</string>
     </property>
     <addaction name="actionPlayer_1_Red"/>
     <addaction name="actionPlayer_2_Blue"/>
@@ -205,18 +345,6 @@
    <addaction name="menuPlayer"/>
    <addaction name="menuHelp"/>
   </widget>
-  <widget class="QToolBar" name="mainToolBar">
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>true</bool>
-   </attribute>
-   <addaction name="actionNew"/>
-   <addaction name="actionOpen"/>
-   <addaction name="actionSave"/>
-   <addaction name="separator"/>
-  </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionNew">
    <property name="icon">
@@ -224,7 +352,7 @@
      <normaloff>:/toolbar/icons/toolbar/toolbar1.bmp</normaloff>:/toolbar/icons/toolbar/toolbar1.bmp</iconset>
    </property>
    <property name="text">
-    <string>New...</string>
+    <string>&amp;New...</string>
    </property>
   </action>
   <action name="actionOpen">
@@ -233,7 +361,7 @@
      <normaloff>:/toolbar/icons/toolbar/toolbar2.bmp</normaloff>:/toolbar/icons/toolbar/toolbar2.bmp</iconset>
    </property>
    <property name="text">
-    <string>Open...</string>
+    <string>&amp;Open...</string>
    </property>
   </action>
   <action name="actionSave">
@@ -242,22 +370,22 @@
      <normaloff>:/toolbar/icons/toolbar/toolbar3.bmp</normaloff>:/toolbar/icons/toolbar/toolbar3.bmp</iconset>
    </property>
    <property name="text">
-    <string>Save</string>
+    <string>&amp;Save</string>
    </property>
   </action>
   <action name="actionSave_As">
    <property name="text">
-    <string>Save As...</string>
+    <string>Sa&amp;ve As...</string>
    </property>
   </action>
   <action name="actionExit">
    <property name="text">
-    <string>Exit</string>
+    <string>&amp;Exit</string>
    </property>
   </action>
   <action name="actionDelete">
    <property name="text">
-    <string>Delete</string>
+    <string>&amp;Delete</string>
    </property>
   </action>
   <action name="actionToolbar">
@@ -268,7 +396,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Toolbar</string>
+    <string>&amp;Toolbar</string>
    </property>
   </action>
   <action name="actionStatus_bar">
@@ -279,7 +407,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Status Bar</string>
+    <string>&amp;Status Bar</string>
    </property>
   </action>
   <action name="actionAnimate">
@@ -287,7 +415,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Animate</string>
+    <string>&amp;Animate</string>
    </property>
   </action>
   <action name="actionMini_Map">
@@ -298,27 +426,22 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Mini Map</string>
+    <string>&amp;Mini Map</string>
    </property>
   </action>
   <action name="actionSelect">
    <property name="text">
-    <string>Select</string>
-   </property>
-  </action>
-  <action name="actionMap_Brush">
-   <property name="text">
-    <string>Map Brush</string>
+    <string>&amp;Select</string>
    </property>
   </action>
   <action name="actionHuman_Start_Location">
    <property name="text">
-    <string>Human Start Location</string>
+    <string>&amp;Human Start Location</string>
    </property>
   </action>
   <action name="actionHuman_Air">
    <property name="text">
-    <string>Human Air</string>
+    <string>H&amp;uman Air</string>
    </property>
   </action>
   <action name="actionHuman_Land">
@@ -328,7 +451,7 @@
   </action>
   <action name="actionHuman_Water">
    <property name="text">
-    <string>Human Water</string>
+    <string>Human Wat&amp;er</string>
    </property>
   </action>
   <action name="actionHuman_Buildings">
@@ -338,7 +461,7 @@
   </action>
   <action name="actionOrc_Start_Location">
    <property name="text">
-    <string>Orc Start Location</string>
+    <string>&amp;Orc Start Location</string>
    </property>
   </action>
   <action name="actionOrc_Air">
@@ -348,52 +471,52 @@
   </action>
   <action name="actionOrc_Land">
    <property name="text">
-    <string>Orc Land</string>
+    <string>Orc &amp;Land</string>
    </property>
   </action>
   <action name="actionOrc_Water">
    <property name="text">
-    <string>Orc Water</string>
+    <string>Orc &amp;Water</string>
    </property>
   </action>
   <action name="actionOrc_Buildings">
    <property name="text">
-    <string>Orc Buildings</string>
+    <string>Orc &amp;Buildings</string>
    </property>
   </action>
   <action name="actionGold_Mine">
    <property name="text">
-    <string>Gold Mine</string>
+    <string>&amp;Gold Mine</string>
    </property>
   </action>
   <action name="actionOil_Patch">
    <property name="text">
-    <string>Oil Patch</string>
+    <string>Oil &amp;Patch</string>
    </property>
   </action>
   <action name="actionCritter">
    <property name="text">
-    <string>Critter</string>
+    <string>&amp;Critter</string>
    </property>
   </action>
   <action name="actionCircle_of_Power">
    <property name="text">
-    <string>Circle of Power</string>
+    <string>C&amp;ircle of Power</string>
    </property>
   </action>
   <action name="actionDark_Portal">
    <property name="text">
-    <string>Dark Portal</string>
+    <string>&amp;Dark Portal</string>
    </property>
   </action>
   <action name="actionRunestone">
    <property name="text">
-    <string>Runestone</string>
+    <string>&amp;Runestone</string>
    </property>
   </action>
   <action name="actionNPC_s">
    <property name="text">
-    <string>NPC's</string>
+    <string>&amp;NPC's</string>
    </property>
   </action>
   <action name="actionPlayer_1_Red">
@@ -404,77 +527,92 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Player 1 (Red)</string>
+    <string>&amp;Player 1 (Red)</string>
    </property>
   </action>
   <action name="actionPlayer_2_Blue">
    <property name="text">
-    <string>Player 2 (Blue)</string>
+    <string>Player &amp;2 (Blue)</string>
    </property>
   </action>
   <action name="actionPlayer_3_Green">
    <property name="text">
-    <string>Player 3 (Green)</string>
+    <string>Player &amp;3 (Green)</string>
    </property>
   </action>
   <action name="actionPlayer_4_Violet">
    <property name="text">
-    <string>Player 4 (Violet)</string>
+    <string>Player &amp;4 (Violet)</string>
    </property>
   </action>
   <action name="actionPlayer_5_Orange">
    <property name="text">
-    <string>Player 5 (Orange)</string>
+    <string>Player &amp;5 (Orange)</string>
    </property>
   </action>
   <action name="actionPlayer_6_Black">
    <property name="text">
-    <string>Player 6 (Black)</string>
+    <string>Player &amp;6 (Black)</string>
    </property>
   </action>
   <action name="actionPlayer_7_White">
    <property name="text">
-    <string>Player 7 (White)</string>
+    <string>Player &amp;7 (White)</string>
    </property>
   </action>
   <action name="actionPlayer_8_Yellow">
    <property name="text">
-    <string>Player 8 (Yellow)</string>
+    <string>Player &amp;8 (Yellow)</string>
    </property>
   </action>
   <action name="actionMap_Properties">
    <property name="text">
-    <string>Map Properties...</string>
+    <string>&amp;Map Properties...</string>
    </property>
   </action>
   <action name="actionPlayer_Properties">
    <property name="text">
-    <string>Player Properties...</string>
+    <string>P&amp;layer Properties...</string>
    </property>
   </action>
   <action name="actionStarting_Conditions">
    <property name="text">
-    <string>Starting Conditions...</string>
+    <string>&amp;Starting Conditions...</string>
    </property>
   </action>
   <action name="actionUnit_Properties">
    <property name="text">
-    <string>Unit Properties...</string>
+    <string>&amp;Unit Properties...</string>
    </property>
   </action>
   <action name="actionUpgrade_Properties">
    <property name="text">
-    <string>Upgrade Properties...</string>
+    <string>Up&amp;grade Properties...</string>
    </property>
   </action>
   <action name="actionAbout_MapEditor">
    <property name="text">
-    <string>About MapEditor...</string>
+    <string>&amp;About MapEditor...</string>
    </property>
   </action>
   <action name="actionClose">
    <property name="text">
-    <string>Close</string>
+    <string>&amp;Close</string>
+   </property>
+  </action>
+  <action name="actionGrass">
+   <property name="text">
+    <string>Grass</string>
+   </property>
+  </action>
+  <action name="actionDirt">
+   <property name="text">
+    <string>Dirt</string>
+   </property>
+  </action>
+  <action name="actionWater">
+   <property name="text">
+    <string>Water</string>
    </property>
   </action>
  </widget>
@@ -547,10 +685,61 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionGrass</sender>
+   <signal>triggered()</signal>
+   <receiver>tool_grass</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>61</x>
+     <y>167</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionDirt</sender>
+   <signal>triggered()</signal>
+   <receiver>tool_dirt</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>137</x>
+     <y>167</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionWater</sender>
+   <signal>triggered()</signal>
+   <receiver>tool_water</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>213</x>
+     <y>167</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>open()</slot>
   <slot>save()</slot>
   <slot>saveAs()</slot>
+  <slot>on_tool_grass_released()</slot>
+  <slot>on_tool_dirt_released()</slot>
+  <slot>on_tool_water_released()</slot>
  </slots>
 </ui>
