@@ -1,30 +1,26 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "graphicsscene.h"
 #include <QDebug>
-#include<iostream>
-using namespace std;
-
-
+#include "mapview2.h"
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->graphicsView->setMouseTracking(true);
+    ui->graphicsView_2->setMouseTracking(true);
 
+    curTool = "hand";
     // map view
-    QString mapName = ":/data/map/maze.map";
-    QString texture = ":/data/img/Terrain.png";
-    MapView2 map(mapName, texture);
-
-    QGraphicsScene *scene = new QGraphicsScene();
-    map.displayMap(scene);
-
+    curMap = MapView2();
+    GraphicsScene *scene = new GraphicsScene();
+    curMap.displayMap(scene);
     ui->graphicsView->setScene(scene);
     ui->graphicsView->show();
 
+    // this is for the mini map
     ui->graphicsView_2->setScene(scene);
-    ui->graphicsView_2->fitInView(0, 0, 256, 192, Qt::KeepAspectRatioByExpanding);
+    ui->graphicsView_2->fitInView(0,0,256,192, Qt::KeepAspectRatio);
     ui->graphicsView_2->show();
-
-
 }
 
 MainWindow::~MainWindow()
@@ -74,10 +70,32 @@ void MainWindow::closeEvent(QCloseEvent *event)
     }
 }
 
-void MainWindow::open()
+void MainWindow::newFile()
 {
     if (maybeSave()) {
-        QString fileName = QFileDialog::getOpenFileName(this);
+        // fill tile here
+    }
+
+    // map view
+    curMap = MapView2();
+    GraphicsScene *scene = new GraphicsScene();
+    curMap.displayMap(scene);
+    ui->graphicsView->setScene(scene);
+    ui->graphicsView->show();
+
+    // this is for the mini map
+    ui->graphicsView_2->setScene(scene);
+    ui->graphicsView_2->show();
+
+    statusBar()->showMessage("New File created", 2000);
+}
+
+void MainWindow::open()
+{
+    QFileDialog dialog;
+    dialog.setDirectory(QDir::home());
+    if (maybeSave()) {
+        QString fileName = dialog.getOpenFileName(this);
         if (!fileName.isEmpty())
             loadFile(fileName);
     }
@@ -94,20 +112,23 @@ void MainWindow::loadFile(const QString &fileName)
     }
 
 
+    // load and display map and minimap
+
     QString mapName = fileName;
-    QString texture = fileName;
+    QString texture = ":/data/img/Terrain.png";
+    curMap = MapView2(mapName, texture);
 
-    Texture tx(texture);
+    GraphicsScene *scene = new GraphicsScene();
+    curMap.displayMap(scene);
 
-    QImage imageDx = tx.createImageTile(&tx.fullImage, tx.tileDim);
-    QPixmap pixmap = QPixmap::fromImage(imageDx);
-
-    QGraphicsScene* scene = new QGraphicsScene();
-    scene->addPixmap(pixmap);
-
-    ui->graphicsView->setMouseTracking(true);
     ui->graphicsView->setScene(scene);
+    ui->graphicsView->setMouseTracking(true);
     ui->graphicsView->show();
+
+    ui->graphicsView_2->setScene(scene);
+    ui->graphicsView_2->setMouseTracking(true);
+    ui->graphicsView_2->show();
+
 
     setCurrentFile(fileName);
     statusBar()->showMessage(fileName + " loaded!", 2000);
@@ -126,6 +147,7 @@ void MainWindow::setCurrentFile(const QString &fileName)
 bool MainWindow::maybeSave()
 {
     //if (!ui->textEdit->document()->isModified()) return true;
+    return true;
     const QMessageBox::StandardButton ret
         = QMessageBox::warning(this, tr("Application"),
                                tr("The document has been modified.\n"
@@ -154,6 +176,7 @@ bool MainWindow::save()
 bool MainWindow::saveAs()
 {
     QFileDialog dialog(this);
+    dialog.setDirectory(QDir::home());
     dialog.setWindowModality(Qt::WindowModal);
     dialog.setAcceptMode(QFileDialog::AcceptSave);
     if (dialog.exec() != QDialog::Accepted)
@@ -172,11 +195,51 @@ bool MainWindow::saveFile(const QString &fileName)
         return false;
     }
 
-   // stuff happens here
+   QTextStream stream(&file);
+   stream << curMap.getMapName() << endl;
+   stream << curMap.getMapDim().width()-2 << " " << curMap.getMapDim().height()-2 << endl;
 
-    setCurrentFile(fileName);
-    statusBar()->showMessage(tr("File saved"), 2000);
-    return true;
+   QVector<QChar>::iterator itr;
+
+   QVector<QChar> layout = curMap.getMapLayout();
+
+   int i = 0;
+   for (itr = layout.begin(); itr != layout.end(); itr++)
+   {
+       stream << *itr;
+       i++;
+       if (i == 98)
+       {
+           stream << endl;
+           i = 0;
+       }
+   }
+
+   QVector<Player> players = curMap.getPlayers();
+
+   stream << curMap.getNumPlayers() << endl;
+
+   for (auto iter = players.begin(); iter != players.end(); iter++) {
+        stream << iter->num << " " << iter->gold << " " << iter->lumber << endl;
+   }
+
+   stream << curMap.getNumUnits() << endl;
+
+   for (int i = 0; i < curMap.getNumPlayers() + 1; i++)
+   {
+       QVector<Unit> units = players[i].units;
+       QVector<Unit>::iterator itr3;
+
+       for (itr3 = units.begin(); itr3 != units.end(); itr3++)
+       {
+           stream << itr3->name << " " << i << " " << itr3->x << " " << itr3->y << endl;
+       }
+   }
+
+
+   setCurrentFile(fileName);
+   statusBar()->showMessage(tr("File saved"), 2000);
+   return true;
 }
 
 void MainWindow::writeSettings()
@@ -202,4 +265,35 @@ void MainWindow::wheelEvent(QWheelEvent *event)
              ui->graphicsView->scale(1.0 / scaleFactor, 1.0 / scaleFactor);
         }
     }
+void MainWindow::on_button_new_released()
+{
+    newFile();
+}
+
+void MainWindow::on_button_open_released()
+{
+    open();
+}
+
+void MainWindow::on_button_save_released()
+{
+    save();
+}
+
+void MainWindow::on_tool_grass_released()
+{
+    curTool = "grass";
+    statusBar()->showMessage(tr("Grass tool selected"), 2000);
+}
+
+void MainWindow::on_tool_dirt_released()
+{
+    curTool = "dirt";
+    statusBar()->showMessage(tr("Dirt tool selected"), 2000);
+}
+
+void MainWindow::on_tool_water_released()
+{
+    curTool = "water";
+    statusBar()->showMessage(tr("Water tool selected"), 2000);
 }

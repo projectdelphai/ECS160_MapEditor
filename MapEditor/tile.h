@@ -17,6 +17,8 @@ public:
     QPointF pos;
 
     QPixmap texturePix;
+protected:
+    void mousePressEvent(QGraphicsSceneMouseEvent *event);
 
 
 private:

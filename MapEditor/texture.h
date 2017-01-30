@@ -13,16 +13,18 @@ public:
     explicit Texture(const QString &mapTexName);
 
     void display();
+    enum  Type { Grass = 0, Dirt , Tree , Water , Rock , WallDamage , Wall , Rubble };
 
 //private:
     void open(const QString &mapTexture);
-    QImage createImageTile(QImage* image, const QRect &rect);
+    void scanTexture(const QString &str);
 
     QImage fullImage;
     QString texName;
-    QVector<QChar> mapLayOut;
     QRect tileDim;
-    void scanTexture();
+    QVector< QMap<QString, int > > typeList;
+
+    QImage getImageTile(Type);
 
 };
 

@@ -31,11 +31,26 @@ protected:
     void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
     void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
     void wheelEvent(QWheelEvent *event) Q_DECL_OVERRIDE;
+
+    MapView2 curMap;
+
 private slots:
     bool save();
     bool saveAs();
-
+    void newFile();
     void open();
+
+    void on_button_new_released();
+
+    void on_button_open_released();
+
+    void on_button_save_released();
+
+    void on_tool_grass_released();
+
+    void on_tool_dirt_released();
+
+    void on_tool_water_released();
 
 private:
     Ui::MainWindow *ui;
@@ -44,6 +59,8 @@ private:
     bool saveFile(const QString &fileName);
     void setCurrentFile(const QString &fileName);
 
+
+    QString curTool;
     QString curFile;
     QGraphicsScene* scene;
 };
