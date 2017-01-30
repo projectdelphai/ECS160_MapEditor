@@ -229,7 +229,6 @@ bool MainWindow::saveFile(const QString &fileName)
        }
    }
 
-   stream << endl;
 
    setCurrentFile(fileName);
    statusBar()->showMessage(tr("File saved"), 2000);
