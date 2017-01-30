@@ -2,6 +2,8 @@
 #include "ui_mainwindow.h"
 #include "graphicsscene.h"
 #include <QDebug>
+#include "mapview2.h"
+
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
@@ -10,9 +12,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     // map view
     QString mapName = ":/data/map/2player.map";
     QString texture = ":/data/img/Terrain.png";
-    MapView2 map(mapName, texture);
+    curMap = MapView2(mapName, texture);
     GraphicsScene *scene = new GraphicsScene();
-    map.displayMap(scene);
+    curMap.displayMap(scene);
     ui->graphicsView->setScene(scene);
     ui->graphicsView->setMouseTracking(true);
     ui->graphicsView->show();
@@ -106,10 +108,10 @@ void MainWindow::loadFile(const QString &fileName)
 
     QString mapName = fileName;
     QString texture = ":/data/img/Terrain.png";
-    MapView2 map(mapName, texture);
+    curMap = MapView2(mapName, texture);
 
     GraphicsScene *scene = new GraphicsScene();
-    map.displayMap(scene);
+    curMap.displayMap(scene);
 
     ui->graphicsView->setScene(scene);
     ui->graphicsView->setMouseTracking(true);
@@ -185,11 +187,52 @@ bool MainWindow::saveFile(const QString &fileName)
         return false;
     }
 
-   // stuff happens here
+   QTextStream stream(&file);
+   stream << curMap.getMapName() << endl;
+   stream << curMap.getMapDim().width()-2 << " " << curMap.getMapDim().height()-2 << endl;
 
-    setCurrentFile(fileName);
-    statusBar()->showMessage(tr("File saved"), 2000);
-    return true;
+   QVector<QChar>::iterator itr;
+
+   QVector<QChar> layout = curMap.getMapLayout();
+
+   int i = 0;
+   for (itr = layout.begin(); itr != layout.end(); itr++)
+   {
+       stream << *itr;
+       i++;
+       if (i == 98)
+       {
+           stream << endl;
+           i = 0;
+       }
+   }
+
+   QVector<Player> players = curMap.getPlayers();
+
+   stream << curMap.getNumPlayers() << endl;
+
+   for (int i = 0; i < curMap.getNumPlayers() + 1; i++)
+   {
+       stream << players[i].num << " " << players[i].gold << " " << players[i].lumber << endl;
+   }
+
+   stream << curMap.getNumUnits() << endl;
+
+   for (int i = 0; i < curMap.getNumPlayers() + 1; i++)
+   {
+       QVector<Unit> units = players[i].units;
+       QVector<Unit>::iterator itr3;
+
+       for (itr3 = units.begin(); itr3 != units.end(); itr3++)
+       {
+           stream << itr3->name << " " << i << " " << itr3->x << " " << itr3->y << endl;
+       }
+   }
+
+
+   setCurrentFile(fileName);
+   statusBar()->showMessage(tr("File saved"), 2000);
+   return true;
 }
 
 void MainWindow::writeSettings()
