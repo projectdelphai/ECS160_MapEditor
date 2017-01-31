@@ -2,11 +2,12 @@
 
 ## Contributors 
 
+ - Rafaeli Arroyo
  - Joseph Castaneda
  - Reuben Castelino
- - Brandon Luong
- - Sahana Mundewadi
+ - Loc Mai
  - Felix Ng
+ - Ruhi Sharfuddin
  - Allan Soria
  - Beshoy Youssef
 
