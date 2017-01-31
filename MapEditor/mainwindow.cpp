@@ -3,6 +3,8 @@
 #include "graphicsscene.h"
 #include <QDebug>
 #include "mapview2.h"
+#include <iostream>
+using namespace std;
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
@@ -250,11 +252,13 @@ void MainWindow::writeSettings()
 // reference  http://www.qtcentre.org/threads/52603-Zoom-effect-by-mouse-Wheel-in-QGraphicsview
 void MainWindow::wheelEvent(QWheelEvent *event)
 {
-    if( event->modifiers() & Qt::ControlModifier ) // check if the CTRL key is Pressed
+    /*if( event->modifiers() & Qt::ControlModifier ) // check if the CTRL key is Pressed
     {
+        cout << "ctrl key is pressed"<< endl;
         ui->graphicsView->setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
         // Scale the view / do the zoom
         double scaleFactor = 1.15;
+        static const double scaleMin = .1; // defines the min scale limit.
         if(event->delta() > 0) {
             // Zoom in
             ui->graphicsView-> scale(scaleFactor, scaleFactor);
@@ -263,6 +267,22 @@ void MainWindow::wheelEvent(QWheelEvent *event)
         } else {
             // Zooming out
              ui->graphicsView->scale(1.0 / scaleFactor, 1.0 / scaleFactor);
+        }
+    }*/
+    if( event->modifiers() & Qt::ControlModifier )
+    {
+        ui->graphicsView->setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
+        static const double scaleFactor = 1.15;
+        static double currentScale = 1.0;  // stores the current scale value.
+        static const double scaleMin = .1; // defines the min scale limit.
+        static const double scaleMax=10.0;
+
+        if(event->delta() > 0 && currentScale < scaleMax) {
+            ui->graphicsView->scale(scaleFactor, scaleFactor);
+            currentScale *= scaleFactor;
+        } else if (currentScale > scaleMin) {
+           ui->graphicsView->scale(1 / scaleFactor, 1 / scaleFactor);
+            currentScale /= scaleFactor;
         }
     }
 }
