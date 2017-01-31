@@ -352,3 +352,10 @@ void MainWindow::changeLayout(int x, int y, Texture::Type type)
 
 
 }
+
+void MainWindow::on_tool_peasant1_clicked()
+{
+    curPlayer = 1;
+    curTool = "peasant";
+    statusBar()->showMessage(tr("Player 1 Peasant selected"), 2000);
+}

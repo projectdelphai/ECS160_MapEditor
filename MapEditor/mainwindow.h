@@ -62,6 +62,8 @@ private slots:
 
     void on_tool_wall_clicked();
 
+    void on_tool_peasant1_clicked();
+
 private:
     Ui::MainWindow *ui;
     void writeSettings();
@@ -69,7 +71,7 @@ private:
     bool saveFile(const QString &fileName);
     void setCurrentFile(const QString &fileName);
 
-
+    int curPlayer;
     QString curTool;
     QString curFile;
 };
