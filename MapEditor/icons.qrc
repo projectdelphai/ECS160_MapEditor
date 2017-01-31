@@ -16,5 +16,6 @@
         <file>icons/toolbar/tool_peasant.png</file>
         <file>icons/toolbar/tool_townhall.png</file>
         <file>icons/toolbar/tool_p1.png</file>
+        <file>icons/toolbar/tool_p2.png</file>
     </qresource>
 </RCC>

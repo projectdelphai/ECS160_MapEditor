@@ -359,3 +359,10 @@ void MainWindow::on_tool_peasant1_clicked()
     curTool = "peasant";
     statusBar()->showMessage(tr("Player 1 Peasant selected"), 2000);
 }
+
+void MainWindow::on_tool_townhall1_clicked()
+{
+    curPlayer = 1;
+    curTool = "townhall";
+    statusBar()->showMessage(tr("Player 1 Townhall selected"), 2000);
+}
