@@ -81,7 +81,7 @@ void MainWindow::newFile()
 
     // map view
     curMap = MapView2();
-    GraphicsScene *scene = new GraphicsScene(this);
+    scene = new GraphicsScene(this);
     curMap.displayMap(scene);
     ui->graphicsView->setScene(scene);
     ui->graphicsView->show();
@@ -89,6 +89,8 @@ void MainWindow::newFile()
     // this is for the mini map
     ui->graphicsView_2->setScene(scene);
     ui->graphicsView_2->show();
+
+    on_tool_grass_clicked();
 
     statusBar()->showMessage("New File created", 2000);
 }
@@ -252,42 +254,62 @@ void MainWindow::writeSettings()
     settings.setValue("geometry", saveGeometry());
 }
 
-void MainWindow::on_button_new_released()
+void MainWindow::on_button_new_clicked()
 {
     newFile();
 }
 
-void MainWindow::on_button_open_released()
+void MainWindow::on_button_open_clicked()
 {
     open();
 }
 
-void MainWindow::on_button_save_released()
+void MainWindow::on_button_save_clicked()
 {
     save();
 }
 
-void MainWindow::on_tool_grass_released()
+void MainWindow::on_tool_grass_clicked()
 {
     curTool = "grass";
     scene->curTool = "grass";
     statusBar()->showMessage(tr("Grass tool selected"), 2000);
 }
 
-void MainWindow::on_tool_dirt_released()
+void MainWindow::on_tool_dirt_clicked()
 {
     curTool = "dirt";
     scene->curTool = "dirt";
     statusBar()->showMessage(tr("Dirt tool selected"), 2000);
 }
 
-void MainWindow::on_tool_water_released()
+void MainWindow::on_tool_water_clicked()
 {
     curTool = "water";
     scene->curTool = "water";
     statusBar()->showMessage(tr("Water tool selected"), 2000);
 }
 
+void MainWindow::on_tool_rock_clicked()
+{
+    curTool = "rock";
+    scene->curTool = "rock";
+    statusBar()->showMessage(tr("Rock tool selected"), 2000);
+}
+
+void MainWindow::on_tool_tree_clicked()
+{
+    curTool = "tree";
+    scene->curTool = "tree";
+    statusBar()->showMessage(tr("Tree tool selected"), 2000);
+}
+
+void MainWindow::on_tool_wall_clicked()
+{
+    curTool = "wall";
+    scene->curTool = "wall";
+    statusBar()->showMessage(tr("Wall tool selected"), 2000);
+}
 void MainWindow::changeLayout(int x, int y, Texture::Type type)
 {
 
@@ -304,13 +326,22 @@ void MainWindow::changeLayout(int x, int y, Texture::Type type)
     switch (type)
     {
     case Texture::Water:
-        c = 'W';
+        c = ' ';
         break;
     case Texture::Grass:
         c = 'G';
         break;
     case Texture::Dirt:
         c = 'D';
+        break;
+    case Texture::Rock:
+        c = 'R';
+        break;
+    case Texture::Tree:
+        c = 'F';
+        break;
+    case Texture::Wall:
+        c = 'W';
         break;
     }
 
@@ -320,4 +351,18 @@ void MainWindow::changeLayout(int x, int y, Texture::Type type)
     curMap.setMapLayout(layout);
 
 
+}
+
+void MainWindow::on_tool_peasant1_clicked()
+{
+    curPlayer = 1;
+    curTool = "peasant";
+    statusBar()->showMessage(tr("Player 1 Peasant selected"), 2000);
+}
+
+void MainWindow::on_tool_townhall1_clicked()
+{
+    curPlayer = 1;
+    curTool = "townhall";
+    statusBar()->showMessage(tr("Player 1 Townhall selected"), 2000);
 }
