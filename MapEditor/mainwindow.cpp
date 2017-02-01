@@ -271,7 +271,8 @@ void MainWindow::wheelEvent(QWheelEvent *event)
             currentScale /= scaleFactor;
         }
         else if (currentScale<=scaleMin) {
-            ui->graphicsView->fitInView(0,0,3075,2065);
+            //ui->graphicsView->fitInView(0,0,3075,2065);
+            currentScale = scaleMin;
         }
     }
 }
