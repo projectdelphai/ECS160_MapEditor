@@ -3,6 +3,7 @@
 #include "graphicsscene.h"
 #include <QDebug>
 #include "mapview2.h"
+
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
@@ -80,7 +81,7 @@ void MainWindow::newFile()
 
     // map view
     curMap = MapView2();
-    scene = new GraphicsScene(this);
+    GraphicsScene *scene = new GraphicsScene(this);
     curMap.displayMap(scene);
     ui->graphicsView->setScene(scene);
     ui->graphicsView->show();
@@ -88,8 +89,6 @@ void MainWindow::newFile()
     // this is for the mini map
     ui->graphicsView_2->setScene(scene);
     ui->graphicsView_2->show();
-
-    on_tool_grass_clicked();
 
     statusBar()->showMessage("New File created", 2000);
 }
@@ -252,91 +251,43 @@ void MainWindow::writeSettings()
     QSettings settings(QCoreApplication::organizationName(), QCoreApplication::applicationName());
     settings.setValue("geometry", saveGeometry());
 }
-// reference  http://www.qtcentre.org/threads/52603-Zoom-effect-by-mouse-Wheel-in-QGraphicsview
-void MainWindow::wheelEvent(QWheelEvent *event)
-{
-    if( (event->modifiers() & Qt::ControlModifier) && event->orientation() == Qt::Vertical )  // if ctrl is held down
-    {
-        ui->graphicsView->setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
-        static const double scaleFactor = 1.15;
-        static double currentScale = 0.5;  // stores the current scale value.
-        static const double scaleMin = 0.1; // defines the min scale limit.
-        static const double scaleMax = 4.0;
 
-        bool scrollVertical = event->orientation() == Qt::Vertical;
-        int scrollDir = event->delta();
-
-        if(currentScale > scaleMax) {
-            currentScale = scaleMax;
-        } else if(currentScale < scaleMin) {
-            currentScale = scaleMin;
-        } else if(scrollDir > 0 && currentScale < scaleMax) {   // zoom out
-            ui->graphicsView->scale(scaleFactor, scaleFactor);
-            currentScale *= scaleFactor;
-        } else if(scrollDir < 0 && currentScale > scaleMin) {   // zoom in
-            ui->graphicsView->scale(1 / scaleFactor, 1 / scaleFactor);
-            currentScale /= scaleFactor;
-        }
-
-        //ui->graphicsView->fitInView(0,0,3075,2065);
-    }
-}
-void MainWindow::on_button_new_clicked()
+void MainWindow::on_button_new_released()
 {
     newFile();
 }
 
-void MainWindow::on_button_open_clicked()
+void MainWindow::on_button_open_released()
 {
     open();
 }
 
-void MainWindow::on_button_save_clicked()
+void MainWindow::on_button_save_released()
 {
     save();
 }
 
-void MainWindow::on_tool_grass_clicked()
+void MainWindow::on_tool_grass_released()
 {
     curTool = "grass";
     scene->curTool = "grass";
     statusBar()->showMessage(tr("Grass tool selected"), 2000);
 }
 
-void MainWindow::on_tool_dirt_clicked()
+void MainWindow::on_tool_dirt_released()
 {
     curTool = "dirt";
     scene->curTool = "dirt";
     statusBar()->showMessage(tr("Dirt tool selected"), 2000);
 }
 
-void MainWindow::on_tool_water_clicked()
+void MainWindow::on_tool_water_released()
 {
     curTool = "water";
     scene->curTool = "water";
     statusBar()->showMessage(tr("Water tool selected"), 2000);
 }
 
-void MainWindow::on_tool_rock_clicked()
-{
-    curTool = "rock";
-    scene->curTool = "rock";
-    statusBar()->showMessage(tr("Rock tool selected"), 2000);
-}
-
-void MainWindow::on_tool_tree_clicked()
-{
-    curTool = "tree";
-    scene->curTool = "tree";
-    statusBar()->showMessage(tr("Tree tool selected"), 2000);
-}
-
-void MainWindow::on_tool_wall_clicked()
-{
-    curTool = "wall";
-    scene->curTool = "wall";
-    statusBar()->showMessage(tr("Wall tool selected"), 2000);
-}
 void MainWindow::changeLayout(int x, int y, Texture::Type type)
 {
 
@@ -353,22 +304,13 @@ void MainWindow::changeLayout(int x, int y, Texture::Type type)
     switch (type)
     {
     case Texture::Water:
-        c = ' ';
+        c = 'W';
         break;
     case Texture::Grass:
         c = 'G';
         break;
     case Texture::Dirt:
         c = 'D';
-        break;
-    case Texture::Rock:
-        c = 'R';
-        break;
-    case Texture::Tree:
-        c = 'F';
-        break;
-    case Texture::Wall:
-        c = 'W';
         break;
     }
 
@@ -378,18 +320,4 @@ void MainWindow::changeLayout(int x, int y, Texture::Type type)
     curMap.setMapLayout(layout);
 
 
-}
-
-void MainWindow::on_tool_peasant1_clicked()
-{
-    curPlayer = 1;
-    curTool = "peasant";
-    statusBar()->showMessage(tr("Player 1 Peasant selected"), 2000);
-}
-
-void MainWindow::on_tool_townhall1_clicked()
-{
-    curPlayer = 1;
-    curTool = "townhall";
-    statusBar()->showMessage(tr("Player 1 Townhall selected"), 2000);
 }
