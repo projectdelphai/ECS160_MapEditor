@@ -23,6 +23,10 @@ Texture::Texture(const QString &texFileName )
 
 }
 
+Texture::Texture(){
+
+
+}
 
 void Texture::open(const QString &textureName){
     QImage img;
@@ -99,12 +103,88 @@ void Texture::scanTexture(const QString &texFileName){
 
     }
 
-
-
-
 }
 
-QImage Texture::getImageTile(Type type){
+void Texture::scanTexture2(const QString &texFileName){
+    QFile file(texFileName);
+
+    if (!file.open(QIODevice::ReadOnly)){
+        QMessageBox::information(0,"error",file.errorString());
+    }
+
+    QString name;
+
+    int lineNum = 0;
+    int numTypes = 0;
+
+    QVector<QString> types;
+
+    QTextStream in(&file);
+    while(!in.atEnd()){
+
+        QString line  = in.readLine();
+
+        // skip blankline
+        if (line == QString(" "))
+            continue;
+
+        lineNum++;
+
+        if (lineNum == 1){
+            name = line;
+            name = name.remove(0,2);
+            name = name.remove(QRegExp(".png"));
+            qDebug() << name;
+        }
+        else if(lineNum == 2){
+            numTypes =  line.toInt();
+
+        }
+        else if(lineNum > 2){
+            types.append(line);
+        }
+    }
+
+
+    QDir dir;
+    QString path = ":data/img/";
+
+
+    QString textureName = path+name+".png";
+    QImage img;
+    if( !img.load(textureName)){
+        QMessageBox::information(0,"error","image");
+    }
+
+    // store image loaded to reaccess
+    imgLoaded.insert(name,img);
+
+
+    int offsetHeight = 0;
+    // assumes each img is squared.
+    int width = img.width();
+    QMap<QString,int> imgTypes;
+    for(int i = 0; i < numTypes; ++i){
+        imgTypes.insert(types[i],offsetHeight);
+        offsetHeight += width;
+    }
+
+    itemList.insert(name,imgTypes);
+}
+
+QImage Texture::getImageTile(QString strType ){
+
+    QImage img = imgLoaded.value(strType);
+    // assume size is square
+    int width = img.width();
+    int height = width;
+    int offsetH = itemList.value(strType).last();
+    QImage image = img.copy(0,offsetH,width,height);
+    return image;
+}
+
+QImage Texture::getImageTile(Type type ){
+
     int width = 32;
     int height = 32;
     int offsetH = typeList[type].last();

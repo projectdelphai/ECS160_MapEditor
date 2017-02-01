@@ -40,6 +40,8 @@ public:
 
     void displayMap(QGraphicsScene *scene);
     void builtmap(QGraphicsScene *scene);
+    void builtAssets(QGraphicsScene *scene);
+
     QSize getMapDim();
     QString getMapName();
     QVector<QChar> getMapLayout();
@@ -67,6 +69,7 @@ private:
     QVector<Player> players;
 
     Texture *texture;
+    Texture *unitTexture;
 
     QVector<Tile*> tileMap;
 

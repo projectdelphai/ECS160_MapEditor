@@ -7,7 +7,7 @@
 class Tile : public QGraphicsPixmapItem
 {
 public:
-    Tile(Texture::Type type);
+    Tile(QString typeStr,QPixmap texturePix);
     Tile(Texture::Type type, QPixmap texturePix);
     QString toString();
 
@@ -16,7 +16,7 @@ public:
 
     Texture::Type type;
     QString note;
-    QPointF pos;
+    QString typeStr;
 
     QPixmap texturePix;
 protected:
