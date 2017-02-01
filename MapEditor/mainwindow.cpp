@@ -261,7 +261,7 @@ void MainWindow::wheelEvent(QWheelEvent *event)
         static const double scaleFactor = 1.15;
         static double currentScale = 0.5;  // stores the current scale value.
         static const double scaleMin = 0.25; // defines the min scale limit.
-        static const double scaleMax=2.0;
+        static const double scaleMax=4.0;
 
         if(event->delta() > 0 && currentScale < scaleMax) {
             ui->graphicsView->scale(scaleFactor, scaleFactor);
@@ -271,8 +271,7 @@ void MainWindow::wheelEvent(QWheelEvent *event)
             currentScale /= scaleFactor;
         }
         else if (currentScale<=scaleMin) {
-            ui->graphicsView->fitInView(0,0,3058,2058);
-            ui->graphicsView->show();
+            ui->graphicsView->fitInView(0,0,3075,2065);
         }
     }
 }
