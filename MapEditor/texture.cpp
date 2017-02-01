@@ -148,9 +148,8 @@ void Texture::scanTexture2(const QString &texFileName){
 
     QDir dir;
     QString path = ":data/img/";
-
-
     QString textureName = path+name+".png";
+
     QImage img;
     if( !img.load(textureName)){
         QMessageBox::information(0,"error","image");
@@ -169,6 +168,7 @@ void Texture::scanTexture2(const QString &texFileName){
         offsetHeight += width;
     }
 
+    // will use item name has key to retrieve the same group of items
     itemList.insert(name,imgTypes);
 }
 
