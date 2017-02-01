@@ -260,7 +260,7 @@ void MainWindow::wheelEvent(QWheelEvent *event)
         ui->graphicsView->setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
         static const double scaleFactor = 1.15;
         static double currentScale = 0.5;  // stores the current scale value.
-        static const double scaleMin = 0.25; // defines the min scale limit.
+        static const double scaleMin = 0.1; // defines the min scale limit.
         static const double scaleMax=4.0;
 
         if(event->delta() > 0 && currentScale < scaleMax) {
