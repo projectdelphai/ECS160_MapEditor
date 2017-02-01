@@ -5,6 +5,7 @@
 #include <QtWidgets>
 #include "mapview2.h"
 #include "texture.h"
+#include "graphicsscene.h"
 
 namespace Ui {
 class MainWindow;
@@ -22,6 +23,9 @@ public:
 
     void loadFile(const QString &fileName);
 
+public slots:
+    void changeLayout(int x, int y, Texture::Type type);
+
 protected:
 #ifndef QT_NO_CONTEXTMENU
     void contextMenuEvent(QContextMenuEvent *event) Q_DECL_OVERRIDE;
@@ -33,6 +37,7 @@ protected:
     void wheelEvent(QWheelEvent *event) Q_DECL_OVERRIDE;
 
     MapView2 curMap;
+    GraphicsScene *scene;
 
 private slots:
     bool save();
@@ -40,17 +45,27 @@ private slots:
     void newFile();
     void open();
 
-    void on_button_new_released();
+    void on_button_new_clicked();
 
-    void on_button_open_released();
+    void on_button_open_clicked();
 
-    void on_button_save_released();
+    void on_button_save_clicked();
 
-    void on_tool_grass_released();
+    void on_tool_grass_clicked();
 
-    void on_tool_dirt_released();
+    void on_tool_dirt_clicked();
 
-    void on_tool_water_released();
+    void on_tool_water_clicked();
+
+    void on_tool_rock_clicked();
+
+    void on_tool_tree_clicked();
+
+    void on_tool_wall_clicked();
+
+    void on_tool_peasant1_clicked();
+
+    void on_tool_townhall1_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -59,10 +74,9 @@ private:
     bool saveFile(const QString &fileName);
     void setCurrentFile(const QString &fileName);
 
-
+    int curPlayer;
     QString curTool;
     QString curFile;
-    QGraphicsScene* scene;
 };
 
 

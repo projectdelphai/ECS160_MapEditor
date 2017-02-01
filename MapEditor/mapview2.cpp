@@ -172,9 +172,8 @@ QImage MapView2::createImageTile(QImage* image, const QRect & rect) {
                   image->bytesPerLine(), image->format());
 }
 
-void MapView2::builtmap(QGraphicsScene *scene){
-
-    QString tileType = " ";
+void MapView2::builtmap(QGraphicsScene *scene)
+{
     int x = 0;
     int y = 0;
     Texture::Type type;
@@ -204,7 +203,8 @@ void MapView2::builtmap(QGraphicsScene *scene){
 
             QImage imageDx = texture->getImageTile(type);
             QPixmap pixmap = QPixmap::fromImage(imageDx);
-            QGraphicsPixmapItem * pixItem = new Tile(tileType , pixmap );
+            //QGraphicsPixmapItem * pixItem = new Tile(type, pixmap );
+            Tile * pixItem = new Tile(type, pixmap);
             // sets each tile image x = 0*32,1*32,2*32,... y= 0*32,1*32,2*32,...
             x = j*tileDim.width();
             y = i*tileDim.height();
@@ -259,3 +259,9 @@ int MapView2::getNumUnits()
 {
     return numUnits;
 }
+
+void MapView2::setMapLayout(QVector<QChar> layout)
+{
+    mapLayOut = layout;
+}
+

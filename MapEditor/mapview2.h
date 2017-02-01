@@ -43,6 +43,7 @@ public:
     QSize getMapDim();
     QString getMapName();
     QVector<QChar> getMapLayout();
+    void setMapLayout(QVector<QChar> layout);
     QVector<Player> getPlayers();
     int getNumPlayers();
     int getNumUnits();
