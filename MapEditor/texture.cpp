@@ -26,6 +26,7 @@ Texture::Texture(const QString &texFileName )
 Texture::Texture(){
 
 
+
 }
 
 void Texture::open(const QString &textureName){
@@ -35,6 +36,63 @@ void Texture::open(const QString &textureName){
     }
 
     fullImage = img;
+}
+
+void Texture::openColor(const QString &colorFile){
+    QImage colorImg;
+
+    if( !colorImg.load(colorFile)){
+        QMessageBox::information(0,"error","image");
+    }
+
+
+    // stores colors in Qmap
+    QVector<QColor> colorV;
+    for(int i = 0; i < colorImg.height(); i++){
+        QVector<QColor> colorV;
+        for(int j = 0; j < colorImg.width(); j++ ){
+            QColor color(colorImg.pixel(j,i) );
+            colorV.append(color);
+        }
+
+        colorMap.insert(i, colorV);
+        colorV.clear();
+    }
+
+    qDebug() << "color open:" << colorMap.size();
+
+}
+
+QImage Texture::paintUnit(QString unitname,int colorPick){
+    QImage image = getImageTile(unitname);
+    int blue = 0;
+    int shade = 0;
+
+    for(int i=0; i < image.height() ;i++)
+    {
+        for(int j=0 ; j < image.width();j++ )
+        {
+            QColor color(image.pixel(i,j));
+
+            for(int index = 0; index < colorMap[blue].size(); index++ ){
+                if (color == colorMap[blue].at(index)){
+                    qDebug() << "color match";
+                    shade = index;
+                    QColor c = colorMap.value(colorPick).at(shade);
+                    image.setPixel( i,j, c.rgb() );
+                }
+            }
+
+        }
+    }
+
+//    QGraphicsScene *scene = new QGraphicsScene();
+//    QGraphicsView *view = new QGraphicsView(scene);
+//    QPixmap pix = QPixmap::fromImage(image);
+//    scene->addPixmap(pix);
+//    view->show();
+
+    return image;
 }
 
 
@@ -155,6 +213,9 @@ void Texture::scanTexture2(const QString &texFileName){
         QMessageBox::information(0,"error","image");
     }
 
+
+
+
     // store image loaded to reaccess
     imgLoaded.insert(name,img);
 
@@ -170,6 +231,16 @@ void Texture::scanTexture2(const QString &texFileName){
 
     // will use item name has key to retrieve the same group of items
     itemList.insert(name,imgTypes);
+
+    QVector<QImage> imgColor;
+    int nPlayers = 8;
+
+    for(int i = 0; i < nPlayers; i++){
+        imgColor.append(paintUnit(name,i));
+//        objectImgColor.insert(name,imgColo)
+    }
+    objectImgColor.insert(name,imgColor);
+
 }
 
 QImage Texture::getImageTile(QString strType ){
@@ -187,7 +258,7 @@ QImage Texture::getImageTile(Type type ){
 
     int width = 32;
     int height = 32;
-    int offsetH = typeList[type].last();
+    int offsetH = typeList[type].first();
     QImage image = fullImage.copy(0,offsetH,width,height);
     return image;
 }

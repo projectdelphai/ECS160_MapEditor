@@ -222,13 +222,17 @@ void MapView2::builtAssets(QGraphicsScene *scene){
     int x = 0;
     int y = 0;
     // need to load type using at least once
+    unitTexture->openColor(":/data/img/Colors.png");
     unitTexture->scanTexture2(":/data/img/GoldMine.dat");
     unitTexture->scanTexture2(":/data/img/Peasant.dat");
+
+
     for(int i = 0; i < players.size(); ++i){
         for(int j = 0; j < players[i].units.size(); ++j){
 
             unitName = players[i].units[j].name;
-            QImage imageDx = unitTexture->getImageTile( unitName );
+            qDebug() << unitName;
+            QImage imageDx = unitTexture->objectImgColor.value(unitName).at(i);
             Tile *unitItem = new Tile(unitName, QPixmap::fromImage(imageDx));
             x = tileDim.width()*players[i].units[j].x;
             y = tileDim.height()*players[i].units[j].y;
