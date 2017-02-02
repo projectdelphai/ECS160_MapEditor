@@ -366,3 +366,11 @@ void MainWindow::on_tool_townhall1_clicked()
     curTool = "townhall";
     statusBar()->showMessage(tr("Player 1 Townhall selected"), 2000);
 }
+
+void MainWindow::on_tool_goldmine_clicked()
+{
+    curPlayer = 1;
+    curTool = "goldmine";
+    statusBar()->showMessage(tr("Goldmine Tool selected"), 2000);
+}
+
