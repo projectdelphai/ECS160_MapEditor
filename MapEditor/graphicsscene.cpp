@@ -21,16 +21,10 @@ void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 
     if (curTool == "grass")
         type = Texture::Grass;
-    else if (curTool == "dirt")
-        type = Texture::Dirt;
     else if (curTool == "water")
         type = Texture::Water;
-    else if (curTool == "rock")
-        type = Texture::Rock;
-    else if (curTool == "tree")
-        type = Texture::Tree;
-    else if (curTool == "wall")
-        type = Texture::Wall;
+    else if (curTool == "dirt")
+        type = Texture::Dirt;
     else
     {
         QGraphicsScene::mousePressEvent(mouseEvent);
