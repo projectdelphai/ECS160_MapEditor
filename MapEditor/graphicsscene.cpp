@@ -37,7 +37,7 @@ void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         return;
     }
 
-    QImage imageDx = texture->getImageTile(type);
+    QImage imageDx = texture->terrainType.value(type).first();
     QPixmap pixmap = QPixmap::fromImage(imageDx);
     Tile * pixItem = new Tile(type, pixmap);
 

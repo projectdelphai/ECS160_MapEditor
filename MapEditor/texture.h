@@ -12,6 +12,7 @@ class Texture
 {
 public:
     explicit Texture(const QString &mapTexName);
+    Texture(const QString &mapTexName, const QString &color);
     Texture();
 
     void display();
@@ -21,27 +22,23 @@ public:
 
 //private:
     void open(const QString &mapTexture);
+    void scanTerrain(const QString &str);
     void scanTexture(const QString &str);
-    void scanTexture2(const QString &str);
     void openColor(const QString &colorFile);
-
-    QImage paintUnit(QString unitname,int colorPick);
+    QVector<QImage> paintUnit(int colorPick);
+    void paintAll();
 
     QImage fullImage;
-    QString texName;
+    QString textureName;
     QRect tileDim;
-    QVector< QMap<QString, int > > typeList;
-    QMap<QString,QMap<QString,int>> itemList;
-    QMap<QString,QImage> imgLoaded;
+    QVector< QMap<QString, QImage > > terrainType;
 
+    QVector<QImage> imageList;
     QImage getImageTile(Type);
-    QImage getImageTile( QString strType ="");
-
+    // color with gradient level shades
     QMap< int,QVector<QColor> >colorMap;
-    // number player to access corresponding  color palette asset.
-//    QMap< int , QMap<QString,QVector<QImage>>> playerColorItems;
-
-    QMap< QString, QVector<QImage> > objectImgColor;
+    // recolor images of player's color
+    QMap< int , QVector<QImage> > colorPlayerImg;
 };
 
 #endif // TEXTURE_H
