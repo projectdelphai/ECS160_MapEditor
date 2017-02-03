@@ -25,16 +25,19 @@ public:
     void scanTerrain(const QString &str);
     void scanTexture(const QString &str);
     void openColor(const QString &colorFile);
+    QImage getImageTile(Type);
     QVector<QImage> paintUnit(int colorPick);
     void paintAll();
 
     QImage fullImage;
     QString textureName;
     QRect tileDim;
+
     QVector< QMap<QString, QImage > > terrainType;
+    // testing
+    QVector< QVector<QImage> > terrainType2;
 
     QVector<QImage> imageList;
-    QImage getImageTile(Type);
     // color with gradient level shades
     QMap< int,QVector<QColor> >colorMap;
     // recolor images of player's color

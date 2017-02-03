@@ -1,10 +1,12 @@
 #include "texture.h"
 #include <QDebug>
 
+// for now used only loading map terrain texture
 Texture::Texture(const QString &texFileName )
 {
 //    int numTypes = 8;
     terrainType.resize(8);
+    terrainType2.resize(8);
     // image is initialized
     open(texFileName);
     scanTerrain(QString(":/data/img/Terrain.dat"));
@@ -71,7 +73,6 @@ QVector<QImage> Texture::paintUnit(int colorPick){
 
                 for(int index = 0; index < colorMap[blue].size(); index++ ){
                     if (color == colorMap[blue].at(index)){
-                        qDebug() << "color match";
                         shade = index;
                         QColor c = colorMap.value(colorPick).at(shade);
                         image.setPixel( i,j, c.rgb() );
@@ -144,27 +145,39 @@ void Texture::scanTerrain(const QString &texFileName){
             image = fullImage.copy(0,offsetHeight,fullImage.width(),fullImage.width());
             if( line.contains(QRegExp("grass+")) ){
                 terrainType[Grass].insert(line , image );
+                terrainType2[Grass].append(image);
+
             }
             else if ( line.contains(QRegExp("dirt+")) ){
                 terrainType[Dirt].insert(line, image);
+                terrainType2[Dirt].append(image);
             }
             else if (line.contains(QRegExp("tree+")) ){
                 terrainType[Tree].insert(line, image);
+                terrainType2[Tree].append(image);
             }
             else if (line.contains(QRegExp("water+")) ){
                 terrainType[Water].insert(line , image);
+                terrainType2[Water].append(image);
+
             }
             else if (line.contains(QRegExp("rock+")) ){
                 terrainType[Rock].insert( line, image);
+                terrainType2[Rock].append( image);
+
             }
             else if (line.contains(QRegExp("wall-d+")) ){
                 terrainType[WallDamage].insert( line , image);
+                terrainType2[WallDamage].append( image);
+
             }
             else if(line.contains(QRegExp("wall-\\d+"))){
                 terrainType[Wall].insert( line , image);
+                terrainType2[Wall].append(image);
             }
             else if(line.contains(QRegExp("rubble+"))){
                 terrainType[Rubble].insert( line , image);
+                terrainType2[Rubble].append(image);
             }
 
             offsetHeight += tileSize;

@@ -222,7 +222,9 @@ void MapView2::builtmap(QGraphicsScene *scene)
 
             }
 
-            QImage imageDx = terrainTexture->terrainType[type].first();
+
+//            QImage imageDx = terrainTexture->terrainType[type].first();
+            QImage imageDx = terrainTexture->terrainType2[type].at(0);
             QPixmap pixmap = QPixmap::fromImage(imageDx);
             Tile * pixItem = new Tile(type, pixmap);
             // sets each tile image x = 0*32,1*32,2*32,... y= 0*32,1*32,2*32,...
