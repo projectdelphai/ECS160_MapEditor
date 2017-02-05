@@ -26,8 +26,9 @@ Unit::Unit(QString n, int xc, int yc)
 MapView2::MapView2()
 {
     defaultMap();
-    texture = new Texture(":/data/img/Terrain.png");
-    currentImage = texture->fullImage;
+    setup();
+    terrainTexture = new Texture(":/data/img/Terrain.png");
+    currentImage = terrainTexture->fullImage;
     tileDim.setRect(1,1,32,32);
     tileMap.reserve(mapDim.width()*mapDim.height());
 }
@@ -35,14 +36,34 @@ MapView2::MapView2()
 MapView2::MapView2(const QString &mapFileName , const QString &mapTexName = ":/data/img/Terrain.png" )
 {
     openMap(mapFileName);
-    texture = new Texture(mapTexName);
-    currentImage = texture->fullImage;
+    setup();
+    terrainTexture = new Texture(mapTexName);
+    currentImage = terrainTexture->fullImage;
     // upper-left corner and the rectangle size of width and height
     tileDim.setRect(1,1,32,32);
     tileMap.reserve(mapDim.width()*mapDim.height());
     //scene = new QGraphicsScene();
 
 }
+
+void MapView2::setup(){
+    QString path = ":/data/img";
+    QString colorFile = ":/data/img/Colors.png";
+    QString peasantFile =":/data/img/Peasant.dat";
+    QString Goldmine  =":/data/img/GoldMine.dat";
+    int nObjects = 2;
+
+    QVector<QString> files;
+    files.append(peasantFile);
+    files.append(Goldmine);
+    for(int i = 0; i < nObjects; i++){
+        Texture *tex = new Texture(files.at(i),colorFile);
+        assets.insert( tex->textureName, tex);
+    }
+    assets.value("Peasant")->paintAll();
+
+}
+
 
 void MapView2::defaultMap(){
     mapName = "untitled.map";
@@ -201,9 +222,10 @@ void MapView2::builtmap(QGraphicsScene *scene)
 
             }
 
-            QImage imageDx = texture->getImageTile(type);
+
+//            QImage imageDx = terrainTexture->terrainType[type].first();
+            QImage imageDx = terrainTexture->terrainType2[type].at(0);
             QPixmap pixmap = QPixmap::fromImage(imageDx);
-            //QGraphicsPixmapItem * pixItem = new Tile(type, pixmap );
             Tile * pixItem = new Tile(type, pixmap);
             // sets each tile image x = 0*32,1*32,2*32,... y= 0*32,1*32,2*32,...
             x = j*tileDim.width();
@@ -211,23 +233,41 @@ void MapView2::builtmap(QGraphicsScene *scene)
             pixItem->setPos(x,y);
             scene->addItem(pixItem);
 
-//            qDebug() << n;
-//            qDebug() << tileType << ":" << t;
-//            qDebug() << "(" <<  x << "," << y << ")";
-
         }
     }
 
+}
 
+void MapView2::builtAssets(QGraphicsScene *scene){
+
+    QString unitName = "";
+    int x = 0;
+    int y = 0;
+    for(int i = 0; i < players.size(); ++i){
+        for(int j = 0; j < players[i].units.size(); ++j){
+
+            unitName = players[i].units[j].name;
+            qDebug() << unitName;
+            QImage imageDx;
+            if( i > 1){
+                imageDx = assets.value(unitName)->colorPlayerImg.value(i).at(0);
+            }
+            else{
+                imageDx = assets.value(unitName)->imageList.at(0);
+            }
+            Tile *unitItem = new Tile(unitName, QPixmap::fromImage(imageDx));
+            x = tileDim.width()*players[i].units[j].x;
+            y = tileDim.height()*players[i].units[j].y;
+            unitItem->setPos(x,y);
+            scene->addItem(unitItem);
+        }
+     }
 }
 
 void MapView2::displayMap(QGraphicsScene *scene){
-
-    //QGraphicsView* view = new QGraphicsView(scene);
-    // single tile from texture image
     builtmap(scene);
+    builtAssets(scene);
 
-    //view->show();
 }
 
 QSize MapView2::getMapDim()

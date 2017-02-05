@@ -26,8 +26,10 @@ void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
     {
         Tile *item = (Tile *)this->itemAt(mouseEvent->scenePos(), QTransform());
 
+
         Texture *texture = new Texture(":/data/img/Terrain.png");
         Texture::Type type;
+
 
         if (curTool == "grass")
             type = Texture::Grass;
@@ -47,7 +49,7 @@ void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
             return;
         }
 
-        QImage imageDx = texture->getImageTile(type);
+        QImage imageDx = texture->terrainType.value(type).first();
         QPixmap pixmap = QPixmap::fromImage(imageDx);
         Tile * pixItem = new Tile(type, pixmap);
 

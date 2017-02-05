@@ -67,6 +67,8 @@ private slots:
 
     void on_tool_townhall1_clicked();
 
+    void on_tool_goldmine_clicked();
+
 private:
     Ui::MainWindow *ui;
     void writeSettings();
