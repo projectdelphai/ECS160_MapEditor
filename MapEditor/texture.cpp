@@ -13,7 +13,7 @@ Texture::Texture(const QString &texFileName )
     QStringList filePath = texFileName.split(".");
     QStringList pathnames = filePath[0].split("/");
     texName = pathnames.back();
-
+    datFileName = QString(":/data/img/Terrain.dat");
     scanTexture(QString(":/data/img/Terrain.dat"));
 
     // upper-left corner and the rectangle size of width and height
@@ -99,10 +99,43 @@ void Texture::scanTexture(const QString &texFileName){
 
     }
 
-
-
-
 }
+
+// this function takes all image files from a large png, chops them up and stores them in a map by name
+void Texture::scan() {
+    QFile file(Texture::datFileName);
+
+    if (!file.open(QIODevice::ReadOnly)){
+        QMessageBox::information(0,"error",file.errorString());
+    }
+
+
+    QString name;
+    int lineNum = 0;
+    int offsetHeight = 0;
+    int tileSize = 32;
+    int size = 0;
+
+    QTextStream in(&file);
+    while(!in.atEnd()){
+
+        QString line  = in.readLine();
+
+        // skip blankline
+        if (line == QString(" "))
+            continue;
+
+        lineNum++;
+
+        if(lineNum > 2){
+            QImage tile = fullImage.copy(0,lineNum,32,32);
+            mappedTx.insert(line, tile);
+        }
+
+    }
+}
+
+
 
 QImage Texture::getImageTile(Type type){
     int width = 32;

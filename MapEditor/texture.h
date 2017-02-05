@@ -26,6 +26,12 @@ public:
 
     QImage getImageTile(Type);
 
+    // refactoring to work with singular texture map
+    QMap< QString, QImage> mappedTx;
+    QString datFileName;
+    void scan();
+    QImage* getImage(QString name);
+
 };
 
 #endif // TEXTURE_H
