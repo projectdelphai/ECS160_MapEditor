@@ -15,7 +15,9 @@ class GraphicsScene : public QGraphicsScene
 public:
     explicit GraphicsScene(QObject *parent);
     virtual void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent);
-    virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
+    virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent);
+    virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent);
+    void addToolItem(QGraphicsSceneMouseEvent *mouseEvent);
     QString curTool;
 signals:
     void changedLayout(int x, int y, Texture::Type type);
@@ -24,6 +26,7 @@ public slots:
 
 private:
     QObject *parent;
+    bool brushing;
 };
 
 #endif // GRAPHICSSCENE_H

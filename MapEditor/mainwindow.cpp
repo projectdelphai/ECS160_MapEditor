@@ -33,11 +33,12 @@ MainWindow::~MainWindow()
 #ifndef QT_NO_CONTEXTMENU
 void MainWindow::contextMenuEvent(QContextMenuEvent *event)
 {
-    QMenu menu(this);
+    /*QMenu menu(this);
     menu.addAction(ui->actionOpen);
     menu.addAction(ui->actionSave);
 
     menu.exec(event->globalPos());
+    */
 }
 #endif // QT_NO_CONTEXTMENU
 
@@ -57,7 +58,7 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event){
 
 void MainWindow::mouseReleaseEvent(QMouseEvent *event){
     if (event->button() == Qt::LeftButton ){
-        // something
+        qDebug() << "BES";
     }
 }
 
