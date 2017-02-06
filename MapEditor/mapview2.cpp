@@ -251,10 +251,10 @@ void MapView2::builtAssets(QGraphicsScene *scene){
         for(int j = 0; j < players[i].units.size(); ++j){
 
             unitName = players[i].units[j].name;
-            qDebug() << unitName;
+            // skip player 0, since it has no color assets
             QImage imageDx;
-            if( i > 1){
-                imageDx = assets.value(unitName)->colorPlayerImg.value(i).at(0);
+            if( i > 0){
+                imageDx = assets.value(unitName)->colorPlayerImg.value(i).at(2);
             }
             else{
                 imageDx = assets.value(unitName)->imageList.at(0);

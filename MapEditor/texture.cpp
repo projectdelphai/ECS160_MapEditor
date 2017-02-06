@@ -54,7 +54,7 @@ void Texture::openColor(const QString &colorFile){
         colorV.clear();
     }
 
-    qDebug() << "color open:" << colorMap.size();
+//    qDebug() << "color open:" << colorMap.size();
 
 }
 
