@@ -51,16 +51,20 @@ void MapView2::setup(){
     QString colorFile = ":/data/img/Colors.png";
     QString peasantFile =":/data/img/Peasant.dat";
     QString Goldmine  =":/data/img/GoldMine.dat";
-    int nObjects = 2;
+    QString townHall = ":/data/img/TownHall.dat";
+    int nObjects = 3;
 
     QVector<QString> files;
     files.append(peasantFile);
     files.append(Goldmine);
+    files.append(townHall);
+
     for(int i = 0; i < nObjects; i++){
         Texture *tex = new Texture(files.at(i),colorFile);
         assets.insert( tex->textureName, tex);
     }
     assets.value("Peasant")->paintAll();
+    assets.value("TownHall")->paintAll();
 
 }
 
