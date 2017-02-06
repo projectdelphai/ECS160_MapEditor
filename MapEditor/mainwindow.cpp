@@ -5,25 +5,16 @@
 #include "mapview2.h"
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
+    // set up UI elements
     ui->setupUi(this);
     ui->graphicsView->setMouseTracking(true);
     ui->graphicsView_2->setMouseTracking(true);
+     curTool = "hand";
 
-    curTool = "hand";
-    // map view
-    curMap = MapView2();
-    scene = new GraphicsScene(this);
-    curMap.displayMap(scene);
-    ui->graphicsView->setScene(scene);
-    ui->graphicsView->show();
-
-    // this is for the mini map
-    ui->graphicsView_2->setScene(scene);
-    ui->graphicsView_2->fitInView(0,0,256,192, Qt::KeepAspectRatio);
-    ui->graphicsView_2->show();
-
+    // Load and display a new file
+    MainWindow::newFile();
     QObject::connect(scene, &GraphicsScene::changedLayout, this, &MainWindow::changeLayout);
-}
+    }
 
 MainWindow::~MainWindow()
 {
@@ -78,19 +69,19 @@ void MainWindow::newFile()
         // fill tile here
     }
 
-    // map view
+    // Set up the map grid
     curMap = MapView2();
     scene = new GraphicsScene(this);
     curMap.displayMap(scene);
+
+    // show map + minimap
     ui->graphicsView->setScene(scene);
     ui->graphicsView->show();
-
-    // this is for the mini map
     ui->graphicsView_2->setScene(scene);
     ui->graphicsView_2->show();
 
+    // update status
     on_tool_grass_clicked();
-
     statusBar()->showMessage("New File created", 2000);
 }
 

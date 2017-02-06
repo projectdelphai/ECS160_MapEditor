@@ -15,9 +15,11 @@ public:
     void display();
     enum  Type { Grass = 0, Dirt , Tree , Water , Rock , WallDamage , Wall , Rubble };
 
+    const QMap<QString, QImage>* getTxMap();
+
 //private:
-    void open(const QString &mapTexture);
-    void scanTexture(const QString &str);
+    QImage open(const QString &mapTexture);
+    void loadTypeList(const QString &str);
 
     QImage fullImage;
     QString texName;
@@ -27,10 +29,12 @@ public:
     QImage getImageTile(Type);
 
     // refactoring to work with singular texture map
-    QMap< QString, QImage> mappedTx;
+    QMap< QString, QImage> txMap;
+    QMap< QString, QImage>* rTxMap = &txMap;
     QString datFileName;
     void scan();
-    QImage* getImage(QString name);
+
+    const QImage* getRImg(QString txName);
 
 };
 

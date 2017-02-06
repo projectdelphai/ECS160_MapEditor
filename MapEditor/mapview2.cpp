@@ -23,6 +23,7 @@ Unit::Unit(QString n, int xc, int yc)
     y = yc;
 }
 
+// Default
 MapView2::MapView2()
 {
     defaultMap();
@@ -37,11 +38,10 @@ MapView2::MapView2(const QString &mapFileName , const QString &mapTexName = ":/d
     openMap(mapFileName);
     texture = new Texture(mapTexName);
     currentImage = texture->fullImage;
+
     // upper-left corner and the rectangle size of width and height
     tileDim.setRect(1,1,32,32);
     tileMap.reserve(mapDim.width()*mapDim.height());
-    //scene = new QGraphicsScene();
-
 }
 
 void MapView2::defaultMap(){
@@ -58,7 +58,6 @@ void MapView2::defaultMap(){
     Player player = Player(0, 30000, 500);
     players.append(player);
     numUnits = 0;
-
 }
 
 void MapView2::openMap(const QString &mapFileName){
@@ -217,8 +216,6 @@ void MapView2::builtmap(QGraphicsScene *scene)
 
         }
     }
-
-
 }
 
 void MapView2::displayMap(QGraphicsScene *scene){
