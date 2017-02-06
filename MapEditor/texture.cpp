@@ -119,14 +119,19 @@ void Texture::scan() {
         lineNum++;
 
         if(lineNum > 2){
-            QImage tile = fullImage.copy(0,lineNum,32,32);
+            QImage* tile = new QImage(fullImage.copy(0,lineNum,32,32));
             Texture::txMap.insert(line, tile);
         }
     }
 }
 
-const QMap<QString, QImage>* Texture::getTxMap() {
+const QMap<QString, QImage*>* Texture::getTxMap() {
     return rTxMap;
+}
+
+
+const QImage* Texture::getImage(QString txName){
+    return txMap.value(txName);
 }
 
 QImage Texture::getImageTile(Type type){

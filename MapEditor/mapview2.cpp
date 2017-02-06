@@ -44,6 +44,7 @@ MapView2::MapView2(const QString &mapFileName , const QString &mapTexName = ":/d
     tileMap.reserve(mapDim.width()*mapDim.height());
 }
 
+// creates a blank map and updates variables
 void MapView2::defaultMap(){
     mapName = "untitled.map";
     mapDim.setHeight(64 + 2);
@@ -60,6 +61,7 @@ void MapView2::defaultMap(){
     numUnits = 0;
 }
 
+// parses .map file and updates variables
 void MapView2::openMap(const QString &mapFileName){
     bool intTest;
 
@@ -80,22 +82,17 @@ void MapView2::openMap(const QString &mapFileName){
 
     // Parse .map file
     while(!in.atEnd()){
-
-
         QString line = in.readLine();
 
         if (line == blankLine){
             QMessageBox::information(0,"file","blankLine");
             continue;
-
         }
 
         int value = line.toInt(&intTest);
 
         lineNum++;
-//        if(lineNum > 0 ){
         if ( lineNum == 1){
-            // Name of the map
             mapName = line;
         }
         else if ( lineNum == 2 ){            
@@ -152,25 +149,7 @@ void MapView2::openMap(const QString &mapFileName){
     }
 }
 
-
-void MapView2::openMapTexture(const QString &textureName){
-    QImage img;
-    if( !img.load(textureName)){
-        QMessageBox::information(0,"error","image");
-    }
-
-    currentImage = img;
-
-}
-
-//Reference: http://stackoverflow.com/questions/12681554/dividing-qimage-to-smaller-pieces
-QImage MapView2::createImageTile(QImage* image, const QRect & rect) {
-    size_t offset = rect.x() * image->depth() / 8
-                    + rect.y() * image->bytesPerLine();
-    return QImage(image->bits() + offset, rect.width(), rect.height(),
-                  image->bytesPerLine(), image->format());
-}
-
+// reads map array and updates the scene
 void MapView2::builtmap(QGraphicsScene *scene)
 {
     int x = 0;
@@ -197,7 +176,6 @@ void MapView2::builtmap(QGraphicsScene *scene)
                     break;
                 case ' ': type = Texture::Water;
                     break;
-
             }
 
             QImage imageDx = texture->getImageTile(type);
