@@ -50,6 +50,8 @@ public:
     int getNumPlayers();
     int getNumUnits();
 
+    void setup();
+
 //private:
     void defaultMap();
     void openMap(const QString &mapName);
@@ -60,6 +62,7 @@ public:
     QImage currentImage;
     QString mapName;
 
+
 private:
     QVector<QChar> mapLayOut;
     QRect tileDim;
@@ -68,9 +71,8 @@ private:
     int numUnits;
     QVector<Player> players;
 
-    Texture *texture;
-    Texture *unitTexture;
-
+    Texture *terrainTexture;
+    QMap<QString,Texture*> assets;
     QVector<Tile*> tileMap;
 
 
