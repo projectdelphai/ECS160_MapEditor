@@ -329,7 +329,7 @@ void MainWindow::on_tool_wall_clicked()
     scene->curTool = "wall";
     statusBar()->showMessage(tr("Wall tool selected"), 2000);
 }
-void MainWindow::changeLayout(int x, int y, Texture::Type type)
+void MainWindow::changeLayout(int x, int y, Terrain::Type type)
 {
 
 
@@ -344,22 +344,22 @@ void MainWindow::changeLayout(int x, int y, Texture::Type type)
 
     switch (type)
     {
-    case Texture::Water:
+    case Terrain::Water:
         c = ' ';
         break;
-    case Texture::Grass:
+    case Terrain::Grass:
         c = 'G';
         break;
-    case Texture::Dirt:
+    case Terrain::Dirt:
         c = 'D';
         break;
-    case Texture::Rock:
+    case Terrain::Rock:
         c = 'R';
         break;
-    case Texture::Tree:
+    case Terrain::Tree:
         c = 'F';
         break;
-    case Texture::Wall:
+    case Terrain::Wall:
         c = 'W';
         break;
     }

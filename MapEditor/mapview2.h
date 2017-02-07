@@ -67,6 +67,7 @@ private:
     QVector<Player> players;
 
     Texture *texture;
+    Terrain *terrain;
 
     QVector<Tile*> tileMap;
 

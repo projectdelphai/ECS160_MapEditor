@@ -27,20 +27,20 @@ void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         Tile *item = (Tile *)this->itemAt(mouseEvent->scenePos(), QTransform());
 
         Texture *texture = new Texture(":/data/img/Terrain.png");
-        Texture::Type type;
+        Terrain::Type type;
 
         if (curTool == "grass")
-            type = Texture::Grass;
+            type = Terrain::Grass;
         else if (curTool == "dirt")
-            type = Texture::Dirt;
+            type = Terrain::Dirt;
         else if (curTool == "water")
-            type = Texture::Water;
+            type = Terrain::Water;
         else if (curTool == "rock")
-            type = Texture::Rock;
+            type = Terrain::Rock;
         else if (curTool == "tree")
-            type = Texture::Tree;
+            type = Terrain::Tree;
         else if (curTool == "wall")
-            type = Texture::Wall;
+            type = Terrain::Wall;
         else
         {
             QGraphicsScene::mousePressEvent(mouseEvent);

@@ -18,7 +18,7 @@ public:
     virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
     QString curTool;
 signals:
-    void changedLayout(int x, int y, Texture::Type type);
+    void changedLayout(int x, int y, Terrain::Type type);
 
 public slots:
 

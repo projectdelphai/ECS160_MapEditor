@@ -24,7 +24,7 @@ public:
     void loadFile(const QString &fileName);
 
 public slots:
-    void changeLayout(int x, int y, Texture::Type type);
+    void changeLayout(int x, int y, Terrain::Type type);
 
 protected:
 #ifndef QT_NO_CONTEXTMENU

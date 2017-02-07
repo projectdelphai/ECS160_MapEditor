@@ -27,8 +27,8 @@ Unit::Unit(QString n, int xc, int yc)
 MapView2::MapView2()
 {
     defaultMap();
-    texture = new Texture(":/data/img/Terrain.png");
-    currentImage = texture->fullImage;
+    terrain = new Terrain(":/data/img/Terrain.png");
+    currentImage = terrain->fullImage;
     tileDim.setRect(1,1,32,32);
     tileMap.reserve(mapDim.width()*mapDim.height());
 }
@@ -154,7 +154,7 @@ void MapView2::builtmap(QGraphicsScene *scene)
 {
     int x = 0;
     int y = 0;
-    Texture::Type type;
+    Terrain::Type type;
     int n = 0;
 
     for(int i = 0; i < mapDim.height(); ++i){
@@ -162,36 +162,35 @@ void MapView2::builtmap(QGraphicsScene *scene)
 
             n = i*mapDim.width() + j;
             switch ( mapLayOut.at(n).toLatin1() ){
-                case 'G': type = Texture::Grass;
+                case 'G': type = Terrain::Grass;
                     break;
-                case 'F': type = Texture::Tree;
+                case 'F': type = Terrain::Tree;
                     break;
-                case 'D': type = Texture::Dirt;
+                case 'D': type = Terrain::Dirt;
                     break;
-                case 'W': type = Texture::Wall;
+                case 'W': type = Terrain::Wall;
                     break;
-                case 'w': type = Texture::WallDamage;
+                case 'w': type = Terrain::WallDamage;
                     break;
-                case 'R': type = Texture::Rock;
+                case 'R': type = Terrain::Rock;
                     break;
-                case ' ': type = Texture::Water;
+                case ' ': type = Terrain::Water;
                     break;
             }
 
-            QImage imageDx = texture->getImageTile(type);
+            QImage imageDx = terrain->getImageTile(type);
             QPixmap pixmap = QPixmap::fromImage(imageDx);
-            //QGraphicsPixmapItem * pixItem = new Tile(type, pixmap );
-            Tile * pixItem = new Tile(type, pixmap);
+            Tile* pixItem = new Tile(type, pixmap);
+
             // sets each tile image x = 0*32,1*32,2*32,... y= 0*32,1*32,2*32,...
             x = j*tileDim.width();
             y = i*tileDim.height();
             pixItem->setPos(x,y);
             scene->addItem(pixItem);
 
-//            qDebug() << n;
-//            qDebug() << tileType << ":" << t;
-//            qDebug() << "(" <<  x << "," << y << ")";
-
+//          qDebug() << n;
+//          qDebug() << tileType << ":" << t;
+//          qDebug() << "(" <<  x << "," << y << ")";
         }
     }
 }
