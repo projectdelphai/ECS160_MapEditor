@@ -19,14 +19,12 @@ public:
     QImage fullImage;
     QString texName;
     QRect tileDim;
-    QVector< QMap<QString, int > > typeList;
-
 
     // refactoring to work with singular texture map
     QMap< QString, QImage*> txMap;
     QMap< QString, QImage*>* rTxMap = &txMap;
     QString datFileName;
-    void scan();
+    void scanDatFile(const QString datFileName);
 
     const QMap<QString, QImage*>* getTxMap();
     const QImage* getImage(QString txName);

@@ -3,9 +3,6 @@
 
 Texture::Texture(const QString &texFileName )
 {
-    int numTypes = 8;
-    typeList.resize(numTypes);
-
     // load QImage from file
     fullImage = open(texFileName);
 
@@ -14,7 +11,8 @@ Texture::Texture(const QString &texFileName )
     QStringList pathnames = filePath[0].split("/");
     texName = pathnames.back();
     datFileName = QString(":/data/img/" + texName + ".dat");
-    loadTypeList(datFileName);
+
+    scanDatFile(datFileName);
 
     // upper-left corner and the rectangle size of width and height
     tileDim.setRect(0,0,32,32);
@@ -31,8 +29,8 @@ QImage Texture::open(const QString &textureName){
 
 
 // this function takes all image files from a large png, chops them up and stores them in Texture::txMap
-void Texture::scan() {
-    QFile file(Texture::datFileName);
+void Texture::scanDatFile(const QString datFileName) {
+    QFile file(datFileName);
 
     if (!file.open(QIODevice::ReadOnly)){
         QMessageBox::information(0,"error",file.errorString());
@@ -53,11 +51,13 @@ void Texture::scan() {
         lineNum++;
 
         if(lineNum > 2){
-            QImage* tile = new QImage(fullImage.copy(0,lineNum,32,32));
+            int pos = (lineNum - 3) * 32;
+            QImage* tile = new QImage(fullImage.copy(0,pos,32,32));
             Texture::txMap.insert(line, tile);
         }
     }
 }
+
 
 const QMap<QString, QImage*>* Texture::getTxMap() {
     return rTxMap;
@@ -66,7 +66,6 @@ const QMap<QString, QImage*>* Texture::getTxMap() {
 const QImage* Texture::getImage(QString txName){
     return txMap.value(txName);
 }
-
 
 void Texture::display(){
 

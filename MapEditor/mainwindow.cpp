@@ -34,7 +34,7 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event)
 #endif // QT_NO_CONTEXTMENU
 
 void MainWindow::mousePressEvent(QMouseEvent *event){
-
+    qDebug() << "In MainWindow::mousePressEvent" << event->button();
     /*if (event->button() == Qt::LeftButton ){
          statusBar()->showMessage("Left Click");
     }
@@ -44,6 +44,7 @@ void MainWindow::mousePressEvent(QMouseEvent *event){
 }
 
 void MainWindow::mouseMoveEvent(QMouseEvent *event){
+    qDebug() << "In MainWindow::mouseMoveEvent" << event->button();
     //statusBar()->showMessage(QString::number(event->x()) + ", " + QString::number(event->y()), 500);
 }
 
@@ -72,7 +73,7 @@ void MainWindow::newFile()
 
     // Set up the map grid
     curMap = MapView2();
-    scene = new GraphicsScene(this);
+    scene = new GraphicsScene(this, &curMap);
     curMap.displayMap(scene);
 
     // show map + minimap
@@ -114,7 +115,7 @@ void MainWindow::loadFile(const QString &fileName)
     QString texture = ":/data/img/Terrain.png";
     curMap = MapView2(mapName, texture);
 
-    scene = new GraphicsScene(this);
+    scene = new GraphicsScene(this, &curMap);
     curMap.displayMap(scene);
 
     ui->graphicsView->setScene(scene);
@@ -255,7 +256,7 @@ void MainWindow::wheelEvent(QWheelEvent *event)
         static const double scaleMin = 0.1; // defines the min scale limit.
         static const double scaleMax = 4.0;
 
-        bool scrollVertical = event->orientation() == Qt::Vertical;
+        //bool scrollVertical = event->orientation() == Qt::Vertical;
         int scrollDir = event->delta();
 
         if(currentScale > scaleMax) {
@@ -362,6 +363,9 @@ void MainWindow::changeLayout(int x, int y, Terrain::Type type)
     case Terrain::Wall:
         c = 'W';
         break;
+    default:
+        qCritical() << "Saving rubble or wall-damaged incomplete";
+    break;
     }
 
 

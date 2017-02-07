@@ -6,9 +6,10 @@
 #include "mainwindow.h"
 
 
-GraphicsScene::GraphicsScene(QObject *parent) : QGraphicsScene(parent)
+GraphicsScene::GraphicsScene(QObject *parent, MapView2 *curMap) : QGraphicsScene(parent)
 {
     GraphicsScene::parent = parent;
+    GraphicsScene::mapInfo = curMap;
 }
 
 
@@ -26,7 +27,7 @@ void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
     {
         Tile *item = (Tile *)this->itemAt(mouseEvent->scenePos(), QTransform());
 
-        Texture *texture = new Texture(":/data/img/Terrain.png");
+        Terrain *terrain = mapInfo->getTerrain();
         Terrain::Type type;
 
         if (curTool == "grass")
@@ -47,7 +48,7 @@ void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
             return;
         }
 
-        QImage imageDx = texture->getImageTile(type);
+        QImage imageDx = *terrain->getImageTile(type);
         QPixmap pixmap = QPixmap::fromImage(imageDx);
         Tile * pixItem = new Tile(type, pixmap);
 

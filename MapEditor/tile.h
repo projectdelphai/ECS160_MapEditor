@@ -12,13 +12,8 @@ public:
     Tile(Terrain::Type type, QPixmap texturePix);
     QString toString();
 
-//    QRectF boundingRect()const;
-//    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
-
-
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
-
 
 private:
     Terrain::Type type;

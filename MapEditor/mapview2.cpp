@@ -23,12 +23,11 @@ Unit::Unit(QString n, int xc, int yc)
     y = yc;
 }
 
-// Default
+// Default (new map)
 MapView2::MapView2()
 {
     defaultMap();
-    terrain = new Terrain(":/data/img/Terrain.png");
-    currentImage = terrain->fullImage;
+    terrain = new Terrain;
     tileDim.setRect(1,1,32,32);
     tileMap.reserve(mapDim.width()*mapDim.height());
 }
@@ -36,8 +35,7 @@ MapView2::MapView2()
 MapView2::MapView2(const QString &mapFileName , const QString &mapTexName = ":/data/img/Terrain.png" )
 {
     openMap(mapFileName);
-    texture = new Texture(mapTexName);
-    currentImage = texture->fullImage;
+    terrain = new Terrain(mapTexName);
 
     // upper-left corner and the rectangle size of width and height
     tileDim.setRect(1,1,32,32);
@@ -155,6 +153,7 @@ void MapView2::builtmap(QGraphicsScene *scene)
     int x = 0;
     int y = 0;
     Terrain::Type type;
+    QString typeS;
     int n = 0;
 
     for(int i = 0; i < mapDim.height(); ++i){
@@ -162,23 +161,37 @@ void MapView2::builtmap(QGraphicsScene *scene)
 
             n = i*mapDim.width() + j;
             switch ( mapLayOut.at(n).toLatin1() ){
-                case 'G': type = Terrain::Grass;
+                case 'G':
+                    type = Terrain::Grass;
+                    typeS = "grass";
                     break;
-                case 'F': type = Terrain::Tree;
+                case 'F':
+                    type = Terrain::Tree;
+                    typeS = "tree";
                     break;
-                case 'D': type = Terrain::Dirt;
+                case 'D':
+                    type = Terrain::Dirt;
+                    typeS = "dirt";
                     break;
-                case 'W': type = Terrain::Wall;
+                case 'W':
+                    type = Terrain::Wall;
+                    typeS = "wall";
                     break;
-                case 'w': type = Terrain::WallDamage;
+                case 'w':
+                    type = Terrain::WallDamage;
+                    typeS = "wall-damaged";
                     break;
-                case 'R': type = Terrain::Rock;
+                case 'R':
+                    type = Terrain::Rock;
+                    typeS = "rock";
                     break;
-                case ' ': type = Terrain::Water;
+                case ' ':
+                    type = Terrain::Water;
+                    typeS = "water";
                     break;
             }
 
-            QImage imageDx = terrain->getImageTile(type);
+            QImage imageDx = *terrain->getImageTile(type);
             QPixmap pixmap = QPixmap::fromImage(imageDx);
             Tile* pixItem = new Tile(type, pixmap);
 
@@ -187,21 +200,20 @@ void MapView2::builtmap(QGraphicsScene *scene)
             y = i*tileDim.height();
             pixItem->setPos(x,y);
             scene->addItem(pixItem);
-
-//          qDebug() << n;
-//          qDebug() << tileType << ":" << t;
-//          qDebug() << "(" <<  x << "," << y << ")";
         }
     }
 }
 
 void MapView2::displayMap(QGraphicsScene *scene){
 
-    //QGraphicsView* view = new QGraphicsView(scene);
-    // single tile from texture image
+
     builtmap(scene);
 
     //view->show();
+}
+
+Terrain* MapView2::getTerrain(){
+    return terrain;
 }
 
 QSize MapView2::getMapDim()

@@ -30,8 +30,6 @@ public:
     QVector<Unit> units;
 };
 
-
-
 class MapView2
 {
 public:
@@ -48,15 +46,14 @@ public:
     int getNumPlayers();
     int getNumUnits();
 
-//private:
     void defaultMap();
     void openMap(const QString &mapName);
     void openMapTexture(const QString &mapTexture);
     QImage createImageTile(QImage* image, const QRect &rect);
 
-
-    QImage currentImage;
     QString mapName;
+
+    Terrain* getTerrain();
 
 private:
     QVector<QChar> mapLayOut;
@@ -66,15 +63,9 @@ private:
     int numUnits;
     QVector<Player> players;
 
-    Texture *texture;
-    Terrain *terrain;
+    Terrain* terrain;
 
     QVector<Tile*> tileMap;
-
-
-
-
-
 };
 
 #endif // MAPVIEW2_H
