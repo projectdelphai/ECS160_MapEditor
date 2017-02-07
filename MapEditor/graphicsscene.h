@@ -19,8 +19,10 @@ public:
     virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent);
     void addToolItem(QGraphicsSceneMouseEvent *mouseEvent);
     QString curTool;
+    int curPlayer;
 signals:
     void changedLayout(int x, int y, Texture::Type type);
+    void changedAsset(int x, int y, QString asset, int curPlayer);
 
 public slots:
 

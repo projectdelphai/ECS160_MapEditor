@@ -49,6 +49,7 @@ public:
     QVector<Player> getPlayers();
     int getNumPlayers();
     int getNumUnits();
+    QVector<Player> players;
 
     void setup();
 
@@ -69,7 +70,7 @@ private:
     QSize mapDim;
     int numPlayers;
     int numUnits;
-    QVector<Player> players;
+
 
     Texture *terrainTexture;
     QMap<QString,Texture*> assets;
