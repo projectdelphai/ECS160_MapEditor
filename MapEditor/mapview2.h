@@ -71,7 +71,6 @@ private:
     int numPlayers;
     int numUnits;
 
-    QVector<Player> players;
     QStringList mapAllowedAIs;
     QString mapDescription;
     Texture *terrainTexture;
