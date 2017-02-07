@@ -135,7 +135,15 @@ void MapView2::openMap(const QString &mapFileName){
             mapDim.setHeight(nums[1]+2);
             mapDim.setWidth(nums[0]+2);
         }
-        else if (!intTest && lineNum > 2 && lineNum <= maxMapLine ){
+        else if ( lineNum == 3)
+        {
+            mapDescription = line;
+        }
+        else if ( lineNum == 4)
+        {
+            mapA llowedAIs = line.split(" ");
+        }
+        else if (!intTest && lineNum > 4 && lineNum <= maxMapLine ){
             // key layout of the map
             for (auto iter = line.begin(); iter != line.end(); iter++ ){
                 mapLayOut.append(*iter);
