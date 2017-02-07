@@ -25,7 +25,10 @@ Unit::Unit(QString n, int xc, int yc)
 
 MapView2::MapView2()
 {
+    // create the default green map
     defaultMap();
+
+    // create and store all assets
     setup();
     terrainTexture = new Texture(":/data/img/Terrain.png");
     currentImage = terrainTexture->fullImage;
@@ -47,6 +50,7 @@ MapView2::MapView2(const QString &mapFileName , const QString &mapTexName = ":/d
 }
 
 void MapView2::setup(){
+    // grab all the asset files
     QString path = ":/data/img";
     QString colorFile = ":/data/img/Colors.png";
     QString peasantFile =":/data/img/Peasant.dat";
@@ -54,11 +58,13 @@ void MapView2::setup(){
     QString townHall = ":/data/img/TownHall.dat";
     int nObjects = 3;
 
+    // append them to a vector
     QVector<QString> files;
     files.append(peasantFile);
     files.append(Goldmine);
     files.append(townHall);
 
+    // create a texture for each asset
     for(int i = 0; i < nObjects; i++){
         Texture *tex = new Texture(files.at(i),colorFile);
         assets.insert( tex->textureName, tex);
@@ -71,14 +77,18 @@ void MapView2::setup(){
 
 void MapView2::defaultMap(){
     mapName = "untitled.map";
+
+    // add 2 tiles for border
     mapDim.setHeight(64 + 2);
     mapDim.setWidth(96 + 2);
 
+    // loop through all the tiles and add grass tiles
     for(int h = 0; h < mapDim.height(); h++ ){
         for(int w = 0; w < mapDim.width(); w++) {
             mapLayOut.append('G');
         }
     }
+    // player zero is neutral
     numPlayers = 0;
     Player player = Player(0, 30000, 500);
     players.append(player);

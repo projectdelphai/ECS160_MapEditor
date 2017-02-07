@@ -3,6 +3,8 @@
 #include "graphicsscene.h"
 #include <QDebug>
 #include "mapview2.h"
+
+
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
@@ -11,7 +13,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     curTool = "hand";
     // map view
+
+    // Create the default map
     curMap = MapView2();
+
+    // set the scene with a custom GraphicsScene
     scene = new GraphicsScene(this);
     curMap.displayMap(scene);
     ui->graphicsView->setScene(scene);
@@ -205,6 +211,7 @@ bool MainWindow::saveAs()
 
 bool MainWindow::saveFile(const QString &fileName)
 {
+    // check if able to write to file
     QFile file(fileName);
     if (!file.open(QFile::WriteOnly | QFile::Text)) {
         QMessageBox::warning(this, tr("Application"),
@@ -214,6 +221,7 @@ bool MainWindow::saveFile(const QString &fileName)
         return false;
     }
 
+   // write descriptive properties
    QTextStream stream(&file);
    stream << curMap.getMapName() << endl;
    stream << curMap.getMapDim().width()-2 << " " << curMap.getMapDim().height()-2 << endl;
@@ -224,6 +232,7 @@ bool MainWindow::saveFile(const QString &fileName)
 
    QVector<QChar> layout = curMap.getMapLayout();
 
+   // write out layout
    int x = 0;
    for (itr = layout.begin(); itr != layout.end(); itr++)
    {
@@ -236,6 +245,7 @@ bool MainWindow::saveFile(const QString &fileName)
        }
    }
 
+   // write players
    QVector<Player> players = curMap.getPlayers();
 
    stream << curMap.getNumPlayers() << endl;
@@ -246,6 +256,7 @@ bool MainWindow::saveFile(const QString &fileName)
 
    stream << curMap.getNumUnits() << endl;
 
+   // write units for players
    for (int t = 0; t < curMap.players.size(); t++)
    {
        int num = curMap.getNumPlayers();
@@ -401,6 +412,8 @@ void MainWindow::changeAsset(int x, int y, QString asset, int player)
 {
     Unit unit = Unit(asset, x, y);
 
+    // not enough players created, create a player
+    // because default number of players is zero
     if (curMap.getNumPlayers() < player)
     {
         for (int i = curMap.getNumPlayers() + 1; i < player + 1; i++)
@@ -409,6 +422,8 @@ void MainWindow::changeAsset(int x, int y, QString asset, int player)
             curMap.players.append(player);
         }
     }
+
+    // add an asset to the player's units
     curMap.players[player].units.append(unit);
 }
 
