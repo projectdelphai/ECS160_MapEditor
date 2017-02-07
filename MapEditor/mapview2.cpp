@@ -143,7 +143,7 @@ void MapView2::openMap(const QString &mapFileName){
         {
             mapAllowedAIs = line.split(" ");
         }
-        else if (!intTest && lineNum > 4 && lineNum <= maxMapLine ){
+        else if (!intTest && lineNum > 4){
             // key layout of the map
             for (auto iter = line.begin(); iter != line.end(); iter++ ){
                 mapLayOut.append(*iter);
