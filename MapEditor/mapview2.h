@@ -51,6 +51,7 @@ public:
     int getNumUnits();
 
     void setup();
+    QImage tileEncode(Texture::Type,int i,int j);
 
 //private:
     void defaultMap();
@@ -61,6 +62,8 @@ public:
 
     QImage currentImage;
     QString mapName;
+
+
 
 
 private:

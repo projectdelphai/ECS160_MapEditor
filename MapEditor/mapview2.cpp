@@ -26,7 +26,7 @@ Unit::Unit(QString n, int xc, int yc)
 MapView2::MapView2()
 {
     defaultMap();
-    setup();
+//    setup();
     terrainTexture = new Texture(":/data/img/Terrain.png");
     currentImage = terrainTexture->fullImage;
     tileDim.setRect(1,1,32,32);
@@ -43,6 +43,8 @@ MapView2::MapView2(const QString &mapFileName , const QString &mapTexName = ":/d
     tileDim.setRect(1,1,32,32);
     tileMap.reserve(mapDim.width()*mapDim.height());
     //scene = new QGraphicsScene();
+//    tileEncode(1,1);
+
 
 }
 
@@ -196,6 +198,61 @@ QImage MapView2::createImageTile(QImage* image, const QRect & rect) {
     return QImage(image->bits() + offset, rect.width(), rect.height(),
                   image->bytesPerLine(), image->format());
 }
+QImage MapView2::tileEncode(Texture::Type type ,int i , int j){
+
+
+    QChar centerType = mapLayOut.at(i*mapDim.width() + j);
+    int rows = 3;
+    int columns = 3;
+    QString encode = "";
+    QString encodeStr = "";
+
+
+
+    for(int n = i-1; n < rows; n++){
+        for( int m = j-1; m < columns; m++ ){
+            qDebug() << "(" << n << "," << m << ")";
+            qDebug() << mapLayOut.at(n*mapDim.width() + m);
+
+            // skip encoding center type
+            if (n == i && m == j){
+                qDebug() << "skip";
+                continue;
+            }
+            else {
+                QChar tileType = mapLayOut.at(n*mapDim.width() + m);
+                if (tileType == centerType){
+//                    string |=  bitMask;
+                    encodeStr += "1";
+                }
+                else {
+                    encodeStr += "0";
+                }
+                encode += mapLayOut.at(n*mapDim.width() + m);
+//                bitMask += bitMask;
+
+            }
+        }
+    }
+
+    bool ok;
+//    qDebug() << string;
+    qDebug() << encodeStr;
+    int num = encodeStr.toInt(&ok,2);
+    if (num > 100){
+        num = 0;
+    }
+
+
+      QImage image = terrainTexture->terrainType2[type].at(num);
+
+//    QGraphicsScene *scene = new QGraphicsScene;
+//    scene->addPixmap(QPixmap::fromImage(image));
+//    QGraphicsView *view = new QGraphicsView(scene);
+//    view->show();
+    return image;
+
+}
 
 void MapView2::builtmap(QGraphicsScene *scene)
 {
@@ -225,10 +282,15 @@ void MapView2::builtmap(QGraphicsScene *scene)
                     break;
 
             }
-
-
+            QImage imageDx;
 //            QImage imageDx = terrainTexture->terrainType[type].first();
-            QImage imageDx = terrainTexture->terrainType2[type].at(0);
+            if( i == 0 || j == 0 || i == mapDim.width() || j == mapDim.height()){
+                imageDx = terrainTexture->terrainType2[type].at(0);
+            }
+            else {
+                imageDx = tileEncode(type,i,j);
+            }
+
             QPixmap pixmap = QPixmap::fromImage(imageDx);
             Tile * pixItem = new Tile(type, pixmap);
             // sets each tile image x = 0*32,1*32,2*32,... y= 0*32,1*32,2*32,...
