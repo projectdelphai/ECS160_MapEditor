@@ -184,7 +184,6 @@ void MapView2::builtmap(QGraphicsScene *scene)
     int x = 0;
     int y = 0;
     Terrain::Type type;
-    QString typeS;
     int n = 0;
 
     for(int i = 0; i < mapDim.height(); ++i){
@@ -194,31 +193,24 @@ void MapView2::builtmap(QGraphicsScene *scene)
             switch ( mapLayOut.at(n).toLatin1() ){
                 case 'G':
                     type = Terrain::Grass;
-                    typeS = "grass";
                     break;
                 case 'F':
                     type = Terrain::Tree;
-                    typeS = "tree";
                     break;
                 case 'D':
                     type = Terrain::Dirt;
-                    typeS = "dirt";
                     break;
                 case 'W':
                     type = Terrain::Wall;
-                    typeS = "wall";
                     break;
                 case 'w':
                     type = Terrain::WallDamage;
-                    typeS = "wall-damaged";
                     break;
                 case 'R':
                     type = Terrain::Rock;
-                    typeS = "rock";
                     break;
                 case ' ':
                     type = Terrain::Water;
-                    typeS = "water";
                     break;
             }
 
@@ -265,7 +257,6 @@ void MapView2::builtAssets(QGraphicsScene *scene){
 void MapView2::displayMap(QGraphicsScene *scene){
     builtmap(scene);
     builtAssets(scene);
-
 }
 
 Terrain* MapView2::getTerrain(){
