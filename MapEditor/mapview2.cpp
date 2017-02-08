@@ -26,10 +26,19 @@ Unit::Unit(QString n, int xc, int yc)
 // Default (new map)
 MapView2::MapView2()
 {
+
     defaultMap();
     terrain = new Terrain;
     tileDim.setRect(1,1,32,32);
     tileMap.reserve(mapDim.width()*mapDim.height());
+
+    // testing for MapRendering parsing
+    terrain->renderingInfo(":/data/img/MapRendering.dat");
+
+    // testing lookup of a number to get the alias number
+    int test = terrain->getAlias("rock", 5);
+
+    qDebug() << "Should be at rock0 with alias 2: " << test;
 }
 
 MapView2::MapView2(const QString &mapFileName , const QString &mapTexName = ":/data/img/Terrain.png" )
