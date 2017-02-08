@@ -56,9 +56,6 @@ void Texture::openColor(const QString &colorFile){
         colorMap.insert(i, colorV);
         colorV.clear();
     }
-
-//    qDebug() << "color open:" << colorMap.size();
-
 }
 
 QVector<QImage> Texture::paintUnit(int colorPick){
@@ -134,7 +131,7 @@ void Texture::scanDatFile(const QString datFileName) {
 
         if(lineNum > 2){
             int pos = (lineNum - 3) * 32;
-            QImage* tile = new QImage(fullImage.copy(0,pos,32,32));
+        QImage* tile = new QImage(fullImage.copy(0,pos,32,32));
             Texture::txMap.insert(line, tile);
         }
 

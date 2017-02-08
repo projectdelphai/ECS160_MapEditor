@@ -18,9 +18,16 @@ public:
     enum  Type { Grass = 0, Dirt , Tree , Water , Rock , WallDamage , Wall , Rubble };
     QImage* getImageTile(Terrain::Type type);
 
+
+    void renderingInfo(QString file);
+    int  getAlias(QString typeS , int num);
+
 protected:
     QMap< QString, QImage* >* texture;
     QImage fullImage;
+    QMap< QString,QVector<int>> alias;
+
+
 
 };
 
