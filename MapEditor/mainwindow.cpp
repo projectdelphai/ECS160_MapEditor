@@ -15,7 +15,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     MainWindow::newFile();
     ui->graphicsView_2->fitInView(0,0,256,192, Qt::KeepAspectRatio);
     QObject::connect(scene, &GraphicsScene::changedLayout, this, &MainWindow::changeLayout);
-    }
+
+    QObject::connect(scene, &GraphicsScene::changedAsset, this, &MainWindow::changeAsset);
+
+    curPlayer = 1;
+    scene->curPlayer = 1;
+}
 
 MainWindow::~MainWindow()
 {
@@ -25,11 +30,12 @@ MainWindow::~MainWindow()
 #ifndef QT_NO_CONTEXTMENU
 void MainWindow::contextMenuEvent(QContextMenuEvent *event)
 {
-    QMenu menu(this);
+    /*QMenu menu(this);
     menu.addAction(ui->actionOpen);
     menu.addAction(ui->actionSave);
 
     menu.exec(event->globalPos());
+    */
 }
 #endif // QT_NO_CONTEXTMENU
 
@@ -52,7 +58,7 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event){
 
 void MainWindow::mouseReleaseEvent(QMouseEvent *event){
     if (event->button() == Qt::LeftButton ){
-        // something
+        qDebug() << "BES";
     }
 }
 
@@ -129,6 +135,7 @@ void MainWindow::loadFile(const QString &fileName)
     ui->graphicsView_2->show();
 
     QObject::connect(scene, &GraphicsScene::changedLayout, this, &MainWindow::changeLayout);
+    QObject::connect(scene, &GraphicsScene::changedAsset, this, &MainWindow::changeAsset);
 
     setCurrentFile(fileName);
     statusBar()->showMessage(fileName + " loaded!", 2000);
@@ -175,6 +182,14 @@ bool MainWindow::save()
 
 bool MainWindow::saveAs()
 {
+    if (curMap.getPlayers().size() < 3)
+    {
+        QMessageBox::warning(this, tr("Application"),
+                             tr("Not enough players")
+                             );
+        return false;
+    }
+
     QFileDialog dialog(this);
     dialog.setDirectory(QDir::home());
     dialog.setWindowModality(Qt::WindowModal);
@@ -198,20 +213,22 @@ bool MainWindow::saveFile(const QString &fileName)
    QTextStream stream(&file);
    stream << curMap.getMapName() << endl;
    stream << curMap.getMapDim().width()-2 << " " << curMap.getMapDim().height()-2 << endl;
+   stream << "description" << endl;
+   stream << "General" << endl;
 
    QVector<QChar>::iterator itr;
 
    QVector<QChar> layout = curMap.getMapLayout();
 
-   int i = 0;
+   int x = 0;
    for (itr = layout.begin(); itr != layout.end(); itr++)
    {
        stream << *itr;
-       i++;
-       if (i == 98)
+       x++;
+       if (x == 98)
        {
            stream << endl;
-           i = 0;
+           x = 0;
        }
    }
 
@@ -225,14 +242,15 @@ bool MainWindow::saveFile(const QString &fileName)
 
    stream << curMap.getNumUnits() << endl;
 
-   for (int i = 0; i < curMap.getNumPlayers() + 1; i++)
+   for (int t = 0; t < curMap.getPlayers().size(); t++)
    {
-       QVector<Unit> units = players[i].units;
+       int num = curMap.getNumPlayers();
+       QVector<Unit> units = players[t].units;
        QVector<Unit>::iterator itr3;
 
        for (itr3 = units.begin(); itr3 != units.end(); itr3++)
        {
-           stream << itr3->name << " " << i << " " << itr3->x << " " << itr3->y << endl;
+           stream << itr3->name << " " << t << " " << itr3->x << " " << itr3->y << endl;
        }
    }
 
@@ -378,16 +396,51 @@ void MainWindow::changeLayout(int x, int y, Terrain::Type type)
 
 }
 
+void MainWindow::changeAsset(int x, int y, QString asset, int player)
+{
+    Unit unit = Unit(asset, x, y);
+
+    if (curMap.getNumPlayers() < player)
+    {
+        for (int i = curMap.getNumPlayers() + 1; i < player + 1; i++)
+        {
+            Player player = Player(i, 100, 100);
+            curMap.getPlayers().append(player);
+        }
+    }
+    curMap.players[player].units.append(unit);
+}
+
 void MainWindow::on_tool_peasant1_clicked()
 {
-    curPlayer = 1;
-    curTool = "peasant";
+    curTool = "Peasant";
+    scene->curTool = "Peasant";
     statusBar()->showMessage(tr("Player 1 Peasant selected"), 2000);
 }
 
 void MainWindow::on_tool_townhall1_clicked()
 {
-    curPlayer = 1;
     curTool = "townhall";
+    scene->curTool = "townhall";
     statusBar()->showMessage(tr("Player 1 Townhall selected"), 2000);
+}
+
+void MainWindow::on_tool_goldmine_clicked()
+{
+    curTool = "GoldMine";
+    scene->curTool = "GoldMine";
+    statusBar()->showMessage(tr("Goldmine Tool selected"), 2000);
+}
+
+
+void MainWindow::on_tool_p1_clicked()
+{
+    curPlayer = 1;
+    scene->curPlayer = 1;
+}
+
+void MainWindow::on_tool_p2_clicked()
+{
+    curPlayer = 2;
+    scene->curPlayer = 2;
 }

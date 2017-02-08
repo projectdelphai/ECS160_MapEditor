@@ -25,6 +25,7 @@ public:
 
 public slots:
     void changeLayout(int x, int y, Terrain::Type type);
+    void changeAsset(int x, int y, QString asset, int player);
 
 protected:
 #ifndef QT_NO_CONTEXTMENU
@@ -66,6 +67,12 @@ private slots:
     void on_tool_peasant1_clicked();
 
     void on_tool_townhall1_clicked();
+
+    void on_tool_goldmine_clicked();
+
+    void on_tool_p1_clicked();
+
+    void on_tool_p2_clicked();
 
 private:
     Ui::MainWindow *ui;

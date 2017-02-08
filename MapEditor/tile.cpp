@@ -4,8 +4,14 @@
 #include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
 
-Tile::Tile(Terrain::Type type){
+
+Tile::Tile(Terrain::Type type){ // not sure if needed
     Tile::type = type;
+}
+
+Tile::Tile(QString typeStr,QPixmap texturePix):QGraphicsPixmapItem(texturePix){
+    typeStr = typeStr;
+    texturePix = texturePix;
 }
 
 Tile::Tile(Terrain::Type type,QPixmap texturePix): QGraphicsPixmapItem(texturePix){

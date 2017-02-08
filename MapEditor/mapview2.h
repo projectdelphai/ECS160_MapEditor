@@ -38,6 +38,8 @@ public:
 
     void displayMap(QGraphicsScene *scene);
     void builtmap(QGraphicsScene *scene);
+    void builtAssets(QGraphicsScene *scene);
+
     QSize getMapDim();
     QString getMapName();
     QVector<QChar> getMapLayout();
@@ -46,12 +48,15 @@ public:
     int getNumPlayers();
     int getNumUnits();
 
+    void setup();
+
     void defaultMap();
     void openMap(const QString &mapName);
     void openMapTexture(const QString &mapTexture);
     QImage createImageTile(QImage* image, const QRect &rect);
 
     QString mapName;
+    QVector<Player> players;
 
     Terrain* getTerrain();
 
@@ -61,10 +66,13 @@ private:
     QSize mapDim;
     int numPlayers;
     int numUnits;
-    QVector<Player> players;
 
     Terrain* terrain;
 
+    QStringList mapAllowedAIs;
+    QString mapDescription;
+    Texture *terrainTexture;
+    QMap<QString,Texture*> assets;
     QVector<Tile*> tileMap;
 };
 

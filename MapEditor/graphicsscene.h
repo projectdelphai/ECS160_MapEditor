@@ -17,16 +17,21 @@ class GraphicsScene : public QGraphicsScene
 public:
     explicit GraphicsScene(QObject *parent, MapView2 *curMap);
     virtual void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent);
-    virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
+    virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent);
+    virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent);
+    void addToolItem(QGraphicsSceneMouseEvent *mouseEvent);
     QString curTool;
+    int curPlayer;
 signals:
     void changedLayout(int x, int y, Terrain::Type type);
+    void changedAsset(int x, int y, QString asset, int curPlayer);
 
 public slots:
 
 private:
     QObject *parent;
     MapView2 *mapInfo;
+    bool brushing;
 };
 
 #endif // GRAPHICSSCENE_H
