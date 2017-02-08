@@ -10,10 +10,10 @@ GraphicsScene::GraphicsScene(QObject *parent, MapView2 *curMap) : QGraphicsScene
 {
     GraphicsScene::parent = parent;
     GraphicsScene::mapInfo = curMap;
+    brushing = false;
 }
 
-
-void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
+void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
 {
     QWidget *q =  mouseEvent->widget()->parentWidget();
     QString name = q->accessibleName();
@@ -30,6 +30,8 @@ void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         Terrain *terrain = mapInfo->getTerrain();
         Terrain::Type type;
 
+        Texture *asset = 0;
+
         if (curTool == "grass")
             type = Terrain::Grass;
         else if (curTool == "dirt")
@@ -42,13 +44,33 @@ void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
             type = Terrain::Tree;
         else if (curTool == "wall")
             type = Terrain::Wall;
+        else if (curTool == "Peasant")
+        {
+            asset = new Texture(":/data/img/Peasant.dat",":/data/img/Colors.png");
+            asset->paintAll();
+        }
+        else if (curTool == "GoldMine")
+        {
+            asset = new Texture(":/data/img/GoldMine.dat",":/data/img/Colors.png");
+
+        }
         else
         {
             QGraphicsScene::mousePressEvent(mouseEvent);
             return;
         }
 
-        QImage imageDx = *terrain->getImageTile(type);
+        QImage imageDx;
+        if (!asset)
+            imageDx = *terrain->getImageTile(type);
+        else
+        {
+            if (curTool == "GoldMine")
+                imageDx = asset->imageList[0];
+            else
+                imageDx = asset->colorPlayerImg[curPlayer][0];
+        }
+
         QPixmap pixmap = QPixmap::fromImage(imageDx);
         Tile * pixItem = new Tile(type, pixmap);
 
@@ -57,13 +79,33 @@ void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         pixItem->setPos(x, y);
         addItem(pixItem);
 
-        emit changedLayout(x, y, type);
+        if (!asset)
+            emit changedLayout(x, y, type);
+        else
+        {
+            if (curTool == "GoldMine")
+                emit changedAsset(x, y, curTool, 0);
+            else
+                emit changedAsset(x, y, curTool, curPlayer);
+        }
     }
-
-    QGraphicsScene::mousePressEvent(mouseEvent);
 }
 
-void GraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event){
-    //((QMainWindow *)parent)->statusBar()->showMessage(QString::number(event->scenePos().x()) + ", " + QString::number(event->scenePos().y()), 500);
+void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
+{
+    if (mouseEvent->button() == Qt::LeftButton)
+        brushing = true;
 }
 
+void GraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent){
+    if ((mouseEvent->buttons() & Qt::LeftButton) && brushing)
+        addToolItem(mouseEvent);
+}
+
+void GraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
+{
+    if (mouseEvent->button() == Qt::LeftButton) {
+        addToolItem(mouseEvent);
+        brushing = false;
+    }
+}

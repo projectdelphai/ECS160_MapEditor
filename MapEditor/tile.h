@@ -10,6 +10,8 @@ class Tile : public QGraphicsPixmapItem
 public:
     Tile(Terrain::Type type);
     Tile(Terrain::Type type, QPixmap texturePix);
+    Tile(QString typeStr,QPixmap texturePix);
+
     QString toString();
 
 protected:
@@ -18,7 +20,7 @@ protected:
 private:
     Terrain::Type type;
     QString note;
-    QPointF pos;
+    QString typeStr;
 
     QPixmap texturePix;
 

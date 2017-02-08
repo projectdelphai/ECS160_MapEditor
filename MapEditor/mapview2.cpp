@@ -28,7 +28,9 @@ MapView2::MapView2()
 {
 
     defaultMap();
+    setup();
     terrain = new Terrain;
+
     tileDim.setRect(1,1,32,32);
     tileMap.reserve(mapDim.width()*mapDim.height());
 
@@ -44,11 +46,35 @@ MapView2::MapView2()
 MapView2::MapView2(const QString &mapFileName , const QString &mapTexName = ":/data/img/Terrain.png" )
 {
     openMap(mapFileName);
+    setup();
     terrain = new Terrain(mapTexName);
 
     // upper-left corner and the rectangle size of width and height
     tileDim.setRect(1,1,32,32);
     tileMap.reserve(mapDim.width()*mapDim.height());
+}
+
+
+void MapView2::setup(){
+    QString path = ":/data/img";
+    QString colorFile = ":/data/img/Colors.png";
+    QString peasantFile =":/data/img/Peasant.dat";
+    QString Goldmine  =":/data/img/GoldMine.dat";
+    QString townHall = ":/data/img/TownHall.dat";
+    int nObjects = 3;
+
+    QVector<QString> files;
+    files.append(peasantFile);
+    files.append(Goldmine);
+    files.append(townHall);
+
+    for(int i = 0; i < nObjects; i++){
+        Texture *tex = new Texture(files.at(i),colorFile);
+        assets.insert( tex->textureName, tex);
+    }
+    assets.value("Peasant")->paintAll();
+    assets.value("TownHall")->paintAll();
+
 }
 
 // creates a blank map and updates variables
@@ -82,7 +108,6 @@ void MapView2::openMap(const QString &mapFileName){
     QVector<QString> mapConfig;
     QString blankLine = " ";
 
-    int maxMapLine = 68;
     int lineNum = 0;
 
     QTextStream in(&mapFile);
@@ -95,8 +120,6 @@ void MapView2::openMap(const QString &mapFileName){
             QMessageBox::information(0,"file","blankLine");
             continue;
         }
-
-        int value = line.toInt(&intTest);
 
         lineNum++;
         if ( lineNum == 1){
@@ -113,7 +136,15 @@ void MapView2::openMap(const QString &mapFileName){
             mapDim.setHeight(nums[1]+2);
             mapDim.setWidth(nums[0]+2);
         }
-        else if (!intTest && lineNum > 2 && lineNum <= maxMapLine ){
+        else if ( lineNum == 3)
+        {
+            mapDescription = line;
+        }
+        else if ( lineNum == 4)
+        {
+            mapAllowedAIs = line.split(" ");
+        }
+        else if (!intTest && lineNum > 4){
             // key layout of the map
             for (auto iter = line.begin(); iter != line.end(); iter++ ){
                 mapLayOut.append(*iter);
@@ -162,7 +193,6 @@ void MapView2::builtmap(QGraphicsScene *scene)
     int x = 0;
     int y = 0;
     Terrain::Type type;
-    QString typeS;
     int n = 0;
 
     for(int i = 0; i < mapDim.height(); ++i){
@@ -172,31 +202,24 @@ void MapView2::builtmap(QGraphicsScene *scene)
             switch ( mapLayOut.at(n).toLatin1() ){
                 case 'G':
                     type = Terrain::Grass;
-                    typeS = "grass";
                     break;
                 case 'F':
                     type = Terrain::Tree;
-                    typeS = "tree";
                     break;
                 case 'D':
                     type = Terrain::Dirt;
-                    typeS = "dirt";
                     break;
                 case 'W':
                     type = Terrain::Wall;
-                    typeS = "wall";
                     break;
                 case 'w':
                     type = Terrain::WallDamage;
-                    typeS = "wall-damaged";
                     break;
                 case 'R':
                     type = Terrain::Rock;
-                    typeS = "rock";
                     break;
                 case ' ':
                     type = Terrain::Water;
-                    typeS = "water";
                     break;
             }
 
@@ -211,14 +234,38 @@ void MapView2::builtmap(QGraphicsScene *scene)
             scene->addItem(pixItem);
         }
     }
+
+}
+
+void MapView2::builtAssets(QGraphicsScene *scene){
+
+    QString unitName = "";
+    int x = 0;
+    int y = 0;
+    for(int i = 0; i < players.size(); ++i){
+        for(int j = 0; j < players[i].units.size(); ++j){
+
+            unitName = players[i].units[j].name;
+            // skip player 0, since it has no color assets
+            QImage imageDx;
+            if( i > 0){
+                imageDx = assets.value(unitName)->colorPlayerImg.value(i).at(2);
+            }
+            else{
+                imageDx = assets.value(unitName)->imageList.at(0);
+            }
+            Tile *unitItem = new Tile(unitName, QPixmap::fromImage(imageDx));
+            x = tileDim.width()*players[i].units[j].x;
+            y = tileDim.height()*players[i].units[j].y;
+            unitItem->setPos(x,y);
+            scene->addItem(unitItem);
+        }
+     }
 }
 
 void MapView2::displayMap(QGraphicsScene *scene){
-
-
     builtmap(scene);
-
-    //view->show();
+    builtAssets(scene);
 }
 
 Terrain* MapView2::getTerrain(){
