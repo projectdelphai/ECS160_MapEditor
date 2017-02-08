@@ -34,17 +34,19 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event)
 #endif // QT_NO_CONTEXTMENU
 
 void MainWindow::mousePressEvent(QMouseEvent *event){
-    qDebug() << "In MainWindow::mousePressEvent" << event->button();
-    /*if (event->button() == Qt::LeftButton ){
-         statusBar()->showMessage("Left Click");
+
+    if (event->button() == Qt::LeftButton ){
+         //statusBar()->showMessage("Left Click");
     }
-    else if (event->button() == Qt::RightButton ){
+    /*else if (event->button() == Qt::RightButton ){
         statusBar()->showMessage("Right Click");
     }*/
 }
 
 void MainWindow::mouseMoveEvent(QMouseEvent *event){
-    qDebug() << "In MainWindow::mouseMoveEvent" << event->button();
+    if (event->button() == Qt::LeftButton ){
+         // something
+    }
     //statusBar()->showMessage(QString::number(event->x()) + ", " + QString::number(event->y()), 500);
 }
 
