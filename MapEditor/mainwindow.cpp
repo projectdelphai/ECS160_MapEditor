@@ -398,6 +398,7 @@ void MainWindow::changeLayout(int x, int y, Terrain::Type type)
 
 void MainWindow::changeAsset(int x, int y, QString asset, int player)
 {
+
     Unit unit = Unit(asset, x, y);
 
     if (curMap.getNumPlayers() < player)

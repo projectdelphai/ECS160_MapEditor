@@ -56,9 +56,6 @@ void Texture::openColor(const QString &colorFile){
         colorMap.insert(i, colorV);
         colorV.clear();
     }
-
-//    qDebug() << "color open:" << colorMap.size();
-
 }
 
 QVector<QImage> Texture::paintUnit(int colorPick){

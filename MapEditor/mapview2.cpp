@@ -88,6 +88,8 @@ void MapView2::defaultMap(){
             mapLayOut.append('G');
         }
     }
+    int MAXPLAYERS= 8;
+    players.resize(MAXPLAYERS);
     numPlayers = 0;
     Player player = Player(0, 30000, 500);
     players.append(player);
