@@ -30,6 +30,9 @@ MainWindow::~MainWindow()
 #ifndef QT_NO_CONTEXTMENU
 void MainWindow::contextMenuEvent(QContextMenuEvent *event)
 {
+    if( event ) {
+
+    }
     /*QMenu menu(this);
     menu.addAction(ui->actionOpen);
     menu.addAction(ui->actionSave);
@@ -244,7 +247,6 @@ bool MainWindow::saveFile(const QString &fileName)
 
    for (int t = 0; t < curMap.getPlayers().size(); t++)
    {
-       int num = curMap.getNumPlayers();
        QVector<Unit> units = players[t].units;
        QVector<Unit>::iterator itr3;
 

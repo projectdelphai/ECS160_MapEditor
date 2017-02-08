@@ -33,7 +33,6 @@ public:
     QString textureName;
     QRect tileDim;
 
-
     // refactoring to work with singular texture map
     QMap< QString, QImage*> txMap;
     QMap< QString, QImage*>* rTxMap = &txMap;
@@ -42,10 +41,6 @@ public:
 
     const QMap<QString, QImage*>* getTxMap();
     const QImage* getImage(QString txName);
-
-    QVector< QMap<QString, QImage > > terrainType; // deprecated
-    QVector< QVector<QImage> > terrainType2;        // deprecated
-
 
     QVector<QImage> imageList;
     // color with gradient level shades

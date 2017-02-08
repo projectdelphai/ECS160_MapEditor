@@ -99,7 +99,6 @@ void MapView2::openMap(const QString &mapFileName){
     QVector<QString> mapConfig;
     QString blankLine = " ";
 
-    int maxMapLine = 68;
     int lineNum = 0;
 
     QTextStream in(&mapFile);
@@ -112,8 +111,6 @@ void MapView2::openMap(const QString &mapFileName){
             QMessageBox::information(0,"file","blankLine");
             continue;
         }
-
-        int value = line.toInt(&intTest);
 
         lineNum++;
         if ( lineNum == 1){

@@ -32,7 +32,6 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
 
         Texture *asset = 0;
 
-
         if (curTool == "grass")
             type = Terrain::Grass;
         else if (curTool == "dirt")
@@ -49,7 +48,6 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
         {
             asset = new Texture(":/data/img/Peasant.dat",":/data/img/Colors.png");
             asset->paintAll();
-
         }
         else if (curTool == "GoldMine")
         {

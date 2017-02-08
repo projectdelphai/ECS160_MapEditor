@@ -4,9 +4,6 @@
 
 Texture::Texture(const QString &texFileName )
 {
-    terrainType.resize(8);
-    terrainType2.resize(8);
-
     // load QImage from file
     fullImage = open(texFileName);
 
