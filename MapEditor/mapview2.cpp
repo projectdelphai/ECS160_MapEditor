@@ -48,6 +48,38 @@ MapView2::MapView2(const QString &mapFileName , const QString &mapTexName = ":/d
     setup();
     terrain = new Terrain(mapTexName);
 
+    QImage image = *terrain->getImageTile("wall-4");
+    QImage image2 = *terrain->getImageTile("wall-2");
+    QImage image3 = *terrain->getImageTile("wall-6");
+    QImage image4 = *terrain->getImageTile("wall-1");
+    QImage image5 = *terrain->getImageTile("wall-5");
+    QImage image6 = *terrain->getImageTile("wall-3");
+    QImage image7 = *terrain->getImageTile("wall-7");
+    QImage image8 = *terrain->getImageTile("wall-8");
+    QImage image9 = *terrain->getImageTile("wall-12");
+    QImage image10 = *terrain->getImageTile("wall-10");
+    QImage image11 = *terrain->getImageTile("wall-14");
+    QImage image12 = *terrain->getImageTile("wall-9");
+    QImage image13 = *terrain->getImageTile("wall-13");
+    QImage image14 = *terrain->getImageTile("wall-11");
+
+
+
+//    QGraphicsScene * scene = new QGraphicsScene;
+    //scene->addPixmap(QPixmap::fromImage(image5));
+//    scene->addPixmap(QPixmap::fromImage(image2));
+//     scene->addPixmap(QPixmap::fromImage(image3));
+//      scene->addPixmap(QPixmap::fromImage(image4));
+//       scene->addPixmap(QPixmap::fromImage(image5));
+//        scene->addPixmap(QPixmap::fromImage(image6));
+//         scene->addPixmap(QPixmap::fromImage(image7));
+//          scene->addPixmap(QPixmap::fromImage(image8));
+
+
+//    QGraphicsView * view = new QGraphicsView(scene);
+
+//    view->show();
+
     // upper-left corner and the rectangle size of width and height
     tileDim.setRect(1,1,32,32);
     tileMap.reserve(mapDim.width()*mapDim.height());
@@ -204,8 +236,9 @@ QString MapView2::tileEncode(QString strType ,int i , int j){
 
     QString valueStrType ="";
 //    qDebug() << strType;
-    qDebug() << "(" << i << "," << j << ")";
 
+    QVector<QChar> tiles;
+    QString encodeStr = "";
 
 
 
@@ -213,7 +246,6 @@ QString MapView2::tileEncode(QString strType ,int i , int j){
         return strType;
     }
 
-    QVector<QChar> tiles;
 
     QChar upperLTile = mapLayOut.at((i-1)*mapDim.width() + (j-1));
     QChar TopTile = mapLayOut.at((i-1)*mapDim.width() + j );
@@ -228,25 +260,26 @@ QString MapView2::tileEncode(QString strType ,int i , int j){
 
 
 
-    tiles.append(downRTile);
-    tiles.append(belowTile);
-    tiles.append(downLTile);
-    tiles.append(centerRTile);
-    tiles.append(centerType);
-    tiles.append(centerLTile);
-    tiles.append(upperRTile);
-    tiles.append(TopTile);
-    tiles.append(upperLTile);
 
 
 
 
 
-    if (strType == "water" || strType == "rock" || strType == "dirt" ){
+
+    if (strType == "water" || strType == "rock" || strType == "dirt"  ){
+
+        tiles.append(downRTile);
+        tiles.append(belowTile);
+        tiles.append(downLTile);
+        tiles.append(centerRTile);
+        tiles.append(centerType);
+        tiles.append(centerLTile);
+        tiles.append(upperRTile);
+        tiles.append(TopTile);
+        tiles.append(upperLTile);
 
         qDebug() << "(" << i << "," << j << ")";
 
-        QString encodeStr = "";
         for(int i = 0; i < tiles.size(); i++){
             if (i == 4){
                 continue;
@@ -265,11 +298,45 @@ QString MapView2::tileEncode(QString strType ,int i , int j){
         valueStrType = strType +"-"+ QString().setNum(num);
 
     }
-    else if(strType == "tree"){
+    else if(strType == "tree" ){
+
+        tiles.append(downRTile);
+        tiles.append(belowTile);
+        tiles.append(downLTile);
+        tiles.append(centerRTile);
+        tiles.append(centerType);
+        tiles.append(centerLTile);
+        tiles.append(upperRTile);
+        tiles.append(TopTile);
+        tiles.append(upperLTile);
+
         qDebug() << "(" << i << "," << j << ")";
 
-        QString encodeStr = "";
-        for(int i = 0; i < tiles.size()-2; i++){
+
+//        QString encodeStr = "";
+        for(int i = 0; i < tiles.size()-3; i++){
+            if ( tiles.at(i) == centerType ){
+                encodeStr += "1";
+            }
+            else {
+                encodeStr += "0";
+            }
+        }
+
+        bool ok;
+        int num = encodeStr.toInt(&ok,2);
+
+        valueStrType = strType+"-" + QString().setNum(num);
+        qDebug() << valueStrType;
+
+    }
+    else if(strType == "wall"){
+        tiles.append(centerLTile);
+        tiles.append(belowTile);
+        tiles.append(centerRTile);
+        tiles.append(TopTile);
+
+        for(int i = 0; i < tiles.size(); i++){
             if ( tiles.at(i) == centerType ){
                 encodeStr += "1";
             }
