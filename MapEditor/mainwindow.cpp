@@ -16,14 +16,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     // Load and display a new file
     MainWindow::newFile();
+    MainWindow::updateUI();
 
-    // set up UI buttons
-    ui->tool_grass->setIcon(curMap.getTerrain()->getPixTile(Terrain::Grass));
-    ui->tool_dirt->setIcon(curMap.getTerrain()->getPixTile(Terrain::Dirt));
-    ui->tool_water->setIcon(curMap.getTerrain()->getPixTile(Terrain::Water));
-    ui->tool_tree->setIcon(curMap.getTerrain()->getPixTile(Terrain::Tree));
-    ui->tool_rock->setIcon(curMap.getTerrain()->getPixTile(Terrain::Rock));
-    ui->tool_wall->setIcon(curMap.getTerrain()->getPixTile(Terrain::Wall));
+
 
     ui->graphicsView_2->fitInView(0,0,256,192, Qt::KeepAspectRatio);
     QObject::connect(scene, &GraphicsScene::changedAsset, this, &MainWindow::changeAsset);
@@ -284,6 +279,28 @@ void MainWindow::writeSettings()
     QSettings settings(QCoreApplication::organizationName(), QCoreApplication::applicationName());
     settings.setValue("geometry", saveGeometry());
 }
+
+// This function sets up all the UI buttons depending on what map is loaded
+void MainWindow::updateUI() {
+    // file buttons
+
+    // terrain buttons
+    ui->tool_grass->setIcon(curMap.getTerrain()->getPixTile(Terrain::Grass));
+    ui->tool_dirt->setIcon(curMap.getTerrain()->getPixTile(Terrain::Dirt));
+    ui->tool_water->setIcon(curMap.getTerrain()->getPixTile(Terrain::Water));
+    ui->tool_tree->setIcon(curMap.getTerrain()->getPixTile(Terrain::Tree));
+    ui->tool_rock->setIcon(curMap.getTerrain()->getPixTile(Terrain::Rock));
+    ui->tool_wall->setIcon(curMap.getTerrain()->getPixTile(Terrain::Wall));
+
+    // player color buttons
+
+    // unit buttons
+
+    // building buttons
+}
+
+
+
 // reference  http://www.qtcentre.org/threads/52603-Zoom-effect-by-mouse-Wheel-in-QGraphicsview
 void MainWindow::wheelEvent(QWheelEvent *event)
 {
