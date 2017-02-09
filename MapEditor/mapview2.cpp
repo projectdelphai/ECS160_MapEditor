@@ -31,7 +31,8 @@ MapView2::MapView2()
 
 
     // create and store all assets
-    setup();
+
+//    setup();
     terrain = new Terrain;
 
 
@@ -61,7 +62,6 @@ MapView2::MapView2(const QString &mapFileName , const QString &mapTexName = ":/d
 
 
 void MapView2::setup(){
-    // grab all the asset files
     QString path = ":/data/img";
     QString colorFile = ":/data/img/Colors.png";
     QString peasantFile =":/data/img/Peasant.dat";
@@ -69,13 +69,11 @@ void MapView2::setup(){
     QString townHall = ":/data/img/TownHall.dat";
     int nObjects = 3;
 
-    // append them to a vector
     QVector<QString> files;
     files.append(peasantFile);
     files.append(Goldmine);
     files.append(townHall);
 
-    // create a texture for each asset
     for(int i = 0; i < nObjects; i++){
         Texture *tex = new Texture(files.at(i),colorFile);
         assets.insert( tex->textureName, tex);
@@ -88,12 +86,9 @@ void MapView2::setup(){
 // creates a blank map and updates variables
 void MapView2::defaultMap(){
     mapName = "untitled.map";
-
-    // add 2 tiles for border
     mapDim.setHeight(64 + 2);
     mapDim.setWidth(96 + 2);
 
-    // loop through all the tiles and add grass tiles
     for(int h = 0; h < mapDim.height(); h++ ){
         for(int w = 0; w < mapDim.width(); w++) {
             mapLayOut.append('G');
@@ -101,9 +96,6 @@ void MapView2::defaultMap(){
     }
     int MAXPLAYERS= 8;
     players.resize(MAXPLAYERS);
-
-    // player zero is neutral
-
     numPlayers = 0;
     Player player = Player(0, 30000, 500);
     players.append(player);
@@ -438,33 +430,14 @@ QVector<Player> MapView2::getPlayers()
     return players;
 }
 
-void MapView2::addPlayer(Player p)
-{
-    players.append(p);
-}
-
 int MapView2::getNumPlayers()
 {
-    return players.size();
+    return numPlayers;
 }
 
 int MapView2::getNumUnits()
 {
     return numUnits;
-}
-
-void MapView2::addUnit(Unit u, int player)
-{
-    if (getNumPlayers() < player)
-    {
-        for (int i = getNumPlayers(); i < player + 1; i++)
-        {
-            Player player = Player(i, 100, 100);
-            addPlayer(player);
-        }
-    }
-
-    players[player].units.append(u);
 }
 
 void MapView2::setMapLayout(QVector<QChar> layout)

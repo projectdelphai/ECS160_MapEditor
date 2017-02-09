@@ -45,8 +45,6 @@ public:
     QVector<QChar> getMapLayout();
     void setMapLayout(QVector<QChar> layout);
     QVector<Player> getPlayers();
-    void addPlayer(Player p);
-    void addUnit(Unit u, int player);
     int getNumPlayers();
     int getNumUnits();
 

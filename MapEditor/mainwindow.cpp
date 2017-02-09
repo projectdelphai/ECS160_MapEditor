@@ -3,8 +3,6 @@
 #include "graphicsscene.h"
 #include <QDebug>
 #include "mapview2.h"
-
-
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     // set up UI elements
@@ -12,7 +10,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->graphicsView->setMouseTracking(true);
     ui->graphicsView_2->setMouseTracking(true);
      curTool = "hand";
-
 
     // Load and display a new file
     MainWindow::newFile();
@@ -143,9 +140,6 @@ void MainWindow::loadFile(const QString &fileName)
 
     setCurrentFile(fileName);
     statusBar()->showMessage(fileName + " loaded!", 2000);
-
-    curPlayer = 1;
-    scene->curPlayer = 1;
 }
 
 void MainWindow::setCurrentFile(const QString &fileName)
@@ -208,7 +202,6 @@ bool MainWindow::saveAs()
 
 bool MainWindow::saveFile(const QString &fileName)
 {
-    // check if able to write to file
     QFile file(fileName);
     if (!file.open(QFile::WriteOnly | QFile::Text)) {
         QMessageBox::warning(this, tr("Application"),
@@ -218,7 +211,6 @@ bool MainWindow::saveFile(const QString &fileName)
         return false;
     }
 
-   // write descriptive properties
    QTextStream stream(&file);
    stream << curMap.getMapName() << endl;
    stream << curMap.getMapDim().width()-2 << " " << curMap.getMapDim().height()-2 << endl;
@@ -229,7 +221,6 @@ bool MainWindow::saveFile(const QString &fileName)
 
    QVector<QChar> layout = curMap.getMapLayout();
 
-   // write out layout
    int x = 0;
    for (itr = layout.begin(); itr != layout.end(); itr++)
    {
@@ -242,7 +233,6 @@ bool MainWindow::saveFile(const QString &fileName)
        }
    }
 
-   // write players
    QVector<Player> players = curMap.getPlayers();
 
    stream << curMap.getNumPlayers() << endl;
@@ -411,7 +401,15 @@ void MainWindow::changeAsset(int x, int y, QString asset, int player)
 
     Unit unit = Unit(asset, x, y);
 
-    curMap.addUnit(unit, player);
+    if (curMap.getNumPlayers() < player)
+    {
+        for (int i = curMap.getNumPlayers() + 1; i < player + 1; i++)
+        {
+            Player player = Player(i, 100, 100);
+            curMap.getPlayers().append(player);
+        }
+    }
+    curMap.players[player].units.append(unit);
 }
 
 void MainWindow::on_tool_peasant1_clicked()

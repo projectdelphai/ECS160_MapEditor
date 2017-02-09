@@ -46,7 +46,6 @@ public:
     // color with gradient level shades
     QMap< int,QVector<QColor> >colorMap;
     // recolor images of player's color
-    // colorPlayerImg[playerColor][imageTile]
     QMap< int , QVector<QImage> > colorPlayerImg;
 };
 
