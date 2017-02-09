@@ -34,6 +34,12 @@
        <layout class="QHBoxLayout" name="file_and_player">
         <item>
          <widget class="QGroupBox" name="group_file">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="title">
            <string>File</string>
           </property>
@@ -283,23 +289,35 @@
        </widget>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="toolbar">
-        <item>
-         <widget class="QGroupBox" name="group_terrain">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="title">
-           <string>Terrain</string>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_5">
+       <widget class="QGroupBox" name="group_objects">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="title">
+         <string>Objects</string>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <layout class="QVBoxLayout" name="terrain">
+           <property name="leftMargin">
+            <number>2</number>
+           </property>
+           <property name="topMargin">
+            <number>2</number>
+           </property>
+           <property name="rightMargin">
+            <number>2</number>
+           </property>
+           <property name="bottomMargin">
+            <number>2</number>
+           </property>
            <item>
-            <widget class="QToolButton" name="tool_grass">
+            <widget class="QToolButton" name="tool_water">
              <property name="text">
-              <string>grass</string>
+              <string>water</string>
              </property>
              <property name="iconSize">
               <size>
@@ -309,6 +327,9 @@
              </property>
              <property name="checkable">
               <bool>true</bool>
+             </property>
+             <property name="checked">
+              <bool>false</bool>
              </property>
              <property name="autoExclusive">
               <bool>true</bool>
@@ -328,28 +349,6 @@
              </property>
              <property name="checkable">
               <bool>true</bool>
-             </property>
-             <property name="autoExclusive">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QToolButton" name="tool_water">
-             <property name="text">
-              <string>water</string>
-             </property>
-             <property name="iconSize">
-              <size>
-               <width>32</width>
-               <height>32</height>
-              </size>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="checked">
-              <bool>false</bool>
              </property>
              <property name="autoExclusive">
               <bool>true</bool>
@@ -414,6 +413,25 @@
             </widget>
            </item>
            <item>
+            <widget class="QToolButton" name="tool_grass">
+             <property name="text">
+              <string>grass</string>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>32</width>
+               <height>32</height>
+              </size>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="autoExclusive">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
             <widget class="QToolButton" name="tool_rubble">
              <property name="text">
               <string>rubble</string>
@@ -437,6 +455,9 @@
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Maximum</enum>
+             </property>
              <property name="sizeHint" stdset="0">
               <size>
                <width>20</width>
@@ -446,27 +467,16 @@
             </spacer>
            </item>
           </layout>
-         </widget>
-        </item>
-        <item>
-         <widget class="Line" name="sep_to">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QGroupBox" name="group_objects">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="title">
-           <string>Objects</string>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout">
+         </item>
+         <item>
+          <widget class="Line" name="sep_to">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="nonterrain">
            <item>
             <layout class="QGridLayout" name="grid_units">
              <item row="0" column="1">
@@ -487,19 +497,6 @@
                 <bool>true</bool>
                </property>
               </widget>
-             </item>
-             <item row="0" column="3">
-              <spacer name="horizontalSpacer">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
              </item>
              <item row="0" column="2">
               <widget class="QToolButton" name="tool_knight">
@@ -542,6 +539,19 @@
                 <bool>true</bool>
                </property>
               </widget>
+             </item>
+             <item row="0" column="3">
+              <spacer name="horizontalSpacer">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
              </item>
             </layout>
            </item>
@@ -773,9 +783,12 @@
             </layout>
            </item>
            <item>
-            <spacer name="verticalSpacer">
+            <spacer name="verticalSpacer_4">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Maximum</enum>
              </property>
              <property name="sizeHint" stdset="0">
               <size>
@@ -786,14 +799,17 @@
             </spacer>
            </item>
           </layout>
-         </widget>
-        </item>
-       </layout>
+         </item>
+        </layout>
+       </widget>
       </item>
       <item>
-       <spacer name="verticalSpacer_3">
+       <spacer name="verticalSpacer">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Expanding</enum>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
@@ -825,6 +841,15 @@
         </property>
         <property name="accessibleName">
          <string>minimap</string>
+        </property>
+        <property name="backgroundBrush">
+         <brush brushstyle="SolidPattern">
+          <color alpha="128">
+           <red>0</red>
+           <green>0</green>
+           <blue>0</blue>
+          </color>
+         </brush>
         </property>
        </widget>
       </item>
@@ -1329,70 +1354,6 @@
     <hint type="destinationlabel">
      <x>285</x>
      <y>233</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionGrass</sender>
-   <signal>triggered()</signal>
-   <receiver>tool_grass</receiver>
-   <slot>click()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>61</x>
-     <y>167</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionWater</sender>
-   <signal>triggered()</signal>
-   <receiver>tool_water</receiver>
-   <slot>click()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>213</x>
-     <y>167</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>tool_rock</sender>
-   <signal>clicked()</signal>
-   <receiver>actionRock</receiver>
-   <slot>toggle()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>245</x>
-     <y>266</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionDirt</sender>
-   <signal>triggered()</signal>
-   <receiver>tool_dirt</receiver>
-   <slot>click()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>137</x>
-     <y>167</y>
     </hint>
    </hints>
   </connection>
