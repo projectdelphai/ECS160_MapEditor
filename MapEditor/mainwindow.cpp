@@ -11,11 +11,20 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->setupUi(this);
     ui->graphicsView->setMouseTracking(true);
     ui->graphicsView_2->setMouseTracking(true);
-     curTool = "hand";
+    curTool = "hand";
 
 
     // Load and display a new file
     MainWindow::newFile();
+
+    // set up UI buttons
+    ui->tool_grass->setIcon(curMap.getTerrain()->getPixTile(Terrain::Grass));
+    ui->tool_dirt->setIcon(curMap.getTerrain()->getPixTile(Terrain::Dirt));
+    ui->tool_water->setIcon(curMap.getTerrain()->getPixTile(Terrain::Water));
+    ui->tool_tree->setIcon(curMap.getTerrain()->getPixTile(Terrain::Tree));
+    ui->tool_rock->setIcon(curMap.getTerrain()->getPixTile(Terrain::Rock));
+    ui->tool_wall->setIcon(curMap.getTerrain()->getPixTile(Terrain::Wall));
+
     ui->graphicsView_2->fitInView(0,0,256,192, Qt::KeepAspectRatio);
     QObject::connect(scene, &GraphicsScene::changedAsset, this, &MainWindow::changeAsset);
     curPlayer = 1;
