@@ -25,6 +25,15 @@ public:
     Texture *peasantTool;
     Texture *goldmineTool;
     Texture *townhallTool;
+    Texture *barracksTool;
+    Texture *blacksmithTool;
+    Texture *farmTool;
+    Texture *lumbermillTool;
+    Texture *scouttowerTool;
+    Texture *cannontowerTool;
+    Texture *castleTool;
+    Texture *keepTool;
+    Texture *guardtowerTool;
 signals:
     void changedLayout(int x, int y, Terrain::Type type);
     void changedAsset(int x, int y, QString asset, int curPlayer);

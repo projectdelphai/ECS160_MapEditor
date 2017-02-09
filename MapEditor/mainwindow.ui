@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1075</width>
-    <height>722</height>
+    <height>731</height>
    </rect>
   </property>
   <property name="mouseTracking">
@@ -370,15 +370,136 @@
          </widget>
         </item>
         <item>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <widget class="QGroupBox" name="groupBox_4">
+            <property name="title">
+             <string>GroupBox</string>
+            </property>
+            <widget class="QWidget" name="gridLayoutWidget_3">
+             <property name="geometry">
+              <rect>
+               <x>10</x>
+               <y>30</y>
+               <width>55</width>
+               <height>53</height>
+              </rect>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_3">
+              <item row="0" column="0">
+               <widget class="QToolButton" name="tool_peasant1">
+                <property name="text">
+                 <string>...</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="icons.qrc">
+                  <normaloff>:/toolbar/icons/toolbar/tool_peasant.png</normaloff>:/toolbar/icons/toolbar/tool_peasant.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>46</width>
+                  <height>38</height>
+                 </size>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="autoExclusive">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <spacer name="verticalSpacer">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </widget>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="Line" name="line_8">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
          <layout class="QVBoxLayout" name="verticalLayout_4">
           <item>
            <widget class="QGroupBox" name="groupBox_2">
             <property name="title">
-             <string>Objects</string>
+             <string>Buldings</string>
             </property>
             <layout class="QGridLayout" name="gridLayout_5">
-             <item row="0" column="1">
-              <spacer name="horizontalSpacer">
+             <item row="1" column="4">
+              <layout class="QGridLayout" name="gridLayout_11">
+               <item row="0" column="0">
+                <widget class="QToolButton" name="tool_castle">
+                 <property name="text">
+                  <string>...</string>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="icons.qrc">
+                   <normaloff>:/toolbar/icons/toolbar/tool_castle.png</normaloff>:/toolbar/icons/toolbar/tool_castle.png</iconset>
+                 </property>
+                 <property name="iconSize">
+                  <size>
+                   <width>46</width>
+                   <height>38</height>
+                  </size>
+                 </property>
+                 <property name="checkable">
+                  <bool>true</bool>
+                 </property>
+                 <property name="autoExclusive">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item row="2" column="0">
+              <widget class="Line" name="line_5">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="6" column="2">
+              <widget class="Line" name="line_14">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="1">
+              <widget class="Line" name="line_11">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="7" column="1">
+              <widget class="Line" name="line_12">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="5">
+              <spacer name="horizontalSpacer_4">
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
@@ -390,7 +511,28 @@
                </property>
               </spacer>
              </item>
-             <item row="4" column="0">
+             <item row="3" column="1">
+              <widget class="Line" name="line_9">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="2">
+              <widget class="Line" name="line_13">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="2">
+              <widget class="Line" name="line_10">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0">
               <layout class="QGridLayout" name="gridLayout_7">
                <item row="0" column="0">
                 <widget class="QToolButton" name="tool_goldmine">
@@ -415,43 +557,31 @@
                  </property>
                 </widget>
                </item>
-               <item row="1" column="0">
-                <spacer name="verticalSpacer_4">
-                 <property name="orientation">
-                  <enum>Qt::Vertical</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>20</width>
-                   <height>40</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
               </layout>
              </item>
-             <item row="1" column="0">
-              <widget class="Line" name="line_4">
+             <item row="6" column="0">
+              <widget class="Line" name="line_7">
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
               </widget>
              </item>
-             <item row="2" column="0">
+             <item row="4" column="0">
+              <widget class="Line" name="line_6">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="Line" name="line_4">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
               <layout class="QGridLayout" name="gridLayout_4">
-               <item row="1" column="0">
-                <spacer name="verticalSpacer_3">
-                 <property name="orientation">
-                  <enum>Qt::Vertical</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>20</width>
-                   <height>40</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
                <item row="0" column="0">
                 <widget class="QToolButton" name="tool_townhall1">
                  <property name="text">
@@ -477,16 +607,16 @@
                </item>
               </layout>
              </item>
-             <item row="0" column="0">
-              <layout class="QGridLayout" name="gridLayout_3">
+             <item row="5" column="0">
+              <layout class="QGridLayout" name="gridLayout">
                <item row="0" column="0">
-                <widget class="QToolButton" name="tool_peasant1">
+                <widget class="QToolButton" name="tool_lumbermill">
                  <property name="text">
                   <string>...</string>
                  </property>
                  <property name="icon">
                   <iconset resource="icons.qrc">
-                   <normaloff>:/toolbar/icons/toolbar/tool_peasant.png</normaloff>:/toolbar/icons/toolbar/tool_peasant.png</iconset>
+                   <normaloff>:/toolbar/icons/toolbar/tool_lumbermill.png</normaloff>:/toolbar/icons/toolbar/tool_lumbermill.png</iconset>
                  </property>
                  <property name="iconSize">
                   <size>
@@ -502,27 +632,245 @@
                  </property>
                 </widget>
                </item>
-               <item row="1" column="0">
-                <spacer name="verticalSpacer">
-                 <property name="orientation">
-                  <enum>Qt::Vertical</enum>
+              </layout>
+             </item>
+             <item row="7" column="0">
+              <layout class="QGridLayout" name="gridLayout_2">
+               <item row="0" column="0">
+                <widget class="QToolButton" name="tool_barracks">
+                 <property name="text">
+                  <string>...</string>
                  </property>
-                 <property name="sizeHint" stdset="0">
+                 <property name="icon">
+                  <iconset resource="icons.qrc">
+                   <normaloff>:/toolbar/icons/toolbar/tool_barracks.png</normaloff>:/toolbar/icons/toolbar/tool_barracks.png</iconset>
+                 </property>
+                 <property name="iconSize">
                   <size>
-                   <width>20</width>
-                   <height>40</height>
+                   <width>46</width>
+                   <height>38</height>
                   </size>
                  </property>
-                </spacer>
+                 <property name="checkable">
+                  <bool>true</bool>
+                 </property>
+                 <property name="autoExclusive">
+                  <bool>true</bool>
+                 </property>
+                </widget>
                </item>
               </layout>
              </item>
-             <item row="3" column="0">
-              <widget class="Line" name="line_5">
+             <item row="1" column="2">
+              <layout class="QGridLayout" name="gridLayout_6">
+               <item row="0" column="0">
+                <widget class="QToolButton" name="tool_keep">
+                 <property name="text">
+                  <string>...</string>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="icons.qrc">
+                   <normaloff>:/toolbar/icons/toolbar/tool_keep.png</normaloff>:/toolbar/icons/toolbar/tool_keep.png</iconset>
+                 </property>
+                 <property name="iconSize">
+                  <size>
+                   <width>46</width>
+                   <height>38</height>
+                  </size>
+                 </property>
+                 <property name="checkable">
+                  <bool>true</bool>
+                 </property>
+                 <property name="autoExclusive">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item row="3" column="2">
+              <layout class="QGridLayout" name="gridLayout_8">
+               <item row="0" column="0">
+                <widget class="QToolButton" name="tool_blacksmith">
+                 <property name="text">
+                  <string>...</string>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="icons.qrc">
+                   <normaloff>:/toolbar/icons/toolbar/tool_blacksmith.png</normaloff>:/toolbar/icons/toolbar/tool_blacksmith.png</iconset>
+                 </property>
+                 <property name="iconSize">
+                  <size>
+                   <width>46</width>
+                   <height>38</height>
+                  </size>
+                 </property>
+                 <property name="checkable">
+                  <bool>true</bool>
+                 </property>
+                 <property name="autoExclusive">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item row="5" column="2">
+              <layout class="QGridLayout" name="gridLayout_9">
+               <item row="0" column="0">
+                <widget class="QToolButton" name="tool_farm">
+                 <property name="text">
+                  <string>...</string>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="icons.qrc">
+                   <normaloff>:/toolbar/icons/toolbar/tool_farm.png</normaloff>:/toolbar/icons/toolbar/tool_farm.png</iconset>
+                 </property>
+                 <property name="iconSize">
+                  <size>
+                   <width>46</width>
+                   <height>38</height>
+                  </size>
+                 </property>
+                 <property name="checkable">
+                  <bool>true</bool>
+                 </property>
+                 <property name="autoExclusive">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item row="1" column="3">
+              <widget class="Line" name="line_15">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="4">
+              <widget class="Line" name="line_16">
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
               </widget>
+             </item>
+             <item row="3" column="4">
+              <layout class="QGridLayout" name="gridLayout_12">
+               <item row="0" column="0">
+                <widget class="QToolButton" name="tool_cannontower">
+                 <property name="text">
+                  <string>...</string>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="icons.qrc">
+                   <normaloff>:/toolbar/icons/toolbar/tool_cannontower.png</normaloff>:/toolbar/icons/toolbar/tool_cannontower.png</iconset>
+                 </property>
+                 <property name="iconSize">
+                  <size>
+                   <width>46</width>
+                   <height>38</height>
+                  </size>
+                 </property>
+                 <property name="checkable">
+                  <bool>true</bool>
+                 </property>
+                 <property name="autoExclusive">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item row="3" column="3">
+              <widget class="Line" name="line_17">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="4">
+              <widget class="Line" name="line_18">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="4">
+              <layout class="QGridLayout" name="gridLayout_13">
+               <item row="0" column="0">
+                <widget class="QToolButton" name="tool_guardtower">
+                 <property name="text">
+                  <string>...</string>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="icons.qrc">
+                   <normaloff>:/toolbar/icons/toolbar/tool_guardtower.png</normaloff>:/toolbar/icons/toolbar/tool_guardtower.png</iconset>
+                 </property>
+                 <property name="iconSize">
+                  <size>
+                   <width>46</width>
+                   <height>38</height>
+                  </size>
+                 </property>
+                 <property name="checkable">
+                  <bool>true</bool>
+                 </property>
+                 <property name="autoExclusive">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item row="5" column="3">
+              <widget class="Line" name="line_19">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="6" column="4">
+              <widget class="Line" name="line_20">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="7" column="3">
+              <widget class="Line" name="line_21">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="7" column="4">
+              <layout class="QGridLayout" name="gridLayout_10">
+               <item row="0" column="0">
+                <widget class="QToolButton" name="tool_scouttower">
+                 <property name="text">
+                  <string>...</string>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="icons.qrc">
+                   <normaloff>:/toolbar/icons/toolbar/tool_scouttower.png</normaloff>:/toolbar/icons/toolbar/tool_scouttower.png</iconset>
+                 </property>
+                 <property name="iconSize">
+                  <size>
+                   <width>46</width>
+                   <height>38</height>
+                  </size>
+                 </property>
+                 <property name="checkable">
+                  <bool>true</bool>
+                 </property>
+                 <property name="autoExclusive">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </item>
             </layout>
            </widget>
@@ -589,7 +937,7 @@
      <x>0</x>
      <y>0</y>
      <width>1075</width>
-     <height>21</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

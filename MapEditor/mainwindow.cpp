@@ -434,6 +434,68 @@ void MainWindow::on_tool_goldmine_clicked()
     statusBar()->showMessage(tr("Goldmine Tool selected"), 2000);
 }
 
+void MainWindow::on_tool_barracks_clicked()
+{
+    curTool = "Barracks";
+    scene->curTool = "Barracks";
+    statusBar()->showMessage(tr("Barracks Tool selected"), 2000);
+}
+
+void MainWindow::on_tool_blacksmith_clicked()
+{
+    curTool = "BlackSmith";
+    scene->curTool = "BlackSmith";
+    statusBar()->showMessage(tr("Black Smith Tool selected"), 2000);
+}
+
+void MainWindow::on_tool_cannontower_clicked()
+{
+    curTool = "CannonTower";
+    scene->curTool = "CannonTower";
+    statusBar()->showMessage(tr("Cannon Tower Tool selected"), 2000);
+}
+
+void MainWindow::on_tool_castle_clicked()
+{
+    curTool = "Castle";
+    scene->curTool = "Castle";
+    statusBar()->showMessage(tr("Castle Tool selected"), 2000);
+}
+
+void MainWindow::on_tool_farm_clicked()
+{
+    curTool = "Farm";
+    scene->curTool = "Farm";
+    statusBar()->showMessage(tr("Farm Tool selected"), 2000);
+}
+
+void MainWindow::on_tool_guardtower_clicked()
+{
+    curTool = "GuardTower";
+    scene->curTool = "GuardTower";
+    statusBar()->showMessage(tr("Guard Tower Tool selected"), 2000);
+}
+
+void MainWindow::on_tool_scouttower_clicked()
+{
+    curTool = "ScoutTower";
+    scene->curTool = "ScoutTower";
+    statusBar()->showMessage(tr("Scout Tower Tool selected"), 2000);
+}
+
+void MainWindow::on_tool_keep_clicked()
+{
+    curTool = "Keep";
+    scene->curTool = "Keep";
+    statusBar()->showMessage(tr("Keep Tool selected"), 2000);
+}
+
+void MainWindow::on_tool_lumbermill_clicked()
+{
+    curTool = "LumberMill";
+    scene->curTool = "LumberMill";
+    statusBar()->showMessage(tr("LumberMill Tool selected"), 2000);
+}
 
 void MainWindow::on_tool_p1_clicked()
 {

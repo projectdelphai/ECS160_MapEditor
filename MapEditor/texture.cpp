@@ -103,7 +103,7 @@ void Texture::paintAll(){
     colorPlayerImg.insert(blue,imageList);
     // skip first players of blue color
     for(int i = 0; i < nPlayers; i++){
-         qDebug() << "before" << i;
+         qDebug() << "PAINTING LOL, please wait" << i;
          colorPlayerImg.insert(i+1,paintUnit(i));
     }
 }
