@@ -198,7 +198,7 @@ void Texture::scanTexture(const QString &texFileName){
 
 }
 
-const QMap<QString, QImage*>* Texture::getTxMap() {
+QMap<QString, QImage*>* Texture::getTxMap() {
     return rTxMap;
 }
 

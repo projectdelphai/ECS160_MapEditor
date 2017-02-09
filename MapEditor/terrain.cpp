@@ -3,7 +3,7 @@
 
 Terrain::Terrain(QString texFileName) : Texture(texFileName)
 {
-    Terrain::texture = Texture::rTxMap;
+    Terrain::texture = Texture::getTxMap();
 }
 
 QImage* Terrain::getImageTile(Terrain::Type type){
