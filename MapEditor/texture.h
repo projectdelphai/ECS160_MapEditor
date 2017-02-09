@@ -21,10 +21,9 @@ public:
     QString textureName;
     void paintAll();
     QVector<QImage> imageList;
-    // color with gradient level shades
-    QMap< int,QVector<QColor> >colorMap;
-    // recolor images of player's color
-    QMap< int , QVector<QImage> > colorPlayerImg;
+
+    QMap< int,QVector<QColor> >colorMap;         // color with gradient level shades
+    QMap< int , QVector<QImage> > colorPlayerImg;   // recolor images of player's color
 
 private:
     void display();
