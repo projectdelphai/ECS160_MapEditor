@@ -62,7 +62,6 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event){
 
 void MainWindow::mouseReleaseEvent(QMouseEvent *event){
     if (event->button() == Qt::LeftButton ){
-        qDebug() << "BES";
     }
 }
 
@@ -423,8 +422,8 @@ void MainWindow::on_tool_peasant1_clicked()
 
 void MainWindow::on_tool_townhall1_clicked()
 {
-    curTool = "townhall";
-    scene->curTool = "townhall";
+    curTool = "TownHall";
+    scene->curTool = "TownHall";
     statusBar()->showMessage(tr("Player 1 Townhall selected"), 2000);
 }
 

@@ -11,6 +11,11 @@ GraphicsScene::GraphicsScene(QObject *parent, MapView2 *curMap) : QGraphicsScene
     GraphicsScene::parent = parent;
     GraphicsScene::mapInfo = curMap;
     brushing = false;
+    peasantTool = new Texture(":/data/img/Peasant.dat",":/data/img/Colors.png");
+    peasantTool->paintAll();
+    goldmineTool = new Texture(":/data/img/GoldMine.dat",":/data/img/Colors.png");
+    townhallTool = new Texture(":/data/img/TownHall.dat",":/data/img/Colors.png");
+    townhallTool->paintAll();
 }
 
 void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
@@ -46,13 +51,15 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
             type = Terrain::Wall;
         else if (curTool == "Peasant")
         {
-            asset = new Texture(":/data/img/Peasant.dat",":/data/img/Colors.png");
-            asset->paintAll();
+            asset = peasantTool;
         }
         else if (curTool == "GoldMine")
         {
-            asset = new Texture(":/data/img/GoldMine.dat",":/data/img/Colors.png");
-
+            asset = goldmineTool;
+        }
+        else if (curTool == "TownHall")
+        {
+            asset = townhallTool;
         }
         else
         {
@@ -68,7 +75,7 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
             if (curTool == "GoldMine")
                 imageDx = asset->imageList[0];
             else
-                imageDx = asset->colorPlayerImg[curPlayer][0];
+                imageDx = asset->colorPlayerImg[curPlayer][3];
         }
 
         QPixmap pixmap = QPixmap::fromImage(imageDx);
