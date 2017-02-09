@@ -51,6 +51,7 @@ public:
     int getNumUnits();
 
     void setup();
+    QImage tileEncode(Texture::Type,int i,int j);
 
     void defaultMap();
     void openMap(const QString &mapName);
@@ -61,6 +62,8 @@ public:
     QVector<Player> players;
 
     Terrain* getTerrain();
+
+
 
 private:
     QVector<QChar> mapLayOut;

@@ -56,6 +56,7 @@ QString Tile::toString()
         return "Rubble";
         break;
     }
+
 }
 
 
