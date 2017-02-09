@@ -15,33 +15,37 @@ public:
     Texture(const QString &mapTexName, const QString &color);
     Texture();
 
-    void display();
-    enum  Type { Grass = 0, Dirt , Tree , Water , Rock , WallDamage , Wall , Rubble };
-    enum  colors{ Blue = 0, Red , Green , Purple, Orange , Yellow, Black , Gray } ;
+    QMap<QString, QImage*>* getTxMap();
+    const QImage* getImage(QString txName);
 
-
-//private:
-    void open(const QString &mapTexture);
-    void scanTerrain(const QString &str);
-    void scanTexture(const QString &str);
-    void openColor(const QString &colorFile);
-    QImage getImageTile(Type);
-    QVector<QImage> paintUnit(int colorPick);
-    void paintAll();
-
-    QImage fullImage;
     QString textureName;
-    QRect tileDim;
-
-    QVector< QMap<QString, QImage > > terrainType;
-    // testing
-    QVector< QVector<QImage> > terrainType2;
-
+    void paintAll();
     QVector<QImage> imageList;
     // color with gradient level shades
     QMap< int,QVector<QColor> >colorMap;
     // recolor images of player's color
     QMap< int , QVector<QImage> > colorPlayerImg;
+
+private:
+    void display();
+
+    QImage open(const QString &mapTexture);
+
+    enum  colors{ Blue = 0, Red , Green , Purple, Orange , Yellow, Black , Gray } ;
+
+    void scanTexture(const QString &str);
+    void openColor(const QString &colorFile);
+    QVector<QImage> paintUnit(int colorPick);
+
+    QImage fullImage;
+    QRect tileDim;
+
+    // txMap IS THE CONTAINER FOR THE IMAGES
+    QMap< QString, QImage*> txMap;
+    QMap< QString, QImage*>* rTxMap = &txMap;
+    QString datFileName;
+    void scanDatFile(const QString datFileName);
+
 };
 
 #endif // TEXTURE_H

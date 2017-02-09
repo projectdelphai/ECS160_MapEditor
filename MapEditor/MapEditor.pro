@@ -29,13 +29,15 @@ SOURCES += main.cpp\
     mapview2.cpp \
     texture.cpp \
     tile.cpp \
-    graphicsscene.cpp
+    graphicsscene.cpp \
+    terrain.cpp
 
 HEADERS  += mainwindow.h \
     mapview2.h \
     texture.h \
     tile.h \
-    graphicsscene.h
+    graphicsscene.h \
+    terrain.h
 
 FORMS    += mainwindow.ui
 

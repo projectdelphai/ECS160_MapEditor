@@ -1,18 +1,24 @@
 #include "texture.h"
 #include <QDebug>
 
-// for now used only loading map terrain texture
+
 Texture::Texture(const QString &texFileName )
 {
-//    int numTypes = 8;
-    terrainType.resize(8);
-    terrainType2.resize(8);
-    // image is initialized
-    open(texFileName);
-    scanTerrain(QString(":/data/img/Terrain.dat"));
+    // load QImage from file
+    fullImage = open(texFileName);
+
+    // load typelist from the corresponding dat file
+    QStringList filePath = texFileName.split(".");
+    QStringList pathnames = filePath[0].split("/");
+    QString texName = pathnames.back();
+    datFileName = QString(":/data/img/" + texName + ".dat");
+
+    scanDatFile(datFileName);
+
     // upper-left corner and the rectangle size of width and height
     tileDim.setRect(0,0,32,32);
 }
+
 
 Texture::Texture( const QString &textureName, const QString &colorFile){
     scanTexture(textureName);
@@ -20,17 +26,14 @@ Texture::Texture( const QString &textureName, const QString &colorFile){
     tileDim.setRect(0,0,32,32);
 }
 
-Texture::Texture(){
 
-}
-
-void Texture::open(const QString &textureName){
+// load QImage from file
+QImage Texture::open(const QString &textureName){
     QImage img;
     if( !img.load(textureName)){
         QMessageBox::information(0,"error","image");
     }
-
-    fullImage = img;
+    return img;
 }
 
 void Texture::openColor(const QString &colorFile){
@@ -53,9 +56,6 @@ void Texture::openColor(const QString &colorFile){
         colorMap.insert(i, colorV);
         colorV.clear();
     }
-
-//    qDebug() << "color open:" << colorMap.size();
-
 }
 
 QVector<QImage> Texture::paintUnit(int colorPick){
@@ -103,24 +103,21 @@ void Texture::paintAll(){
     colorPlayerImg.insert(blue,imageList);
     // skip first players of blue color
     for(int i = 0; i < nPlayers; i++){
+         qDebug() << "before" << i;
          colorPlayerImg.insert(i+1,paintUnit(i));
     }
 }
 
-void Texture::scanTerrain(const QString &texFileName){
-    QFile file(texFileName);
+// this function takes all image files from a large png, chops them up and stores them in Texture::txMap
+void Texture::scanDatFile(const QString datFileName) {
+    QFile file(datFileName);
 
     if (!file.open(QIODevice::ReadOnly)){
         QMessageBox::information(0,"error",file.errorString());
     }
 
-
     QString name;
     int lineNum = 0;
-    int offsetHeight = 0;
-    int tileSize = 32;
-    int size = 0;
-    QImage image;
 
     QTextStream in(&file);
     while(!in.atEnd()){
@@ -133,59 +130,15 @@ void Texture::scanTerrain(const QString &texFileName){
 
         lineNum++;
 
-        if (lineNum == 1){
-            name = line;
-        }
-        else if(lineNum == 2){
-           size =  line.toInt();
-        }
-        // stores textures types together and each specific type is map (sometype,height)
-        // image texture is assume sorted
-        else if(lineNum > 2){
-            image = fullImage.copy(0,offsetHeight,fullImage.width(),fullImage.width());
-            if( line.contains(QRegExp("grass+")) ){
-                terrainType[Grass].insert(line , image );
-                terrainType2[Grass].append(image);
-
-            }
-            else if ( line.contains(QRegExp("dirt+")) ){
-                terrainType[Dirt].insert(line, image);
-                terrainType2[Dirt].append(image);
-            }
-            else if (line.contains(QRegExp("tree+")) ){
-                terrainType[Tree].insert(line, image);
-                terrainType2[Tree].append(image);
-            }
-            else if (line.contains(QRegExp("water+")) ){
-                terrainType[Water].insert(line , image);
-                terrainType2[Water].append(image);
-
-            }
-            else if (line.contains(QRegExp("rock+")) ){
-                terrainType[Rock].insert( line, image);
-                terrainType2[Rock].append( image);
-
-            }
-            else if (line.contains(QRegExp("wall-d+")) ){
-                terrainType[WallDamage].insert( line , image);
-                terrainType2[WallDamage].append( image);
-
-            }
-            else if(line.contains(QRegExp("wall-\\d+"))){
-                terrainType[Wall].insert( line , image);
-                terrainType2[Wall].append(image);
-            }
-            else if(line.contains(QRegExp("rubble+"))){
-                terrainType[Rubble].insert( line , image);
-                terrainType2[Rubble].append(image);
-            }
-
-            offsetHeight += tileSize;
+        if(lineNum > 2){
+            int pos = (lineNum - 3) * 32;
+        QImage* tile = new QImage(fullImage.copy(0,pos,32,32));
+            Texture::txMap.insert(line, tile);
         }
 
     }
-
 }
+
 
 void Texture::scanTexture(const QString &texFileName){
     QFile file(texFileName);
@@ -235,7 +188,7 @@ void Texture::scanTexture(const QString &texFileName){
     }
 
     int offsetHeight = 0;
-    // assumes each img is squared.  
+    // assumes each img is squared.
     int width = img.width();
     int height = width;
     for(int i = 0; i < numTypes; ++i){
@@ -246,16 +199,15 @@ void Texture::scanTexture(const QString &texFileName){
 
 }
 
+QMap<QString, QImage*>* Texture::getTxMap() {
+    return rTxMap;
+}
 
+const QImage* Texture::getImage(QString txName){
+    return txMap.value(txName);
+}
 
-//QImage Texture::getImageTile(Type type ){
+void Texture::display(){
 
-//    int width = 32;
-//    int height = 32;
-//    int offsetH = typeList[type].first();
-//    QImage image = fullImage.copy(0,offsetH,width,height);
-//    return image;
-//}
-
-void Texture::display(){}
+}
 

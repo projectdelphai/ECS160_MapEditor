@@ -6,10 +6,16 @@
 #include "mainwindow.h"
 
 
-GraphicsScene::GraphicsScene(QObject *parent) : QGraphicsScene(parent)
+GraphicsScene::GraphicsScene(QObject *parent, MapView2 *curMap) : QGraphicsScene(parent)
 {
     GraphicsScene::parent = parent;
+    GraphicsScene::mapInfo = curMap;
     brushing = false;
+    peasantTool = new Texture(":/data/img/Peasant.dat",":/data/img/Colors.png");
+    peasantTool->paintAll();
+    goldmineTool = new Texture(":/data/img/GoldMine.dat",":/data/img/Colors.png");
+    townhallTool = new Texture(":/data/img/TownHall.dat",":/data/img/Colors.png");
+    townhallTool->paintAll();
 }
 
 void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
@@ -26,34 +32,34 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
     {
         Tile *item = (Tile *)this->itemAt(mouseEvent->scenePos(), QTransform());
 
+        Terrain *terrain = mapInfo->getTerrain();
+        Terrain::Type type;
 
-        Texture *texture = new Texture(":/data/img/Terrain.png");
-        Texture::Type type;
         Texture *asset = 0;
 
-
         if (curTool == "grass")
-            type = Texture::Grass;
+            type = Terrain::Grass;
         else if (curTool == "dirt")
-            type = Texture::Dirt;
+            type = Terrain::Dirt;
         else if (curTool == "water")
-            type = Texture::Water;
+            type = Terrain::Water;
         else if (curTool == "rock")
-            type = Texture::Rock;
+            type = Terrain::Rock;
         else if (curTool == "tree")
-            type = Texture::Tree;
+            type = Terrain::Tree;
         else if (curTool == "wall")
-            type = Texture::Wall;
+            type = Terrain::Wall;
         else if (curTool == "Peasant")
         {
-            asset = new Texture(":/data/img/Peasant.dat",":/data/img/Colors.png");
-            asset->paintAll();
-
+            asset = peasantTool;
         }
         else if (curTool == "GoldMine")
         {
-            asset = new Texture(":/data/img/GoldMine.dat",":/data/img/Colors.png");
-
+            asset = goldmineTool;
+        }
+        else if (curTool == "TownHall")
+        {
+            asset = townhallTool;
         }
         else
         {
@@ -63,13 +69,13 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
 
         QImage imageDx;
         if (!asset)
-            imageDx = texture->terrainType.value(type).first();
+            imageDx = *terrain->getImageTile(type);
         else
         {
             if (curTool == "GoldMine")
                 imageDx = asset->imageList[0];
             else
-                imageDx = asset->colorPlayerImg[curPlayer][0];
+                imageDx = asset->colorPlayerImg[curPlayer][3];
         }
 
         QPixmap pixmap = QPixmap::fromImage(imageDx);
