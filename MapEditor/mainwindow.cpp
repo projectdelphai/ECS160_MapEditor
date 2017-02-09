@@ -3,30 +3,24 @@
 #include "graphicsscene.h"
 #include <QDebug>
 #include "mapview2.h"
+
+
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
+    // set up UI elements
     ui->setupUi(this);
     ui->graphicsView->setMouseTracking(true);
     ui->graphicsView_2->setMouseTracking(true);
+     curTool = "hand";
 
-    curTool = "hand";
-    // map view
-    curMap = MapView2();
-    scene = new GraphicsScene(this);
-    curMap.displayMap(scene);
-    ui->graphicsView->setScene(scene);
-    ui->graphicsView->show();
 
-    // this is for the mini map
-    ui->graphicsView_2->setScene(scene);
+    // Load and display a new file
+    MainWindow::newFile();
     ui->graphicsView_2->fitInView(0,0,256,192, Qt::KeepAspectRatio);
-    ui->graphicsView_2->show();
-
-    QObject::connect(scene, &GraphicsScene::changedLayout, this, &MainWindow::changeLayout);
     QObject::connect(scene, &GraphicsScene::changedAsset, this, &MainWindow::changeAsset);
-
     curPlayer = 1;
     scene->curPlayer = 1;
+
 }
 
 MainWindow::~MainWindow()
@@ -37,6 +31,9 @@ MainWindow::~MainWindow()
 #ifndef QT_NO_CONTEXTMENU
 void MainWindow::contextMenuEvent(QContextMenuEvent *event)
 {
+    if( event ) {
+
+    }
     /*QMenu menu(this);
     menu.addAction(ui->actionOpen);
     menu.addAction(ui->actionSave);
@@ -48,15 +45,18 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event)
 
 void MainWindow::mousePressEvent(QMouseEvent *event){
 
-    /*if (event->button() == Qt::LeftButton ){
-         statusBar()->showMessage("Left Click");
+    if (event->button() == Qt::LeftButton ){
+         //statusBar()->showMessage("Left Click");
     }
-    else if (event->button() == Qt::RightButton ){
+    /*else if (event->button() == Qt::RightButton ){
         statusBar()->showMessage("Right Click");
     }*/
 }
 
 void MainWindow::mouseMoveEvent(QMouseEvent *event){
+    if (event->button() == Qt::LeftButton ){
+         // something
+    }
     //statusBar()->showMessage(QString::number(event->x()) + ", " + QString::number(event->y()), 500);
 }
 
@@ -83,19 +83,19 @@ void MainWindow::newFile()
         // fill tile here
     }
 
-    // map view
+    // Set up the map grid
     curMap = MapView2();
-    scene = new GraphicsScene(this);
+    scene = new GraphicsScene(this, &curMap);
     curMap.displayMap(scene);
+
+    // show map + minimap
     ui->graphicsView->setScene(scene);
     ui->graphicsView->show();
-
-    // this is for the mini map
     ui->graphicsView_2->setScene(scene);
     ui->graphicsView_2->show();
 
+    // update status
     on_tool_grass_clicked();
-
     statusBar()->showMessage("New File created", 2000);
 }
 
@@ -127,7 +127,7 @@ void MainWindow::loadFile(const QString &fileName)
     QString texture = ":/data/img/Terrain.png";
     curMap = MapView2(mapName, texture);
 
-    scene = new GraphicsScene(this);
+    scene = new GraphicsScene(this, &curMap);
     curMap.displayMap(scene);
 
     ui->graphicsView->setScene(scene);
@@ -143,6 +143,9 @@ void MainWindow::loadFile(const QString &fileName)
 
     setCurrentFile(fileName);
     statusBar()->showMessage(fileName + " loaded!", 2000);
+
+    curPlayer = 1;
+    scene->curPlayer = 1;
 }
 
 void MainWindow::setCurrentFile(const QString &fileName)
@@ -186,7 +189,7 @@ bool MainWindow::save()
 
 bool MainWindow::saveAs()
 {
-    if (curMap.players.size() < 3)
+    if (curMap.getPlayers().size() < 3)
     {
         QMessageBox::warning(this, tr("Application"),
                              tr("Not enough players")
@@ -205,6 +208,7 @@ bool MainWindow::saveAs()
 
 bool MainWindow::saveFile(const QString &fileName)
 {
+    // check if able to write to file
     QFile file(fileName);
     if (!file.open(QFile::WriteOnly | QFile::Text)) {
         QMessageBox::warning(this, tr("Application"),
@@ -214,6 +218,7 @@ bool MainWindow::saveFile(const QString &fileName)
         return false;
     }
 
+   // write descriptive properties
    QTextStream stream(&file);
    stream << curMap.getMapName() << endl;
    stream << curMap.getMapDim().width()-2 << " " << curMap.getMapDim().height()-2 << endl;
@@ -224,6 +229,7 @@ bool MainWindow::saveFile(const QString &fileName)
 
    QVector<QChar> layout = curMap.getMapLayout();
 
+   // write out layout
    int x = 0;
    for (itr = layout.begin(); itr != layout.end(); itr++)
    {
@@ -236,6 +242,7 @@ bool MainWindow::saveFile(const QString &fileName)
        }
    }
 
+   // write players
    QVector<Player> players = curMap.getPlayers();
 
    stream << curMap.getNumPlayers() << endl;
@@ -246,9 +253,8 @@ bool MainWindow::saveFile(const QString &fileName)
 
    stream << curMap.getNumUnits() << endl;
 
-   for (int t = 0; t < curMap.players.size(); t++)
+   for (int t = 0; t < curMap.getPlayers().size(); t++)
    {
-       int num = curMap.getNumPlayers();
        QVector<Unit> units = players[t].units;
        QVector<Unit>::iterator itr3;
 
@@ -280,7 +286,7 @@ void MainWindow::wheelEvent(QWheelEvent *event)
         static const double scaleMin = 0.1; // defines the min scale limit.
         static const double scaleMax = 4.0;
 
-        bool scrollVertical = event->orientation() == Qt::Vertical;
+        //bool scrollVertical = event->orientation() == Qt::Vertical;
         int scrollDir = event->delta();
 
         if(currentScale > scaleMax) {
@@ -354,7 +360,7 @@ void MainWindow::on_tool_wall_clicked()
     scene->curTool = "wall";
     statusBar()->showMessage(tr("Wall tool selected"), 2000);
 }
-void MainWindow::changeLayout(int x, int y, Texture::Type type)
+void MainWindow::changeLayout(int x, int y, Terrain::Type type)
 {
 
 
@@ -369,24 +375,27 @@ void MainWindow::changeLayout(int x, int y, Texture::Type type)
 
     switch (type)
     {
-    case Texture::Water:
+    case Terrain::Water:
         c = ' ';
         break;
-    case Texture::Grass:
+    case Terrain::Grass:
         c = 'G';
         break;
-    case Texture::Dirt:
+    case Terrain::Dirt:
         c = 'D';
         break;
-    case Texture::Rock:
+    case Terrain::Rock:
         c = 'R';
         break;
-    case Texture::Tree:
+    case Terrain::Tree:
         c = 'F';
         break;
-    case Texture::Wall:
+    case Terrain::Wall:
         c = 'W';
         break;
+    default:
+        qCritical() << "Saving rubble or wall-damaged incomplete";
+    break;
     }
 
 
@@ -399,17 +408,10 @@ void MainWindow::changeLayout(int x, int y, Texture::Type type)
 
 void MainWindow::changeAsset(int x, int y, QString asset, int player)
 {
+
     Unit unit = Unit(asset, x, y);
 
-    if (curMap.getNumPlayers() < player)
-    {
-        for (int i = curMap.getNumPlayers() + 1; i < player + 1; i++)
-        {
-            Player player = Player(i, 100, 100);
-            curMap.players.append(player);
-        }
-    }
-    curMap.players[player].units.append(unit);
+    curMap.addUnit(unit, player);
 }
 
 void MainWindow::on_tool_peasant1_clicked()

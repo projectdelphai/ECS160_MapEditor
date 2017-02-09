@@ -6,9 +6,10 @@
 #include "mainwindow.h"
 
 
-GraphicsScene::GraphicsScene(QObject *parent) : QGraphicsScene(parent)
+GraphicsScene::GraphicsScene(QObject *parent, MapView2 *curMap) : QGraphicsScene(parent)
 {
     GraphicsScene::parent = parent;
+    GraphicsScene::mapInfo = curMap;
     brushing = false;
 }
 
@@ -26,29 +27,27 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
     {
         Tile *item = (Tile *)this->itemAt(mouseEvent->scenePos(), QTransform());
 
+        Terrain *terrain = mapInfo->getTerrain();
+        Terrain::Type type;
 
-        Texture *texture = new Texture(":/data/img/Terrain.png");
-        Texture::Type type;
         Texture *asset = 0;
 
-
         if (curTool == "grass")
-            type = Texture::Grass;
+            type = Terrain::Grass;
         else if (curTool == "dirt")
-            type = Texture::Dirt;
+            type = Terrain::Dirt;
         else if (curTool == "water")
-            type = Texture::Water;
+            type = Terrain::Water;
         else if (curTool == "rock")
-            type = Texture::Rock;
+            type = Terrain::Rock;
         else if (curTool == "tree")
-            type = Texture::Tree;
+            type = Terrain::Tree;
         else if (curTool == "wall")
-            type = Texture::Wall;
+            type = Terrain::Wall;
         else if (curTool == "Peasant")
         {
             asset = new Texture(":/data/img/Peasant.dat",":/data/img/Colors.png");
             asset->paintAll();
-
         }
         else if (curTool == "GoldMine")
         {
@@ -63,7 +62,7 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
 
         QImage imageDx;
         if (!asset)
-            imageDx = texture->terrainType.value(type).first();
+            imageDx = *terrain->getImageTile(type);
         else
         {
             if (curTool == "GoldMine")

@@ -3,27 +3,26 @@
 
 #include <QGraphicsPixmapItem>
 #include "texture.h"
+#include "terrain.h"
 
 class Tile : public QGraphicsPixmapItem
 {
 public:
+    Tile(Terrain::Type type);
+    Tile(Terrain::Type type, QPixmap texturePix);
     Tile(QString typeStr,QPixmap texturePix);
-    Tile(Texture::Type type, QPixmap texturePix);
+
     QString toString();
 
-//    QRectF boundingRect()const;
-//    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+protected:
+    void mousePressEvent(QGraphicsSceneMouseEvent *event);
 
-    Texture::Type type;
+private:
+    Terrain::Type type;
     QString note;
     QString typeStr;
 
     QPixmap texturePix;
-protected:
-    void mousePressEvent(QGraphicsSceneMouseEvent *event);
-
-
-private:
 
 //    Texture *tex;
 

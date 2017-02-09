@@ -23,30 +23,42 @@ Unit::Unit(QString n, int xc, int yc)
     y = yc;
 }
 
+// Default (new map)
 MapView2::MapView2()
 {
+
     defaultMap();
+
+    // create and store all assets
     setup();
-    terrainTexture = new Texture(":/data/img/Terrain.png");
-    currentImage = terrainTexture->fullImage;
+    terrain = new Terrain;
+
     tileDim.setRect(1,1,32,32);
     tileMap.reserve(mapDim.width()*mapDim.height());
+
+    // testing for MapRendering parsing
+    terrain->renderingInfo(":/data/img/MapRendering.dat");
+
+    // testing lookup of a number to get the alias number
+    int test = terrain->getAlias("rock", 5);
+
+    qDebug() << "Should be at rock0 with alias 2: " << test;
 }
 
 MapView2::MapView2(const QString &mapFileName , const QString &mapTexName = ":/data/img/Terrain.png" )
 {
     openMap(mapFileName);
     setup();
-    terrainTexture = new Texture(mapTexName);
-    currentImage = terrainTexture->fullImage;
+    terrain = new Terrain(mapTexName);
+
     // upper-left corner and the rectangle size of width and height
     tileDim.setRect(1,1,32,32);
     tileMap.reserve(mapDim.width()*mapDim.height());
-    //scene = new QGraphicsScene();
-
 }
 
+
 void MapView2::setup(){
+    // grab all the asset files
     QString path = ":/data/img";
     QString colorFile = ":/data/img/Colors.png";
     QString peasantFile =":/data/img/Peasant.dat";
@@ -54,11 +66,13 @@ void MapView2::setup(){
     QString townHall = ":/data/img/TownHall.dat";
     int nObjects = 3;
 
+    // append them to a vector
     QVector<QString> files;
     files.append(peasantFile);
     files.append(Goldmine);
     files.append(townHall);
 
+    // create a texture for each asset
     for(int i = 0; i < nObjects; i++){
         Texture *tex = new Texture(files.at(i),colorFile);
         assets.insert( tex->textureName, tex);
@@ -68,24 +82,32 @@ void MapView2::setup(){
 
 }
 
-
+// creates a blank map and updates variables
 void MapView2::defaultMap(){
     mapName = "untitled.map";
+
+    // add 2 tiles for border
     mapDim.setHeight(64 + 2);
     mapDim.setWidth(96 + 2);
 
+    // loop through all the tiles and add grass tiles
     for(int h = 0; h < mapDim.height(); h++ ){
         for(int w = 0; w < mapDim.width(); w++) {
             mapLayOut.append('G');
         }
     }
+    int MAXPLAYERS= 8;
+    players.resize(MAXPLAYERS);
+
+    // player zero is neutral
+
     numPlayers = 0;
     Player player = Player(0, 30000, 500);
     players.append(player);
     numUnits = 0;
-
 }
 
+// parses .map file and updates variables
 void MapView2::openMap(const QString &mapFileName){
     bool intTest;
 
@@ -99,32 +121,24 @@ void MapView2::openMap(const QString &mapFileName){
     QVector<QString> mapConfig;
     QString blankLine = " ";
 
-    int maxMapLine = 68;
     int lineNum = 0;
 
     QTextStream in(&mapFile);
 
     // Parse .map file
     while(!in.atEnd()){
-
-
         QString line = in.readLine();
 
         if (line == blankLine){
             QMessageBox::information(0,"file","blankLine");
             continue;
-
         }
-
-        int value = line.toInt(&intTest);
 
         lineNum++;
-//        if(lineNum > 0 ){
         if ( lineNum == 1){
-            // Name of the map
             mapName = line;
         }
-        else if ( lineNum == 2 ){            
+        else if ( lineNum == 2 ){
             // Dimension of the map
             QStringList strNums = line.split(" ");
             QVector<int> nums;
@@ -186,30 +200,12 @@ void MapView2::openMap(const QString &mapFileName){
     }
 }
 
-
-void MapView2::openMapTexture(const QString &textureName){
-    QImage img;
-    if( !img.load(textureName)){
-        QMessageBox::information(0,"error","image");
-    }
-
-    currentImage = img;
-
-}
-
-//Reference: http://stackoverflow.com/questions/12681554/dividing-qimage-to-smaller-pieces
-QImage MapView2::createImageTile(QImage* image, const QRect & rect) {
-    size_t offset = rect.x() * image->depth() / 8
-                    + rect.y() * image->bytesPerLine();
-    return QImage(image->bits() + offset, rect.width(), rect.height(),
-                  image->bytesPerLine(), image->format());
-}
-
+// reads map array and updates the scene
 void MapView2::builtmap(QGraphicsScene *scene)
 {
     int x = 0;
     int y = 0;
-    Texture::Type type;
+    Terrain::Type type;
     int n = 0;
 
     for(int i = 0; i < mapDim.height(); ++i){
@@ -217,34 +213,38 @@ void MapView2::builtmap(QGraphicsScene *scene)
 
             n = i*mapDim.width() + j;
             switch ( mapLayOut.at(n).toLatin1() ){
-                case 'G': type = Texture::Grass;
+                case 'G':
+                    type = Terrain::Grass;
                     break;
-                case 'F': type = Texture::Tree;
+                case 'F':
+                    type = Terrain::Tree;
                     break;
-                case 'D': type = Texture::Dirt;
+                case 'D':
+                    type = Terrain::Dirt;
                     break;
-                case 'W': type = Texture::Wall;
+                case 'W':
+                    type = Terrain::Wall;
                     break;
-                case 'w': type = Texture::WallDamage;
+                case 'w':
+                    type = Terrain::WallDamage;
                     break;
-                case 'R': type = Texture::Rock;
+                case 'R':
+                    type = Terrain::Rock;
                     break;
-                case ' ': type = Texture::Water;
+                case ' ':
+                    type = Terrain::Water;
                     break;
-
             }
 
-
-//            QImage imageDx = terrainTexture->terrainType[type].first();
-            QImage imageDx = terrainTexture->terrainType2[type].at(0);
+            QImage imageDx = *terrain->getImageTile(type);
             QPixmap pixmap = QPixmap::fromImage(imageDx);
-            Tile * pixItem = new Tile(type, pixmap);
+            Tile* pixItem = new Tile(type, pixmap);
+
             // sets each tile image x = 0*32,1*32,2*32,... y= 0*32,1*32,2*32,...
             x = j*tileDim.width();
             y = i*tileDim.height();
             pixItem->setPos(x,y);
             scene->addItem(pixItem);
-
         }
     }
 
@@ -279,7 +279,10 @@ void MapView2::builtAssets(QGraphicsScene *scene){
 void MapView2::displayMap(QGraphicsScene *scene){
     builtmap(scene);
     builtAssets(scene);
+}
 
+Terrain* MapView2::getTerrain(){
+    return terrain;
 }
 
 QSize MapView2::getMapDim()
@@ -302,9 +305,14 @@ QVector<Player> MapView2::getPlayers()
     return players;
 }
 
+void MapView2::addPlayer(Player p)
+{
+    players.append(p);
+}
+
 int MapView2::getNumPlayers()
 {
-    return numPlayers;
+    return players.size();
 }
 
 int MapView2::getNumUnits()
@@ -312,8 +320,21 @@ int MapView2::getNumUnits()
     return numUnits;
 }
 
+void MapView2::addUnit(Unit u, int player)
+{
+    if (getNumPlayers() < player)
+    {
+        for (int i = getNumPlayers(); i < player + 1; i++)
+        {
+            Player player = Player(i, 100, 100);
+            addPlayer(player);
+        }
+    }
+
+    players[player].units.append(u);
+}
+
 void MapView2::setMapLayout(QVector<QChar> layout)
 {
     mapLayOut = layout;
 }
-

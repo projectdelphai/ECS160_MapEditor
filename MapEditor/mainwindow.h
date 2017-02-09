@@ -24,7 +24,7 @@ public:
     void loadFile(const QString &fileName);
 
 public slots:
-    void changeLayout(int x, int y, Texture::Type type);
+    void changeLayout(int x, int y, Terrain::Type type);
     void changeAsset(int x, int y, QString asset, int player);
 
 protected:
@@ -45,33 +45,19 @@ private slots:
     bool saveAs();
     void newFile();
     void open();
-
     void on_button_new_clicked();
-
     void on_button_open_clicked();
-
     void on_button_save_clicked();
-
     void on_tool_grass_clicked();
-
     void on_tool_dirt_clicked();
-
     void on_tool_water_clicked();
-
     void on_tool_rock_clicked();
-
     void on_tool_tree_clicked();
-
     void on_tool_wall_clicked();
-
     void on_tool_peasant1_clicked();
-
     void on_tool_townhall1_clicked();
-
     void on_tool_goldmine_clicked();
-
     void on_tool_p1_clicked();
-
     void on_tool_p2_clicked();
 
 private:
