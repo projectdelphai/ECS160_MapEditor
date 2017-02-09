@@ -29,22 +29,9 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
 
         Terrain *terrain = mapInfo->getTerrain();
         Terrain::Type type;
-
         Texture *asset = 0;
 
-        if (curTool == "grass")
-            type = Terrain::Grass;
-        else if (curTool == "dirt")
-            type = Terrain::Dirt;
-        else if (curTool == "water")
-            type = Terrain::Water;
-        else if (curTool == "rock")
-            type = Terrain::Rock;
-        else if (curTool == "tree")
-            type = Terrain::Tree;
-        else if (curTool == "wall")
-            type = Terrain::Wall;
-        else if (curTool == "Peasant")
+        if (curTool == "Peasant")
         {
             asset = new Texture(":/data/img/Peasant.dat",":/data/img/Colors.png");
             asset->paintAll();
@@ -62,7 +49,7 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
 
         QImage imageDx;
         if (!asset)
-            imageDx = *terrain->getImageTile(type);
+            imageDx = *terrain->getImageTile(curTool);
         else
         {
             if (curTool == "GoldMine")

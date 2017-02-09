@@ -6,37 +6,48 @@ Terrain::Terrain(QString texFileName) : Texture(texFileName)
     Terrain::texture = Texture::rTxMap;
 }
 
-QImage* Terrain::getImageTile(Terrain::Type type){
-    QString typeName;
+QImage* Terrain::getImageTile(QString typeS){
 
+    // type-n are split
+    QStringList tokens = typeS.split("-");
+    QString typeName = "";
 
-    // these are the default values (BEFORE MAP RENDERING)
-    switch(type) {
-        case Grass:
+    // temporary code until all type can be evaluted
+    if(tokens.size() <= 1){
+        // these are unfinished
+        if (tokens.at(0) == "grass"){
             typeName = "grass-0";
-        break;
-        case Tree:
+        }
+        else if( tokens.at(0) == "tree"){
             typeName = "tree-63";
-        break;
-        case Dirt:
-            typeName = "dirt-255";
-        break;
-        case Wall:
+        }
+        else if(tokens.at(0) == "wall"){
             typeName = "wall-0";
-        break;
-        case WallDamage:
+        }
+        else if(tokens.at(0) == "wall-damaged"){
             typeName = "wall-damaged-0";
-        break;
-        case Rock:
-            typeName = "rock-255";
-        break;
-        case Water:
-            typeName = "water-255";
-        break;
-        case Rubble:
-            typeName = "rubble-0";
-        break;
+        }
+        else if( tokens.at(0) == "dirt" ){
+            typeName = "dirt-1";
+        }
+        else if( tokens.at(0) == "rock"){
+            typeName = "rock-22";
+        }
+
     }
+    else {
+
+        // returns the alias number or the same one
+        int numKey = getAlias(tokens.at(0),tokens.at(1).toInt());
+        typeName = tokens.at(0) + "-" + QString().setNum(numKey);
+        if (!texture->contains(typeName)){
+            qDebug() << "error";
+            typeName = "wall-0";
+        }
+    }
+
+
+
 
     return texture->value(typeName);
 }
@@ -53,6 +64,7 @@ int Terrain::getAlias(QString typeS, int num){
         if ( alias.value(typeKey).contains(num) ){
             // any match number in the list is an alias to the first number within the list.
             output = alias.value(typeKey).at(0);
+            qDebug() << "alias used: " << output ;
             break;
         }
     }

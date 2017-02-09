@@ -39,6 +39,7 @@ public:
     void displayMap(QGraphicsScene *scene);
     void builtmap(QGraphicsScene *scene);
     void builtAssets(QGraphicsScene *scene);
+    QString tileEncode(QString typeS,int i, int j);
 
     QSize getMapDim();
     QString getMapName();
