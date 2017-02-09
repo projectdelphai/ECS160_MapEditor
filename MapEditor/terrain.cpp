@@ -41,7 +41,7 @@ QImage* Terrain::getImageTile(QString typeS){
         int numKey = getAlias(tokens.at(0),tokens.at(1).toInt());
         typeName = tokens.at(0) + "-" + QString().setNum(numKey);
         if (!texture->contains(typeName)){
-            qDebug() << "error";
+            qDebug() << "error missing: " << typeName;
             typeName = "wall-0";
         }
     }
@@ -64,7 +64,7 @@ int Terrain::getAlias(QString typeS, int num){
         if ( alias.value(typeKey).contains(num) ){
             // any match number in the list is an alias to the first number within the list.
             output = alias.value(typeKey).at(0);
-            qDebug() << "alias used: " << output ;
+//            qDebug() << "alias used: " << output ;
             break;
         }
     }

@@ -203,38 +203,73 @@ void MapView2::openMap(const QString &mapFileName){
 QString MapView2::tileEncode(QString strType ,int i , int j){
 
     QString valueStrType ="";
-    qDebug() << strType;
+//    qDebug() << strType;
+    qDebug() << "(" << i << "," << j << ")";
 
-    if( i == 0 || j == 0 || i + 1 > mapDim.height()  || j + 1 > mapDim.width() ){
+
+
+
+    if( i == 0 || j == 0 || i + 2 > mapDim.height()  || j + 2 > mapDim.width() ){
         return strType;
     }
+
+    QVector<QChar> tiles;
+
+    QChar upperLTile = mapLayOut.at((i-1)*mapDim.width() + (j-1));
+    QChar TopTile = mapLayOut.at((i-1)*mapDim.width() + j );
+    QChar upperRTile = mapLayOut.at((i-1)*mapDim.width() + (j+1));
+    QChar centerLTile = mapLayOut.at((i)*mapDim.width() + (j-1));
+    QChar centerRTile = mapLayOut.at((i)*mapDim.width() + (j+1));
+    QChar downLTile = mapLayOut.at((i+1)*mapDim.width() + (j-1));
+    QChar belowTile = mapLayOut.at((i+1)*mapDim.width() + (j));
+    QChar downRTile = mapLayOut.at((i+1)*mapDim.width() + (j+1));
+    QChar centerType = mapLayOut.at(i*mapDim.width() + j);
+
+
+
+
+    tiles.append(downRTile);
+    tiles.append(belowTile);
+    tiles.append(downLTile);
+    tiles.append(centerRTile);
+    tiles.append(centerType);
+    tiles.append(centerLTile);
+    tiles.append(upperRTile);
+    tiles.append(TopTile);
+    tiles.append(upperLTile);
+
+
+
+
+
     if (strType == "water" || strType == "rock" || strType == "dirt" ){
+
+        qDebug() << "(" << i << "," << j << ")";
+
         QString encodeStr = "";
-
-        QChar centerType = mapLayOut.at(i*mapDim.width() + j);
-
-        QChar upperLTile = mapLayOut.at((i-1)*mapDim.width() + (j-1));
-        QChar TopTile = mapLayOut.at((i-1)*mapDim.width() + j );
-        QChar upperRTile = mapLayOut.at((i-1)*mapDim.width() + (j+1));
-        QChar centerLTile = mapLayOut.at((i)*mapDim.width() + (j-1));
-        QChar centerRTile = mapLayOut.at((i)*mapDim.width() + (j+1));
-        QChar downLTile = mapLayOut.at((i+1)*mapDim.width() + (j-1));
-        QChar belowTile = mapLayOut.at((i+1)*mapDim.width() + (j));
-        QChar downRTile = mapLayOut.at((i+1)*mapDim.width() + (j+1));
-
-
-        QVector<QChar> tiles;
-
-        tiles.append(downRTile);
-        tiles.append(belowTile);
-        tiles.append(downLTile);
-        tiles.append(centerRTile);
-        tiles.append(centerLTile);
-        tiles.append(upperRTile);
-        tiles.append(TopTile);
-        tiles.append(upperLTile);
-
         for(int i = 0; i < tiles.size(); i++){
+            if (i == 4){
+                continue;
+            }
+            else if ( tiles.at(i) == centerType ){
+                encodeStr += "1";
+            }
+            else {
+                encodeStr += "0";
+            }
+
+        }
+
+        bool ok;
+        int num = encodeStr.toInt(&ok,2);
+        valueStrType = strType +"-"+ QString().setNum(num);
+
+    }
+    else if(strType == "tree"){
+        qDebug() << "(" << i << "," << j << ")";
+
+        QString encodeStr = "";
+        for(int i = 0; i < tiles.size()-2; i++){
             if ( tiles.at(i) == centerType ){
                 encodeStr += "1";
             }
@@ -246,11 +281,7 @@ QString MapView2::tileEncode(QString strType ,int i , int j){
         bool ok;
         int num = encodeStr.toInt(&ok,2);
 
-        qDebug() << "encode" << encodeStr;
-//        qDebug() << "index: " << num;
-
-        valueStrType = strType +"-"+ QString().setNum(num);
-        qDebug() << valueStrType;
+        valueStrType = strType+"-" + QString().setNum(num);
 
     }
     else {
@@ -258,6 +289,8 @@ QString MapView2::tileEncode(QString strType ,int i , int j){
         valueStrType =  strType;
 
     }
+
+
 
 
     return valueStrType;
@@ -302,7 +335,7 @@ void MapView2::builtmap(QGraphicsScene *scene)
                     break;
             }
 
-            qDebug() << "(" << i << "," << j << ")";
+//            qDebug() << "(" << i << "," << j << ")";
 
             tileStr = tileEncode(typeS,i,j);
             QImage imageDx = *terrain->getImageTile(tileStr);
