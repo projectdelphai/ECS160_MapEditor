@@ -315,6 +315,7 @@ void MainWindow::updateUI() {
     ui->tool_castle->setIcon(curMap.getButtonIconsTx()->getPixTile("castle"));
     ui->tool_barracks->setIcon(curMap.getButtonIconsTx()->getPixTile("human-barracks"));
     ui->tool_tower->setIcon(curMap.getButtonIconsTx()->getPixTile("human-guard-tower"));
+    ui->tool_goldmine->setIcon(curMap.getButtonIconsTx()->getPixTile("gold-mine"));
 }
 
 
