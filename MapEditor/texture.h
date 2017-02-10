@@ -11,7 +11,7 @@
 class Texture
 {
 public:
-    explicit Texture(const QString &mapTexName);
+    explicit Texture(const QString &mapTexName, int w, int h);
     Texture(const QString &mapTexName, const QString &color);
     Texture();
 
@@ -30,10 +30,12 @@ private:
 
     QImage open(const QString &mapTexture);
 
-    enum  colors{ Blue = 0, Red , Green , Purple, Orange , Yellow, Black , Gray } ;
+    enum colors{ Blue = 0, Red , Green , Purple, Orange , Yellow, Black , Gray } ;
+    enum orientation{ Vertical = 0, Horizontal };
 
     void scanTexture(const QString &str);
     void openColor(const QString &colorFile);
+
     QVector<QImage> paintUnit(int colorPick);
 
     QImage fullImage;
@@ -43,7 +45,10 @@ private:
     QMap< QString, QImage*> txMap;
     QMap< QString, QImage*>* rTxMap = &txMap;
     QString datFileName;
-    void scanDatFile(const QString datFileName);
+    void scanDatFile(const QString datFileName, int width, int height);
+    QString toDat(QString texFileName);
+    int width;
+    int height;
 
 };
 

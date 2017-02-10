@@ -1,7 +1,7 @@
 #include "terrain.h"
 #include <QDebug>
 
-Terrain::Terrain(QString texFileName) : Texture(texFileName)
+Terrain::Terrain(QString texFileName) : Texture(texFileName, 32, 32)
 {
     Terrain::texture = Texture::getTxMap();
 }

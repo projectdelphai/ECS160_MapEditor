@@ -66,12 +66,13 @@ private:
     void addPlayer(Player p);
 
     Terrain* terrain;
+    Texture* toolbar;
     void setup();
     void defaultMap();
 
     QStringList mapAllowedAIs;
     QString mapDescription;
-    Texture *terrainTexture;
+    //Texture *terrainTexture;
     QMap<QString,Texture*> assets;
     QVector<Tile*> tileMap;
 };
