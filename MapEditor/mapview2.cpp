@@ -48,37 +48,46 @@ MapView2::MapView2(const QString &mapFileName , const QString &mapTexName = ":/d
     setup();
     terrain = new Terrain(mapTexName);
 
-    QImage image = *terrain->getImageTile("wall-4");
-    QImage image2 = *terrain->getImageTile("wall-2");
-    QImage image3 = *terrain->getImageTile("wall-6");
-    QImage image4 = *terrain->getImageTile("wall-1");
-    QImage image5 = *terrain->getImageTile("wall-5");
-    QImage image6 = *terrain->getImageTile("wall-3");
-    QImage image7 = *terrain->getImageTile("wall-7");
-    QImage image8 = *terrain->getImageTile("wall-8");
-    QImage image9 = *terrain->getImageTile("wall-12");
-    QImage image10 = *terrain->getImageTile("wall-10");
-    QImage image11 = *terrain->getImageTile("wall-14");
-    QImage image12 = *terrain->getImageTile("wall-9");
-    QImage image13 = *terrain->getImageTile("wall-13");
-    QImage image14 = *terrain->getImageTile("wall-11");
+    QImage image = *terrain->getImageTile("dirt-1");
+    QImage image2 = *terrain->getImageTile("dirt-2");
+    QImage image3 = *terrain->getImageTile("dirt-4");
+    QImage image4 = *terrain->getImageTile("dirt-8");
+    QImage image5 = *terrain->getImageTile("dirt-32");
+    QImage image6 = *terrain->getImageTile("dirt-126");
+    QImage image7 = *terrain->getImageTile("dirt-11");
+    QImage image8 = *terrain->getImageTile("dirt-128");
+    QImage image9 = *terrain->getImageTile("dirt-219");
+    QImage image10 = *terrain->getImageTile("dirt-16");
+    QImage image11 = *terrain->getImageTile("dirt-22");
+    QImage image12 = *terrain->getImageTile("dirt-64");
+    QImage image13 = *terrain->getImageTile("dirt-104");
+    QImage image14 = *terrain->getImageTile("dirt-208");
+    QImage image15 = *terrain->getImageTile("dirt-255");
 
 
 
-//    QGraphicsScene * scene = new QGraphicsScene;
-    //scene->addPixmap(QPixmap::fromImage(image5));
-//    scene->addPixmap(QPixmap::fromImage(image2));
+  //  QGraphicsScene * scene = new QGraphicsScene;
+   // scene->addPixmap(QPixmap::fromImage(image));
+//   scene->addPixmap(QPixmap::fromImage(image2));
 //     scene->addPixmap(QPixmap::fromImage(image3));
-//      scene->addPixmap(QPixmap::fromImage(image4));
-//       scene->addPixmap(QPixmap::fromImage(image5));
-//        scene->addPixmap(QPixmap::fromImage(image6));
-//         scene->addPixmap(QPixmap::fromImage(image7));
-//          scene->addPixmap(QPixmap::fromImage(image8));
+   // scene->addPixmap(QPixmap::fromImage(image4));
+    // scene->addPixmap(QPixmap::fromImage(image5));
+       // scene->addPixmap(QPixmap::fromImage(image6));
+      //  scene->addPixmap(QPixmap::fromImage(image7));
+        //  scene->addPixmap(QPixmap::fromImage(image8));
+       // scene->addPixmap(QPixmap::fromImage(image9));
+      //scene->addPixmap(QPixmap::fromImage(image10));
+       // scene->addPixmap(QPixmap::fromImage(image11));
+    //   scene->addPixmap(QPixmap::fromImage(image12));
+        //scene->addPixmap(QPixmap::fromImage(image13));
+        //scene->addPixmap(QPixmap::fromImage(image14));
+    //   scene->addPixmap(QPixmap::fromImage(image15));
 
 
-//    QGraphicsView * view = new QGraphicsView(scene);
 
-//    view->show();
+   // QGraphicsView * view = new QGraphicsView(scene);
+
+ //  view->show();
 
     // upper-left corner and the rectangle size of width and height
     tileDim.setRect(1,1,32,32);
@@ -266,7 +275,7 @@ QString MapView2::tileEncode(QString strType ,int i , int j){
 
 
 
-    if (strType == "water" || strType == "rock" || strType == "dirt"  ){
+    if (strType == "water" || strType == "rock"  ){
 
         tiles.append(downRTile);
         tiles.append(belowTile);
@@ -310,7 +319,7 @@ QString MapView2::tileEncode(QString strType ,int i , int j){
         tiles.append(TopTile);
         tiles.append(upperLTile);
 
-        qDebug() << "(" << i << "," << j << ")";
+//        qDebug() << "(" << i << "," << j << ")";
 
 
 //        QString encodeStr = "";
@@ -327,7 +336,7 @@ QString MapView2::tileEncode(QString strType ,int i , int j){
         int num = encodeStr.toInt(&ok,2);
 
         valueStrType = strType+"-" + QString().setNum(num);
-        qDebug() << valueStrType;
+//        qDebug() << valueStrType;
 
     }
     else if(strType == "wall"){
@@ -349,6 +358,47 @@ QString MapView2::tileEncode(QString strType ,int i , int j){
         int num = encodeStr.toInt(&ok,2);
 
         valueStrType = strType+"-" + QString().setNum(num);
+
+    }
+   else if (strType == "grass"){
+
+        tiles.append(downRTile);
+        tiles.append(belowTile);
+        tiles.append(downLTile);
+        tiles.append(centerRTile);
+        tiles.append(centerType);
+        tiles.append(centerLTile);
+        tiles.append(upperRTile);
+        tiles.append(TopTile);
+        tiles.append(upperLTile);
+
+       // qDebug() << "(" << i << "," << j << ")";
+
+        for(int i = 0; i < tiles.size(); i++){
+            if (i == 4){
+                continue;
+            }
+            else if ( tiles.at(i) == centerType ){
+                encodeStr += "0";
+            }
+            else {
+                encodeStr += "1";
+            }
+
+        }
+
+        bool ok;
+        int num = encodeStr.toInt(&ok,2);
+        if(num==0)
+        {
+            qDebug() << "all graas";
+
+            valueStrType =  strType;
+        }
+        else
+        {
+            valueStrType = "dirt-"+ QString().setNum(num);
+        }
 
     }
     else {

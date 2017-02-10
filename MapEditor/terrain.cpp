@@ -28,7 +28,7 @@ QImage* Terrain::getImageTile(QString typeS){
             typeName = "wall-damaged-0";
         }
         else if( tokens.at(0) == "dirt" ){
-            typeName = "dirt-1";
+            typeName = "dirt-255";
         }
         else if( tokens.at(0) == "rock"){
             typeName = "rock-22";
@@ -41,8 +41,12 @@ QImage* Terrain::getImageTile(QString typeS){
         int numKey = getAlias(tokens.at(0),tokens.at(1).toInt());
         typeName = tokens.at(0) + "-" + QString().setNum(numKey);
         if (!texture->contains(typeName)){
-            qDebug() << "error missing: " << typeName;
+//            qDebug() << "error missing: " << typeName;
             typeName = "wall-0";
+        }
+        else{
+            if( tokens.at(0) == "dirt")
+            qDebug() << "work: " << typeName;
         }
     }
 
