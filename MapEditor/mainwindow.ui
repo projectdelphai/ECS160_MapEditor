@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1075</width>
+    <width>1082</width>
     <height>807</height>
    </rect>
   </property>
@@ -161,7 +161,7 @@
               <string>1</string>
              </property>
              <property name="icon">
-              <iconset resource="icons.qrc">
+              <iconset>
                <normaloff>:/toolbar/icons/toolbar/tool_p1.png</normaloff>:/toolbar/icons/toolbar/tool_p1.png</iconset>
              </property>
              <property name="iconSize">
@@ -187,7 +187,7 @@
               <string>2</string>
              </property>
              <property name="icon">
-              <iconset resource="icons.qrc">
+              <iconset>
                <normaloff>:/toolbar/icons/toolbar/tool_p2.png</normaloff>:/toolbar/icons/toolbar/tool_p2.png</iconset>
              </property>
              <property name="checkable">
@@ -315,6 +315,25 @@
             <number>2</number>
            </property>
            <item>
+            <widget class="QToolButton" name="tool_grass">
+             <property name="text">
+              <string>grass</string>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>32</width>
+               <height>32</height>
+              </size>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="autoExclusive">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
             <widget class="QToolButton" name="tool_water">
              <property name="text">
               <string>water</string>
@@ -397,25 +416,6 @@
             <widget class="QToolButton" name="tool_wall">
              <property name="text">
               <string>wall</string>
-             </property>
-             <property name="iconSize">
-              <size>
-               <width>32</width>
-               <height>32</height>
-              </size>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="autoExclusive">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QToolButton" name="tool_grass">
-             <property name="text">
-              <string>grass</string>
              </property>
              <property name="iconSize">
               <size>
@@ -523,7 +523,7 @@
                 <string>...</string>
                </property>
                <property name="icon">
-                <iconset resource="icons.qrc">
+                <iconset>
                  <normaloff>:/toolbar/icons/toolbar/tool_peasant.png</normaloff>:/toolbar/icons/toolbar/tool_peasant.png</iconset>
                </property>
                <property name="iconSize">
@@ -646,7 +646,7 @@
                 <string>...</string>
                </property>
                <property name="icon">
-                <iconset resource="icons.qrc">
+                <iconset>
                  <normaloff>:/toolbar/icons/toolbar/tool_townhall.png</normaloff>:/toolbar/icons/toolbar/tool_townhall.png</iconset>
                </property>
                <property name="iconSize">
@@ -763,7 +763,7 @@
                 <string>...</string>
                </property>
                <property name="icon">
-                <iconset resource="icons.qrc">
+                <iconset>
                  <normaloff>:/toolbar/icons/toolbar/tool_goldmine.png</normaloff>:/toolbar/icons/toolbar/tool_goldmine.png</iconset>
                </property>
                <property name="iconSize">
@@ -881,7 +881,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1075</width>
+     <width>1082</width>
      <height>22</height>
     </rect>
    </property>

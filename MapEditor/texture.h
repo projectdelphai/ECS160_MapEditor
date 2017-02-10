@@ -17,6 +17,7 @@ public:
 
     QMap<QString, QImage*>* getTxMap();
     const QImage* getImage(QString txName);
+    QPixmap getPixTile(QString tileName);
 
     QString textureName;
     void paintAll();

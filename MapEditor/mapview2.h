@@ -37,6 +37,8 @@ public:
     MapView2(const QString &mapFileName, const QString &mapTexName);
 
     Terrain* getTerrain();
+    Texture* getButtonColorsTx();
+    Texture* getButtonIconsTx();
     void displayMap(QGraphicsScene *scene);
 
     QSize getMapDim();
@@ -67,6 +69,8 @@ private:
 
     Terrain* terrain;
     Texture* toolbar;
+    Texture* buttonColors;
+    Texture* buttonIcons;
     void setup();
     void defaultMap();
 

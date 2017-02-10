@@ -213,6 +213,10 @@ const QImage* Texture::getImage(QString txName){
     return txMap.value(txName);
 }
 
+QPixmap Texture::getPixTile(QString tileName){
+    return QPixmap::fromImage(*txMap.value(tileName));
+}
+
 void Texture::display(){
 
 }
