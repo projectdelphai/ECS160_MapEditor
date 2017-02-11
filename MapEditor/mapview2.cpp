@@ -32,7 +32,6 @@ MapView2::MapView2()
     // create and store all assets
     setup();
     terrain = new Terrain;
-
     tileDim.setRect(1,1,32,32);
     tileMap.reserve(mapDim.width()*mapDim.height());
 
@@ -204,17 +203,11 @@ QString MapView2::tileEncode(QString strType ,int i , int j){
 
     QString valueStrType ="";
 //    qDebug() << strType;
-
     QVector<QChar> tiles;
     QString encodeStr = "";
-
-
-
     if( i == 0 || j == 0 || i + 2 > mapDim.height()  || j + 2 > mapDim.width() ){
         return strType;
     }
-
-
     QChar upperLTile = mapLayOut.at((i-1)*mapDim.width() + (j-1));
     QChar TopTile = mapLayOut.at((i-1)*mapDim.width() + j );
     QChar upperRTile = mapLayOut.at((i-1)*mapDim.width() + (j+1));
@@ -224,16 +217,6 @@ QString MapView2::tileEncode(QString strType ,int i , int j){
     QChar belowTile = mapLayOut.at((i+1)*mapDim.width() + (j));
     QChar downRTile = mapLayOut.at((i+1)*mapDim.width() + (j+1));
     QChar centerType = mapLayOut.at(i*mapDim.width() + j);
-
-
-
-
-
-
-
-
-
-
     if (strType == "water" || strType == "rock"  ){
 
         tiles.append(downRTile);
@@ -246,7 +229,7 @@ QString MapView2::tileEncode(QString strType ,int i , int j){
         tiles.append(TopTile);
         tiles.append(upperLTile);
 
-        qDebug() << "(" << i << "," << j << ")";
+       // qDebug() << "(" << i << "," << j << ")";
 
         for(int i = 0; i < tiles.size(); i++){
             if (i == 4){
@@ -274,15 +257,9 @@ QString MapView2::tileEncode(QString strType ,int i , int j){
         tiles.append(centerRTile);
         tiles.append(centerType);
         tiles.append(centerLTile);
-        tiles.append(upperRTile);
-        tiles.append(TopTile);
-        tiles.append(upperLTile);
+       // qDebug() <<"this is the cordinate "<< "(" << i << "," << j << ")";
 
-//        qDebug() << "(" << i << "," << j << ")";
-
-
-//        QString encodeStr = "";
-        for(int i = 0; i < tiles.size()-3; i++){
+        for(int i = 0; i < tiles.size(); i++){
             if ( tiles.at(i) == centerType ){
                 encodeStr += "1";
             }
@@ -291,11 +268,12 @@ QString MapView2::tileEncode(QString strType ,int i , int j){
             }
         }
 
+       // qDebug() << encodeStr;
+
         bool ok;
         int num = encodeStr.toInt(&ok,2);
-
         valueStrType = strType+"-" + QString().setNum(num);
-//        qDebug() << valueStrType;
+       // qDebug() << valueStrType;
 
     }
     else if(strType == "wall"){
@@ -340,8 +318,8 @@ QString MapView2::tileEncode(QString strType ,int i , int j){
             else if ( tiles.at(i) == centerType){
                 encodeStr += "0";
             }
-            else if(tiles.at(i) == 'W'){
-                qDebug() << "Its a wall";
+            else if(tiles.at(i) == 'W'|| tiles.at(i) == 'F'){
+               // qDebug() << "Its a wall";
                 encodeStr += "0";
             }
             else {

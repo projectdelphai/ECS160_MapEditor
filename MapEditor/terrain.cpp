@@ -45,8 +45,8 @@ QImage* Terrain::getImageTile(QString typeS){
             typeName = "wall-0";
         }
         else{
-            if( tokens.at(0) == "dirt")
-            qDebug() << "work: " << typeName;
+           // if( tokens.at(0) == "dirt")
+            //qDebug() << "work: " << typeName;
         }
     }
 
