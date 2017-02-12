@@ -38,8 +38,8 @@ public:
 
     Terrain* getTerrain();
     void displayMap(QGraphicsScene *scene);
-    void builtmap(QGraphicsScene *scene);
-    void builtAssets(QGraphicsScene *scene);
+    //void builtmap(QGraphicsScene *scene);
+   // void builtAssets(QGraphicsScene *scene);
     QString tileEncode(QString typeS,int i, int j);
     void builtTreeTop(QGraphicsScene *scene);
 
