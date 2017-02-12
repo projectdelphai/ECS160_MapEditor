@@ -31,7 +31,7 @@ QImage* Terrain::getImageTile(QString typeS){
             typeName = "dirt-255";
         }
         else if( tokens.at(0) == "rock"){
-            typeName = "rock-22";
+            typeName = "rock-255";
         }
 
     }

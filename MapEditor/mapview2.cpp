@@ -205,9 +205,39 @@ QString MapView2::tileEncode(QString strType ,int i , int j){
 //    qDebug() << strType;
     QVector<QChar> tiles;
     QString encodeStr = "";
-    if( i == 0 || j == 0 || i + 2 > mapDim.height()  || j + 2 > mapDim.width() ){
-        return strType;
+    // the following code to get the right tiles for the borders
+    if( i == 0 || j == 0 || i == mapDim.height()-1  || j == mapDim.width() -1 ){
+        if(j== 0 && strType == "grass" && i+2 < mapDim.height()  &&mapLayOut.at((i+1)*mapDim.width() + (j)) != 'G')
+        {
+            return "dirt-64";
+        }
+       else if(j== 0 && strType == "grass" && i-1 > 0 &&mapLayOut.at((i-1)*mapDim.width() + (j)) != 'G')
+        {
+            return "dirt-4";
+        }
+        else if(j== mapDim.width()-1 && strType == "rock" && i+2 < mapDim.height()&&mapLayOut.at((i+1)*mapDim.width() + (j)) != 'R')
+         {
+             return "rock-31";
+         }
+        else if(j== 0 && strType == "rock" && i+2 < mapDim.height()&&mapLayOut.at((i+1)*mapDim.width() + (j)) != 'R')
+         {
+             return "rock-31";
+        }
+        else if(j== 0 && strType == "rock" && i-1 >0 &&mapLayOut.at((i-1)*mapDim.width() + (j)) != 'R')
+         {
+             return "rock-248";
+         }
+        else if(j== mapDim.width()-1 && strType == "grass" && i-1 > 0&&mapLayOut.at((i-1)*mapDim.width() + (j)) != 'G')
+        {
+            return "dirt-22";
+        }
+
+        else{
+            return strType;
+
+        }
     }
+    // the following to ckeck whats around the current tile and get the right tile based in what around it.
     QChar upperLTile = mapLayOut.at((i-1)*mapDim.width() + (j-1));
     QChar TopTile = mapLayOut.at((i-1)*mapDim.width() + j );
     QChar upperRTile = mapLayOut.at((i-1)*mapDim.width() + (j+1));
@@ -217,6 +247,8 @@ QString MapView2::tileEncode(QString strType ,int i , int j){
     QChar belowTile = mapLayOut.at((i+1)*mapDim.width() + (j));
     QChar downRTile = mapLayOut.at((i+1)*mapDim.width() + (j+1));
     QChar centerType = mapLayOut.at(i*mapDim.width() + j);
+    // water and rock have the same way of getting the right tile we are using 3 by 3 matrix of 0 and 1's zero for unmatch and 1 for match
+    // the current tile will be at position 1,1.
     if (strType == "water" || strType == "rock"  ){
 
         tiles.append(downRTile);
@@ -228,9 +260,6 @@ QString MapView2::tileEncode(QString strType ,int i , int j){
         tiles.append(upperRTile);
         tiles.append(TopTile);
         tiles.append(upperLTile);
-
-       // qDebug() << "(" << i << "," << j << ")";
-
         for(int i = 0; i < tiles.size(); i++){
             if (i == 4){
                 continue;
@@ -243,7 +272,6 @@ QString MapView2::tileEncode(QString strType ,int i , int j){
             }
 
         }
-
         bool ok;
         int num = encodeStr.toInt(&ok,2);
         valueStrType = strType +"-"+ QString().setNum(num);
@@ -257,7 +285,7 @@ QString MapView2::tileEncode(QString strType ,int i , int j){
         tiles.append(centerRTile);
         tiles.append(centerType);
         tiles.append(centerLTile);
-        qDebug() <<"this is the cordinate "<< "(" << i << "," << j << ")";
+       // qDebug() <<"this is the cordinate "<< "(" << i << "," << j << ")";
 
         for(int i = 0; i < tiles.size(); i++){
             if ( tiles.at(i) == centerType ){
@@ -273,7 +301,7 @@ QString MapView2::tileEncode(QString strType ,int i , int j){
         bool ok;
         int num = encodeStr.toInt(&ok,2);
         valueStrType = strType+"-" + QString().setNum(num);
-        qDebug() << valueStrType;
+       // qDebug() << valueStrType;
 
     }
     else if(strType == "wall"){
