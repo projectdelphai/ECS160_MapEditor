@@ -40,6 +40,7 @@ public:
     void builtmap(QGraphicsScene *scene);
     void builtAssets(QGraphicsScene *scene);
     QString tileEncode(QString typeS,int i, int j);
+    void builtTreeTop(QGraphicsScene *scene);
 
     QSize getMapDim();
     QString getMapName();
@@ -71,6 +72,9 @@ private:
     int numUnits;
 
     Terrain* terrain;
+    // QPoint , QString not possible
+    QMap<QString , QString> treeTopTiles;
+
 
     QStringList mapAllowedAIs;
     QString mapDescription;

@@ -217,6 +217,8 @@ QString MapView2::tileEncode(QString strType ,int i , int j){
     QChar belowTile = mapLayOut.at((i+1)*mapDim.width() + (j));
     QChar downRTile = mapLayOut.at((i+1)*mapDim.width() + (j+1));
     QChar centerType = mapLayOut.at(i*mapDim.width() + j);
+
+
     if (strType == "water" || strType == "rock"  ){
 
         tiles.append(downRTile);
@@ -257,7 +259,12 @@ QString MapView2::tileEncode(QString strType ,int i , int j){
         tiles.append(centerRTile);
         tiles.append(centerType);
         tiles.append(centerLTile);
+        tiles.append(upperRTile);
+        tiles.append(TopTile);
+        tiles.append(upperLTile);
+
         qDebug() <<"this is the cordinate "<< "(" << i << "," << j << ")";
+
 
         for(int i = 0; i < tiles.size(); i++){
             if ( tiles.at(i) == centerType ){
@@ -268,11 +275,23 @@ QString MapView2::tileEncode(QString strType ,int i , int j){
             }
         }
 
-       // qDebug() << encodeStr;
+        qDebug() << encodeStr;
 
         bool ok;
-        int num = encodeStr.toInt(&ok,2);
-        valueStrType = strType+"-" + QString().setNum(num);
+        int num1 = encodeStr.left(6).toInt(&ok,2);
+        int num2 = encodeStr.right(6).toInt(&ok,2);
+        if(TopTile != centerType){
+            QString sPoint = QString().setNum( j*tileDim.width() ) + " " +  QString().setNum( (i-1)*tileDim.height() );
+            treeTopTiles.insert( sPoint, strType + "-" + QString().setNum(num2) );
+            qDebug() << "tree top: " << strType + "-" + QString().setNum(num2);
+        }
+
+
+
+
+        qDebug() << "n1 " << encodeStr.left(6);
+        qDebug() << "n2: "<< encodeStr.right(6);
+        valueStrType = strType + "-" + QString().setNum(num1);
         qDebug() << valueStrType;
 
     }
@@ -294,7 +313,7 @@ QString MapView2::tileEncode(QString strType ,int i , int j){
         bool ok;
         int num = encodeStr.toInt(&ok,2);
 
-        valueStrType = strType+"-" + QString().setNum(num);
+        valueStrType = strType+ "-" + QString().setNum(num);
 
     }
    else if (strType == "grass"){
@@ -348,11 +367,34 @@ QString MapView2::tileEncode(QString strType ,int i , int j){
 
     }
 
-
-
-
     return valueStrType;
 
+}
+
+void MapView2::builtTreeTop(QGraphicsScene *scene){
+    if(treeTopTiles.empty()){
+        qDebug() << "No tree tops";
+        return;
+    }
+    else{
+        qDebug()  << "built tree tops";
+    }
+
+    QString x = "";
+    QString y = "";
+    for ( auto sPoint: treeTopTiles.keys()){
+        qDebug() << sPoint;
+        QString typeS = treeTopTiles.value(sPoint);
+        qDebug() << typeS;
+        QImage image = *terrain->getImageTile(typeS);
+        Tile * tile = new Tile(typeS,QPixmap::fromImage(image));
+
+        QStringList ptStr = sPoint.split(" ");
+        x = ptStr.at(0);
+        y = ptStr.at(1);
+        tile->setPos( x.toInt() , y.toInt()  );
+        scene->addItem(tile);
+    }
 }
 
 // reads map array and updates the scene
@@ -360,7 +402,6 @@ void MapView2::builtmap(QGraphicsScene *scene)
 {
     int x = 0;
     int y = 0;
-//    Terrain::Type type;
     QString typeS = "";
     QString tileStr = "";
     int n = 0;
@@ -409,55 +450,6 @@ void MapView2::builtmap(QGraphicsScene *scene)
             pixItem->setPos(x,y);
             scene->addItem(pixItem);
 
-            if (tileStr == "tree-54"){
-                QImage image = *terrain->getImageTile("tree-16");
-                Tile* tile = new Tile(typeS,QPixmap::fromImage(image));
-                tile->setPos(x,y-32);
-                scene->addItem(tile);
-
-            }
-            else if (tileStr == "tree-27"){
-                QImage image = *terrain->getImageTile("tree-25");
-                Tile* tile = new Tile(typeS,QPixmap::fromImage(image));
-                tile->setPos(x,y-32);
-                scene->addItem(tile);
-            }
-            else if (tileStr == "tree-55"){
-                QImage image = *terrain->getImageTile("tree-56");
-                Tile* tile = new Tile(typeS,QPixmap::fromImage(image));
-                tile->setPos(x,y-32);
-                scene->addItem(tile);
-            } // corner left
-            else if (tileStr == "tree-6"){
-                QImage image = *terrain->getImageTile("tree-25");
-                Tile* tile = new Tile(typeS,QPixmap::fromImage(image));
-                tile->setPos(x,y-32);
-                scene->addItem(tile);
-            } // needs top
-            else if (tileStr == "tree-62"){
-                QImage image = *terrain->getImageTile("tree-16");
-                Tile* tile = new Tile(typeS,QPixmap::fromImage(image));
-                tile->setPos(x,y-32);
-                scene->addItem(tile);
-            }
-            else if (tileStr == "tree-31"){
-                QImage image = *terrain->getImageTile("tree-55");
-                Tile* tile = new Tile(typeS,QPixmap::fromImage(image));
-                tile->setPos(x,y-32);
-                scene->addItem(tile);
-            } // corner left
-            else if (tileStr == "tree-7"){
-                QImage image = *terrain->getImageTile("tree-25");
-                Tile* tile = new Tile(typeS,QPixmap::fromImage(image));
-                tile->setPos(x,y-32);
-                scene->addItem(tile);
-            }
-            else if (tileStr == "tree-63"){
-                QImage image = *terrain->getImageTile("tree-16");
-                Tile* tile = new Tile(typeS,QPixmap::fromImage(image));
-                tile->setPos(x,y-32);
-                scene->addItem(tile);
-            }
 
         }
     }
@@ -492,6 +484,7 @@ void MapView2::builtAssets(QGraphicsScene *scene){
 
 void MapView2::displayMap(QGraphicsScene *scene){
     builtmap(scene);
+    builtTreeTop(scene);
     builtAssets(scene);
 }
 
