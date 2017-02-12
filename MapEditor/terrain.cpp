@@ -41,12 +41,7 @@ QImage* Terrain::getImageTile(QString typeS){
         int numKey = getAlias(tokens.at(0),tokens.at(1).toInt());
         typeName = tokens.at(0) + "-" + QString().setNum(numKey);
         if (!texture->contains(typeName)){
-//            qDebug() << "error missing: " << typeName;
-            typeName = "wall-0";
-        }
-        else{
-           // if( tokens.at(0) == "dirt")
-            //qDebug() << "work: " << typeName;
+            typeName = "rock-107";
         }
     }
 
@@ -68,7 +63,6 @@ int Terrain::getAlias(QString typeS, int num){
         if ( alias.value(typeKey).contains(num) ){
             // any match number in the list is an alias to the first number within the list.
             output = alias.value(typeKey).at(0);
-//            qDebug() << "alias used: " << output ;
             break;
         }
     }
@@ -132,8 +126,6 @@ void Terrain::renderingInfo(QString datFileName){
                 // list of strings from the line
                 QStringList typeAlias = line.split(" ");
 
-//                qDebug() << typeAlias.at(0);
-
                 if ( typeAlias.at(0) == "tree"){
                     aliasNums.clear();
                     keyType = "tree" + strConvert.setNum(countTree,10);
@@ -164,12 +156,10 @@ void Terrain::renderingInfo(QString datFileName){
                     keyType = "rock" + strConvert.setNum(countRock,10);
                     for(int i = 1; i < typeAlias.size(); i++){
                         int x = typeAlias.at(i).toInt(&ok,16);
-//                        qDebug() << x;
                         aliasNums.append(typeAlias.at(i).toInt(&ok,16));
                     }
                     countRock++;
                 }
-//                qDebug() << keyType;
                 // store each list of alias number for all same and diferrent type
                 alias.insert(keyType,aliasNums);
 

@@ -292,7 +292,7 @@ QString MapView2::tileEncode(QString strType ,int i , int j){
         tiles.append(TopTile);
         tiles.append(upperLTile);
 
-        qDebug() <<"this is the cordinate "<< "(" << i << "," << j << ")";
+       // qDebug() <<"this is the cordinate "<< "(" << i << "," << j << ")";
 
 
 
@@ -305,7 +305,7 @@ QString MapView2::tileEncode(QString strType ,int i , int j){
             }
         }
 
-        qDebug() << encodeStr;
+       // qDebug() << encodeStr;
 
         bool ok;
 
@@ -314,14 +314,14 @@ QString MapView2::tileEncode(QString strType ,int i , int j){
         if(TopTile != centerType){
             QString sPoint = QString().setNum( j*tileDim.width() ) + " " +  QString().setNum( (i-1)*tileDim.height() );
             treeTopTiles.insert( sPoint, strType + "-" + QString().setNum(num2) );
-            qDebug() << "tree top: " << strType + "-" + QString().setNum(num2);
+          //  qDebug() << "tree top: " << strType + "-" + QString().setNum(num2);
         }
 
 
 
 
-        qDebug() << "n1 " << encodeStr.left(6);
-        qDebug() << "n2: "<< encodeStr.right(6);
+//        qDebug() << "n1 " << encodeStr.left(6);
+//        qDebug() << "n2: "<< encodeStr.right(6);
         valueStrType = strType + "-" + QString().setNum(num1);
 
 
@@ -405,7 +405,7 @@ QString MapView2::tileEncode(QString strType ,int i , int j){
 
 void MapView2::builtTreeTop(QGraphicsScene *scene){
     if(treeTopTiles.empty()){
-        qDebug() << "No tree tops";
+      //  qDebug() << "No tree tops";
         return;
     }
 
