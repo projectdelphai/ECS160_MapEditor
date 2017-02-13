@@ -486,7 +486,7 @@ void MainWindow::on_tool_barracks_clicked()
     statusBar()->showMessage(tr("Barracks Tool selected"), 2000);
 }
 
-void MainWindow::on_tool_blacksmith_clicked()
+void MainWindow::on_tool_smith_clicked()
 {
     curTool = "BlackSmith";
     scene->curTool = "BlackSmith";
@@ -521,7 +521,7 @@ void MainWindow::on_tool_guardtower_clicked()
     statusBar()->showMessage(tr("Guard Tower Tool selected"), 2000);
 }
 
-void MainWindow::on_tool_scouttower_clicked()
+void MainWindow::on_tool_tower_clicked()
 {
     curTool = "ScoutTower";
     scene->curTool = "ScoutTower";
@@ -535,13 +535,6 @@ void MainWindow::on_tool_keep_clicked()
     statusBar()->showMessage(tr("Keep Tool selected"), 2000);
 }
 
-void MainWindow::on_tool_lumbermill_clicked()
-{
-    curTool = "LumberMill";
-    scene->curTool = "LumberMill";
-    statusBar()->showMessage(tr("LumberMill Tool selected"), 2000);
-}
-
 void MainWindow::on_tool_p1_clicked()
 {
     curPlayer = 1;
@@ -552,4 +545,48 @@ void MainWindow::on_tool_p2_clicked()
 {
     curPlayer = 2;
     scene->curPlayer = 2;
+}
+
+void MainWindow::on_tool_mill_clicked()
+{
+    curTool = "LumberMill";
+    scene->curTool = "LumberMill";
+    statusBar()->showMessage(tr("LumberMill Tool selected"), 2000);
+}
+
+
+void MainWindow::on_tool_p3_clicked()
+{
+    curPlayer = 3;
+    scene->curPlayer = 3;
+}
+
+void MainWindow::on_tool_p4_clicked()
+{
+    curPlayer = 4;
+    scene->curPlayer = 4;
+}
+
+void MainWindow::on_tool_p5_clicked()
+{
+    curPlayer = 5;
+    scene->curPlayer = 5;
+}
+
+void MainWindow::on_tool_p6_clicked()
+{
+    curPlayer = 6;
+    scene->curPlayer = 6;
+}
+
+void MainWindow::on_tool_p7_clicked()
+{
+    curPlayer = 7;
+    scene->curPlayer = 7;
+}
+
+void MainWindow::on_tool_p8_clicked()
+{
+    curPlayer = 8;
+    scene->curPlayer = 8;
 }
