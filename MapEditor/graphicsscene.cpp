@@ -113,6 +113,6 @@ void GraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
 
 bool GraphicsScene::withinBounds(QGraphicsSceneMouseEvent *mouseEvent)
 {
-    return mouseEvent->scenePos().x() >= 0 && mouseEvent->scenePos().x() <= width()
-            && mouseEvent->scenePos().y() >= 0 && mouseEvent->scenePos().y() <= height();
+    return mouseEvent->scenePos().x() >= 0 && mouseEvent->scenePos().x() < width()
+            && mouseEvent->scenePos().y() >= 0 && mouseEvent->scenePos().y() < height();
 }
