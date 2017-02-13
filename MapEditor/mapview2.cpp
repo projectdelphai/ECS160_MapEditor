@@ -63,16 +63,37 @@ void MapView2::setup(){
     // grab all the asset files
     QString path = ":/data/img";
     QString colorFile = ":/data/img/Colors.png";
-    QString peasantFile =":/data/img/Peasant.dat";
-    QString Goldmine  =":/data/img/GoldMine.dat";
-    QString townHall = ":/data/img/TownHall.dat";
-    int nObjects = 3;
+    QString goldmineTool = ":/data/img/GoldMine.dat";
+    QString peasantTool = ":/data/img/Peasant.dat";
+    QString townhallTool = ":/data/img/TownHall.dat";
+    QString barracksTool = ":/data/img/Barracks.dat";
+    QString blacksmithTool = ":/data/img/Blacksmith.dat";
+    QString cannontowerTool = ":/data/img/CannonTower.dat";
+    QString castleTool = ":/data/img/Castle.dat";
+    QString farmTool = ":/data/img/Farm.dat";
+    QString guardtowerTool = ":/data/img/GuardTower.dat";
+    QString keepTool = ":/data/img/Keep.dat";
+    QString lumbermillTool = ":/data/img/LumberMill.dat";
+    QString scouttowerTool = ":/data/img/ScoutTower.dat";
+
+
+
+    int nObjects = 12;
 
     // append them to a vector
     QVector<QString> files;
-    files.append(peasantFile);
-    files.append(Goldmine);
-    files.append(townHall);
+    files.append(peasantTool);
+    files.append(goldmineTool);
+    files.append(townhallTool);
+    files.append(barracksTool);
+    files.append(blacksmithTool);
+    files.append(cannontowerTool);
+    files.append(castleTool);
+    files.append(farmTool);
+    files.append(guardtowerTool);
+    files.append(keepTool);
+    files.append(lumbermillTool);
+    files.append(scouttowerTool);
 
     // create a texture for each asset
     for(int i = 0; i < nObjects; i++){
@@ -81,6 +102,16 @@ void MapView2::setup(){
     }
     assets.value("Peasant")->paintAll();
     assets.value("TownHall")->paintAll();
+    assets.value("Barracks")->paintAll();
+    assets.value("Blacksmith")->paintAll();
+    assets.value("CannonTower")->paintAll();
+    assets.value("Castle")->paintAll();
+    assets.value("Farm")->paintAll();
+    assets.value("GuardTower")->paintAll();
+    assets.value("Keep")->paintAll();
+    assets.value("LumberMill")->paintAll();
+    assets.value("ScoutTower")->paintAll();
+
 
 }
 
@@ -350,4 +381,10 @@ void MapView2::addUnit(Unit u, int player)
 void MapView2::setMapLayout(QVector<QChar> layout)
 {
     mapLayOut = layout;
+}
+
+Texture *MapView2::getAsset(QString assetName)
+{
+    Texture *t = assets.value(assetName);
+    return t;
 }

@@ -49,6 +49,7 @@ public:
     int getNumPlayers();
     int getNumUnits();
     void addUnit(Unit u, int player);
+    Texture *getAsset(QString assetName);
 
 private:
     void builtmap(QGraphicsScene *scene);

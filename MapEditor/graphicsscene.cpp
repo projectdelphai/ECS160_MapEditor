@@ -11,7 +11,8 @@ GraphicsScene::GraphicsScene(QObject *parent, MapView2 *curMap) : QGraphicsScene
     GraphicsScene::parent = parent;
     GraphicsScene::mapInfo = curMap;
     brushing = false;
-    goldmineTool = new Texture(":/data/img/GoldMine.dat",":/data/img/Colors.png");
+
+    //goldmineTool = new Texture(":/data/img/GoldMine.dat",":/data/img/Colors.png");
     peasantTool = new Texture(":/data/img/Peasant.dat",":/data/img/Colors.png");
     peasantTool->paintAll();
     townhallTool = new Texture(":/data/img/TownHall.dat",":/data/img/Colors.png");
@@ -70,27 +71,27 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
         else if (curTool == "Peasant")
             asset = peasantTool;
         else if (curTool == "GoldMine")
-            asset = goldmineTool;
+            asset = mapInfo->getAsset("GoldMine");
         else if (curTool == "TownHall")
-            asset = townhallTool;
+            asset = mapInfo->getAsset("TownHall");
         else if (curTool == "Barracks")
-            asset = barracksTool;
+            asset = mapInfo->getAsset("Barracks");
         else if (curTool == "BlackSmith")
-            asset = blacksmithTool;
+            asset = mapInfo->getAsset("Blacksmith");
         else if (curTool == "CannonTower")
-            asset = cannontowerTool;
+            asset = mapInfo->getAsset("CannonTower");
         else if (curTool == "Castle")
-            asset = castleTool;
+            asset = mapInfo->getAsset("Castle");
         else if (curTool == "Farm")
-            asset = farmTool;
+            asset = mapInfo->getAsset("Farm");
         else if (curTool == "GuardTower")
-            asset = guardtowerTool;
+            asset = mapInfo->getAsset("GuardTower");
         else if (curTool == "ScoutTower")
-            asset = scouttowerTool;
+            asset = mapInfo->getAsset("ScoutTower");
         else if (curTool == "Keep")
-            asset = keepTool;
+            asset = mapInfo->getAsset("Keep");
         else if (curTool == "LumberMill")
-            asset = lumbermillTool;
+            asset = mapInfo->getAsset("LumberMill");
         else
         {
             QGraphicsScene::mousePressEvent(mouseEvent);
