@@ -279,10 +279,23 @@ void MainWindow::writeSettings()
 
 // This function sets up all the UI buttons depending on what map is loaded
 void MainWindow::updateUI() {
-    // zoom slider in statusbar
+    // zoom slider and buttons in statusbar
+    QToolButton *zMinus = new QToolButton();
+    zMinus->setIcon(QIcon(":/toolbar/icons/toolbar/tool_zoom-.bmp"));
+    zMinus->setIconSize(QSize(16,16));
+    zMinus->setStyleSheet("padding: 0px; border: 1px; margin: 0px;");
+    ui->statusBar->addPermanentWidget(zMinus);
+
     QSlider *zSlider = new QSlider(Qt::Horizontal);
     zSlider->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    zSlider->setStyleSheet("padding: 0px; border: 0px; margin: 0px;");
     ui->statusBar->addPermanentWidget(zSlider);
+
+    QToolButton *zPlus = new QToolButton();
+    zPlus->setIcon(QIcon(":/toolbar/icons/toolbar/tool_zoom+.bmp"));
+    zPlus->setIconSize(QSize(16,16));
+    zPlus->setStyleSheet("padding: 0px; border: 1px; margin: 0px;");
+    ui->statusBar->addPermanentWidget(zPlus);
 
     // terrain buttons
     ui->tool_grass->setIcon(curMap.getTerrain()->getPixTile(Terrain::Grass));

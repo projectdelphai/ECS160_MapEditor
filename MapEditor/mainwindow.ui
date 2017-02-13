@@ -157,6 +157,9 @@
            </property>
            <item>
             <widget class="QToolButton" name="tool_p1">
+             <property name="styleSheet">
+              <string notr="true"/>
+             </property>
              <property name="text">
               <string>1</string>
              </property>
@@ -798,13 +801,6 @@
          </size>
         </property>
        </spacer>
-      </item>
-      <item>
-       <widget class="QSlider" name="zoomSlider">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
       </item>
       <item>
        <widget class="QGraphicsView" name="graphicsView_2">

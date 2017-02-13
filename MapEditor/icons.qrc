@@ -7,5 +7,7 @@
         <file>icons/toolbar/toolbar1.bmp</file>
         <file>icons/toolbar/toolbar2.bmp</file>
         <file>icons/toolbar/toolbar3.bmp</file>
+        <file>icons/toolbar/tool_zoom+.bmp</file>
+        <file>icons/toolbar/tool_zoom-.bmp</file>
     </qresource>
 </RCC>
