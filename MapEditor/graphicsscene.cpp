@@ -11,6 +11,11 @@ GraphicsScene::GraphicsScene(QObject *parent, MapView2 *curMap) : QGraphicsScene
     GraphicsScene::parent = parent;
     GraphicsScene::mapInfo = curMap;
     brushing = false;
+    peasantTool = new Texture(":/data/img/Peasant.dat",":/data/img/Colors.png");
+    peasantTool->paintAll();
+    goldmineTool = new Texture(":/data/img/GoldMine.dat",":/data/img/Colors.png");
+    townhallTool = new Texture(":/data/img/TownHall.dat",":/data/img/Colors.png");
+    townhallTool->paintAll();
 }
 
 void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
@@ -29,17 +34,32 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
 
         Terrain *terrain = mapInfo->getTerrain();
         Terrain::Type type;
+
         Texture *asset = 0;
 
-        if (curTool == "Peasant")
+        if (curTool == "grass")
+            type = Terrain::Grass;
+        else if (curTool == "dirt")
+            type = Terrain::Dirt;
+        else if (curTool == "water")
+            type = Terrain::Water;
+        else if (curTool == "rock")
+            type = Terrain::Rock;
+        else if (curTool == "tree")
+            type = Terrain::Tree;
+        else if (curTool == "wall")
+            type = Terrain::Wall;
+        else if (curTool == "Peasant")
         {
-            asset = new Texture(":/data/img/Peasant.dat",":/data/img/Colors.png");
-            asset->paintAll();
+            asset = peasantTool;
         }
         else if (curTool == "GoldMine")
         {
-            asset = new Texture(":/data/img/GoldMine.dat",":/data/img/Colors.png");
-
+            asset = goldmineTool;
+        }
+        else if (curTool == "TownHall")
+        {
+            asset = townhallTool;
         }
         else
         {
@@ -49,13 +69,13 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
 
         QImage imageDx;
         if (!asset)
-            imageDx = *terrain->getImageTile(curTool);
+            imageDx = *terrain->getImageTile(type);
         else
         {
             if (curTool == "GoldMine")
                 imageDx = asset->imageList[0];
             else
-                imageDx = asset->colorPlayerImg[curPlayer][0];
+                imageDx = asset->colorPlayerImg[curPlayer][3];
         }
 
         QPixmap pixmap = QPixmap::fromImage(imageDx);

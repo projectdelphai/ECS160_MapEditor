@@ -11,11 +11,14 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->setupUi(this);
     ui->graphicsView->setMouseTracking(true);
     ui->graphicsView_2->setMouseTracking(true);
-     curTool = "hand";
+    curTool = "hand";
 
 
     // Load and display a new file
     MainWindow::newFile();
+    MainWindow::updateUI();
+
+
     ui->graphicsView_2->fitInView(0,0,256,192, Qt::KeepAspectRatio);
     QObject::connect(scene, &GraphicsScene::changedAsset, this, &MainWindow::changeAsset);
     curPlayer = 1;
@@ -62,7 +65,6 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event){
 
 void MainWindow::mouseReleaseEvent(QMouseEvent *event){
     if (event->button() == Qt::LeftButton ){
-        qDebug() << "BES";
     }
 }
 
@@ -275,6 +277,48 @@ void MainWindow::writeSettings()
     QSettings settings(QCoreApplication::organizationName(), QCoreApplication::applicationName());
     settings.setValue("geometry", saveGeometry());
 }
+
+// This function sets up all the UI buttons depending on what map is loaded
+void MainWindow::updateUI() {
+    // file buttons
+
+    // terrain buttons
+    ui->tool_grass->setIcon(curMap.getTerrain()->getPixTile(Terrain::Grass));
+    ui->tool_dirt->setIcon(curMap.getTerrain()->getPixTile(Terrain::Dirt));
+    ui->tool_water->setIcon(curMap.getTerrain()->getPixTile(Terrain::Water));
+    ui->tool_tree->setIcon(curMap.getTerrain()->getPixTile(Terrain::Tree));
+    ui->tool_rock->setIcon(curMap.getTerrain()->getPixTile(Terrain::Rock));
+    ui->tool_wall->setIcon(curMap.getTerrain()->getPixTile(Terrain::Wall));
+    ui->tool_rubble->setIcon(curMap.getTerrain()->getPixTile(Terrain::Rubble));
+
+    // player color buttons
+    ui->tool_p1->setIcon(curMap.getButtonColorsTx()->getPixTile("blue-light").scaled(16,16));
+    ui->tool_p2->setIcon(curMap.getButtonColorsTx()->getPixTile("red-light").scaled(16,16));
+    ui->tool_p3->setIcon(curMap.getButtonColorsTx()->getPixTile("green-light").scaled(16,16));
+    ui->tool_p4->setIcon(curMap.getButtonColorsTx()->getPixTile("purple-light").scaled(16,16));
+    ui->tool_p5->setIcon(curMap.getButtonColorsTx()->getPixTile("orange-light").scaled(16,16));
+    ui->tool_p6->setIcon(curMap.getButtonColorsTx()->getPixTile("yellow-light").scaled(16,16));
+    ui->tool_p7->setIcon(curMap.getButtonColorsTx()->getPixTile("black-light").scaled(16,16));
+    ui->tool_p8->setIcon(curMap.getButtonColorsTx()->getPixTile("white-light").scaled(16,16));
+
+    // unit buttons
+    ui->tool_peasant1->setIcon(curMap.getButtonIconsTx()->getPixTile("peasant"));
+    ui->tool_archer->setIcon(curMap.getButtonIconsTx()->getPixTile("archer"));
+    ui->tool_knight->setIcon(curMap.getButtonIconsTx()->getPixTile("knight"));
+
+    // building buttons
+    ui->tool_townhall1->setIcon(curMap.getButtonIconsTx()->getPixTile("town-hall"));
+    ui->tool_smith->setIcon(curMap.getButtonIconsTx()->getPixTile("human-blacksmith"));
+    ui->tool_farm->setIcon(curMap.getButtonIconsTx()->getPixTile("chicken-farm"));
+    ui->tool_mill->setIcon(curMap.getButtonIconsTx()->getPixTile("human-lumber-mill"));
+    ui->tool_keep->setIcon(curMap.getButtonIconsTx()->getPixTile("keep"));
+    ui->tool_castle->setIcon(curMap.getButtonIconsTx()->getPixTile("castle"));
+    ui->tool_barracks->setIcon(curMap.getButtonIconsTx()->getPixTile("human-barracks"));
+    ui->tool_tower->setIcon(curMap.getButtonIconsTx()->getPixTile("human-guard-tower"));
+    ui->tool_goldmine->setIcon(curMap.getButtonIconsTx()->getPixTile("gold-mine"));
+}
+
+
 // reference  http://www.qtcentre.org/threads/52603-Zoom-effect-by-mouse-Wheel-in-QGraphicsview
 void MainWindow::wheelEvent(QWheelEvent *event)
 {
@@ -423,8 +467,8 @@ void MainWindow::on_tool_peasant1_clicked()
 
 void MainWindow::on_tool_townhall1_clicked()
 {
-    curTool = "townhall";
-    scene->curTool = "townhall";
+    curTool = "TownHall";
+    scene->curTool = "TownHall";
     statusBar()->showMessage(tr("Player 1 Townhall selected"), 2000);
 }
 

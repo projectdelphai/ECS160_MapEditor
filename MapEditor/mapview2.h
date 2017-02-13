@@ -36,49 +36,47 @@ public:
     MapView2();
     MapView2(const QString &mapFileName, const QString &mapTexName);
 
+    Terrain* getTerrain();
+    Texture* getButtonColorsTx();
+    Texture* getButtonIconsTx();
     void displayMap(QGraphicsScene *scene);
-    void builtmap(QGraphicsScene *scene);
-    void builtAssets(QGraphicsScene *scene);
-    QString tileEncode(QString typeS,int i, int j);
-    void builtTreeTop(QGraphicsScene *scene);
 
     QSize getMapDim();
     QString getMapName();
     QVector<QChar> getMapLayout();
     void setMapLayout(QVector<QChar> layout);
     QVector<Player> getPlayers();
-    void addPlayer(Player p);
-    void addUnit(Unit u, int player);
     int getNumPlayers();
     int getNumUnits();
+    void addUnit(Unit u, int player);
 
-    void setup();
+private:
+    void builtmap(QGraphicsScene *scene);
+    void builtAssets(QGraphicsScene *scene);
 
-    void defaultMap();
     void openMap(const QString &mapName);
     void openMapTexture(const QString &mapTexture);
     QImage createImageTile(QImage* image, const QRect &rect);
 
     QString mapName;
     QVector<Player> players;
-
-    Terrain* getTerrain();
-
-private:
     QVector<QChar> mapLayOut;
     QRect tileDim;
     QSize mapDim;
     int numPlayers;
     int numUnits;
+    void addPlayer(Player p);
 
     Terrain* terrain;
-    // QPoint , QString not possible
-    QMap<QString , QString> treeTopTiles;
-
+    Texture* toolbar;
+    Texture* buttonColors;
+    Texture* buttonIcons;
+    void setup();
+    void defaultMap();
 
     QStringList mapAllowedAIs;
     QString mapDescription;
-    Texture *terrainTexture;
+    //Texture *terrainTexture;
     QMap<QString,Texture*> assets;
     QVector<Tile*> tileMap;
 };
