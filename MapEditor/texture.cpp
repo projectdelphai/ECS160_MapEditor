@@ -103,7 +103,6 @@ void Texture::paintAll(){
     colorPlayerImg.insert(blue,imageList);
     // skip first players of blue color
     for(int i = 0; i < nPlayers; i++){
-         qDebug() << "before" << i;
          colorPlayerImg.insert(i+1,paintUnit(i));
     }
 }
@@ -199,7 +198,7 @@ void Texture::scanTexture(const QString &texFileName){
 
 }
 
-QMap<QString, QImage*>* Texture::getTxMap() {
+const QMap<QString, QImage*>* Texture::getTxMap() {
     return rTxMap;
 }
 
