@@ -45,7 +45,7 @@ MapView2::MapView2()
 MapView2::MapView2(const QString &mapFileName , const QString &mapTexName = ":/data/img/Terrain.png" )
 {
     openMap(mapFileName);
-    //setup();
+    setup();
     terrain = new Terrain(mapTexName);
 
     // upper-left corner and the rectangle size of width and height
