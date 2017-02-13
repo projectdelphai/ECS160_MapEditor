@@ -14,11 +14,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->graphicsView_2->setMouseTracking(true);
     curTool = "hand";
 
-
     // Load and display a new file
     MainWindow::newFile();
     MainWindow::updateUI();
-
 
     ui->graphicsView_2->fitInView(0,0,256,192, Qt::KeepAspectRatio);
     QObject::connect(scene, &GraphicsScene::changedAsset, this, &MainWindow::changeAsset);
@@ -283,6 +281,7 @@ void MainWindow::writeSettings()
 void MainWindow::updateUI() {
     // zoom slider in statusbar
     QSlider *zSlider = new QSlider(Qt::Horizontal);
+    zSlider->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     ui->statusBar->addPermanentWidget(zSlider);
 
     // terrain buttons
