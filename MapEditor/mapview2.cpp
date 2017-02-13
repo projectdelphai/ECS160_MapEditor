@@ -32,6 +32,8 @@ MapView2::MapView2()
     // create and store all assets
     setup();
     terrain = new Terrain;
+    buttonColors = new Texture(":/data/img/ButtonColors.png", 1, 1);
+    buttonIcons = new Texture(":/data/img/Icons.png", 46, 38);
 
     tileDim.setRect(1,1,32,32);
     tileMap.reserve(mapDim.width()*mapDim.height());
@@ -48,7 +50,7 @@ MapView2::MapView2()
 MapView2::MapView2(const QString &mapFileName , const QString &mapTexName = ":/data/img/Terrain.png" )
 {
     openMap(mapFileName);
-    setup();
+    //setup();
     terrain = new Terrain(mapTexName);
 
     // upper-left corner and the rectangle size of width and height
@@ -134,6 +136,9 @@ void MapView2::openMap(const QString &mapFileName){
             continue;
         }
 
+        // get whether the first character is an int or not (to see whether we're done reading in the layout)
+        line.toInt(&intTest, 10);
+
         lineNum++;
         if ( lineNum == 1){
             mapName = line;
@@ -167,7 +172,7 @@ void MapView2::openMap(const QString &mapFileName){
             numPlayers = line.toInt();
             lineNum++;
             line = in.readLine();
-            for (int i = 0; i < numPlayers + 1; i++)
+            for (int i = 0; i < numPlayers; i++)
             {
                 // create players and add
                 QStringList playerValues = line.split(" ");
@@ -279,6 +284,14 @@ void MapView2::builtAssets(QGraphicsScene *scene){
 void MapView2::displayMap(QGraphicsScene *scene){
     builtmap(scene);
     builtAssets(scene);
+}
+
+Texture* MapView2::getButtonColorsTx(){
+    return buttonColors;
+}
+
+Texture* MapView2::getButtonIconsTx(){
+    return buttonIcons;
 }
 
 Terrain* MapView2::getTerrain(){

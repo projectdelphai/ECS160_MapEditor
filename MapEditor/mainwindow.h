@@ -71,6 +71,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    void updateUI();
     void writeSettings();
     bool maybeSave();
     bool saveFile(const QString &fileName);

@@ -37,6 +37,8 @@ public:
     MapView2(const QString &mapFileName, const QString &mapTexName);
 
     Terrain* getTerrain();
+    Texture* getButtonColorsTx();
+    Texture* getButtonIconsTx();
     void displayMap(QGraphicsScene *scene);
 
     QSize getMapDim();
@@ -66,12 +68,15 @@ private:
     void addPlayer(Player p);
 
     Terrain* terrain;
+    Texture* toolbar;
+    Texture* buttonColors;
+    Texture* buttonIcons;
     void setup();
     void defaultMap();
 
     QStringList mapAllowedAIs;
     QString mapDescription;
-    Texture *terrainTexture;
+    //Texture *terrainTexture;
     QMap<QString,Texture*> assets;
     QVector<Tile*> tileMap;
 };
