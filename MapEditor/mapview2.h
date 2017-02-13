@@ -37,8 +37,6 @@ public:
     MapView2(const QString &mapFileName, const QString &mapTexName);
 
     Terrain* getTerrain();
-    Texture* getButtonColorsTx();
-    Texture* getButtonIconsTx();
     void displayMap(QGraphicsScene *scene);
     //void builtmap(QGraphicsScene *scene);
    // void builtAssets(QGraphicsScene *scene);
@@ -74,15 +72,12 @@ private:
     Terrain* terrain;
     // QPoint , QString not possible
     QMap<QString , QString> treeTopTiles;
-    Texture* toolbar;
-    Texture* buttonColors;
-    Texture* buttonIcons;
     void setup();
     void defaultMap();
 
     QStringList mapAllowedAIs;
     QString mapDescription;
-    //Texture *terrainTexture;
+    Texture *terrainTexture;
     QMap<QString,Texture*> assets;
     QVector<Tile*> tileMap;
 };

@@ -2,19 +2,18 @@
 #include <QDebug>
 
 
-Texture::Texture(const QString &texFileName, int w, int h)
+Texture::Texture(const QString &texFileName )
 {
-    // save texture tile size
-    Texture::width = w;
-    Texture::height = h;
-
     // load QImage from file
     fullImage = open(texFileName);
 
     // load typelist from the corresponding dat file
-    datFileName = toDat(texFileName);
+    QStringList filePath = texFileName.split(".");
+    QStringList pathnames = filePath[0].split("/");
+    QString texName = pathnames.back();
+    datFileName = QString(":/data/img/" + texName + ".dat");
 
-    scanDatFile(datFileName, w, h);
+    scanDatFile(datFileName);
 
     // upper-left corner and the rectangle size of width and height
     tileDim.setRect(0,0,32,32);
@@ -27,13 +26,6 @@ Texture::Texture( const QString &textureName, const QString &colorFile){
     tileDim.setRect(0,0,32,32);
 }
 
-// helper function to convert filename.png to filename.dat
-QString Texture::toDat(QString texFileName) {
-    QStringList filePath = texFileName.split(".");
-    QStringList pathnames = filePath[0].split("/");
-    QString texName = pathnames.back();
-    return QString(":/data/img/" + texName + ".dat");
-}
 
 // load QImage from file
 QImage Texture::open(const QString &textureName){
@@ -117,7 +109,7 @@ void Texture::paintAll(){
 }
 
 // this function takes all image files from a large png, chops them up and stores them in Texture::txMap
-void Texture::scanDatFile(const QString datFileName, int width, int height) {
+void Texture::scanDatFile(const QString datFileName) {
     QFile file(datFileName);
 
     if (!file.open(QIODevice::ReadOnly)){
@@ -132,14 +124,15 @@ void Texture::scanDatFile(const QString datFileName, int width, int height) {
 
         QString line  = in.readLine();
 
+        // skip blankline
         if (line == QString(" "))
             continue;
 
         lineNum++;
 
         if(lineNum > 2){
-            int pos = (lineNum - 3) * height;
-        QImage* tile = new QImage(fullImage.copy(0,pos,width,height));
+            int pos = (lineNum - 3) * 32;
+        QImage* tile = new QImage(fullImage.copy(0,pos,32,32));
             Texture::txMap.insert(line, tile);
         }
 
@@ -212,10 +205,6 @@ QMap<QString, QImage*>* Texture::getTxMap() {
 
 const QImage* Texture::getImage(QString txName){
     return txMap.value(txName);
-}
-
-QPixmap Texture::getPixTile(QString tileName){
-    return QPixmap::fromImage(*txMap.value(tileName));
 }
 
 void Texture::display(){

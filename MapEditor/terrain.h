@@ -17,9 +17,8 @@ public:
     explicit Terrain(QString texFileName = ":/data/img/Terrain.png");
     enum  Type { Grass = 0, Dirt , Tree , Water , Rock , WallDamage , Wall , Rubble };
     QImage* getImageTile(QString typeS);
-    QImage* getImageTile(Terrain::Type type);
-    QPixmap getPixTile(Terrain::Type type);
-    QPixmap getPixTile(QString tileName);
+
+
     void renderingInfo(QString file);
     int  getAlias(QString typeS , int num);
 

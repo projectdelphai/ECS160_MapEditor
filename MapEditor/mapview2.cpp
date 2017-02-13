@@ -32,8 +32,6 @@ MapView2::MapView2()
     // create and store all assets
     setup();
     terrain = new Terrain;
-    buttonColors = new Texture(":/data/img/ButtonColors.png", 1, 1);
-    buttonIcons = new Texture(":/data/img/Icons.png", 46, 38);
     tileDim.setRect(1,1,32,32);
     tileMap.reserve(mapDim.width()*mapDim.height());
 
@@ -517,14 +515,6 @@ void MapView2::displayMap(QGraphicsScene *scene){
     builtmap(scene);
     builtTreeTop(scene);
     builtAssets(scene);
-}
-
-Texture* MapView2::getButtonColorsTx(){
-    return buttonColors;
-}
-
-Texture* MapView2::getButtonIconsTx(){
-    return buttonIcons;
 }
 
 Terrain* MapView2::getTerrain(){
