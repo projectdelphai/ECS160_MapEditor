@@ -16,9 +16,8 @@ class Terrain: private Texture
 public:
     explicit Terrain(QString texFileName = ":/data/img/Terrain.png");
     enum  Type { Grass = 0, Dirt , Tree , Water , Rock , WallDamage , Wall , Rubble };
-    QImage* getImageTile(Terrain::Type type);
-    QPixmap getPixTile(Terrain::Type type);
-    QPixmap getPixTile(QString tileName);
+    QImage* getImageTile(QString typeS);
+
 
     void renderingInfo(QString file);
     int  getAlias(QString typeS , int num);
@@ -27,8 +26,6 @@ protected:
     QMap< QString, QImage* >* texture;
     QImage fullImage;
     QMap< QString,QVector<int>> alias;
-
-
 
 };
 

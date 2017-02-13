@@ -45,24 +45,37 @@ private slots:
     bool saveAs();
     void newFile();
     void open();
+
     void on_button_new_clicked();
+
     void on_button_open_clicked();
+
     void on_button_save_clicked();
+
     void on_tool_grass_clicked();
+
     void on_tool_dirt_clicked();
+
     void on_tool_water_clicked();
+
     void on_tool_rock_clicked();
+
     void on_tool_tree_clicked();
+
     void on_tool_wall_clicked();
+
     void on_tool_peasant1_clicked();
+
     void on_tool_townhall1_clicked();
+
     void on_tool_goldmine_clicked();
+
     void on_tool_p1_clicked();
+
     void on_tool_p2_clicked();
 
 private:
     Ui::MainWindow *ui;
-    void updateUI();
     void writeSettings();
     bool maybeSave();
     bool saveFile(const QString &fileName);

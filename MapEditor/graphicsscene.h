@@ -22,9 +22,6 @@ public:
     void addToolItem(QGraphicsSceneMouseEvent *mouseEvent);
     QString curTool;
     int curPlayer;
-    Texture *peasantTool;
-    Texture *goldmineTool;
-    Texture *townhallTool;
 signals:
     void changedLayout(int x, int y, Terrain::Type type);
     void changedAsset(int x, int y, QString asset, int curPlayer);
