@@ -4,49 +4,59 @@
 #include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
 
+
+Tile::Tile(Terrain::Type type){ // not sure if needed
+    Tile::type = type;
+}
+
 Tile::Tile(QString typeStr,QPixmap texturePix):QGraphicsPixmapItem(texturePix){
     typeStr = typeStr;
     texturePix = texturePix;
 }
 
-Tile::Tile(Texture::Type type,QPixmap texturePix): QGraphicsPixmapItem(texturePix){
-    type = type;
-    texturePix = texturePix;
+Tile::Tile(Terrain::Type type,QPixmap texturePix): QGraphicsPixmapItem(texturePix){
+    Tile::type = type;
+    Tile::texturePix = texturePix;
     note = "test";
 }
 
-void Tile::mousePressEvent(QGraphicsSceneMouseEvent *event)
-{
+//void Tile::mousePressEvent(QGraphicsSceneMouseEvent *event)
+//{
     //qWarning() << Q_FUNC_INFO << event->scenePos();
-}
+    //qDebug() << "in Tile:mousePressEvent";
+//}
 
 QString Tile::toString()
 {
-    //     enum  Type { Grass = 0, Dirt , Tree , Water , Rock , WallDamage , Wall , Rubble };
+    // enum  Type { Grass = 0, Dirt , Tree , Water , Rock , WallDamage , Wall , Rubble };
     switch(type)
     {
-    case Texture::Grass:
+    case Terrain::Grass:
         return "Grass";
         break;
-    case Texture::Dirt:
+    case Terrain::Dirt:
         return "Dirt";
         break;
-    case Texture::Tree:
+    case Terrain::Tree:
         return "Tree";
         break;
-    case Texture::Water:
+    case Terrain::Water:
         return "Water";
         break;
-    case Texture::Rock:
+    case Terrain::Rock:
         return "Rock";
         break;
-    case Texture::WallDamage:
+    case Terrain::Wall:
+        return "Wall";
+        break;
+    case Terrain::WallDamage:
         return "WallDamage";
         break;
-    case Texture::Rubble:
+    case Terrain::Rubble:
         return "Rubble";
         break;
     }
+    return 0;
 }
 
 

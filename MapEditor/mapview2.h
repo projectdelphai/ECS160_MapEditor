@@ -30,17 +30,16 @@ public:
     QVector<Unit> units;
 };
 
-
-
 class MapView2
 {
 public:
     MapView2();
     MapView2(const QString &mapFileName, const QString &mapTexName);
 
+    Terrain* getTerrain();
+    Texture* getButtonColorsTx();
+    Texture* getButtonIconsTx();
     void displayMap(QGraphicsScene *scene);
-    void builtmap(QGraphicsScene *scene);
-    void builtAssets(QGraphicsScene *scene);
 
     QSize getMapDim();
     QString getMapName();
@@ -49,38 +48,38 @@ public:
     QVector<Player> getPlayers();
     int getNumPlayers();
     int getNumUnits();
-    QVector<Player> players;
+    void addUnit(Unit u, int player);
+    Texture *getAsset(QString assetName);
 
-    void setup();
+private:
+    void builtmap(QGraphicsScene *scene);
+    void builtAssets(QGraphicsScene *scene);
 
-//private:
-    void defaultMap();
     void openMap(const QString &mapName);
     void openMapTexture(const QString &mapTexture);
     QImage createImageTile(QImage* image, const QRect &rect);
 
-
-    QImage currentImage;
     QString mapName;
-
-
-private:
+    QVector<Player> players;
     QVector<QChar> mapLayOut;
     QRect tileDim;
     QSize mapDim;
     int numPlayers;
     int numUnits;
+    void addPlayer(Player p);
+
+    Terrain* terrain;
+    Texture* toolbar;
+    Texture* buttonColors;
+    Texture* buttonIcons;
+    void setup();
+    void defaultMap();
 
     QStringList mapAllowedAIs;
     QString mapDescription;
-    Texture *terrainTexture;
+    //Texture *terrainTexture;
     QMap<QString,Texture*> assets;
     QVector<Tile*> tileMap;
-
-
-
-
-
 };
 
 #endif // MAPVIEW2_H
