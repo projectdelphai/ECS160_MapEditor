@@ -27,8 +27,6 @@ protected:
     QImage fullImage;
     QMap< QString,QVector<int>> alias;
 
-
-
 };
 
 #endif // TERRAIN_H
