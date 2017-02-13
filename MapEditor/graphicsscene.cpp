@@ -112,7 +112,7 @@ void GraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
 }
 
 bool GraphicsScene::withinBounds(QGraphicsSceneMouseEvent *mouseEvent)
-{
+{//Checks to see if the mouse event occurs within map bounds to prevent crashing
     return mouseEvent->scenePos().x() >= 0 && mouseEvent->scenePos().x() < width()
             && mouseEvent->scenePos().y() >= 0 && mouseEvent->scenePos().y() < height();
 }
