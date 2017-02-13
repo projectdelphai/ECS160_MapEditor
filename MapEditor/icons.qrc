@@ -7,5 +7,25 @@
         <file>icons/toolbar/toolbar1.bmp</file>
         <file>icons/toolbar/toolbar2.bmp</file>
         <file>icons/toolbar/toolbar3.bmp</file>
+        <file>icons/toolbar/tool_grass.png</file>
+        <file>icons/toolbar/tool_dirt.png</file>
+        <file>icons/toolbar/tool_water.png</file>
+        <file>icons/toolbar/tool_forest.png</file>
+        <file>icons/toolbar/tool_wall.png</file>
+        <file>icons/toolbar/tool_rock.png</file>
+        <file>icons/toolbar/tool_peasant.png</file>
+        <file>icons/toolbar/tool_townhall.png</file>
+        <file>icons/toolbar/tool_p1.png</file>
+        <file>icons/toolbar/tool_p2.png</file>
+        <file>icons/toolbar/tool_goldmine.png</file>
+        <file>icons/toolbar/tool_lumbermill.png</file>
+        <file>icons/toolbar/tool_barracks.png</file>
+        <file>icons/toolbar/tool_blacksmith.png</file>
+        <file>icons/toolbar/tool_cannontower.png</file>
+        <file>icons/toolbar/tool_castle.png</file>
+        <file>icons/toolbar/tool_farm.png</file>
+        <file>icons/toolbar/tool_guardtower.png</file>
+        <file>icons/toolbar/tool_keep.png</file>
+        <file>icons/toolbar/tool_scouttower.png</file>
     </qresource>
 </RCC>

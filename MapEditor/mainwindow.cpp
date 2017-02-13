@@ -479,6 +479,61 @@ void MainWindow::on_tool_goldmine_clicked()
     statusBar()->showMessage(tr("Goldmine Tool selected"), 2000);
 }
 
+void MainWindow::on_tool_barracks_clicked()
+{
+    curTool = "Barracks";
+    scene->curTool = "Barracks";
+    statusBar()->showMessage(tr("Barracks Tool selected"), 2000);
+}
+
+void MainWindow::on_tool_smith_clicked()
+{
+    curTool = "BlackSmith";
+    scene->curTool = "BlackSmith";
+    statusBar()->showMessage(tr("Black Smith Tool selected"), 2000);
+}
+
+void MainWindow::on_tool_cannontower_clicked()
+{
+    curTool = "CannonTower";
+    scene->curTool = "CannonTower";
+    statusBar()->showMessage(tr("Cannon Tower Tool selected"), 2000);
+}
+
+void MainWindow::on_tool_castle_clicked()
+{
+    curTool = "Castle";
+    scene->curTool = "Castle";
+    statusBar()->showMessage(tr("Castle Tool selected"), 2000);
+}
+
+void MainWindow::on_tool_farm_clicked()
+{
+    curTool = "Farm";
+    scene->curTool = "Farm";
+    statusBar()->showMessage(tr("Farm Tool selected"), 2000);
+}
+
+void MainWindow::on_tool_guardtower_clicked()
+{
+    curTool = "GuardTower";
+    scene->curTool = "GuardTower";
+    statusBar()->showMessage(tr("Guard Tower Tool selected"), 2000);
+}
+
+void MainWindow::on_tool_tower_clicked()
+{
+    curTool = "ScoutTower";
+    scene->curTool = "ScoutTower";
+    statusBar()->showMessage(tr("Scout Tower Tool selected"), 2000);
+}
+
+void MainWindow::on_tool_keep_clicked()
+{
+    curTool = "Keep";
+    scene->curTool = "Keep";
+    statusBar()->showMessage(tr("Keep Tool selected"), 2000);
+}
 
 void MainWindow::on_tool_p1_clicked()
 {
@@ -490,4 +545,48 @@ void MainWindow::on_tool_p2_clicked()
 {
     curPlayer = 2;
     scene->curPlayer = 2;
+}
+
+void MainWindow::on_tool_mill_clicked()
+{
+    curTool = "LumberMill";
+    scene->curTool = "LumberMill";
+    statusBar()->showMessage(tr("LumberMill Tool selected"), 2000);
+}
+
+
+void MainWindow::on_tool_p3_clicked()
+{
+    curPlayer = 3;
+    scene->curPlayer = 3;
+}
+
+void MainWindow::on_tool_p4_clicked()
+{
+    curPlayer = 4;
+    scene->curPlayer = 4;
+}
+
+void MainWindow::on_tool_p5_clicked()
+{
+    curPlayer = 5;
+    scene->curPlayer = 5;
+}
+
+void MainWindow::on_tool_p6_clicked()
+{
+    curPlayer = 6;
+    scene->curPlayer = 6;
+}
+
+void MainWindow::on_tool_p7_clicked()
+{
+    curPlayer = 7;
+    scene->curPlayer = 7;
+}
+
+void MainWindow::on_tool_p8_clicked()
+{
+    curPlayer = 8;
+    scene->curPlayer = 8;
 }

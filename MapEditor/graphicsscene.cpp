@@ -11,11 +11,30 @@ GraphicsScene::GraphicsScene(QObject *parent, MapView2 *curMap) : QGraphicsScene
     GraphicsScene::parent = parent;
     GraphicsScene::mapInfo = curMap;
     brushing = false;
+
+    //goldmineTool = new Texture(":/data/img/GoldMine.dat",":/data/img/Colors.png");
     peasantTool = new Texture(":/data/img/Peasant.dat",":/data/img/Colors.png");
     peasantTool->paintAll();
-    goldmineTool = new Texture(":/data/img/GoldMine.dat",":/data/img/Colors.png");
     townhallTool = new Texture(":/data/img/TownHall.dat",":/data/img/Colors.png");
     townhallTool->paintAll();
+    barracksTool = new Texture(":/data/img/Barracks.dat",":/data/img/Colors.png");
+    barracksTool->paintAll();
+    blacksmithTool = new Texture(":/data/img/Blacksmith.dat",":/data/img/Colors.png");
+    blacksmithTool->paintAll();
+    cannontowerTool = new Texture(":/data/img/CannonTower.dat",":/data/img/Colors.png");
+    cannontowerTool->paintAll();
+    castleTool = new Texture(":/data/img/Castle.dat",":/data/img/Colors.png");
+    castleTool->paintAll();
+    farmTool = new Texture(":/data/img/Farm.dat",":/data/img/Colors.png");
+    farmTool->paintAll();
+    guardtowerTool = new Texture(":/data/img/GuardTower.dat",":/data/img/Colors.png");
+    guardtowerTool->paintAll();
+    keepTool = new Texture(":/data/img/Keep.dat",":/data/img/Colors.png");
+    keepTool->paintAll();
+    lumbermillTool = new Texture(":/data/img/LumberMill.dat",":/data/img/Colors.png");
+    lumbermillTool->paintAll();
+    scouttowerTool = new Texture(":/data/img/ScoutTower.dat",":/data/img/Colors.png");
+    scouttowerTool->paintAll();
 }
 
 void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
@@ -50,17 +69,29 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
         else if (curTool == "wall")
             type = Terrain::Wall;
         else if (curTool == "Peasant")
-        {
             asset = peasantTool;
-        }
         else if (curTool == "GoldMine")
-        {
-            asset = goldmineTool;
-        }
+            asset = mapInfo->getAsset("GoldMine");
         else if (curTool == "TownHall")
-        {
-            asset = townhallTool;
-        }
+            asset = mapInfo->getAsset("TownHall");
+        else if (curTool == "Barracks")
+            asset = mapInfo->getAsset("Barracks");
+        else if (curTool == "BlackSmith")
+            asset = mapInfo->getAsset("Blacksmith");
+        else if (curTool == "CannonTower")
+            asset = mapInfo->getAsset("CannonTower");
+        else if (curTool == "Castle")
+            asset = mapInfo->getAsset("Castle");
+        else if (curTool == "Farm")
+            asset = mapInfo->getAsset("Farm");
+        else if (curTool == "GuardTower")
+            asset = mapInfo->getAsset("GuardTower");
+        else if (curTool == "ScoutTower")
+            asset = mapInfo->getAsset("ScoutTower");
+        else if (curTool == "Keep")
+            asset = mapInfo->getAsset("Keep");
+        else if (curTool == "LumberMill")
+            asset = mapInfo->getAsset("LumberMill");
         else
         {
             QGraphicsScene::mousePressEvent(mouseEvent);
@@ -74,8 +105,10 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
         {
             if (curTool == "GoldMine")
                 imageDx = asset->imageList[0];
+            else if (curTool == "CannonTower" || curTool == "Castle" || curTool == "Keep" || curTool == "GuardTower")
+                imageDx = asset->colorPlayerImg[curPlayer][1];
             else
-                imageDx = asset->colorPlayerImg[curPlayer][3];
+                imageDx = asset->colorPlayerImg[curPlayer][2];
         }
 
         QPixmap pixmap = QPixmap::fromImage(imageDx);

@@ -57,8 +57,35 @@ private slots:
     void on_tool_peasant1_clicked();
     void on_tool_townhall1_clicked();
     void on_tool_goldmine_clicked();
+    void on_tool_barracks_clicked();
+    void on_tool_blacksmith_clicked();
+    void on_tool_cannontower_clicked();
+    void on_tool_castle_clicked();
+    void on_tool_farm_clicked();
+    void on_tool_guardtower_clicked();
+    void on_tool_keep_clicked();
+    void on_tool_lumbermill_clicked();
+    void on_tool_scouttower_clicked();
     void on_tool_p1_clicked();
     void on_tool_p2_clicked();
+
+    void on_tool_mill_clicked();
+
+    void on_tool_smith_clicked();
+
+    void on_tool_tower_clicked();
+
+    void on_tool_p3_clicked();
+
+    void on_tool_p4_clicked();
+
+    void on_tool_p5_clicked();
+
+    void on_tool_p6_clicked();
+
+    void on_tool_p7_clicked();
+
+    void on_tool_p8_clicked();
 
 private:
     Ui::MainWindow *ui;
