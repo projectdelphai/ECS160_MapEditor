@@ -902,6 +902,8 @@
      <string>Edit</string>
     </property>
     <addaction name="actionDelete"/>
+    <addaction name="separator"/>
+    <addaction name="actionProperties"/>
    </widget>
    <widget class="QMenu" name="menuView">
     <property name="title">
@@ -1287,6 +1289,11 @@
     <string>Assets...</string>
    </property>
   </action>
+  <action name="actionProperties">
+   <property name="text">
+    <string>Properties...</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
@@ -1357,6 +1364,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionProperties</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>on_button_properties_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>540</x>
+     <y>403</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>open()</slot>
@@ -1365,5 +1388,6 @@
   <slot>on_tool_grass_released()</slot>
   <slot>on_tool_dirt_released()</slot>
   <slot>on_tool_water_released()</slot>
+  <slot>on_button_properties_clicked()</slot>
  </slots>
 </ui>

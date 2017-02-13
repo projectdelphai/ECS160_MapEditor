@@ -30,16 +30,19 @@ SOURCES += main.cpp\
     texture.cpp \
     tile.cpp \
     graphicsscene.cpp \
-    terrain.cpp
+    terrain.cpp \
+    dgmapproperties.cpp
 
 HEADERS  += mainwindow.h \
     mapview2.h \
     texture.h \
     tile.h \
     graphicsscene.h \
-    terrain.h
+    terrain.h \
+    dgmapproperties.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    dgmapproperties.ui
 
 RESOURCES += \
     icons.qrc \
