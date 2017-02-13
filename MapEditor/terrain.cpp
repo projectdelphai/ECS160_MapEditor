@@ -5,7 +5,7 @@ Terrain::Terrain(QString texFileName) : Texture(texFileName, 32, 32)
 {
     Terrain::texture = Texture::getTxMap();
 }
-
+QImage* Terrain::getImageTile(QString typeS){
 QPixmap Terrain::getPixTile(Terrain::Type type) {
     QImage* imageTile = getImageTile(type);
     return QPixmap::fromImage(*imageTile);
@@ -15,7 +15,9 @@ QPixmap Terrain::getPixTile(QString tileName) {
     return QPixmap::fromImage(*Terrain::texture->value(tileName));
 }
 
-QImage* Terrain::getImageTile(QString typeS){
+QImage* Terrain::getImageTile(Terrain::Type type){
+    QString typeName;
+
     // type-n are split
     QStringList tokens = typeS.split("-");
     QString typeName = "";
@@ -52,6 +54,10 @@ QImage* Terrain::getImageTile(QString typeS){
             typeName = "rock-107";
         }
     }
+
+
+
+
     return texture->value(typeName);
 }
 
