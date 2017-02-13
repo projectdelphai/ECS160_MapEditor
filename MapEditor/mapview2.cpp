@@ -44,7 +44,7 @@ MapView2::MapView2()
 MapView2::MapView2(const QString &mapFileName , const QString &mapTexName = ":/data/img/Terrain.png" )
 {
     openMap(mapFileName);
-    setup();
+    //setup();
     terrain = new Terrain(mapTexName);
 
     // upper-left corner and the rectangle size of width and height
@@ -132,6 +132,9 @@ void MapView2::openMap(const QString &mapFileName){
             continue;
         }
 
+        // get whether the first character is an int or not (to see whether we're done reading in the layout)
+        line.toInt(&intTest, 10);
+
         lineNum++;
         if ( lineNum == 1){
             mapName = line;
@@ -165,7 +168,7 @@ void MapView2::openMap(const QString &mapFileName){
             numPlayers = line.toInt();
             lineNum++;
             line = in.readLine();
-            for (int i = 0; i < numPlayers + 1; i++)
+            for (int i = 0; i < numPlayers; i++)
             {
                 // create players and add
                 QStringList playerValues = line.split(" ");
