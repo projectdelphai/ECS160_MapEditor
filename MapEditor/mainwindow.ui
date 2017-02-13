@@ -160,10 +160,6 @@
              <property name="text">
               <string>1</string>
              </property>
-             <property name="icon">
-              <iconset>
-               <normaloff>:/toolbar/icons/toolbar/tool_p1.png</normaloff>:/toolbar/icons/toolbar/tool_p1.png</iconset>
-             </property>
              <property name="iconSize">
               <size>
                <width>16</width>
@@ -185,10 +181,6 @@
             <widget class="QToolButton" name="tool_p2">
              <property name="text">
               <string>2</string>
-             </property>
-             <property name="icon">
-              <iconset>
-               <normaloff>:/toolbar/icons/toolbar/tool_p2.png</normaloff>:/toolbar/icons/toolbar/tool_p2.png</iconset>
              </property>
              <property name="checkable">
               <bool>true</bool>
@@ -520,11 +512,7 @@
              <item row="0" column="0">
               <widget class="QToolButton" name="tool_peasant1">
                <property name="text">
-                <string>...</string>
-               </property>
-               <property name="icon">
-                <iconset>
-                 <normaloff>:/toolbar/icons/toolbar/tool_peasant.png</normaloff>:/toolbar/icons/toolbar/tool_peasant.png</iconset>
+                <string>peasant</string>
                </property>
                <property name="iconSize">
                 <size>
@@ -643,11 +631,7 @@
              <item row="0" column="0">
               <widget class="QToolButton" name="tool_townhall1">
                <property name="text">
-                <string>...</string>
-               </property>
-               <property name="icon">
-                <iconset>
-                 <normaloff>:/toolbar/icons/toolbar/tool_townhall.png</normaloff>:/toolbar/icons/toolbar/tool_townhall.png</iconset>
+                <string>townhall</string>
                </property>
                <property name="iconSize">
                 <size>
@@ -760,11 +744,7 @@
              <item row="0" column="0">
               <widget class="QToolButton" name="tool_goldmine">
                <property name="text">
-                <string>...</string>
-               </property>
-               <property name="icon">
-                <iconset>
-                 <normaloff>:/toolbar/icons/toolbar/tool_goldmine.png</normaloff>:/toolbar/icons/toolbar/tool_goldmine.png</iconset>
+                <string>goldmine</string>
                </property>
                <property name="iconSize">
                 <size>
@@ -818,6 +798,13 @@
          </size>
         </property>
        </spacer>
+      </item>
+      <item>
+       <widget class="QSlider" name="zoomSlider">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QGraphicsView" name="graphicsView_2">

@@ -281,7 +281,9 @@ void MainWindow::writeSettings()
 
 // This function sets up all the UI buttons depending on what map is loaded
 void MainWindow::updateUI() {
-    // file buttons
+    // zoom slider in statusbar
+    QSlider *zSlider = new QSlider(Qt::Horizontal);
+    ui->statusBar->addPermanentWidget(zSlider);
 
     // terrain buttons
     ui->tool_grass->setIcon(curMap.getTerrain()->getPixTile(Terrain::Grass));
