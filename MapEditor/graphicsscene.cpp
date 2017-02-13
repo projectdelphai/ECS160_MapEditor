@@ -133,19 +133,25 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
 
 void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
-    if (mouseEvent->button() == Qt::LeftButton)
+    if (mouseEvent->button() == Qt::LeftButton && withinBounds(mouseEvent))
         brushing = true;
 }
 
 void GraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent){
-    if ((mouseEvent->buttons() & Qt::LeftButton) && brushing)
+    if ((mouseEvent->buttons() & Qt::LeftButton) && brushing && withinBounds(mouseEvent))
         addToolItem(mouseEvent);
 }
 
 void GraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
-    if (mouseEvent->button() == Qt::LeftButton) {
+    if (mouseEvent->button() == Qt::LeftButton && withinBounds(mouseEvent)) {
         addToolItem(mouseEvent);
         brushing = false;
     }
+}
+
+bool GraphicsScene::withinBounds(QGraphicsSceneMouseEvent *mouseEvent)
+{//Checks to see if the mouse event occurs within map bounds to prevent crashing
+    return mouseEvent->scenePos().x() >= 0 && mouseEvent->scenePos().x() < width()
+            && mouseEvent->scenePos().y() >= 0 && mouseEvent->scenePos().y() < height();
 }

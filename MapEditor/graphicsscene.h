@@ -20,6 +20,7 @@ public:
     virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent);
     virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent);
     void addToolItem(QGraphicsSceneMouseEvent *mouseEvent);
+    bool withinBounds(QGraphicsSceneMouseEvent *mouseEvent);
     QString curTool;
     int curPlayer;
     Texture *peasantTool;
