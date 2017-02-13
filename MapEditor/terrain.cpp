@@ -156,8 +156,6 @@ void Terrain::renderingInfo(QString datFileName){
                     aliasNums.clear();
                     keyType = "rock" + strConvert.setNum(countRock,10);
                     for(int i = 1; i < typeAlias.size(); i++){
-                        int x = typeAlias.at(i).toInt(&ok,16);
-//                        qDebug() << x;
                         aliasNums.append(typeAlias.at(i).toInt(&ok,16));
                     }
                     countRock++;
