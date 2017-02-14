@@ -3,6 +3,14 @@
 
 #include <QMainWindow>
 
+/* Name: dgassets.h
+ * Class: DgAssets
+ *
+ * This file includes the class for the Assets Editor window.
+ * See MainWindow::open_DgAssets()
+ *
+ */
+
 namespace Ui {
 class DgAssets;
 }
