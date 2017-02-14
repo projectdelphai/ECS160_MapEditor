@@ -11,11 +11,6 @@ GraphicsScene::GraphicsScene(QObject *parent, MapView2 *curMap) : QGraphicsScene
     GraphicsScene::parent = parent;
     GraphicsScene::mapInfo = curMap;
     brushing = false;
-    peasantTool = new Texture(":/data/img/Peasant.dat",":/data/img/Colors.png");
-    peasantTool->paintAll();
-    goldmineTool = new Texture(":/data/img/GoldMine.dat",":/data/img/Colors.png");
-    townhallTool = new Texture(":/data/img/TownHall.dat",":/data/img/Colors.png");
-    townhallTool->paintAll();
 }
 
 void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
@@ -50,17 +45,33 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
         else if (curTool == "wall")
             type = Terrain::Wall;
         else if (curTool == "Peasant")
-        {
-            asset = peasantTool;
-        }
+            asset = mapInfo->getAsset("Peasant");
+        else if (curTool == "Ranger")
+            asset = mapInfo->getAsset("Ranger");
+        else if (curTool == "Archer")
+            asset = mapInfo->getAsset("Archer");
         else if (curTool == "GoldMine")
-        {
-            asset = goldmineTool;
-        }
+            asset = mapInfo->getAsset("GoldMine");
         else if (curTool == "TownHall")
-        {
-            asset = townhallTool;
-        }
+            asset = mapInfo->getAsset("TownHall");
+        else if (curTool == "Barracks")
+            asset = mapInfo->getAsset("Barracks");
+        else if (curTool == "BlackSmith")
+            asset = mapInfo->getAsset("Blacksmith");
+        else if (curTool == "CannonTower")
+            asset = mapInfo->getAsset("CannonTower");
+        else if (curTool == "Castle")
+            asset = mapInfo->getAsset("Castle");
+        else if (curTool == "Farm")
+            asset = mapInfo->getAsset("Farm");
+        else if (curTool == "GuardTower")
+            asset = mapInfo->getAsset("GuardTower");
+        else if (curTool == "ScoutTower")
+            asset = mapInfo->getAsset("ScoutTower");
+        else if (curTool == "Keep")
+            asset = mapInfo->getAsset("Keep");
+        else if (curTool == "LumberMill")
+            asset = mapInfo->getAsset("LumberMill");
         else
         {
             QGraphicsScene::mousePressEvent(mouseEvent);
@@ -74,8 +85,10 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
         {
             if (curTool == "GoldMine")
                 imageDx = asset->imageList[0];
+            else if (curTool == "CannonTower" || curTool == "Castle" || curTool == "Keep" || curTool == "GuardTower")
+                imageDx = asset->colorPlayerImg[curPlayer][1];
             else
-                imageDx = asset->colorPlayerImg[curPlayer][3];
+                imageDx = asset->colorPlayerImg[curPlayer][2];
         }
 
         QPixmap pixmap = QPixmap::fromImage(imageDx);
@@ -100,19 +113,25 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
 
 void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
-    if (mouseEvent->button() == Qt::LeftButton)
+    if (mouseEvent->button() == Qt::LeftButton && withinBounds(mouseEvent))
         brushing = true;
 }
 
 void GraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent){
-    if ((mouseEvent->buttons() & Qt::LeftButton) && brushing)
+    if ((mouseEvent->buttons() & Qt::LeftButton) && brushing && withinBounds(mouseEvent))
         addToolItem(mouseEvent);
 }
 
 void GraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
-    if (mouseEvent->button() == Qt::LeftButton) {
+    if (mouseEvent->button() == Qt::LeftButton && withinBounds(mouseEvent)) {
         addToolItem(mouseEvent);
         brushing = false;
     }
+}
+
+bool GraphicsScene::withinBounds(QGraphicsSceneMouseEvent *mouseEvent)
+{//Checks to see if the mouse event occurs within map bounds to prevent crashing
+    return mouseEvent->scenePos().x() >= 0 && mouseEvent->scenePos().x() < width()
+            && mouseEvent->scenePos().y() >= 0 && mouseEvent->scenePos().y() < height();
 }

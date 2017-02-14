@@ -1,9 +1,18 @@
 #include "terrain.h"
 #include <QDebug>
 
-Terrain::Terrain(QString texFileName) : Texture(texFileName)
+Terrain::Terrain(QString texFileName) : Texture(texFileName, 32, 32)
 {
     Terrain::texture = Texture::getTxMap();
+}
+
+QPixmap Terrain::getPixTile(Terrain::Type type) {
+    QImage* imageTile = getImageTile(type);
+    return QPixmap::fromImage(*imageTile);
+}
+
+QPixmap Terrain::getPixTile(QString tileName) {
+    return QPixmap::fromImage(*Terrain::texture->value(tileName));
 }
 
 QImage* Terrain::getImageTile(Terrain::Type type){
@@ -37,6 +46,52 @@ QImage* Terrain::getImageTile(Terrain::Type type){
             typeName = "rubble-0";
         break;
     }
+
+    return texture->value(typeName);
+}
+
+QImage* Terrain::getImageTile(QString typeS){
+
+    // type-n are split
+    QStringList tokens = typeS.split("-");
+    QString typeName = "";
+
+    // temporary code until all type can be evaluted
+    if(tokens.size() <= 1){
+       // qDebug() << typeS;
+        // these are unfinished
+        if (tokens.at(0) == "grass"){
+            typeName = "grass-0";
+        }
+        else if( tokens.at(0) == "tree"){
+            typeName = "tree-63";
+        }
+        else if(tokens.at(0) == "wall"){
+            typeName = "wall-0";
+        }
+        else if(tokens.at(0) == "wall-damaged"){
+            typeName = "wall-damaged-0";
+        }
+        else if( tokens.at(0) == "dirt" ){
+            typeName = "dirt-255";
+        }
+        else if( tokens.at(0) == "rock"){
+            typeName = "rock-255";
+        }
+
+    }
+    else {
+
+        // returns the alias number or the same one
+        int numKey = getAlias(tokens.at(0),tokens.at(1).toInt());
+        typeName = tokens.at(0) + "-" + QString().setNum(numKey);
+        if (!texture->contains(typeName)){
+            typeName = "rock-107";
+        }
+    }
+
+
+
 
     return texture->value(typeName);
 }
@@ -147,8 +202,6 @@ void Terrain::renderingInfo(QString datFileName){
                     aliasNums.clear();
                     keyType = "rock" + strConvert.setNum(countRock,10);
                     for(int i = 1; i < typeAlias.size(); i++){
-                        int x = typeAlias.at(i).toInt(&ok,16);
-//                        qDebug() << x;
                         aliasNums.append(typeAlias.at(i).toInt(&ok,16));
                     }
                     countRock++;

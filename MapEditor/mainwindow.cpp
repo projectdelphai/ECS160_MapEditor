@@ -11,11 +11,14 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->setupUi(this);
     ui->graphicsView->setMouseTracking(true);
     ui->graphicsView_2->setMouseTracking(true);
-     curTool = "hand";
+    curTool = "hand";
 
 
     // Load and display a new file
     MainWindow::newFile();
+    MainWindow::updateUI();
+
+
     ui->graphicsView_2->fitInView(0,0,256,192, Qt::KeepAspectRatio);
     QObject::connect(scene, &GraphicsScene::changedAsset, this, &MainWindow::changeAsset);
     curPlayer = 1;
@@ -274,6 +277,48 @@ void MainWindow::writeSettings()
     QSettings settings(QCoreApplication::organizationName(), QCoreApplication::applicationName());
     settings.setValue("geometry", saveGeometry());
 }
+
+// This function sets up all the UI buttons depending on what map is loaded
+void MainWindow::updateUI() {
+    // file buttons
+
+    // terrain buttons
+    ui->tool_grass->setIcon(curMap.getTerrain()->getPixTile(Terrain::Grass));
+    ui->tool_dirt->setIcon(curMap.getTerrain()->getPixTile(Terrain::Dirt));
+    ui->tool_water->setIcon(curMap.getTerrain()->getPixTile(Terrain::Water));
+    ui->tool_tree->setIcon(curMap.getTerrain()->getPixTile(Terrain::Tree));
+    ui->tool_rock->setIcon(curMap.getTerrain()->getPixTile(Terrain::Rock));
+    ui->tool_wall->setIcon(curMap.getTerrain()->getPixTile(Terrain::Wall));
+    ui->tool_rubble->setIcon(curMap.getTerrain()->getPixTile(Terrain::Rubble));
+
+    // player color buttons
+    ui->tool_p1->setIcon(curMap.getButtonColorsTx()->getPixTile("blue-light").scaled(16,16));
+    ui->tool_p2->setIcon(curMap.getButtonColorsTx()->getPixTile("red-light").scaled(16,16));
+    ui->tool_p3->setIcon(curMap.getButtonColorsTx()->getPixTile("green-light").scaled(16,16));
+    ui->tool_p4->setIcon(curMap.getButtonColorsTx()->getPixTile("purple-light").scaled(16,16));
+    ui->tool_p5->setIcon(curMap.getButtonColorsTx()->getPixTile("orange-light").scaled(16,16));
+    ui->tool_p6->setIcon(curMap.getButtonColorsTx()->getPixTile("yellow-light").scaled(16,16));
+    ui->tool_p7->setIcon(curMap.getButtonColorsTx()->getPixTile("black-light").scaled(16,16));
+    ui->tool_p8->setIcon(curMap.getButtonColorsTx()->getPixTile("white-light").scaled(16,16));
+
+    // unit buttons
+    ui->tool_peasant1->setIcon(curMap.getButtonIconsTx()->getPixTile("peasant"));
+    ui->tool_archer->setIcon(curMap.getButtonIconsTx()->getPixTile("archer"));
+    ui->tool_knight->setIcon(curMap.getButtonIconsTx()->getPixTile("knight"));
+
+    // building buttons
+    ui->tool_townhall1->setIcon(curMap.getButtonIconsTx()->getPixTile("town-hall"));
+    ui->tool_smith->setIcon(curMap.getButtonIconsTx()->getPixTile("human-blacksmith"));
+    ui->tool_farm->setIcon(curMap.getButtonIconsTx()->getPixTile("chicken-farm"));
+    ui->tool_mill->setIcon(curMap.getButtonIconsTx()->getPixTile("human-lumber-mill"));
+    ui->tool_keep->setIcon(curMap.getButtonIconsTx()->getPixTile("keep"));
+    ui->tool_castle->setIcon(curMap.getButtonIconsTx()->getPixTile("castle"));
+    ui->tool_barracks->setIcon(curMap.getButtonIconsTx()->getPixTile("human-barracks"));
+    ui->tool_tower->setIcon(curMap.getButtonIconsTx()->getPixTile("human-guard-tower"));
+    ui->tool_goldmine->setIcon(curMap.getButtonIconsTx()->getPixTile("gold-mine"));
+}
+
+
 // reference  http://www.qtcentre.org/threads/52603-Zoom-effect-by-mouse-Wheel-in-QGraphicsview
 void MainWindow::wheelEvent(QWheelEvent *event)
 {
@@ -434,6 +479,61 @@ void MainWindow::on_tool_goldmine_clicked()
     statusBar()->showMessage(tr("Goldmine Tool selected"), 2000);
 }
 
+void MainWindow::on_tool_barracks_clicked()
+{
+    curTool = "Barracks";
+    scene->curTool = "Barracks";
+    statusBar()->showMessage(tr("Barracks Tool selected"), 2000);
+}
+
+void MainWindow::on_tool_smith_clicked()
+{
+    curTool = "BlackSmith";
+    scene->curTool = "BlackSmith";
+    statusBar()->showMessage(tr("Black Smith Tool selected"), 2000);
+}
+
+void MainWindow::on_tool_cannontower_clicked()
+{
+    curTool = "CannonTower";
+    scene->curTool = "CannonTower";
+    statusBar()->showMessage(tr("Cannon Tower Tool selected"), 2000);
+}
+
+void MainWindow::on_tool_castle_clicked()
+{
+    curTool = "Castle";
+    scene->curTool = "Castle";
+    statusBar()->showMessage(tr("Castle Tool selected"), 2000);
+}
+
+void MainWindow::on_tool_farm_clicked()
+{
+    curTool = "Farm";
+    scene->curTool = "Farm";
+    statusBar()->showMessage(tr("Farm Tool selected"), 2000);
+}
+
+void MainWindow::on_tool_guardtower_clicked()
+{
+    curTool = "GuardTower";
+    scene->curTool = "GuardTower";
+    statusBar()->showMessage(tr("Guard Tower Tool selected"), 2000);
+}
+
+void MainWindow::on_tool_tower_clicked()
+{
+    curTool = "ScoutTower";
+    scene->curTool = "ScoutTower";
+    statusBar()->showMessage(tr("Scout Tower Tool selected"), 2000);
+}
+
+void MainWindow::on_tool_keep_clicked()
+{
+    curTool = "Keep";
+    scene->curTool = "Keep";
+    statusBar()->showMessage(tr("Keep Tool selected"), 2000);
+}
 
 void MainWindow::on_tool_p1_clicked()
 {
@@ -445,4 +545,62 @@ void MainWindow::on_tool_p2_clicked()
 {
     curPlayer = 2;
     scene->curPlayer = 2;
+}
+
+void MainWindow::on_tool_mill_clicked()
+{
+    curTool = "LumberMill";
+    scene->curTool = "LumberMill";
+    statusBar()->showMessage(tr("LumberMill Tool selected"), 2000);
+}
+
+
+void MainWindow::on_tool_p3_clicked()
+{
+    curPlayer = 3;
+    scene->curPlayer = 3;
+}
+
+void MainWindow::on_tool_p4_clicked()
+{
+    curPlayer = 4;
+    scene->curPlayer = 4;
+}
+
+void MainWindow::on_tool_p5_clicked()
+{
+    curPlayer = 5;
+    scene->curPlayer = 5;
+}
+
+void MainWindow::on_tool_p6_clicked()
+{
+    curPlayer = 6;
+    scene->curPlayer = 6;
+}
+
+void MainWindow::on_tool_p7_clicked()
+{
+    curPlayer = 7;
+    scene->curPlayer = 7;
+}
+
+void MainWindow::on_tool_p8_clicked()
+{
+    curPlayer = 8;
+    scene->curPlayer = 8;
+}
+
+void MainWindow::on_tool_archer_clicked()
+{
+    curTool = "Archer";
+    scene->curTool = "Archer";
+    statusBar()->showMessage(tr("Player 1 Archer selected"), 2000);
+}
+
+void MainWindow::on_tool_knight_clicked()
+{
+    curTool = "Ranger";
+    scene->curTool = "Ranger";
+    statusBar()->showMessage(tr("Player 1 Ranger selected"), 2000);
 }
