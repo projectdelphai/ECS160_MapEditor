@@ -16,20 +16,7 @@
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="7" column="0">
-      <widget class="QLabel" name="label_7">
-       <property name="text">
-        <string>6</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="1">
-      <widget class="QLineEdit" name="G3"/>
-     </item>
-     <item row="4" column="0">
+     <item row="5" column="0">
       <widget class="QLabel" name="label_4">
        <property name="text">
         <string>3</string>
@@ -39,27 +26,30 @@
        </property>
       </widget>
      </item>
-     <item row="9" column="0">
-      <widget class="QLabel" name="label_9">
-       <property name="text">
-        <string>8</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-      </widget>
-     </item>
      <item row="8" column="0">
-      <widget class="QLabel" name="label_8">
+      <widget class="QLabel" name="label_7">
        <property name="text">
-        <string>7</string>
+        <string>6</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
      </item>
-     <item row="6" column="0">
+     <item row="5" column="1">
+      <widget class="QLineEdit" name="G3"/>
+     </item>
+     <item row="4" column="1">
+      <widget class="QLineEdit" name="G2"/>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_players">
+       <property name="text">
+        <string>Players</string>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="0">
       <widget class="QLabel" name="label_6">
        <property name="text">
         <string>5</string>
@@ -69,34 +59,101 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="1">
-      <widget class="QLineEdit" name="G1"/>
-     </item>
-     <item row="0" column="0">
-      <widget class="QLabel" name="label">
+     <item row="10" column="0">
+      <widget class="QLabel" name="label_9">
        <property name="text">
-        <string>Players</string>
+        <string>8</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
      </item>
      <item row="3" column="1">
-      <widget class="QLineEdit" name="G2"/>
+      <widget class="QLineEdit" name="G1"/>
+     </item>
+     <item row="9" column="0">
+      <widget class="QLabel" name="label_8">
+       <property name="text">
+        <string>7</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="2">
+      <widget class="QLineEdit" name="L5"/>
      </item>
      <item row="7" column="1">
-      <widget class="QLineEdit" name="G6"/>
+      <widget class="QLineEdit" name="G5"/>
      </item>
      <item row="1" column="1">
-      <widget class="QLabel" name="label_11">
+      <widget class="QLabel" name="label_gold">
        <property name="text">
         <string>Starting Gold</string>
        </property>
       </widget>
      </item>
-     <item row="8" column="1">
+     <item row="10" column="2">
+      <widget class="QLineEdit" name="L8"/>
+     </item>
+     <item row="10" column="1">
+      <widget class="QLineEdit" name="G8"/>
+     </item>
+     <item row="9" column="2">
+      <widget class="QLineEdit" name="L7"/>
+     </item>
+     <item row="6" column="2">
+      <widget class="QLineEdit" name="L4"/>
+     </item>
+     <item row="6" column="0">
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>4</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="2">
+      <widget class="QLineEdit" name="L1"/>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>1</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="2">
+      <widget class="QLineEdit" name="L2"/>
+     </item>
+     <item row="6" column="1">
+      <widget class="QLineEdit" name="G4"/>
+     </item>
+     <item row="9" column="1">
       <widget class="QLineEdit" name="G7"/>
      </item>
+     <item row="5" column="2">
+      <widget class="QLineEdit" name="L3"/>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>2</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
      <item row="0" column="1">
-      <widget class="QComboBox" name="comboBox">
+      <widget class="QComboBox" name="players">
        <item>
         <property name="text">
          <string>1</string>
@@ -139,75 +196,31 @@
        </item>
       </widget>
      </item>
-     <item row="6" column="1">
-      <widget class="QLineEdit" name="G5"/>
-     </item>
-     <item row="5" column="1">
-      <widget class="QLineEdit" name="G4"/>
-     </item>
-     <item row="3" column="0">
-      <widget class="QLabel" name="label_3">
-       <property name="text">
-        <string>2</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="label_2">
-       <property name="text">
-        <string>1</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="0">
-      <widget class="QLabel" name="label_5">
-       <property name="text">
-        <string>4</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="9" column="1">
-      <widget class="QLineEdit" name="G8"/>
-     </item>
      <item row="1" column="2">
-      <widget class="QLabel" name="label_12">
+      <widget class="QLabel" name="label_lumber">
        <property name="text">
         <string>Starting Lumber</string>
        </property>
       </widget>
      </item>
-     <item row="2" column="2">
-      <widget class="QLineEdit" name="L1"/>
-     </item>
-     <item row="3" column="2">
-      <widget class="QLineEdit" name="L2"/>
-     </item>
-     <item row="4" column="2">
-      <widget class="QLineEdit" name="L3"/>
-     </item>
-     <item row="5" column="2">
-      <widget class="QLineEdit" name="L4"/>
-     </item>
-     <item row="6" column="2">
-      <widget class="QLineEdit" name="L5"/>
-     </item>
-     <item row="7" column="2">
+     <item row="8" column="2">
       <widget class="QLineEdit" name="L6"/>
      </item>
-     <item row="8" column="2">
-      <widget class="QLineEdit" name="L7"/>
+     <item row="8" column="1">
+      <widget class="QLineEdit" name="G6"/>
      </item>
-     <item row="9" column="2">
-      <widget class="QLineEdit" name="L8"/>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_0">
+       <property name="text">
+        <string>Neutral</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLineEdit" name="G0"/>
+     </item>
+     <item row="2" column="2">
+      <widget class="QLineEdit" name="L0"/>
      </item>
     </layout>
    </item>
@@ -224,7 +237,9 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>comboBox</tabstop>
+  <tabstop>players</tabstop>
+  <tabstop>G0</tabstop>
+  <tabstop>L0</tabstop>
   <tabstop>G1</tabstop>
   <tabstop>L1</tabstop>
   <tabstop>G2</tabstop>
@@ -267,7 +282,7 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>322</x>
+     <x>283</x>
      <y>356</y>
     </hint>
     <hint type="destinationlabel">

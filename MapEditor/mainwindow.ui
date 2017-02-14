@@ -1069,9 +1069,6 @@
     </property>
     <addaction name="actionMap_Properties"/>
     <addaction name="actionPlayer_Properties"/>
-    <addaction name="actionStarting_Conditions"/>
-    <addaction name="actionUnit_Properties"/>
-    <addaction name="actionUpgrade_Properties"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -1081,10 +1078,11 @@
    </widget>
    <widget class="QMenu" name="menuWindow">
     <property name="title">
-     <string>Window</string>
+     <string>Assets</string>
     </property>
-    <addaction name="actionMain"/>
     <addaction name="actionAssets"/>
+    <addaction name="separator"/>
+    <addaction name="actionImport"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -1212,21 +1210,6 @@
     <string>P&amp;layer Properties...</string>
    </property>
   </action>
-  <action name="actionStarting_Conditions">
-   <property name="text">
-    <string>&amp;Starting Conditions...</string>
-   </property>
-  </action>
-  <action name="actionUnit_Properties">
-   <property name="text">
-    <string>&amp;Unit Properties...</string>
-   </property>
-  </action>
-  <action name="actionUpgrade_Properties">
-   <property name="text">
-    <string>Up&amp;grade Properties...</string>
-   </property>
-  </action>
   <action name="actionAbout_MapEditor">
    <property name="text">
     <string>&amp;About MapEditor...</string>
@@ -1270,14 +1253,14 @@
     <string>Wall</string>
    </property>
   </action>
-  <action name="actionMain">
-   <property name="text">
-    <string>Main</string>
-   </property>
-  </action>
   <action name="actionAssets">
    <property name="text">
-    <string>Assets...</string>
+    <string>Asset Editor...</string>
+   </property>
+  </action>
+  <action name="actionImport">
+   <property name="text">
+    <string>Import...</string>
    </property>
   </action>
  </widget>
