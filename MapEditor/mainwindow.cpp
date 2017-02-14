@@ -7,7 +7,6 @@
 #include "dgabout.h"
 #include "dgmapproperties.h"
 #include "dgplayerproperties.h"
-#include "dgstartingconditions.h"
 
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
@@ -503,12 +502,29 @@ void MainWindow::on_tool_p1_clicked()
 {
     curPlayer = 1;
     scene->curPlayer = 1;
+
 }
 
 void MainWindow::on_tool_p2_clicked()
 {
     curPlayer = 2;
     scene->curPlayer = 2;
+}
+
+
+// function to generalize all the player button click events
+void MainWindow::on_tool_pX_clicked() {
+    QList<QAbstractButton*> buttons = ui->bgroup_player->buttons();
+
+    // search for currently pressed button and update state
+    for(auto itrp = buttons.begin(); itrp != buttons.end(); itrp++ ) {
+        auto itr = *itrp;
+
+        if(itr->isChecked()) {
+            curPlayer = itr->text().toInt();
+            scene->curPlayer = itr->text().toInt();
+        }
+    }
 }
 
 // for various dialog boxes
@@ -527,8 +543,4 @@ void MainWindow::open_DgPlayerProperties(){
     w.exec();
 }
 
-void MainWindow::open_DgStartingConditions(){
-    DgStartingConditions w(this);
-    w.exec();
-}
 

@@ -3,6 +3,15 @@
 
 #include <QDialog>
 
+/* Name: dgabout.h
+ * Class: DgAbout
+ *
+ * This file includes the class for the About dialog box.
+ * Create an instance and then run exec()
+ *
+ */
+
+
 namespace Ui {
 class DgAbout;
 }

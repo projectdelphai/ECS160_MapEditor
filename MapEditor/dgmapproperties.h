@@ -3,6 +3,14 @@
 
 #include <QDialog>
 
+/* Name: dgmapproperties.h
+ * Class: DgMapProperties
+ *
+ * This file includes the class for the Map Properties dialog box.
+ * Create an instance and then run exec()
+ *
+ */
+
 namespace Ui {
 class DgMapProperties;
 }
