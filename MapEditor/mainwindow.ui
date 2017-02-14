@@ -1031,6 +1031,9 @@
     <addaction name="actionSave"/>
     <addaction name="actionSave_As"/>
     <addaction name="separator"/>
+    <addaction name="actionImport_from_web"/>
+    <addaction name="actionExport_to_web"/>
+    <addaction name="separator"/>
     <addaction name="actionClose"/>
     <addaction name="actionExit"/>
    </widget>
@@ -1040,14 +1043,6 @@
     </property>
     <addaction name="actionDelete"/>
     <addaction name="separator"/>
-   </widget>
-   <widget class="QMenu" name="menuView">
-    <property name="title">
-     <string>&amp;View</string>
-    </property>
-    <addaction name="actionStatus_bar"/>
-    <addaction name="actionAnimate"/>
-    <addaction name="actionMini_Map"/>
    </widget>
    <widget class="QMenu" name="menuTools">
     <property name="title">
@@ -1083,6 +1078,13 @@
     <addaction name="actionAssets"/>
     <addaction name="separator"/>
     <addaction name="actionImport"/>
+   </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>&amp;View</string>
+    </property>
+    <addaction name="actionAnimate"/>
+    <addaction name="actionZoom_Out"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -1151,7 +1153,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>&amp;Animate</string>
+    <string>Zoom In</string>
    </property>
   </action>
   <action name="actionMini_Map">
@@ -1261,6 +1263,21 @@
   <action name="actionImport">
    <property name="text">
     <string>Import...</string>
+   </property>
+  </action>
+  <action name="actionImport_from_web">
+   <property name="text">
+    <string>Import from web...</string>
+   </property>
+  </action>
+  <action name="actionExport_to_web">
+   <property name="text">
+    <string>Export to web...</string>
+   </property>
+  </action>
+  <action name="actionZoom_Out">
+   <property name="text">
+    <string>Zoom Out</string>
    </property>
   </action>
  </widget>
