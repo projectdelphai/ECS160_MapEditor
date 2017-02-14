@@ -1,7 +1,6 @@
 <RCC>
     <qresource prefix="/icons">
-        <file>icons/icon small.ico</file>
-        <file>icons/icon.ico</file>
+        <file>icons/icon.bmp</file>
     </qresource>
     <qresource prefix="/toolbar">
         <file>icons/toolbar/toolbar1.bmp</file>

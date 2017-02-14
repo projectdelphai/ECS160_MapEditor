@@ -6,6 +6,7 @@
 #include "mapview2.h"
 #include "texture.h"
 #include "graphicsscene.h"
+#include "dgassets.h"
 
 namespace Ui {
 class MainWindow;
@@ -57,12 +58,11 @@ private slots:
     void on_tool_peasant1_clicked();
     void on_tool_townhall1_clicked();
     void on_tool_goldmine_clicked();
-    void on_tool_p1_clicked();
-    void on_tool_p2_clicked();
-    void on_tool_pX_clicked();
+    void on_tool_pX_clicked(QAbstractButton*);
     void open_DgAbout();
     void open_DgMapProperties();
     void open_DgPlayerProperties();
+    void open_DgAssets();
 
 private:
     Ui::MainWindow *ui;
@@ -75,6 +75,7 @@ private:
     int curPlayer;
     QString curTool;
     QString curFile;
+    DgAssets *wAssets = 0;
 };
 
 

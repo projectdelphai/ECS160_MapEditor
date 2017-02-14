@@ -7,6 +7,7 @@
 #include "dgabout.h"
 #include "dgmapproperties.h"
 #include "dgplayerproperties.h"
+#include "dgassets.h"
 
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
@@ -497,34 +498,12 @@ void MainWindow::on_tool_goldmine_clicked()
     statusBar()->showMessage(tr("Goldmine Tool selected"), 2000);
 }
 
-
-void MainWindow::on_tool_p1_clicked()
-{
-    curPlayer = 1;
-    scene->curPlayer = 1;
-
-}
-
-void MainWindow::on_tool_p2_clicked()
-{
-    curPlayer = 2;
-    scene->curPlayer = 2;
-}
-
-
 // function to generalize all the player button click events
-void MainWindow::on_tool_pX_clicked() {
-    QList<QAbstractButton*> buttons = ui->bgroup_player->buttons();
+void MainWindow::on_tool_pX_clicked(QAbstractButton* button) {
+    curPlayer = button->text().toInt();
+    scene->curPlayer = button->text().toInt();
+    ui->statusBar->showMessage("Player " + button->text() + " selected");
 
-    // search for currently pressed button and update state
-    for(auto itrp = buttons.begin(); itrp != buttons.end(); itrp++ ) {
-        auto itr = *itrp;
-
-        if(itr->isChecked()) {
-            curPlayer = itr->text().toInt();
-            scene->curPlayer = itr->text().toInt();
-        }
-    }
 }
 
 // for various dialog boxes
@@ -542,5 +521,18 @@ void MainWindow::open_DgPlayerProperties(){
     DgPlayerProperties w(this);
     w.exec();
 }
+
+
+// for the assets editor window
+void MainWindow::open_DgAssets(){
+    // if doesn't exist, open a new one
+    if (MainWindow::wAssets == 0)
+        wAssets = new DgAssets(this);
+
+    wAssets->show();
+    wAssets->raise();
+    wAssets->activateWindow();
+}
+
 
 
