@@ -590,3 +590,17 @@ void MainWindow::on_tool_p8_clicked()
     curPlayer = 8;
     scene->curPlayer = 8;
 }
+
+void MainWindow::on_tool_archer_clicked()
+{
+    curTool = "Archer";
+    scene->curTool = "Archer";
+    statusBar()->showMessage(tr("Player 1 Archer selected"), 2000);
+}
+
+void MainWindow::on_tool_knight_clicked()
+{
+    curTool = "Ranger";
+    scene->curTool = "Ranger";
+    statusBar()->showMessage(tr("Player 1 Ranger selected"), 2000);
+}

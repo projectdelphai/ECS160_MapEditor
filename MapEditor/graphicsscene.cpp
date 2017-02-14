@@ -11,30 +11,6 @@ GraphicsScene::GraphicsScene(QObject *parent, MapView2 *curMap) : QGraphicsScene
     GraphicsScene::parent = parent;
     GraphicsScene::mapInfo = curMap;
     brushing = false;
-
-    //goldmineTool = new Texture(":/data/img/GoldMine.dat",":/data/img/Colors.png");
-    peasantTool = new Texture(":/data/img/Peasant.dat",":/data/img/Colors.png");
-    peasantTool->paintAll();
-    townhallTool = new Texture(":/data/img/TownHall.dat",":/data/img/Colors.png");
-    townhallTool->paintAll();
-    barracksTool = new Texture(":/data/img/Barracks.dat",":/data/img/Colors.png");
-    barracksTool->paintAll();
-    blacksmithTool = new Texture(":/data/img/Blacksmith.dat",":/data/img/Colors.png");
-    blacksmithTool->paintAll();
-    cannontowerTool = new Texture(":/data/img/CannonTower.dat",":/data/img/Colors.png");
-    cannontowerTool->paintAll();
-    castleTool = new Texture(":/data/img/Castle.dat",":/data/img/Colors.png");
-    castleTool->paintAll();
-    farmTool = new Texture(":/data/img/Farm.dat",":/data/img/Colors.png");
-    farmTool->paintAll();
-    guardtowerTool = new Texture(":/data/img/GuardTower.dat",":/data/img/Colors.png");
-    guardtowerTool->paintAll();
-    keepTool = new Texture(":/data/img/Keep.dat",":/data/img/Colors.png");
-    keepTool->paintAll();
-    lumbermillTool = new Texture(":/data/img/LumberMill.dat",":/data/img/Colors.png");
-    lumbermillTool->paintAll();
-    scouttowerTool = new Texture(":/data/img/ScoutTower.dat",":/data/img/Colors.png");
-    scouttowerTool->paintAll();
 }
 
 void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
@@ -69,7 +45,11 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
         else if (curTool == "wall")
             type = Terrain::Wall;
         else if (curTool == "Peasant")
-            asset = peasantTool;
+            asset = mapInfo->getAsset("Peasant");
+        else if (curTool == "Ranger")
+            asset = mapInfo->getAsset("Ranger");
+        else if (curTool == "Archer")
+            asset = mapInfo->getAsset("Archer");
         else if (curTool == "GoldMine")
             asset = mapInfo->getAsset("GoldMine");
         else if (curTool == "TownHall")

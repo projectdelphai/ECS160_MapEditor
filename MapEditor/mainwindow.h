@@ -84,6 +84,10 @@ private slots:
 
     void on_tool_p8_clicked();
 
+    void on_tool_archer_clicked();
+
+    void on_tool_knight_clicked();
+
 private:
     Ui::MainWindow *ui;
     void updateUI();
