@@ -14,7 +14,7 @@
    <bool>true</bool>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Map Editor</string>
   </property>
   <property name="windowIcon">
    <iconset resource="icons.qrc">
