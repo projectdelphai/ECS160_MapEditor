@@ -50,6 +50,52 @@ QImage* Terrain::getImageTile(Terrain::Type type){
     return texture->value(typeName);
 }
 
+QImage* Terrain::getImageTile(QString typeS){
+
+    // type-n are split
+    QStringList tokens = typeS.split("-");
+    QString typeName = "";
+
+    // temporary code until all type can be evaluted
+    if(tokens.size() <= 1){
+       // qDebug() << typeS;
+        // these are unfinished
+        if (tokens.at(0) == "grass"){
+            typeName = "grass-0";
+        }
+        else if( tokens.at(0) == "tree"){
+            typeName = "tree-63";
+        }
+        else if(tokens.at(0) == "wall"){
+            typeName = "wall-0";
+        }
+        else if(tokens.at(0) == "wall-damaged"){
+            typeName = "wall-damaged-0";
+        }
+        else if( tokens.at(0) == "dirt" ){
+            typeName = "dirt-255";
+        }
+        else if( tokens.at(0) == "rock"){
+            typeName = "rock-255";
+        }
+
+    }
+    else {
+
+        // returns the alias number or the same one
+        int numKey = getAlias(tokens.at(0),tokens.at(1).toInt());
+        typeName = tokens.at(0) + "-" + QString().setNum(numKey);
+        if (!texture->contains(typeName)){
+            typeName = "rock-107";
+        }
+    }
+
+
+
+
+    return texture->value(typeName);
+}
+
 int Terrain::getAlias(QString typeS, int num){
 
     QString typeKey = "";
