@@ -4,6 +4,7 @@
 #include <QDebug>
 #include "mapview2.h"
 #include "dgmapproperties.h"
+#include "dgabout.h"
 
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
@@ -507,8 +508,14 @@ void MainWindow::on_tool_p2_clicked()
     scene->curPlayer = 2;
 }
 
-void MainWindow::on_button_properties_clicked(){
+void MainWindow::open_DgMapProperties(){
     DgMapProperties one(this);
     one.exec();
 }
+
+void MainWindow::open_DgAbout(){
+    DgAbout one(this);
+    one.exec();
+}
+
 

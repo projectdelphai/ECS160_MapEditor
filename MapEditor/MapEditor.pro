@@ -31,7 +31,8 @@ SOURCES += main.cpp\
     tile.cpp \
     graphicsscene.cpp \
     terrain.cpp \
-    dgmapproperties.cpp
+    dgmapproperties.cpp \
+    dgabout.cpp
 
 HEADERS  += mainwindow.h \
     mapview2.h \
@@ -39,10 +40,12 @@ HEADERS  += mainwindow.h \
     tile.h \
     graphicsscene.h \
     terrain.h \
-    dgmapproperties.h
+    dgmapproperties.h \
+    dgabout.h
 
 FORMS    += mainwindow.ui \
-    dgmapproperties.ui
+    dgmapproperties.ui \
+    dgabout.ui
 
 RESOURCES += \
     icons.qrc \
