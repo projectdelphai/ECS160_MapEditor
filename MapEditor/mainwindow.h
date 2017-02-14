@@ -62,6 +62,7 @@ private slots:
     void open_DgAbout();
     void open_DgMapProperties();
     void open_DgPlayerProperties();
+    void open_DgStartingConditions();
 
 private:
     Ui::MainWindow *ui;

@@ -33,7 +33,8 @@ SOURCES += main.cpp\
     terrain.cpp \
     dgmapproperties.cpp \
     dgabout.cpp \
-    dgplayerproperties.cpp
+    dgplayerproperties.cpp \
+    dgstartingconditions.cpp
 
 HEADERS  += mainwindow.h \
     mapview2.h \
@@ -43,12 +44,14 @@ HEADERS  += mainwindow.h \
     terrain.h \
     dgmapproperties.h \
     dgabout.h \
-    dgplayerproperties.h
+    dgplayerproperties.h \
+    dgstartingconditions.h
 
 FORMS    += mainwindow.ui \
     dgmapproperties.ui \
     dgabout.ui \
-    dgplayerproperties.ui
+    dgplayerproperties.ui \
+    dgstartingconditions.ui
 
 RESOURCES += \
     icons.qrc \

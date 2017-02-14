@@ -7,6 +7,7 @@
 #include "dgabout.h"
 #include "dgmapproperties.h"
 #include "dgplayerproperties.h"
+#include "dgstartingconditions.h"
 
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
@@ -512,17 +513,22 @@ void MainWindow::on_tool_p2_clicked()
 
 // for various dialog boxes
 void MainWindow::open_DgAbout(){
-    DgAbout one(this);
-    one.exec();
+    DgAbout w(this);
+    w.exec();
 }
 
 void MainWindow::open_DgMapProperties(){
-    DgMapProperties one(this);
-    one.exec();
+    DgMapProperties w(this);
+    w.exec();
 }
 
 void MainWindow::open_DgPlayerProperties(){
-    DgPlayerProperties one(this);
-    one.exec();
+    DgPlayerProperties w(this);
+    w.exec();
+}
+
+void MainWindow::open_DgStartingConditions(){
+    DgStartingConditions w(this);
+    w.exec();
 }
 

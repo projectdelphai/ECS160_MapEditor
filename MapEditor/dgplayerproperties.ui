@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>340</width>
-    <height>330</height>
+    <width>290</width>
+    <height>361</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,26 +16,84 @@
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="2" column="0">
-      <widget class="QLabel" name="label_3">
+     <item row="7" column="0">
+      <widget class="QLabel" name="label_7">
        <property name="text">
-        <string>Player 2</string>
+        <string>6</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
      </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="label_2">
-       <property name="text">
-        <string>Player 1</string>
-       </property>
-      </widget>
+     <item row="4" column="1">
+      <widget class="QLineEdit" name="G3"/>
      </item>
      <item row="4" column="0">
-      <widget class="QLabel" name="label_5">
+      <widget class="QLabel" name="label_4">
        <property name="text">
-        <string>Player 4</string>
+        <string>3</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
+     </item>
+     <item row="9" column="0">
+      <widget class="QLabel" name="label_9">
+       <property name="text">
+        <string>8</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="8" column="0">
+      <widget class="QLabel" name="label_8">
+       <property name="text">
+        <string>7</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="0">
+      <widget class="QLabel" name="label_6">
+       <property name="text">
+        <string>5</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLineEdit" name="G1"/>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Players</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QLineEdit" name="G2"/>
+     </item>
+     <item row="7" column="1">
+      <widget class="QLineEdit" name="G6"/>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLabel" name="label_11">
+       <property name="text">
+        <string>Starting Gold</string>
+       </property>
+      </widget>
+     </item>
+     <item row="8" column="1">
+      <widget class="QLineEdit" name="G7"/>
      </item>
      <item row="0" column="1">
       <widget class="QComboBox" name="comboBox">
@@ -81,71 +139,75 @@
        </item>
       </widget>
      </item>
-     <item row="1" column="1">
-      <widget class="QLineEdit" name="lineEdit"/>
+     <item row="6" column="1">
+      <widget class="QLineEdit" name="G5"/>
      </item>
-     <item row="6" column="0">
-      <widget class="QLabel" name="label_7">
-       <property name="text">
-        <string>Player 6</string>
-       </property>
-      </widget>
-     </item>
-     <item row="7" column="0">
-      <widget class="QLabel" name="label_8">
-       <property name="text">
-        <string>Player 7</string>
-       </property>
-      </widget>
+     <item row="5" column="1">
+      <widget class="QLineEdit" name="G4"/>
      </item>
      <item row="3" column="0">
-      <widget class="QLabel" name="label_4">
+      <widget class="QLabel" name="label_3">
        <property name="text">
-        <string>Player 3</string>
+        <string>2</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>1</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
      </item>
      <item row="5" column="0">
-      <widget class="QLabel" name="label_6">
+      <widget class="QLabel" name="label_5">
        <property name="text">
-        <string>Player 5</string>
+        <string>4</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
      </item>
-     <item row="0" column="0">
-      <widget class="QLabel" name="label">
+     <item row="9" column="1">
+      <widget class="QLineEdit" name="G8"/>
+     </item>
+     <item row="1" column="2">
+      <widget class="QLabel" name="label_12">
        <property name="text">
-        <string>Players</string>
+        <string>Starting Lumber</string>
        </property>
       </widget>
      </item>
-     <item row="8" column="0">
-      <widget class="QLabel" name="label_9">
-       <property name="text">
-        <string>Player 8</string>
-       </property>
-      </widget>
+     <item row="2" column="2">
+      <widget class="QLineEdit" name="L1"/>
      </item>
-     <item row="2" column="1">
-      <widget class="QLineEdit" name="lineEdit_2"/>
+     <item row="3" column="2">
+      <widget class="QLineEdit" name="L2"/>
      </item>
-     <item row="3" column="1">
-      <widget class="QLineEdit" name="lineEdit_3"/>
+     <item row="4" column="2">
+      <widget class="QLineEdit" name="L3"/>
      </item>
-     <item row="4" column="1">
-      <widget class="QLineEdit" name="lineEdit_4"/>
+     <item row="5" column="2">
+      <widget class="QLineEdit" name="L4"/>
      </item>
-     <item row="5" column="1">
-      <widget class="QLineEdit" name="lineEdit_5"/>
+     <item row="6" column="2">
+      <widget class="QLineEdit" name="L5"/>
      </item>
-     <item row="6" column="1">
-      <widget class="QLineEdit" name="lineEdit_6"/>
+     <item row="7" column="2">
+      <widget class="QLineEdit" name="L6"/>
      </item>
-     <item row="7" column="1">
-      <widget class="QLineEdit" name="lineEdit_7"/>
+     <item row="8" column="2">
+      <widget class="QLineEdit" name="L7"/>
      </item>
-     <item row="8" column="1">
-      <widget class="QLineEdit" name="lineEdit_8"/>
+     <item row="9" column="2">
+      <widget class="QLineEdit" name="L8"/>
      </item>
     </layout>
    </item>
@@ -155,12 +217,31 @@
       <enum>Qt::Horizontal</enum>
      </property>
      <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok|QDialogButtonBox::Reset</set>
      </property>
     </widget>
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>comboBox</tabstop>
+  <tabstop>G1</tabstop>
+  <tabstop>L1</tabstop>
+  <tabstop>G2</tabstop>
+  <tabstop>L2</tabstop>
+  <tabstop>G3</tabstop>
+  <tabstop>L3</tabstop>
+  <tabstop>G4</tabstop>
+  <tabstop>L4</tabstop>
+  <tabstop>G5</tabstop>
+  <tabstop>L5</tabstop>
+  <tabstop>G6</tabstop>
+  <tabstop>L6</tabstop>
+  <tabstop>G7</tabstop>
+  <tabstop>L7</tabstop>
+  <tabstop>G8</tabstop>
+  <tabstop>L8</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>
@@ -170,8 +251,8 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>248</x>
-     <y>254</y>
+     <x>254</x>
+     <y>356</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -186,8 +267,8 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>316</x>
-     <y>260</y>
+     <x>322</x>
+     <y>356</y>
     </hint>
     <hint type="destinationlabel">
      <x>286</x>
