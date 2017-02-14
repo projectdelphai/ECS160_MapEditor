@@ -59,8 +59,9 @@ private slots:
     void on_tool_goldmine_clicked();
     void on_tool_p1_clicked();
     void on_tool_p2_clicked();
-    void open_DgMapProperties();
     void open_DgAbout();
+    void open_DgMapProperties();
+    void open_DgPlayerProperties();
 
 private:
     Ui::MainWindow *ui;

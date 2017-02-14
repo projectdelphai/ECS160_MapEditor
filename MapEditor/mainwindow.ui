@@ -818,19 +818,6 @@
            </item>
            <item>
             <layout class="QGridLayout" name="grid_neutral">
-             <item row="0" column="1">
-              <spacer name="horizontalSpacer_5">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
              <item row="0" column="0">
               <widget class="QToolButton" name="tool_goldmine">
                <property name="toolTip">
@@ -850,6 +837,35 @@
                </property>
                <property name="autoExclusive">
                 <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="2">
+              <spacer name="horizontalSpacer_5">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item row="0" column="1">
+              <widget class="QToolButton" name="tool_startlocation">
+               <property name="toolTip">
+                <string>Start Location</string>
+               </property>
+               <property name="text">
+                <string>Start Location</string>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>46</width>
+                 <height>38</height>
+                </size>
                </property>
               </widget>
              </item>
@@ -981,7 +997,6 @@
     <property name="title">
      <string>&amp;View</string>
     </property>
-    <addaction name="actionToolbar"/>
     <addaction name="actionStatus_bar"/>
     <addaction name="actionAnimate"/>
     <addaction name="actionMini_Map"/>
@@ -990,20 +1005,7 @@
     <property name="title">
      <string>Tools</string>
     </property>
-    <widget class="QMenu" name="menu_Map_Brush">
-     <property name="title">
-      <string>&amp;Map Brush</string>
-     </property>
-     <addaction name="actionGrass"/>
-     <addaction name="actionDirt"/>
-     <addaction name="actionWater"/>
-     <addaction name="actionForest"/>
-     <addaction name="actionRock"/>
-     <addaction name="actionWall"/>
-    </widget>
     <addaction name="actionSelect"/>
-    <addaction name="separator"/>
-    <addaction name="menu_Map_Brush"/>
     <addaction name="separator"/>
     <addaction name="actionHuman_Start_Location"/>
     <addaction name="actionHuman_Air"/>
@@ -1011,20 +1013,7 @@
     <addaction name="actionHuman_Water"/>
     <addaction name="actionHuman_Buildings"/>
     <addaction name="separator"/>
-    <addaction name="actionOrc_Start_Location"/>
-    <addaction name="actionOrc_Air"/>
-    <addaction name="actionOrc_Land"/>
-    <addaction name="actionOrc_Water"/>
-    <addaction name="actionOrc_Buildings"/>
-    <addaction name="separator"/>
     <addaction name="actionGold_Mine"/>
-    <addaction name="actionOil_Patch"/>
-    <addaction name="actionCritter"/>
-    <addaction name="actionCircle_of_Power"/>
-    <addaction name="actionDark_Portal"/>
-    <addaction name="actionRunestone"/>
-    <addaction name="separator"/>
-    <addaction name="actionNPC_s"/>
    </widget>
    <widget class="QMenu" name="menuPlayer">
     <property name="title">
@@ -1100,17 +1089,6 @@
     <string>&amp;Delete</string>
    </property>
   </action>
-  <action name="actionToolbar">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="checked">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>&amp;Toolbar</string>
-   </property>
-  </action>
   <action name="actionStatus_bar">
    <property name="checkable">
     <bool>true</bool>
@@ -1171,110 +1149,9 @@
     <string>Human Buildings</string>
    </property>
   </action>
-  <action name="actionOrc_Start_Location">
-   <property name="text">
-    <string>&amp;Orc Start Location</string>
-   </property>
-  </action>
-  <action name="actionOrc_Air">
-   <property name="text">
-    <string>Orc Air</string>
-   </property>
-  </action>
-  <action name="actionOrc_Land">
-   <property name="text">
-    <string>Orc &amp;Land</string>
-   </property>
-  </action>
-  <action name="actionOrc_Water">
-   <property name="text">
-    <string>Orc &amp;Water</string>
-   </property>
-  </action>
-  <action name="actionOrc_Buildings">
-   <property name="text">
-    <string>Orc &amp;Buildings</string>
-   </property>
-  </action>
   <action name="actionGold_Mine">
    <property name="text">
     <string>&amp;Gold Mine</string>
-   </property>
-  </action>
-  <action name="actionOil_Patch">
-   <property name="text">
-    <string>Oil &amp;Patch</string>
-   </property>
-  </action>
-  <action name="actionCritter">
-   <property name="text">
-    <string>&amp;Critter</string>
-   </property>
-  </action>
-  <action name="actionCircle_of_Power">
-   <property name="text">
-    <string>C&amp;ircle of Power</string>
-   </property>
-  </action>
-  <action name="actionDark_Portal">
-   <property name="text">
-    <string>&amp;Dark Portal</string>
-   </property>
-  </action>
-  <action name="actionRunestone">
-   <property name="text">
-    <string>&amp;Runestone</string>
-   </property>
-  </action>
-  <action name="actionNPC_s">
-   <property name="text">
-    <string>&amp;NPC's</string>
-   </property>
-  </action>
-  <action name="actionPlayer_1_Red">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="checked">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>&amp;Player 1 (Red)</string>
-   </property>
-  </action>
-  <action name="actionPlayer_2_Blue">
-   <property name="text">
-    <string>Player &amp;2 (Blue)</string>
-   </property>
-  </action>
-  <action name="actionPlayer_3_Green">
-   <property name="text">
-    <string>Player &amp;3 (Green)</string>
-   </property>
-  </action>
-  <action name="actionPlayer_4_Violet">
-   <property name="text">
-    <string>Player &amp;4 (Violet)</string>
-   </property>
-  </action>
-  <action name="actionPlayer_5_Orange">
-   <property name="text">
-    <string>Player &amp;5 (Orange)</string>
-   </property>
-  </action>
-  <action name="actionPlayer_6_Black">
-   <property name="text">
-    <string>Player &amp;6 (Black)</string>
-   </property>
-  </action>
-  <action name="actionPlayer_7_White">
-   <property name="text">
-    <string>Player &amp;7 (White)</string>
-   </property>
-  </action>
-  <action name="actionPlayer_8_Yellow">
-   <property name="text">
-    <string>Player &amp;8 (Yellow)</string>
    </property>
   </action>
   <action name="actionMap_Properties">
@@ -1310,6 +1187,9 @@
   <action name="actionClose">
    <property name="text">
     <string>&amp;Close</string>
+   </property>
+   <property name="shortcut">
+    <string>Meta+W, Ctrl+W</string>
    </property>
   </action>
   <action name="actionGrass">
@@ -1350,11 +1230,6 @@
   <action name="actionAssets_2">
    <property name="text">
     <string>Assets...</string>
-   </property>
-  </action>
-  <action name="actionProperties">
-   <property name="text">
-    <string>Properties...</string>
    </property>
   </action>
  </widget>
@@ -1448,6 +1323,22 @@
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
    <slot>open_DgAbout()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>540</x>
+     <y>403</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionPlayer_Properties</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>open_DgPlayerProperties()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
