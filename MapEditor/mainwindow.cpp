@@ -498,12 +498,89 @@ void MainWindow::on_tool_goldmine_clicked()
     statusBar()->showMessage(tr("Goldmine Tool selected"), 2000);
 }
 
+void MainWindow::on_tool_barracks_clicked()
+{
+    curTool = "Barracks";
+    scene->curTool = "Barracks";
+    statusBar()->showMessage(tr("Barracks Tool selected"), 2000);
+}
+
+void MainWindow::on_tool_smith_clicked()
+{
+    curTool = "BlackSmith";
+    scene->curTool = "BlackSmith";
+    statusBar()->showMessage(tr("Black Smith Tool selected"), 2000);
+}
+
+void MainWindow::on_tool_cannontower_clicked()
+{
+    curTool = "CannonTower";
+    scene->curTool = "CannonTower";
+    statusBar()->showMessage(tr("Cannon Tower Tool selected"), 2000);
+}
+
+void MainWindow::on_tool_castle_clicked()
+{
+    curTool = "Castle";
+    scene->curTool = "Castle";
+    statusBar()->showMessage(tr("Castle Tool selected"), 2000);
+}
+
+void MainWindow::on_tool_farm_clicked()
+{
+    curTool = "Farm";
+    scene->curTool = "Farm";
+    statusBar()->showMessage(tr("Farm Tool selected"), 2000);
+}
+
+void MainWindow::on_tool_guardtower_clicked()
+{
+    curTool = "GuardTower";
+    scene->curTool = "GuardTower";
+    statusBar()->showMessage(tr("Guard Tower Tool selected"), 2000);
+}
+
+void MainWindow::on_tool_tower_clicked()
+{
+    curTool = "ScoutTower";
+    scene->curTool = "ScoutTower";
+    statusBar()->showMessage(tr("Scout Tower Tool selected"), 2000);
+}
+
+void MainWindow::on_tool_keep_clicked()
+{
+    curTool = "Keep";
+    scene->curTool = "Keep";
+    statusBar()->showMessage(tr("Keep Tool selected"), 2000);
+}
+
+void MainWindow::on_tool_mill_clicked()
+{
+    curTool = "LumberMill";
+    scene->curTool = "LumberMill";
+    statusBar()->showMessage(tr("LumberMill Tool selected"), 2000);
+}
+
+void MainWindow::on_tool_archer_clicked()
+{
+    curTool = "Archer";
+    scene->curTool = "Archer";
+    statusBar()->showMessage(tr("Player 1 Archer selected"), 2000);
+}
+
+void MainWindow::on_tool_knight_clicked()
+{
+    curTool = "Ranger";
+    scene->curTool = "Ranger";
+    statusBar()->showMessage(tr("Player 1 Ranger selected"), 2000);
+}
+
+
 // function to generalize all the player button click events
 void MainWindow::on_tool_pX_clicked(QAbstractButton* button) {
     curPlayer = button->text().toInt();
     scene->curPlayer = button->text().toInt();
     ui->statusBar->showMessage("Player " + button->text() + " selected");
-
 }
 
 // for various dialog boxes
@@ -522,7 +599,6 @@ void MainWindow::open_DgPlayerProperties(){
     w.exec();
 }
 
-
 // for the assets editor window
 void MainWindow::open_DgAssets(){
     // if doesn't exist, open a new one
@@ -533,6 +609,3 @@ void MainWindow::open_DgAssets(){
     wAssets->raise();
     wAssets->activateWindow();
 }
-
-
-

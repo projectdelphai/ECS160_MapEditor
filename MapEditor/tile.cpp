@@ -20,11 +20,11 @@ Tile::Tile(Terrain::Type type,QPixmap texturePix): QGraphicsPixmapItem(texturePi
     note = "test";
 }
 
-void Tile::mousePressEvent(QGraphicsSceneMouseEvent *event)
-{
+//void Tile::mousePressEvent(QGraphicsSceneMouseEvent *event)
+//{
     //qWarning() << Q_FUNC_INFO << event->scenePos();
     //qDebug() << "in Tile:mousePressEvent";
-}
+//}
 
 QString Tile::toString()
 {
@@ -56,7 +56,7 @@ QString Tile::toString()
         return "Rubble";
         break;
     }
-
+    return 0;
 }
 
 

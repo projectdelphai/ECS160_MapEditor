@@ -58,6 +58,18 @@ private slots:
     void on_tool_peasant1_clicked();
     void on_tool_townhall1_clicked();
     void on_tool_goldmine_clicked();
+    void on_tool_barracks_clicked();
+    void on_tool_cannontower_clicked();
+    void on_tool_castle_clicked();
+    void on_tool_farm_clicked();
+    void on_tool_guardtower_clicked();
+    void on_tool_keep_clicked();
+    void on_tool_mill_clicked();
+    void on_tool_smith_clicked();
+    void on_tool_tower_clicked();
+    void on_tool_archer_clicked();
+    void on_tool_knight_clicked();
+
     void on_tool_pX_clicked(QAbstractButton*);
     void open_DgAbout();
     void open_DgMapProperties();

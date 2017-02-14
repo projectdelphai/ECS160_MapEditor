@@ -34,7 +34,8 @@ SOURCES += main.cpp\
     dgmapproperties.cpp \
     dgabout.cpp \
     dgplayerproperties.cpp \
-    dgassets.cpp
+    dgassets.cpp \
+    mapview.cpp
 
 HEADERS  += mainwindow.h \
     mapview2.h \
@@ -45,7 +46,8 @@ HEADERS  += mainwindow.h \
     dgmapproperties.h \
     dgabout.h \
     dgplayerproperties.h \
-    dgassets.h
+    dgassets.h \
+    mapview.h
 
 FORMS    += mainwindow.ui \
     dgmapproperties.ui \

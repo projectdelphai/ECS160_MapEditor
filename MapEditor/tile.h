@@ -14,8 +14,8 @@ public:
 
     QString toString();
 
-protected:
-    void mousePressEvent(QGraphicsSceneMouseEvent *event);
+//protected:
+    //void mousePressEvent(QGraphicsSceneMouseEvent *event);
 
 private:
     Terrain::Type type;
