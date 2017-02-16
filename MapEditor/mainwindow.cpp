@@ -4,6 +4,11 @@
 #include <QDebug>
 #include "mapview2.h"
 
+#include "dgabout.h"
+#include "dgmapproperties.h"
+#include "dgplayerproperties.h"
+#include "dgassets.h"
+
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
@@ -13,11 +18,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->graphicsView_2->setMouseTracking(true);
     curTool = "hand";
 
-
     // Load and display a new file
     MainWindow::newFile();
     MainWindow::updateUI();
-
 
     ui->graphicsView_2->fitInView(0,0,256,192, Qt::KeepAspectRatio);
     QObject::connect(scene, &GraphicsScene::changedAsset, this, &MainWindow::changeAsset);
@@ -280,7 +283,23 @@ void MainWindow::writeSettings()
 
 // This function sets up all the UI buttons depending on what map is loaded
 void MainWindow::updateUI() {
-    // file buttons
+    // zoom slider and buttons in statusbar
+    QToolButton *zMinus = new QToolButton();
+    zMinus->setIcon(QIcon(":/toolbar/icons/toolbar/tool_zoom-.bmp"));
+    zMinus->setIconSize(QSize(16,16));
+    zMinus->setStyleSheet("padding: 0px; border: 1px; margin: 0px;");
+    ui->statusBar->addPermanentWidget(zMinus);
+
+    QSlider *zSlider = new QSlider(Qt::Horizontal);
+    zSlider->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    zSlider->setStyleSheet("padding: 0px; border: 0px; margin: 0px;");
+    ui->statusBar->addPermanentWidget(zSlider);
+
+    QToolButton *zPlus = new QToolButton();
+    zPlus->setIcon(QIcon(":/toolbar/icons/toolbar/tool_zoom+.bmp"));
+    zPlus->setIconSize(QSize(16,16));
+    zPlus->setStyleSheet("padding: 0px; border: 1px; margin: 0px;");
+    ui->statusBar->addPermanentWidget(zPlus);
 
     // terrain buttons
     ui->tool_grass->setIcon(curMap.getTerrain()->getPixTile(Terrain::Grass));
@@ -535,60 +554,11 @@ void MainWindow::on_tool_keep_clicked()
     statusBar()->showMessage(tr("Keep Tool selected"), 2000);
 }
 
-void MainWindow::on_tool_p1_clicked()
-{
-    curPlayer = 1;
-    scene->curPlayer = 1;
-}
-
-void MainWindow::on_tool_p2_clicked()
-{
-    curPlayer = 2;
-    scene->curPlayer = 2;
-}
-
 void MainWindow::on_tool_mill_clicked()
 {
     curTool = "LumberMill";
     scene->curTool = "LumberMill";
     statusBar()->showMessage(tr("LumberMill Tool selected"), 2000);
-}
-
-
-void MainWindow::on_tool_p3_clicked()
-{
-    curPlayer = 3;
-    scene->curPlayer = 3;
-}
-
-void MainWindow::on_tool_p4_clicked()
-{
-    curPlayer = 4;
-    scene->curPlayer = 4;
-}
-
-void MainWindow::on_tool_p5_clicked()
-{
-    curPlayer = 5;
-    scene->curPlayer = 5;
-}
-
-void MainWindow::on_tool_p6_clicked()
-{
-    curPlayer = 6;
-    scene->curPlayer = 6;
-}
-
-void MainWindow::on_tool_p7_clicked()
-{
-    curPlayer = 7;
-    scene->curPlayer = 7;
-}
-
-void MainWindow::on_tool_p8_clicked()
-{
-    curPlayer = 8;
-    scene->curPlayer = 8;
 }
 
 void MainWindow::on_tool_archer_clicked()
@@ -603,4 +573,39 @@ void MainWindow::on_tool_knight_clicked()
     curTool = "Ranger";
     scene->curTool = "Ranger";
     statusBar()->showMessage(tr("Player 1 Ranger selected"), 2000);
+}
+
+
+// function to generalize all the player button click events
+void MainWindow::on_tool_pX_clicked(QAbstractButton* button) {
+    curPlayer = button->text().toInt();
+    scene->curPlayer = button->text().toInt();
+    ui->statusBar->showMessage("Player " + button->text() + " selected");
+}
+
+// for various dialog boxes
+void MainWindow::open_DgAbout(){
+    DgAbout w(this);
+    w.exec();
+}
+
+void MainWindow::open_DgMapProperties(){
+    DgMapProperties w(this);
+    w.exec();
+}
+
+void MainWindow::open_DgPlayerProperties(){
+    DgPlayerProperties w(this);
+    w.exec();
+}
+
+// for the assets editor window
+void MainWindow::open_DgAssets(){
+    // if doesn't exist, open a new one
+    if (MainWindow::wAssets == 0)
+        wAssets = new DgAssets(this);
+
+    wAssets->show();
+    wAssets->raise();
+    wAssets->activateWindow();
 }
