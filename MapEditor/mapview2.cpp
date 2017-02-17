@@ -155,9 +155,8 @@ void MapView2::openMap(const QString &mapFileName){
     }
 
 
-    QVector<QString> mapConfig;
-    QString blankLine = " ";
 
+    QString blankLine = " ";
     int lineNum = 0;
 
     QTextStream in(&mapFile);
@@ -207,7 +206,10 @@ void MapView2::openMap(const QString &mapFileName){
             numPlayers = line.toInt();
             lineNum++;
             line = in.readLine();
-            for (int i = 0; i < numPlayers; i++)
+
+            // assumes the next line may be player's starting gold and lumber amount
+            // or just a single number
+            while(line.length() > 1)
             {
                 // create players and add
                 QStringList playerValues = line.split(" ");
