@@ -14,11 +14,11 @@
    <bool>true</bool>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Map Editor</string>
   </property>
   <property name="windowIcon">
    <iconset resource="icons.qrc">
-    <normaloff>:/icons/icons/icon.ico</normaloff>:/icons/icons/icon.ico</iconset>
+    <normaloff>:/icons/icons/icon.bmp</normaloff>:/icons/icons/icon.bmp</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
    <property name="enabled">
@@ -58,6 +58,9 @@
            </property>
            <item>
             <widget class="QToolButton" name="button_new">
+             <property name="toolTip">
+              <string>New</string>
+             </property>
              <property name="icon">
               <iconset resource="icons.qrc">
                <normaloff>:/toolbar/icons/toolbar/toolbar1.bmp</normaloff>:/toolbar/icons/toolbar/toolbar1.bmp</iconset>
@@ -69,6 +72,9 @@
            </item>
            <item>
             <widget class="QToolButton" name="button_open">
+             <property name="toolTip">
+              <string>Open</string>
+             </property>
              <property name="text">
               <string>...</string>
              </property>
@@ -83,6 +89,9 @@
            </item>
            <item>
             <widget class="QToolButton" name="button_save">
+             <property name="toolTip">
+              <string>Save</string>
+             </property>
              <property name="text">
               <string>...</string>
              </property>
@@ -157,18 +166,23 @@
            </property>
            <item>
             <widget class="QToolButton" name="tool_p1">
-             <property name="text">
+             <property name="toolTip">
               <string>1</string>
              </property>
-             <property name="icon">
-              <iconset>
-               <normaloff>:/toolbar/icons/toolbar/tool_p1.png</normaloff>:/toolbar/icons/toolbar/tool_p1.png</iconset>
+             <property name="styleSheet">
+              <string notr="true"/>
+             </property>
+             <property name="text">
+              <string>1</string>
              </property>
              <property name="iconSize">
               <size>
                <width>16</width>
                <height>16</height>
               </size>
+             </property>
+             <property name="shortcut">
+              <string>Ctrl+1</string>
              </property>
              <property name="checkable">
               <bool>true</bool>
@@ -179,16 +193,21 @@
              <property name="autoExclusive">
               <bool>true</bool>
              </property>
+             <attribute name="buttonGroup">
+              <string notr="true">bgroup_player</string>
+             </attribute>
             </widget>
            </item>
            <item>
             <widget class="QToolButton" name="tool_p2">
+             <property name="toolTip">
+              <string>2</string>
+             </property>
              <property name="text">
               <string>2</string>
              </property>
-             <property name="icon">
-              <iconset>
-               <normaloff>:/toolbar/icons/toolbar/tool_p2.png</normaloff>:/toolbar/icons/toolbar/tool_p2.png</iconset>
+             <property name="shortcut">
+              <string>Ctrl+2</string>
              </property>
              <property name="checkable">
               <bool>true</bool>
@@ -196,12 +215,21 @@
              <property name="autoExclusive">
               <bool>true</bool>
              </property>
+             <attribute name="buttonGroup">
+              <string notr="true">bgroup_player</string>
+             </attribute>
             </widget>
            </item>
            <item>
             <widget class="QToolButton" name="tool_p3">
+             <property name="toolTip">
+              <string>3</string>
+             </property>
              <property name="text">
               <string>3</string>
+             </property>
+             <property name="shortcut">
+              <string>Ctrl+3</string>
              </property>
              <property name="checkable">
               <bool>true</bool>
@@ -209,12 +237,21 @@
              <property name="autoExclusive">
               <bool>true</bool>
              </property>
+             <attribute name="buttonGroup">
+              <string notr="true">bgroup_player</string>
+             </attribute>
             </widget>
            </item>
            <item>
             <widget class="QToolButton" name="tool_p4">
+             <property name="toolTip">
+              <string>4</string>
+             </property>
              <property name="text">
               <string>4</string>
+             </property>
+             <property name="shortcut">
+              <string>Ctrl+4</string>
              </property>
              <property name="checkable">
               <bool>true</bool>
@@ -222,12 +259,21 @@
              <property name="autoExclusive">
               <bool>true</bool>
              </property>
+             <attribute name="buttonGroup">
+              <string notr="true">bgroup_player</string>
+             </attribute>
             </widget>
            </item>
            <item>
             <widget class="QToolButton" name="tool_p5">
+             <property name="toolTip">
+              <string>5</string>
+             </property>
              <property name="text">
               <string>5</string>
+             </property>
+             <property name="shortcut">
+              <string>Ctrl+5</string>
              </property>
              <property name="checkable">
               <bool>true</bool>
@@ -235,12 +281,21 @@
              <property name="autoExclusive">
               <bool>true</bool>
              </property>
+             <attribute name="buttonGroup">
+              <string notr="true">bgroup_player</string>
+             </attribute>
             </widget>
            </item>
            <item>
             <widget class="QToolButton" name="tool_p6">
+             <property name="toolTip">
+              <string>6</string>
+             </property>
              <property name="text">
               <string>6</string>
+             </property>
+             <property name="shortcut">
+              <string>Ctrl+6</string>
              </property>
              <property name="checkable">
               <bool>true</bool>
@@ -248,12 +303,21 @@
              <property name="autoExclusive">
               <bool>true</bool>
              </property>
+             <attribute name="buttonGroup">
+              <string notr="true">bgroup_player</string>
+             </attribute>
             </widget>
            </item>
            <item>
             <widget class="QToolButton" name="tool_p7">
+             <property name="toolTip">
+              <string>7</string>
+             </property>
              <property name="text">
               <string>7</string>
+             </property>
+             <property name="shortcut">
+              <string>Ctrl+7</string>
              </property>
              <property name="checkable">
               <bool>true</bool>
@@ -261,12 +325,21 @@
              <property name="autoExclusive">
               <bool>true</bool>
              </property>
+             <attribute name="buttonGroup">
+              <string notr="true">bgroup_player</string>
+             </attribute>
             </widget>
            </item>
            <item>
             <widget class="QToolButton" name="tool_p8">
+             <property name="toolTip">
+              <string>8</string>
+             </property>
              <property name="text">
               <string>8</string>
+             </property>
+             <property name="shortcut">
+              <string>Ctrl+8</string>
              </property>
              <property name="checkable">
               <bool>true</bool>
@@ -274,6 +347,9 @@
              <property name="autoExclusive">
               <bool>true</bool>
              </property>
+             <attribute name="buttonGroup">
+              <string notr="true">bgroup_player</string>
+             </attribute>
             </widget>
            </item>
           </layout>
@@ -316,6 +392,9 @@
            </property>
            <item>
             <widget class="QToolButton" name="tool_grass">
+             <property name="toolTip">
+              <string>Grass</string>
+             </property>
              <property name="text">
               <string>grass</string>
              </property>
@@ -335,6 +414,9 @@
            </item>
            <item>
             <widget class="QToolButton" name="tool_water">
+             <property name="toolTip">
+              <string>Water</string>
+             </property>
              <property name="text">
               <string>water</string>
              </property>
@@ -357,6 +439,9 @@
            </item>
            <item>
             <widget class="QToolButton" name="tool_dirt">
+             <property name="toolTip">
+              <string>Dirt</string>
+             </property>
              <property name="text">
               <string>dirt</string>
              </property>
@@ -376,6 +461,9 @@
            </item>
            <item>
             <widget class="QToolButton" name="tool_tree">
+             <property name="toolTip">
+              <string>Tree</string>
+             </property>
              <property name="text">
               <string>tree</string>
              </property>
@@ -395,6 +483,9 @@
            </item>
            <item>
             <widget class="QToolButton" name="tool_rock">
+             <property name="toolTip">
+              <string>Rock</string>
+             </property>
              <property name="text">
               <string>rock</string>
              </property>
@@ -414,6 +505,9 @@
            </item>
            <item>
             <widget class="QToolButton" name="tool_wall">
+             <property name="toolTip">
+              <string>Wall</string>
+             </property>
              <property name="text">
               <string>wall</string>
              </property>
@@ -433,6 +527,9 @@
            </item>
            <item>
             <widget class="QToolButton" name="tool_rubble">
+             <property name="toolTip">
+              <string>Rubble</string>
+             </property>
              <property name="text">
               <string>rubble</string>
              </property>
@@ -481,6 +578,9 @@
             <layout class="QGridLayout" name="grid_units">
              <item row="0" column="1">
               <widget class="QToolButton" name="tool_archer">
+               <property name="toolTip">
+                <string>Archer</string>
+               </property>
                <property name="text">
                 <string>archer</string>
                </property>
@@ -500,6 +600,9 @@
              </item>
              <item row="0" column="2">
               <widget class="QToolButton" name="tool_knight">
+               <property name="toolTip">
+                <string>Knight</string>
+               </property>
                <property name="text">
                 <string>knight</string>
                </property>
@@ -519,12 +622,11 @@
              </item>
              <item row="0" column="0">
               <widget class="QToolButton" name="tool_peasant1">
-               <property name="text">
-                <string>...</string>
+               <property name="toolTip">
+                <string>Peasant</string>
                </property>
-               <property name="icon">
-                <iconset>
-                 <normaloff>:/toolbar/icons/toolbar/tool_peasant.png</normaloff>:/toolbar/icons/toolbar/tool_peasant.png</iconset>
+               <property name="text">
+                <string>peasant</string>
                </property>
                <property name="iconSize">
                 <size>
@@ -566,6 +668,9 @@
             <layout class="QGridLayout" name="grid_buildings">
              <item row="0" column="3">
               <widget class="QToolButton" name="tool_smith">
+               <property name="toolTip">
+                <string>Blacksmith</string>
+               </property>
                <property name="text">
                 <string>smith</string>
                </property>
@@ -585,6 +690,9 @@
              </item>
              <item row="0" column="2">
               <widget class="QToolButton" name="tool_farm">
+               <property name="toolTip">
+                <string>Farm</string>
+               </property>
                <property name="text">
                 <string>farm</string>
                </property>
@@ -604,6 +712,9 @@
              </item>
              <item row="1" column="3">
               <widget class="QToolButton" name="tool_tower">
+               <property name="toolTip">
+                <string>Tower</string>
+               </property>
                <property name="text">
                 <string>tower</string>
                </property>
@@ -623,6 +734,9 @@
              </item>
              <item row="0" column="1">
               <widget class="QToolButton" name="tool_mill">
+               <property name="toolTip">
+                <string>Lumber Mill</string>
+               </property>
                <property name="text">
                 <string>mill</string>
                </property>
@@ -642,12 +756,11 @@
              </item>
              <item row="0" column="0">
               <widget class="QToolButton" name="tool_townhall1">
-               <property name="text">
-                <string>...</string>
+               <property name="toolTip">
+                <string>Town Hall</string>
                </property>
-               <property name="icon">
-                <iconset>
-                 <normaloff>:/toolbar/icons/toolbar/tool_townhall.png</normaloff>:/toolbar/icons/toolbar/tool_townhall.png</iconset>
+               <property name="text">
+                <string>townhall</string>
                </property>
                <property name="iconSize">
                 <size>
@@ -678,6 +791,9 @@
              </item>
              <item row="1" column="2">
               <widget class="QToolButton" name="tool_castle">
+               <property name="toolTip">
+                <string>Castle</string>
+               </property>
                <property name="text">
                 <string>castle</string>
                </property>
@@ -697,6 +813,9 @@
              </item>
              <item row="1" column="1">
               <widget class="QToolButton" name="tool_keep">
+               <property name="toolTip">
+                <string>Keep</string>
+               </property>
                <property name="text">
                 <string>keep</string>
                </property>
@@ -716,6 +835,9 @@
              </item>
              <item row="1" column="0">
               <widget class="QToolButton" name="tool_barracks">
+               <property name="toolTip">
+                <string>Barracks</string>
+               </property>
                <property name="text">
                 <string>barracks</string>
                </property>
@@ -744,27 +866,13 @@
            </item>
            <item>
             <layout class="QGridLayout" name="grid_neutral">
-             <item row="0" column="1">
-              <spacer name="horizontalSpacer_5">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
              <item row="0" column="0">
               <widget class="QToolButton" name="tool_goldmine">
-               <property name="text">
-                <string>...</string>
+               <property name="toolTip">
+                <string>Gold Mine</string>
                </property>
-               <property name="icon">
-                <iconset>
-                 <normaloff>:/toolbar/icons/toolbar/tool_goldmine.png</normaloff>:/toolbar/icons/toolbar/tool_goldmine.png</iconset>
+               <property name="text">
+                <string>goldmine</string>
                </property>
                <property name="iconSize">
                 <size>
@@ -777,6 +885,35 @@
                </property>
                <property name="autoExclusive">
                 <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="2">
+              <spacer name="horizontalSpacer_5">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item row="0" column="1">
+              <widget class="QToolButton" name="tool_startlocation">
+               <property name="toolTip">
+                <string>Start Location</string>
+               </property>
+               <property name="text">
+                <string>Start Location</string>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>46</width>
+                 <height>38</height>
+                </size>
                </property>
               </widget>
              </item>
@@ -894,6 +1031,9 @@
     <addaction name="actionSave"/>
     <addaction name="actionSave_As"/>
     <addaction name="separator"/>
+    <addaction name="actionImport_from_web"/>
+    <addaction name="actionExport_to_web"/>
+    <addaction name="separator"/>
     <addaction name="actionClose"/>
     <addaction name="actionExit"/>
    </widget>
@@ -902,34 +1042,13 @@
      <string>Edit</string>
     </property>
     <addaction name="actionDelete"/>
-   </widget>
-   <widget class="QMenu" name="menuView">
-    <property name="title">
-     <string>&amp;View</string>
-    </property>
-    <addaction name="actionToolbar"/>
-    <addaction name="actionStatus_bar"/>
-    <addaction name="actionAnimate"/>
-    <addaction name="actionMini_Map"/>
+    <addaction name="separator"/>
    </widget>
    <widget class="QMenu" name="menuTools">
     <property name="title">
      <string>Tools</string>
     </property>
-    <widget class="QMenu" name="menu_Map_Brush">
-     <property name="title">
-      <string>&amp;Map Brush</string>
-     </property>
-     <addaction name="actionGrass"/>
-     <addaction name="actionDirt"/>
-     <addaction name="actionWater"/>
-     <addaction name="actionForest"/>
-     <addaction name="actionRock"/>
-     <addaction name="actionWall"/>
-    </widget>
     <addaction name="actionSelect"/>
-    <addaction name="separator"/>
-    <addaction name="menu_Map_Brush"/>
     <addaction name="separator"/>
     <addaction name="actionHuman_Start_Location"/>
     <addaction name="actionHuman_Air"/>
@@ -937,39 +1056,14 @@
     <addaction name="actionHuman_Water"/>
     <addaction name="actionHuman_Buildings"/>
     <addaction name="separator"/>
-    <addaction name="actionOrc_Start_Location"/>
-    <addaction name="actionOrc_Air"/>
-    <addaction name="actionOrc_Land"/>
-    <addaction name="actionOrc_Water"/>
-    <addaction name="actionOrc_Buildings"/>
-    <addaction name="separator"/>
     <addaction name="actionGold_Mine"/>
-    <addaction name="actionOil_Patch"/>
-    <addaction name="actionCritter"/>
-    <addaction name="actionCircle_of_Power"/>
-    <addaction name="actionDark_Portal"/>
-    <addaction name="actionRunestone"/>
-    <addaction name="separator"/>
-    <addaction name="actionNPC_s"/>
    </widget>
    <widget class="QMenu" name="menuPlayer">
     <property name="title">
-     <string>P&amp;layer</string>
+     <string>Properties</string>
     </property>
-    <addaction name="actionPlayer_1_Red"/>
-    <addaction name="actionPlayer_2_Blue"/>
-    <addaction name="actionPlayer_3_Green"/>
-    <addaction name="actionPlayer_4_Violet"/>
-    <addaction name="actionPlayer_5_Orange"/>
-    <addaction name="actionPlayer_6_Black"/>
-    <addaction name="actionPlayer_7_White"/>
-    <addaction name="actionPlayer_8_Yellow"/>
-    <addaction name="separator"/>
     <addaction name="actionMap_Properties"/>
     <addaction name="actionPlayer_Properties"/>
-    <addaction name="actionStarting_Conditions"/>
-    <addaction name="actionUnit_Properties"/>
-    <addaction name="actionUpgrade_Properties"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -979,18 +1073,26 @@
    </widget>
    <widget class="QMenu" name="menuWindow">
     <property name="title">
-     <string>Window</string>
+     <string>Assets</string>
     </property>
     <addaction name="actionAssets"/>
-    <addaction name="actionAssets_2"/>
+    <addaction name="separator"/>
+    <addaction name="actionImport"/>
+   </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>&amp;View</string>
+    </property>
+    <addaction name="actionAnimate"/>
+    <addaction name="actionZoom_Out"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
    <addaction name="menuView"/>
    <addaction name="menuTools"/>
    <addaction name="menuPlayer"/>
-   <addaction name="menuHelp"/>
    <addaction name="menuWindow"/>
+   <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionNew">
@@ -1035,17 +1137,6 @@
     <string>&amp;Delete</string>
    </property>
   </action>
-  <action name="actionToolbar">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="checked">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>&amp;Toolbar</string>
-   </property>
-  </action>
   <action name="actionStatus_bar">
    <property name="checkable">
     <bool>true</bool>
@@ -1062,7 +1153,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>&amp;Animate</string>
+    <string>Zoom In</string>
    </property>
   </action>
   <action name="actionMini_Map">
@@ -1106,110 +1197,9 @@
     <string>Human Buildings</string>
    </property>
   </action>
-  <action name="actionOrc_Start_Location">
-   <property name="text">
-    <string>&amp;Orc Start Location</string>
-   </property>
-  </action>
-  <action name="actionOrc_Air">
-   <property name="text">
-    <string>Orc Air</string>
-   </property>
-  </action>
-  <action name="actionOrc_Land">
-   <property name="text">
-    <string>Orc &amp;Land</string>
-   </property>
-  </action>
-  <action name="actionOrc_Water">
-   <property name="text">
-    <string>Orc &amp;Water</string>
-   </property>
-  </action>
-  <action name="actionOrc_Buildings">
-   <property name="text">
-    <string>Orc &amp;Buildings</string>
-   </property>
-  </action>
   <action name="actionGold_Mine">
    <property name="text">
     <string>&amp;Gold Mine</string>
-   </property>
-  </action>
-  <action name="actionOil_Patch">
-   <property name="text">
-    <string>Oil &amp;Patch</string>
-   </property>
-  </action>
-  <action name="actionCritter">
-   <property name="text">
-    <string>&amp;Critter</string>
-   </property>
-  </action>
-  <action name="actionCircle_of_Power">
-   <property name="text">
-    <string>C&amp;ircle of Power</string>
-   </property>
-  </action>
-  <action name="actionDark_Portal">
-   <property name="text">
-    <string>&amp;Dark Portal</string>
-   </property>
-  </action>
-  <action name="actionRunestone">
-   <property name="text">
-    <string>&amp;Runestone</string>
-   </property>
-  </action>
-  <action name="actionNPC_s">
-   <property name="text">
-    <string>&amp;NPC's</string>
-   </property>
-  </action>
-  <action name="actionPlayer_1_Red">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="checked">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>&amp;Player 1 (Red)</string>
-   </property>
-  </action>
-  <action name="actionPlayer_2_Blue">
-   <property name="text">
-    <string>Player &amp;2 (Blue)</string>
-   </property>
-  </action>
-  <action name="actionPlayer_3_Green">
-   <property name="text">
-    <string>Player &amp;3 (Green)</string>
-   </property>
-  </action>
-  <action name="actionPlayer_4_Violet">
-   <property name="text">
-    <string>Player &amp;4 (Violet)</string>
-   </property>
-  </action>
-  <action name="actionPlayer_5_Orange">
-   <property name="text">
-    <string>Player &amp;5 (Orange)</string>
-   </property>
-  </action>
-  <action name="actionPlayer_6_Black">
-   <property name="text">
-    <string>Player &amp;6 (Black)</string>
-   </property>
-  </action>
-  <action name="actionPlayer_7_White">
-   <property name="text">
-    <string>Player &amp;7 (White)</string>
-   </property>
-  </action>
-  <action name="actionPlayer_8_Yellow">
-   <property name="text">
-    <string>Player &amp;8 (Yellow)</string>
    </property>
   </action>
   <action name="actionMap_Properties">
@@ -1222,21 +1212,6 @@
     <string>P&amp;layer Properties...</string>
    </property>
   </action>
-  <action name="actionStarting_Conditions">
-   <property name="text">
-    <string>&amp;Starting Conditions...</string>
-   </property>
-  </action>
-  <action name="actionUnit_Properties">
-   <property name="text">
-    <string>&amp;Unit Properties...</string>
-   </property>
-  </action>
-  <action name="actionUpgrade_Properties">
-   <property name="text">
-    <string>Up&amp;grade Properties...</string>
-   </property>
-  </action>
   <action name="actionAbout_MapEditor">
    <property name="text">
     <string>&amp;About MapEditor...</string>
@@ -1245,6 +1220,9 @@
   <action name="actionClose">
    <property name="text">
     <string>&amp;Close</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+W</string>
    </property>
   </action>
   <action name="actionGrass">
@@ -1279,12 +1257,27 @@
   </action>
   <action name="actionAssets">
    <property name="text">
-    <string>Main</string>
+    <string>Asset Editor...</string>
    </property>
   </action>
-  <action name="actionAssets_2">
+  <action name="actionImport">
    <property name="text">
-    <string>Assets...</string>
+    <string>Import...</string>
+   </property>
+  </action>
+  <action name="actionImport_from_web">
+   <property name="text">
+    <string>Import from web...</string>
+   </property>
+  </action>
+  <action name="actionExport_to_web">
+   <property name="text">
+    <string>Export to web...</string>
+   </property>
+  </action>
+  <action name="actionZoom_Out">
+   <property name="text">
+    <string>Zoom Out</string>
    </property>
   </action>
  </widget>
@@ -1357,6 +1350,86 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionMap_Properties</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>open_DgMapProperties()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>540</x>
+     <y>403</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionAbout_MapEditor</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>open_DgAbout()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>540</x>
+     <y>403</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionPlayer_Properties</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>open_DgPlayerProperties()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>540</x>
+     <y>403</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bgroup_player</sender>
+   <signal>buttonClicked(QAbstractButton*)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>on_tool_pX_clicked(QAbstractButton*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>540</x>
+     <y>403</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionAssets</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>open_DgAssets()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>540</x>
+     <y>403</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>open()</slot>
@@ -1365,5 +1438,13 @@
   <slot>on_tool_grass_released()</slot>
   <slot>on_tool_dirt_released()</slot>
   <slot>on_tool_water_released()</slot>
+  <slot>open_DgMapProperties()</slot>
+  <slot>open_DgAbout()</slot>
+  <slot>open_DgPlayerProperties()</slot>
+  <slot>on_tool_pX_clicked(QAbstractButton*)</slot>
+  <slot>open_DgAssets()</slot>
  </slots>
+ <buttongroups>
+  <buttongroup name="bgroup_player"/>
+ </buttongroups>
 </ui>
