@@ -133,15 +133,15 @@ void MapView2::defaultMap(){
             mapLayOut.append('G');
         }
     }
-    int MAXPLAYERS= 8;
-    players.resize(MAXPLAYERS);
 
-    // player zero is neutral
-
-    numPlayers = 0;
+    // set player 0 (neutral)
     Player player = Player(0, 30000, 500);
     players.append(player);
-    numUnits = 0;
+
+    // initialize players vector with 8 players
+    for (int i = 1; i != 9; i++)
+        players.append(Player(i, 1000, 1000));
+
 }
 
 // parses .map file and updates variables
@@ -153,7 +153,6 @@ void MapView2::openMap(const QString &mapFileName){
     if ( !mapFile.open(QIODevice::ReadOnly)){
         QMessageBox::information(0,"error opening map",mapFile.errorString());
     }
-
 
 
     QString blankLine = " ";
@@ -203,7 +202,6 @@ void MapView2::openMap(const QString &mapFileName){
             }
         }
         else if (intTest){
-            numPlayers = line.toInt();
             lineNum++;
             line = in.readLine();
 
@@ -220,7 +218,7 @@ void MapView2::openMap(const QString &mapFileName){
             }
 
             // grab number of units
-            numUnits = line.toInt();
+            int numUnits = line.toInt();
             lineNum++;
             line = in.readLine();
 
@@ -590,12 +588,18 @@ void MapView2::addPlayer(Player p)
 
 int MapView2::getNumPlayers()
 {
-    return players.size();
+    return players.size() - 1; // ignore player 0
 }
 
 int MapView2::getNumUnits()
 {
-    return numUnits;
+    int n = 0;
+
+    for (auto itr = players.begin(); itr != players.end(); itr++){
+        n += (*itr).units.size();
+    }
+
+    return n;
 }
 
 void MapView2::addUnit(Unit u, int player)

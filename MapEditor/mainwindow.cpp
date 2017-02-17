@@ -240,7 +240,7 @@ bool MainWindow::saveFile(const QString &fileName)
    {
        stream << *itr;
        x++;
-       if (x == 98)
+       if (x == curMap.getMapDim().width())
        {
            stream << endl;
            x = 0;
@@ -274,6 +274,14 @@ bool MainWindow::saveFile(const QString &fileName)
    statusBar()->showMessage(tr("File saved"), 2000);
    return true;
 }
+
+void MainWindow::exportPkg()
+{
+    qDebug() << "starting export" ;
+
+
+}
+
 
 void MainWindow::writeSettings()
 {
@@ -609,3 +617,4 @@ void MainWindow::open_DgAssets(){
     wAssets->raise();
     wAssets->activateWindow();
 }
+
