@@ -52,6 +52,9 @@ public:
     void addUnit(Unit u, int player);
     Texture *getAsset(QString assetName);
 
+    // change tile at some pos and tiles around it
+    void changeMapTile(QGraphicsScene *scene , QPointF point);
+
 private:
     void builtmap(QGraphicsScene *scene);
     void builtAssets(QGraphicsScene *scene);

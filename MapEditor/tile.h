@@ -13,6 +13,7 @@ public:
     Tile(QString typeStr,QPixmap texturePix);
 
     QString toString();
+    void changeTileImage(QPixmap pix);
 
 //protected:
     //void mousePressEvent(QGraphicsSceneMouseEvent *event);

@@ -79,8 +79,11 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
         }
 
         QImage imageDx;
-        if (!asset)
+        if (!asset){
             imageDx = *terrain->getImageTile(type);
+           // tile change
+            mapInfo->changeMapTile(this,mouseEvent->scenePos());
+        }
         else
         {
             if (curTool == "GoldMine")

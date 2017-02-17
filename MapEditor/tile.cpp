@@ -26,6 +26,10 @@ Tile::Tile(Terrain::Type type,QPixmap texturePix): QGraphicsPixmapItem(texturePi
     //qDebug() << "in Tile:mousePressEvent";
 //}
 
+void Tile::changeTileImage(QPixmap pix){
+    setPixmap(pix);
+}
+
 QString Tile::toString()
 {
     // enum  Type { Grass = 0, Dirt , Tree , Water , Rock , WallDamage , Wall , Rubble };

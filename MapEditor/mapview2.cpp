@@ -241,6 +241,13 @@ void MapView2::openMap(const QString &mapFileName){
         }
     }
 }
+
+void MapView2::changeMapTile(QGraphicsScene *scene, QPointF pos ){
+    // tile inside scene to change
+    Tile *item = (Tile *)scene->itemAt(pos, QTransform());
+
+}
+
 QString MapView2::tileEncode(QString strType ,int i , int j){
 
     QString valueStrType ="";
