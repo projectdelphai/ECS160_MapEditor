@@ -22,10 +22,14 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     MainWindow::newFile();
     MainWindow::updateUI();
 
+    // resize minimap
     ui->graphicsView_2->fitInView(0,0,256,192, Qt::KeepAspectRatio);
-    QObject::connect(scene, &GraphicsScene::changedAsset, this, &MainWindow::changeAsset);
+
+    // connect signals and slots
     QObject::connect(scene, &GraphicsScene::changedLayout, this, &MainWindow::changeLayout);
     QObject::connect(scene, &GraphicsScene::changedAsset, this, &MainWindow::changeAsset);
+
+    // default values
     curPlayer = 1;
     scene->curPlayer = 1;
 
@@ -145,7 +149,9 @@ void MainWindow::loadFile(const QString &fileName)
     ui->graphicsView_2->setMouseTracking(true);
     ui->graphicsView_2->show();
 
-
+    // connect signals and slots
+    QObject::connect(scene, &GraphicsScene::changedLayout, this, &MainWindow::changeLayout);
+    QObject::connect(scene, &GraphicsScene::changedAsset, this, &MainWindow::changeAsset);
 
     setCurrentFile(fileName);
     statusBar()->showMessage(fileName + " loaded!", 2000);
@@ -434,8 +440,6 @@ void MainWindow::on_tool_wall_clicked()
 }
 void MainWindow::changeLayout(int x, int y, Terrain::Type type)
 {
-    qDebug() << "in changed layout" ;
-
     int newX = x / 32;
     int newY = y / 32;
 
@@ -480,8 +484,10 @@ void MainWindow::changeLayout(int x, int y, Terrain::Type type)
 
 void MainWindow::changeAsset(int x, int y, QString asset, int player)
 {
+    int newX = x / 32;
+    int newY = y / 32;
 
-    Unit unit = Unit(asset, x, y);
+    Unit unit = Unit(asset, newX, newY);
 
     curMap.addUnit(unit, player);
 }
