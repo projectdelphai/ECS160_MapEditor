@@ -89,6 +89,7 @@ private:
     int curPlayer;
     QString curTool;
     QString curFile;
+    QString curPath = QDir::homePath(); // current directory
     DgAssets *wAssets = 0;
 };
 

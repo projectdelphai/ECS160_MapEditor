@@ -112,10 +112,14 @@ void MainWindow::newFile()
 
 void MainWindow::open()
 {
-    QFileDialog dialog;
-    dialog.setDirectory(QDir::home());
+    QFileDialog dialog(this);
+    dialog.setDirectory(MainWindow::curPath);
+    dialog.setWindowModality(Qt::WindowModal);
     if (maybeSave()) {
-        QString fileName = dialog.getOpenFileName(this);
+        if (dialog.exec() != QDialog::Accepted)
+            qCritical() << "open failed";
+        curPath = dialog.directory().path();
+        QString fileName = dialog.getOpenFileName();
         if (!fileName.isEmpty())
             loadFile(fileName);
     }
@@ -210,11 +214,12 @@ bool MainWindow::saveAs()
     }
 
     QFileDialog dialog(this);
-    dialog.setDirectory(QDir::home());
+    dialog.setDirectory(curPath);
     dialog.setWindowModality(Qt::WindowModal);
     dialog.setAcceptMode(QFileDialog::AcceptSave);
     if (dialog.exec() != QDialog::Accepted)
         return false;
+    curPath = dialog.directory().path();
     return saveFile(dialog.selectedFiles().first());
 }
 
