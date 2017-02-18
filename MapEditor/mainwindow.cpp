@@ -24,6 +24,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     ui->graphicsView_2->fitInView(0,0,256,192, Qt::KeepAspectRatio);
     QObject::connect(scene, &GraphicsScene::changedAsset, this, &MainWindow::changeAsset);
+    QObject::connect(scene, &GraphicsScene::changedLayout, this, &MainWindow::changeLayout);
+    QObject::connect(scene, &GraphicsScene::changedAsset, this, &MainWindow::changeAsset);
     curPlayer = 1;
     scene->curPlayer = 1;
 
@@ -143,8 +145,7 @@ void MainWindow::loadFile(const QString &fileName)
     ui->graphicsView_2->setMouseTracking(true);
     ui->graphicsView_2->show();
 
-    QObject::connect(scene, &GraphicsScene::changedLayout, this, &MainWindow::changeLayout);
-    QObject::connect(scene, &GraphicsScene::changedAsset, this, &MainWindow::changeAsset);
+
 
     setCurrentFile(fileName);
     statusBar()->showMessage(fileName + " loaded!", 2000);
@@ -433,7 +434,7 @@ void MainWindow::on_tool_wall_clicked()
 }
 void MainWindow::changeLayout(int x, int y, Terrain::Type type)
 {
-
+    qDebug() << "in changed layout" ;
 
     int newX = x / 32;
     int newY = y / 32;

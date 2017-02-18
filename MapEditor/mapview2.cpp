@@ -150,7 +150,7 @@ void MapView2::openMap(const QString &mapFileName){
 
     QFile mapFile(mapFileName);
 
-    if ( !mapFile.open(QIODevice::ReadOnly)){
+    if ( !mapFile.open(QIODevice::ReadOnly) ) {
         QMessageBox::information(0,"error opening map",mapFile.errorString());
     }
 
