@@ -80,6 +80,10 @@ QImage* Terrain::getImageTile(QString typeS){
         }
 
     }
+    else if (typeS == "") {
+        QMessageBox::information(0,"tile image error",typeS);
+        typeName = "wall-0";
+    }
     else {
 
         // returns the alias number or the same one
@@ -217,4 +221,37 @@ void Terrain::renderingInfo(QString datFileName){
 
     }
 
+}
+
+QString Terrain::toString(Terrain::Type type){
+    QString typeS = "";
+    switch(type)
+    {
+    case Terrain::Grass:
+        typeS = "grass";
+        break;
+    case Terrain::Dirt:
+        typeS = "dirt";
+        break;
+    case Terrain::Tree:
+        typeS = "tree";
+        break;
+    case Terrain::Water:
+        typeS = "water";
+        break;
+    case Terrain::Rock:
+        typeS ="rock";
+        break;
+    case Terrain::Wall:
+        typeS = "wall";
+        break;
+    case Terrain::WallDamage:
+        typeS = "wallDamage";
+        break;
+    case Terrain::Rubble:
+        typeS = "rubble";
+        break;
+    }
+    qDebug() << "return " << typeS;
+    return typeS;
 }

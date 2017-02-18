@@ -26,6 +26,8 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
     else
     {
         Tile *item = (Tile *)this->itemAt(mouseEvent->scenePos(), QTransform());
+        int x = item->scenePos().x();
+        int y = item->scenePos().y();
 
         Terrain *terrain = mapInfo->getTerrain();
         Terrain::Type type;
@@ -82,7 +84,8 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
         if (!asset){
             imageDx = *terrain->getImageTile(type);
            // tile change
-            mapInfo->changeMapTile(this,mouseEvent->scenePos());
+            mapInfo->changeMapTile(this, mouseEvent->scenePos(),type);
+
         }
         else
         {
@@ -92,15 +95,16 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
                 imageDx = asset->colorPlayerImg[curPlayer][1];
             else
                 imageDx = asset->colorPlayerImg[curPlayer][2];
+
+            QPixmap pixmap = QPixmap::fromImage(imageDx);
+            Tile * pixItem = new Tile(type, pixmap);
+
+
+            pixItem->setPos(x, y);
+            addItem(pixItem);
         }
 
-        QPixmap pixmap = QPixmap::fromImage(imageDx);
-        Tile * pixItem = new Tile(type, pixmap);
 
-        int x = item->scenePos().x();
-        int y = item->scenePos().y();
-        pixItem->setPos(x, y);
-        addItem(pixItem);
 
         if (!asset)
             emit changedLayout(x, y, type);

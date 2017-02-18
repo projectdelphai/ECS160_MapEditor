@@ -242,18 +242,70 @@ void MapView2::openMap(const QString &mapFileName){
     }
 }
 
-void MapView2::changeMapTile(QGraphicsScene *scene, QPointF pos ){
+void MapView2::changeMapTile(QGraphicsScene *scene, QPointF pos , Terrain::Type type ){
+
     // tile inside scene to change
-    Tile *item = (Tile *)scene->itemAt(pos, QTransform());
+    Tile *centerTile = qgraphicsitem_cast< Tile*>( scene->itemAt(pos, QTransform()) );
+    QVector<Tile*> tiles;
+
+
+
+    int i = centerTile->scenePos().y() - tileDim.height();
+    int j = centerTile->scenePos().x() - tileDim.width();
+
+    int rows = i + 3*tileDim.height();
+    int cols = j + 3*tileDim.width();
+
+    for(i; i < rows; i+=32 ){
+        for(j ; j < cols; j+=32){
+            QPointF pt(i,j);
+            Tile *tile = qgraphicsitem_cast<Tile*>( scene->itemAt(pt, QTransform() ));
+            tiles.append(tile);
+        }
+    }
+    QString typedx = terrain->toString(type);
+    QString strType = tileEncode(typedx, centerTile->scenePos().x()/tileDim.width() , centerTile->scenePos().y()/tileDim.height() );
+    // changes center tile
+    QImage image = *terrain->getImageTile(strType);
+    centerTile->setTileImage(QPixmap::fromImage(image), typedx );
+
+}
+
+QChar MapView2::strToMapkey(QString str){
+    QChar mapkey;
+    if (str == "grass"){
+        mapkey = 'G';
+    }
+    else if (  str == "dirt"){
+        mapkey = 'D';
+    }
+    else  if(  str == "water"){
+        mapkey = ' ';
+    }
+    else if ( str == "tree"){
+        mapkey = 'F';
+    }
+    else if (  str == "wall"){
+        mapkey = 'W';
+    }
+    else if (  str == "rock"){
+        mapkey = 'R';
+    }
+    else if (str == "wall-damaged"){
+        mapkey = 'w';
+    }
+
+    return mapkey;
 
 }
 
 QString MapView2::tileEncode(QString strType ,int i , int j){
 
     QString valueStrType ="";
-//    qDebug() << strType;
     QVector<QChar> tiles;
     QString encodeStr = "";
+    QChar centerType = strToMapkey(strType);
+
     // the following code to get the right tiles for the borders
     if( i == 0 || j == 0 || i == mapDim.height()-1  || j == mapDim.width() -1 ){
         if(j== 0 && strType == "grass" && i+2 < mapDim.height()  &&mapLayOut.at((i+1)*mapDim.width() + (j)) != 'G')
@@ -295,7 +347,6 @@ QString MapView2::tileEncode(QString strType ,int i , int j){
     QChar downLTile = mapLayOut.at((i+1)*mapDim.width() + (j-1));
     QChar belowTile = mapLayOut.at((i+1)*mapDim.width() + (j));
     QChar downRTile = mapLayOut.at((i+1)*mapDim.width() + (j+1));
-    QChar centerType = mapLayOut.at(i*mapDim.width() + j);
 
     // water and rock have the same way of getting the right tile we are using 3 by 3 matrix of 0 and 1's zero for unmatch and 1 for match
     // the current tile will be at position 1,1.
@@ -366,15 +417,7 @@ QString MapView2::tileEncode(QString strType ,int i , int j){
           //  qDebug() << "tree top: " << strType + "-" + QString().setNum(num2);
         }
 
-
-
-
-//        qDebug() << "n1 " << encodeStr.left(6);
-//        qDebug() << "n2: "<< encodeStr.right(6);
         valueStrType = strType + "-" + QString().setNum(num1);
-
-
-
     }
     else if(strType == "wall"){
         tiles.append(centerLTile);
@@ -409,7 +452,6 @@ QString MapView2::tileEncode(QString strType ,int i , int j){
         tiles.append(TopTile);
         tiles.append(upperLTile);
 
-       // qDebug() << "(" << i << "," << j << ")";
 
         for(int i = 0; i < tiles.size(); i++){
             if (i == 4){
@@ -443,7 +485,6 @@ QString MapView2::tileEncode(QString strType ,int i , int j){
 
     }
     else {
-//        qDebug() << "default";
         valueStrType =  strType;
 
     }
