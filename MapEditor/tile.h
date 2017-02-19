@@ -13,7 +13,7 @@ public:
     Tile(QString typeStr,QPixmap texturePix);
 
     QString toString();
-    void setTileImage(QPixmap pix);
+//    void setTileImage(QPixmap pix);
     void setTileImage(QPixmap pix, QString typeS);
     QString getType();
 

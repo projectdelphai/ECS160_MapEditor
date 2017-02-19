@@ -26,9 +26,7 @@ Unit::Unit(QString n, int xc, int yc)
 // Default (new map)
 MapView2::MapView2()
 {
-
     defaultMap();
-
     // create and store all assets
     setup();
     terrain = new Terrain;
@@ -249,31 +247,79 @@ void MapView2::changeMapTile(QGraphicsScene *scene, QPointF pos , Terrain::Type 
     QVector<Tile*> tiles;
 
 
-
     int i = centerTile->scenePos().y() - tileDim.height();
     int j = centerTile->scenePos().x() - tileDim.width();
 
     int rows = i + 3*tileDim.height();
     int cols = j + 3*tileDim.width();
 
-    for(i; i < rows; i+=32 ){
-        for(j ; j < cols; j+=32){
-            QPointF pt(i,j);
-            Tile *tile = qgraphicsitem_cast<Tile*>( scene->itemAt(pt, QTransform() ));
+    for(int y = i; y < rows; y+=32 ){
+        for(int x = j ; x < cols; x+=32){
+            // skip middle tile
+            if( y == centerTile->scenePos().y() && x == centerTile->scenePos().x() )
+                continue;
+
+//            qDebug() << "(" << x << "," << y << ")";
+            QPointF pt(x,y);
+            Tile *tile = dynamic_cast<Tile*>( scene->itemAt(pt, QTransform() ));
+            if (tile == NULL ){
+                qDebug() << "null";
+                continue;
+            }
             tiles.append(tile);
         }
+
     }
+    int x = centerTile->scenePos().x()/tileDim.width();
+    int y = centerTile->scenePos().y()/tileDim.height();
     QString typedx = terrain->toString(type);
-    QString strType = tileEncode(typedx, centerTile->scenePos().x()/tileDim.width() , centerTile->scenePos().y()/tileDim.height() );
-    qDebug() << strType;
-    int xx= centerTile->scenePos().x()/tileDim.width();
-    int yy= centerTile->scenePos().y()/tileDim.height();
-   qDebug() <<"before"<< mapLayOut.at((xx)*mapDim.width() + (yy));
-    mapLayOut.replace((xx)*mapDim.width() + yy,strToMapkey(typedx));
-   qDebug() << "After"<< mapLayOut.at((xx)*mapDim.width() + (yy));
+    QString strType = tileEncode(typedx, y , x );
+
+    mapLayOut.replace((y)*mapDim.width() + x,strToMapkey(typedx));
+
     // changes center tile
     QImage image = *terrain->getImageTile(strType);
     centerTile->setTileImage(QPixmap::fromImage(image), typedx );
+    qDebug() << "size: " << tiles.length();
+
+    for( int i = 0; i < tiles.length(); i++){
+        QString typeStr;
+        int xw = tiles.at(i)->scenePos().x()/tileDim.width();
+        int yh = tiles.at(i)->scenePos().y()/tileDim.width();
+//        qDebug() << "(" << xw << "," << yh << ")";
+
+        switch ( mapLayOut.at(yh*mapDim.width() + xw).toLatin1() ){
+            case 'G':
+                typeStr = "grass";
+                break;
+            case 'F':
+                typeStr = "tree";
+                break;
+            case 'D':
+                typeStr = "dirt";
+                break;
+            case 'W':
+                typeStr = "wall";
+                break;
+            case 'w':
+                typeStr = "wall-damaged";
+                break;
+            case 'R':
+                typeStr = "rock";
+                break;
+            case ' ':
+                typeStr = "water";
+                break;
+        }
+//        qDebug() << "dx: " << typeStr;
+        QString typeSelect = tileEncode(typeStr,yh,xw);
+//        qDebug() << "type" << typeSelect;
+        QImage imageTile = *terrain->getImageTile(typeSelect);
+        tiles[i]->setPixmap(QPixmap::fromImage(imageTile));
+
+
+
+    }
 
 }
 

@@ -26,6 +26,9 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
     else
     {
         Tile *item = (Tile *)this->itemAt(mouseEvent->scenePos(), QTransform());
+
+
+
         int x = item->scenePos().x();
         int y = item->scenePos().y();
 

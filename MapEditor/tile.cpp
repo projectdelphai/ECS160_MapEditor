@@ -27,9 +27,9 @@ Tile::Tile(Terrain::Type type,QPixmap texturePix): QGraphicsPixmapItem(texturePi
     //qDebug() << "in Tile:mousePressEvent";
 //}
 
-void Tile::setTileImage(QPixmap pix){
-    setPixmap(pix);
-}
+//void Tile::setTileImage(QPixmap pix){
+//    setPixmap(pix);
+//}
 
 void Tile::setTileImage(QPixmap pix, QString typeS){
     setPixmap(pix);
