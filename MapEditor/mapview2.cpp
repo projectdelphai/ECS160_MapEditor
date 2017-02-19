@@ -203,19 +203,20 @@ void MapView2::openMap(const QString &mapFileName){
         }
         else if (intTest){
             lineNum++;
-            line = in.readLine();
+
+            int numPlayers = line.toInt();
 
             // assumes the next line may be player's starting gold and lumber amount
             // or just a single number
-            while(line.length() > 1)
+            for(int pl = 0; pl <= numPlayers ; pl++)
             {
-                // create players and add
+                line = in.readLine();
                 QStringList playerValues = line.split(" ");
                 Player player = Player(playerValues[0].toInt(), playerValues[1].toInt(), playerValues[2].toInt());
                 players.append(player);
                 lineNum++;
-                line = in.readLine();
             }
+            line = in.readLine();
 
             // grab number of units
             int numUnits = line.toInt();

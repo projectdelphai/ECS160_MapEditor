@@ -454,8 +454,7 @@ void MainWindow::changeLayout(int x, int y, Terrain::Type type)
     int newY = y / 32;
 
     int n = newY * curMap.getMapDim().width() + newX;
-
-    statusBar()->showMessage("x: " + QString::number(x) + ", y: " + QString::number(y) + ", n: " + QString::number(n));
+    statusBar()->showMessage("x: " + QString::number(newX) + ", y: " + QString::number(newY) + ", n: " + QString::number(n));
 
     QChar c;
 
@@ -496,6 +495,9 @@ void MainWindow::changeAsset(int x, int y, QString asset, int player)
 {
     int newX = x / 32;
     int newY = y / 32;
+
+    int n = newY * curMap.getMapDim().width() + newX;
+    statusBar()->showMessage("x: " + QString::number(newX) + ", y: " + QString::number(newY) + ", n: " + QString::number(n));
 
     Unit unit = Unit(asset, newX, newY);
 
