@@ -265,6 +265,12 @@ void MapView2::changeMapTile(QGraphicsScene *scene, QPointF pos , Terrain::Type 
     }
     QString typedx = terrain->toString(type);
     QString strType = tileEncode(typedx, centerTile->scenePos().x()/tileDim.width() , centerTile->scenePos().y()/tileDim.height() );
+    qDebug() << strType;
+    int xx= centerTile->scenePos().x()/tileDim.width();
+    int yy= centerTile->scenePos().y()/tileDim.height();
+   qDebug() <<"before"<< mapLayOut.at((xx)*mapDim.width() + (yy));
+    mapLayOut.replace((xx)*mapDim.width() + yy,strToMapkey(typedx));
+   qDebug() << "After"<< mapLayOut.at((xx)*mapDim.width() + (yy));
     // changes center tile
     QImage image = *terrain->getImageTile(strType);
     centerTile->setTileImage(QPixmap::fromImage(image), typedx );
