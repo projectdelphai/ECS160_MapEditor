@@ -65,8 +65,6 @@ private:
     QVector<QChar> mapLayOut;
     QRect tileDim;
     QSize mapDim;
-    int numPlayers;
-    int numUnits;
     void addPlayer(Player p);
     QMap<QString , QString> treeTopTiles;
     Terrain* terrain;

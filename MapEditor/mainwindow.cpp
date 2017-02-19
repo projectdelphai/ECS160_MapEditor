@@ -22,8 +22,14 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     MainWindow::newFile();
     MainWindow::updateUI();
 
+    // resize minimap
     ui->graphicsView_2->fitInView(0,0,256,192, Qt::KeepAspectRatio);
+
+    // connect signals and slots
+    QObject::connect(scene, &GraphicsScene::changedLayout, this, &MainWindow::changeLayout);
     QObject::connect(scene, &GraphicsScene::changedAsset, this, &MainWindow::changeAsset);
+
+    // default values
     curPlayer = 1;
     scene->curPlayer = 1;
 
@@ -104,25 +110,30 @@ void MainWindow::newFile()
     statusBar()->showMessage("New File created", 2000);
 }
 
-void MainWindow::open()
+bool MainWindow::open()
 {
-    QFileDialog dialog;
-    dialog.setDirectory(QDir::home());
-    if (maybeSave()) {
-        QString fileName = dialog.getOpenFileName(this);
-        if (!fileName.isEmpty())
-            loadFile(fileName);
-    }
+    QFileDialog dialog(this);
+    dialog.restoreState(curFileDialogState);
+    dialog.setWindowModality(Qt::WindowModal);
+    dialog.setFileMode(QFileDialog::ExistingFile);
+    dialog.setAcceptMode(QFileDialog::AcceptOpen);
+    dialog.setNameFilter(tr("Map Files (*.map)"));
+    if (!maybeSave())
+        return false;
+    if(dialog.exec() != QDialog::Accepted)
+        return false;
+    curFileDialogState = dialog.saveState();
+    return loadFile(dialog.selectedFiles().first());
 }
 
-void MainWindow::loadFile(const QString &fileName)
+bool MainWindow::loadFile(const QString &fileName)
 {
     QFile file(fileName);
     if (!file.open(QFile::ReadOnly | QFile::Text)) {
         QMessageBox::warning(this, tr("Application"),
                              tr("Cannot read file %1:\n%2.")
                              .arg(QDir::toNativeSeparators(fileName), file.errorString()));
-        return;
+        return false;
     }
 
 
@@ -143,6 +154,7 @@ void MainWindow::loadFile(const QString &fileName)
     ui->graphicsView_2->setMouseTracking(true);
     ui->graphicsView_2->show();
 
+    // connect signals and slots
     QObject::connect(scene, &GraphicsScene::changedLayout, this, &MainWindow::changeLayout);
     QObject::connect(scene, &GraphicsScene::changedAsset, this, &MainWindow::changeAsset);
 
@@ -151,6 +163,8 @@ void MainWindow::loadFile(const QString &fileName)
 
     curPlayer = 1;
     scene->curPlayer = 1;
+
+    return true;
 }
 
 void MainWindow::setCurrentFile(const QString &fileName)
@@ -203,11 +217,14 @@ bool MainWindow::saveAs()
     }
 
     QFileDialog dialog(this);
-    dialog.setDirectory(QDir::home());
+    dialog.restoreState(curFileDialogState);
+    dialog.setDirectory(curPath);
     dialog.setWindowModality(Qt::WindowModal);
     dialog.setAcceptMode(QFileDialog::AcceptSave);
     if (dialog.exec() != QDialog::Accepted)
         return false;
+    curFileDialogState = dialog.saveState();
+
     return saveFile(dialog.selectedFiles().first());
 }
 
@@ -240,7 +257,7 @@ bool MainWindow::saveFile(const QString &fileName)
    {
        stream << *itr;
        x++;
-       if (x == 98)
+       if (x == curMap.getMapDim().width())
        {
            stream << endl;
            x = 0;
@@ -274,6 +291,14 @@ bool MainWindow::saveFile(const QString &fileName)
    statusBar()->showMessage(tr("File saved"), 2000);
    return true;
 }
+
+void MainWindow::exportPkg()
+{
+    qDebug() << "starting export" ;
+
+
+}
+
 
 void MainWindow::writeSettings()
 {
@@ -425,14 +450,11 @@ void MainWindow::on_tool_wall_clicked()
 }
 void MainWindow::changeLayout(int x, int y, Terrain::Type type)
 {
-
-
     int newX = x / 32;
     int newY = y / 32;
 
     int n = newY * curMap.getMapDim().width() + newX;
-
-    statusBar()->showMessage("x: " + QString::number(x) + ", y: " + QString::number(y) + ", n: " + QString::number(n));
+    statusBar()->showMessage("x: " + QString::number(newX) + ", y: " + QString::number(newY) + ", n: " + QString::number(n));
 
     QChar c;
 
@@ -471,8 +493,13 @@ void MainWindow::changeLayout(int x, int y, Terrain::Type type)
 
 void MainWindow::changeAsset(int x, int y, QString asset, int player)
 {
+    int newX = x / 32;
+    int newY = y / 32;
 
-    Unit unit = Unit(asset, x, y);
+    int n = newY * curMap.getMapDim().width() + newX;
+    statusBar()->showMessage("x: " + QString::number(newX) + ", y: " + QString::number(newY) + ", n: " + QString::number(n));
+
+    Unit unit = Unit(asset, newX, newY);
 
     curMap.addUnit(unit, player);
 }
@@ -609,3 +636,4 @@ void MainWindow::open_DgAssets(){
     wAssets->raise();
     wAssets->activateWindow();
 }
+

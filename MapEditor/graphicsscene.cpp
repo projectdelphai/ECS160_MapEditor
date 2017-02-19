@@ -44,6 +44,8 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
             type = Terrain::Tree;
         else if (curTool == "wall")
             type = Terrain::Wall;
+        else if (curTool == "rubble")
+            type = Terrain::Rubble;
         else if (curTool == "Peasant")
             asset = mapInfo->getAsset("Peasant");
         else if (curTool == "Ranger")

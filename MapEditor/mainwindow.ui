@@ -1030,6 +1030,7 @@
     <addaction name="actionOpen"/>
     <addaction name="actionSave"/>
     <addaction name="actionSave_As"/>
+    <addaction name="actionExport_to_file"/>
     <addaction name="separator"/>
     <addaction name="actionImport_from_web"/>
     <addaction name="actionExport_to_web"/>
@@ -1280,6 +1281,11 @@
     <string>Zoom Out</string>
    </property>
   </action>
+  <action name="actionExport_to_file">
+   <property name="text">
+    <string>Export to file...</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
@@ -1430,6 +1436,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionExport_to_file</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>exportPkg()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>540</x>
+     <y>403</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>open()</slot>
@@ -1443,6 +1465,7 @@
   <slot>open_DgPlayerProperties()</slot>
   <slot>on_tool_pX_clicked(QAbstractButton*)</slot>
   <slot>open_DgAssets()</slot>
+  <slot>exportPkg()</slot>
  </slots>
  <buttongroups>
   <buttongroup name="bgroup_player"/>
