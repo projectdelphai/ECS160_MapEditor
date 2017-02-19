@@ -530,7 +530,7 @@ void MapView2::builtAssets(QGraphicsScene *scene){
             // skip player 0, since it has no color assets
             QImage imageDx;
             if( i > 0){
-                imageDx = assets.value(unitName)->colorPlayerImg.value(i).at(2);
+                imageDx = assets.value(unitName)->colorPlayerImg.value(i).at(1);
             }
             else{
                 imageDx = assets.value(unitName)->imageList.at(0);
