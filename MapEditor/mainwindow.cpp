@@ -110,29 +110,30 @@ void MainWindow::newFile()
     statusBar()->showMessage("New File created", 2000);
 }
 
-void MainWindow::open()
+bool MainWindow::open()
 {
     QFileDialog dialog(this);
-    dialog.setDirectory(MainWindow::curPath);
+    dialog.restoreState(curFileDialogState);
     dialog.setWindowModality(Qt::WindowModal);
-    if (maybeSave()) {
-        if (dialog.exec() != QDialog::Accepted)
-            qCritical() << "open failed";
-        curPath = dialog.directory().path();
-        QString fileName = dialog.getOpenFileName();
-        if (!fileName.isEmpty())
-            loadFile(fileName);
-    }
+    dialog.setFileMode(QFileDialog::ExistingFile);
+    dialog.setAcceptMode(QFileDialog::AcceptOpen);
+    dialog.setNameFilter(tr("Map Files (*.map)"));
+    if (!maybeSave())
+        return false;
+    if(dialog.exec() != QDialog::Accepted)
+        return false;
+    curFileDialogState = dialog.saveState();
+    return loadFile(dialog.selectedFiles().first());
 }
 
-void MainWindow::loadFile(const QString &fileName)
+bool MainWindow::loadFile(const QString &fileName)
 {
     QFile file(fileName);
     if (!file.open(QFile::ReadOnly | QFile::Text)) {
         QMessageBox::warning(this, tr("Application"),
                              tr("Cannot read file %1:\n%2.")
                              .arg(QDir::toNativeSeparators(fileName), file.errorString()));
-        return;
+        return false;
     }
 
 
@@ -162,6 +163,8 @@ void MainWindow::loadFile(const QString &fileName)
 
     curPlayer = 1;
     scene->curPlayer = 1;
+
+    return true;
 }
 
 void MainWindow::setCurrentFile(const QString &fileName)
@@ -214,12 +217,14 @@ bool MainWindow::saveAs()
     }
 
     QFileDialog dialog(this);
+    dialog.restoreState(curFileDialogState);
     dialog.setDirectory(curPath);
     dialog.setWindowModality(Qt::WindowModal);
     dialog.setAcceptMode(QFileDialog::AcceptSave);
     if (dialog.exec() != QDialog::Accepted)
         return false;
-    curPath = dialog.directory().path();
+    curFileDialogState = dialog.saveState();
+
     return saveFile(dialog.selectedFiles().first());
 }
 

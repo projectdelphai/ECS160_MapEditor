@@ -22,7 +22,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-    void loadFile(const QString &fileName);
+    bool loadFile(const QString &fileName);
 
 public slots:
     void changeLayout(int x, int y, Terrain::Type type);
@@ -43,7 +43,7 @@ protected:
 
 private slots:
     void newFile();
-    void open();
+    bool open();
     bool save();
     bool saveAs();
     void exportPkg();
@@ -89,6 +89,7 @@ private:
     int curPlayer;
     QString curTool;
     QString curFile;
+    QByteArray curFileDialogState;
     QString curPath = QDir::homePath(); // current directory
     DgAssets *wAssets = 0;
 };
