@@ -199,14 +199,20 @@ bool MainWindow::maybeSave()
 
 bool MainWindow::save()
 {
-    if (curFile.isEmpty()) {
-        return saveAs();
-    } else {
-        return saveFile(curFile);
+    if (curFile.isEmpty()) { // set file to save to
+        if (!setSaveFile(&curFile)) // if fails
+            return false;
     }
+
+    return saveFile(curFile);
 }
 
-bool MainWindow::saveAs()
+void MainWindow::saveAs() {
+    if (!setSaveFile(&curFile)) return;
+    saveFile(curFile);
+}
+
+bool MainWindow::setSaveFile(QString* fileName)
 {
     if (curMap.getPlayers().size() < 3)
     {
@@ -225,7 +231,8 @@ bool MainWindow::saveAs()
         return false;
     curFileDialogState = dialog.saveState();
 
-    return saveFile(dialog.selectedFiles().first());
+    *fileName = dialog.selectedFiles().first();
+    return true;
 }
 
 bool MainWindow::saveFile(const QString &fileName)
@@ -294,9 +301,25 @@ bool MainWindow::saveFile(const QString &fileName)
 
 void MainWindow::exportPkg()
 {
-    qDebug() << "starting export" ;
+    QString pkgFileName;
+    if (curFile.isEmpty()) { // set file to save to
+        if (!setSaveFile(&pkgFileName)) // if fails
+            return;
+    }
 
+    QFile pkgFile(pkgFileName);
 
+    if (!pkgFile.open(QFile::WriteOnly | QFile::Text)) {
+        QMessageBox::warning(this, tr("Application"),
+                             tr("Cannot write file %1:\n%2.")
+                             .arg(QDir::toNativeSeparators(pkgFileName),
+                                  pkgFile.errorString()));
+        return;
+    }
+
+    QuaZip qz(pkgFileName);
+
+    qz.close();
 }
 
 

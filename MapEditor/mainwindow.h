@@ -7,6 +7,7 @@
 #include "texture.h"
 #include "graphicsscene.h"
 #include "dgassets.h"
+#include "quazip/quazip.h"
 
 namespace Ui {
 class MainWindow;
@@ -45,7 +46,8 @@ private slots:
     void newFile();
     bool open();
     bool save();
-    bool saveAs();
+    void saveAs();
+
     void exportPkg();
 
     void on_button_new_clicked();
@@ -83,6 +85,7 @@ private:
     void updateUI();
     void writeSettings();
     bool maybeSave();
+    bool setSaveFile(QString*);
     bool saveFile(const QString &fileName);
     void setCurrentFile(const QString &fileName);
 
