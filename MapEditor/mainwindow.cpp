@@ -318,6 +318,16 @@ void MainWindow::exportPkg()
     }
 
     QuaZip qz(pkgFileName);
+    qz.open(QuaZip::mdCreate);
+
+    // create new file inside
+    QuaZipFile qzf(&qz);
+    qzf.open(QIODevice::WriteOnly, QuaZipNewInfo("test.map"));
+
+        QTextStream stream(&qzf);
+        stream << "hello world!" << endl;
+
+    qzf.close();
 
     qz.close();
 }

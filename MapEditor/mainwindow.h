@@ -8,6 +8,7 @@
 #include "graphicsscene.h"
 #include "dgassets.h"
 #include "quazip/quazip.h"
+#include "quazip/quazipfile.h"
 
 namespace Ui {
 class MainWindow;
