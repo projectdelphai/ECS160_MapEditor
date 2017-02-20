@@ -22,6 +22,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     MainWindow::newFile();
     MainWindow::updateUI();
 
+    // Load all assets using
+    MainWindow::setupAssets();
+
     // resize minimap
     ui->graphicsView_2->fitInView(0,0,256,192, Qt::KeepAspectRatio);
 
@@ -96,7 +99,7 @@ void MainWindow::newFile()
 
     // Set up the map grid
     curMap = MapView2();
-    scene = new GraphicsScene(this, &curMap);
+    scene = new GraphicsScene(this, &curMap,&assets);
     curMap.displayMap(scene);
 
     // show map + minimap
@@ -141,9 +144,9 @@ bool MainWindow::loadFile(const QString &fileName)
 
     QString mapName = fileName;
     QString texture = ":/data/img/Terrain.png";
-    curMap = MapView2(mapName, texture);
+    curMap = MapView2(mapName, assets, texture );
 
-    scene = new GraphicsScene(this, &curMap);
+    scene = new GraphicsScene(this, &curMap, &assets);
     curMap.displayMap(scene);
 
     ui->graphicsView->setScene(scene);
@@ -637,3 +640,64 @@ void MainWindow::open_DgAssets(){
     wAssets->activateWindow();
 }
 
+void MainWindow::setupAssets(){
+    // grab all the asset files
+    QString path = ":/data/img";
+    QString colorFile = ":/data/img/Colors.png";
+    QString goldmineTool = ":/data/img/GoldMine.dat";
+    QString peasantTool = ":/data/img/Peasant.dat";
+    QString archerTool = ":/data/img/Archer.dat";
+    QString rangerTool = ":/data/img/Ranger.dat";
+    QString townhallTool = ":/data/img/TownHall.dat";
+    QString barracksTool = ":/data/img/Barracks.dat";
+    QString blacksmithTool = ":/data/img/Blacksmith.dat";
+    QString cannontowerTool = ":/data/img/CannonTower.dat";
+    QString castleTool = ":/data/img/Castle.dat";
+    QString farmTool = ":/data/img/Farm.dat";
+    QString guardtowerTool = ":/data/img/GuardTower.dat";
+    QString keepTool = ":/data/img/Keep.dat";
+    QString lumbermillTool = ":/data/img/LumberMill.dat";
+    QString scouttowerTool = ":/data/img/ScoutTower.dat";
+
+
+
+    int nObjects = 14;
+
+//    assets = new QMap<QString,Texture*>;
+
+    // append them to a vector
+    QVector<QString> files;
+    files.append(peasantTool);
+    files.append(archerTool);
+    files.append(rangerTool);
+    files.append(goldmineTool);
+    files.append(townhallTool);
+    files.append(barracksTool);
+    files.append(blacksmithTool);
+    files.append(cannontowerTool);
+    files.append(castleTool);
+    files.append(farmTool);
+    files.append(guardtowerTool);
+    files.append(keepTool);
+    files.append(lumbermillTool);
+    files.append(scouttowerTool);
+
+    // create a texture for each asset
+    for(int i = 0; i < nObjects; i++){
+        Texture *tex = new Texture(files.at(i),colorFile);
+        assets.insert( tex->textureName, tex);
+    }
+    assets.value("Peasant")->paintAll();
+    assets.value("Ranger")->paintAll();
+    assets.value("Archer")->paintAll();
+    assets.value("TownHall")->paintAll();
+    assets.value("Barracks")->paintAll();
+    assets.value("Blacksmith")->paintAll();
+    assets.value("CannonTower")->paintAll();
+    assets.value("Castle")->paintAll();
+    assets.value("Farm")->paintAll();
+    assets.value("GuardTower")->paintAll();
+    assets.value("Keep")->paintAll();
+    assets.value("LumberMill")->paintAll();
+    assets.value("ScoutTower")->paintAll();
+}

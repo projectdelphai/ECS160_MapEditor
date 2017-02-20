@@ -26,31 +26,31 @@ Unit::Unit(QString n, int xc, int yc)
 // Default (new map)
 MapView2::MapView2()
 {
-
     defaultMap();
-
-    // create and store all assets
-    setup();
+    //store all assets
+//    assets = loadedAssets;
+//    setup();
     terrain = new Terrain;
     buttonColors = new Texture(":/data/img/ButtonColors.png", 1, 1);
     buttonIcons = new Texture(":/data/img/Icons.png", 46, 38);
 
     tileDim.setRect(1,1,32,32);
-    tileMap.reserve(mapDim.width()*mapDim.height());
 
     // testing for MapRendering parsing
     terrain->renderingInfo(":/data/img/MapRendering.dat");
 }
 
-MapView2::MapView2(const QString &mapFileName , const QString &mapTexName = ":/data/img/Terrain.png" )
+MapView2::MapView2(const QString &mapFileName ,QMap<QString,Texture*>& loadedAssets, const QString &mapTexName = ":/data/img/Terrain.png"  )
 {
     openMap(mapFileName);
-    setup();
+//    setup();
+
+    assets = loadedAssets;
+
     terrain = new Terrain(mapTexName);
 
     // upper-left corner and the rectangle size of width and height
     tileDim.setRect(1,1,32,32);
-    tileMap.reserve(mapDim.width()*mapDim.height());
 
     // testing for MapRendering parsing
     terrain->renderingInfo(":/data/img/MapRendering.dat");

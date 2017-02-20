@@ -34,9 +34,7 @@ class MapView2
 {
 public:
     MapView2();
-    MapView2(const QString &mapFileName, const QString &mapTexName);
-    QString tileEncode(QString typeS,int i, int j);
-    void builtTreeTop(QGraphicsScene *scene);
+    MapView2(const QString &mapFileName, QMap<QString,Texture*>& ,const QString &mapTexName  );
     Terrain* getTerrain();
     Texture* getButtonColorsTx();
     Texture* getButtonIconsTx();
@@ -53,11 +51,17 @@ public:
     Texture *getAsset(QString assetName);
 
 private:
+    void defaultMap();
     void builtmap(QGraphicsScene *scene);
     void builtAssets(QGraphicsScene *scene);
+    QString tileEncode(QString typeS,int i, int j);
+    void builtTreeTop(QGraphicsScene *scene);
 
     void openMap(const QString &mapName);
     void openMapTexture(const QString &mapTexture);
+    void setup();
+    void addPlayer(Player p);
+
     QImage createImageTile(QImage* image, const QRect &rect);
 
     QString mapName;
@@ -65,20 +69,14 @@ private:
     QVector<QChar> mapLayOut;
     QRect tileDim;
     QSize mapDim;
-    void addPlayer(Player p);
     QMap<QString , QString> treeTopTiles;
     Terrain* terrain;
     Texture* toolbar;
     Texture* buttonColors;
     Texture* buttonIcons;
-    void setup();
-    void defaultMap();
-
     QStringList mapAllowedAIs;
     QString mapDescription;
-    //Texture *terrainTexture;
     QMap<QString,Texture*> assets;
-    QVector<Tile*> tileMap;
 };
 
 #endif // MAPVIEW2_H
