@@ -282,6 +282,7 @@ void MapView2::changeMapTile(QGraphicsScene *scene, QPointF pos , Terrain::Type 
             tiles.append(tile);
             int xw = tile->scenePos().x()/tileDim.width();
             int yh = tile->scenePos().y()/tileDim.width();
+            qDebug() << "(" << xw << "," << yh << ")";
 
             QString typeStr;
             switch ( mapLayOut.at(yh*mapDim.width() + xw).toLatin1() ){
@@ -312,50 +313,14 @@ void MapView2::changeMapTile(QGraphicsScene *scene, QPointF pos , Terrain::Type 
             QImage imageTile = *terrain->getImageTile(typeSelect);
             tile->setPixmap(QPixmap::fromImage(imageTile));
 
-
         }
 
     }
 
+    if (typedx == "tree"){
+        builtTreeTop(scene);
+    }
 
-//    for( int i = 0; i < tiles.length(); i++){
-//        QString typeStr;
-//        int xw = tiles.at(i)->scenePos().x()/tileDim.width();
-//        int yh = tiles.at(i)->scenePos().y()/tileDim.width();
-////        qDebug() << "(" << xw << "," << yh << ")";
-
-//        switch ( mapLayOut.at(yh*mapDim.width() + xw).toLatin1() ){
-//            case 'G':
-//                typeStr = "grass";
-//                break;
-//            case 'F':
-//                typeStr = "tree";
-//                break;
-//            case 'D':
-//                typeStr = "dirt";
-//                break;
-//            case 'W':
-//                typeStr = "wall";
-//                break;
-//            case 'w':
-//                typeStr = "wall-damaged";
-//                break;
-//            case 'R':
-//                typeStr = "rock";
-//                break;
-//            case ' ':
-//                typeStr = "water";
-//                break;
-//        }
-////        qDebug() << "dx: " << typeStr;
-//        QString typeSelect = tileEncode(typeStr,yh,xw);
-////        qDebug() << "type" << typeSelect;
-//        QImage imageTile = *terrain->getImageTile(typeSelect);
-//        tiles[i]->setPixmap(QPixmap::fromImage(imageTile));
-
-
-
-//    }
 
 }
 
@@ -602,6 +567,7 @@ void MapView2::builtTreeTop(QGraphicsScene *scene){
         tile->setPos( x.toInt() , y.toInt()  );
         scene->addItem(tile);
     }
+    treeTopTiles.clear();
 }
 
 // reads map array and updates the scene
