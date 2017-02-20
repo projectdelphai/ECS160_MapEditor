@@ -62,6 +62,7 @@ void MapView2::setup(){
     QString goldmineTool = ":/data/img/GoldMine.dat";
     QString peasantTool = ":/data/img/Peasant.dat";
     QString archerTool = ":/data/img/Archer.dat";
+    QString knightTool = ":/data/img/Knight.dat";
     QString rangerTool = ":/data/img/Ranger.dat";
     QString townhallTool = ":/data/img/TownHall.dat";
     QString barracksTool = ":/data/img/Barracks.dat";
@@ -82,6 +83,7 @@ void MapView2::setup(){
     QVector<QString> files;
     files.append(peasantTool);
     files.append(archerTool);
+    files.append(knightTool);
     files.append(rangerTool);
     files.append(goldmineTool);
     files.append(townhallTool);
@@ -101,6 +103,7 @@ void MapView2::setup(){
         assets.insert( tex->textureName, tex);
     }
     assets.value("Peasant")->paintAll();
+    assets.value("Knight")->paintAll();
     assets.value("Ranger")->paintAll();
     assets.value("Archer")->paintAll();
     assets.value("TownHall")->paintAll();

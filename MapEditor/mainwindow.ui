@@ -598,27 +598,18 @@
                </property>
               </widget>
              </item>
-             <item row="0" column="2">
-              <widget class="QToolButton" name="tool_knight">
-               <property name="toolTip">
-                <string>Knight</string>
+             <item row="0" column="4">
+              <spacer name="horizontalSpacer">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
                </property>
-               <property name="text">
-                <string>knight</string>
-               </property>
-               <property name="iconSize">
+               <property name="sizeHint" stdset="0">
                 <size>
-                 <width>46</width>
-                 <height>38</height>
+                 <width>40</width>
+                 <height>20</height>
                 </size>
                </property>
-               <property name="checkable">
-                <bool>true</bool>
-               </property>
-               <property name="autoExclusive">
-                <bool>true</bool>
-               </property>
-              </widget>
+              </spacer>
              </item>
              <item row="0" column="0">
               <widget class="QToolButton" name="tool_peasant1">
@@ -642,18 +633,49 @@
                </property>
               </widget>
              </item>
-             <item row="0" column="3">
-              <spacer name="horizontalSpacer">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
+             <item row="0" column="2">
+              <widget class="QToolButton" name="tool_ranger">
+               <property name="toolTip">
+                <string>Ranger</string>
                </property>
-               <property name="sizeHint" stdset="0">
+               <property name="text">
+                <string>ranger</string>
+               </property>
+               <property name="iconSize">
                 <size>
-                 <width>40</width>
-                 <height>20</height>
+                 <width>46</width>
+                 <height>38</height>
                 </size>
                </property>
-              </spacer>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+               <property name="autoExclusive">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="3">
+              <widget class="QToolButton" name="tool_knight">
+               <property name="toolTip">
+                <string>Knight</string>
+               </property>
+               <property name="text">
+                <string>knight</string>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>46</width>
+                 <height>38</height>
+                </size>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+               <property name="autoExclusive">
+                <bool>true</bool>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>
@@ -1019,7 +1041,7 @@
      <x>0</x>
      <y>0</y>
      <width>1082</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

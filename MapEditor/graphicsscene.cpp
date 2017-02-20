@@ -55,6 +55,8 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
             asset = mapInfo->getAsset("Ranger");
         else if (curTool == "Archer")
             asset = mapInfo->getAsset("Archer");
+        else if (curTool == "Knight")
+            asset = mapInfo->getAsset("Knight");
         else if (curTool == "GoldMine")
             asset = mapInfo->getAsset("GoldMine");
         else if (curTool == "TownHall")
@@ -96,6 +98,8 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
                 imageDx = asset->imageList[0];
             else if (curTool == "CannonTower" || curTool == "Castle" || curTool == "Keep" || curTool == "GuardTower")
                 imageDx = asset->colorPlayerImg[curPlayer][1];
+            else if (curTool == "Peasant" || curTool == "Knight" || curTool == "Archer" || curTool == "Ranger")
+                imageDx = asset->colorPlayerImg[curPlayer][20];
             else
                 imageDx = asset->colorPlayerImg[curPlayer][2];
 

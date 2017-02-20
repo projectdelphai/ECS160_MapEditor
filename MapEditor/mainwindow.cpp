@@ -323,6 +323,7 @@ void MainWindow::updateUI() {
     // unit buttons
     ui->tool_peasant1->setIcon(curMap.getButtonIconsTx()->getPixTile("peasant"));
     ui->tool_archer->setIcon(curMap.getButtonIconsTx()->getPixTile("archer"));
+    ui->tool_ranger->setIcon(curMap.getButtonIconsTx()->getPixTile("ranger"));
     ui->tool_knight->setIcon(curMap.getButtonIconsTx()->getPixTile("knight"));
 
     // building buttons
@@ -570,11 +571,17 @@ void MainWindow::on_tool_archer_clicked()
 
 void MainWindow::on_tool_knight_clicked()
 {
+    curTool = "Knight";
+    scene->curTool = "Knight";
+    statusBar()->showMessage(tr("Player 1 Knight selected"), 2000);
+}
+
+void MainWindow::on_tool_ranger_clicked()
+{
     curTool = "Ranger";
     scene->curTool = "Ranger";
     statusBar()->showMessage(tr("Player 1 Ranger selected"), 2000);
 }
-
 
 // function to generalize all the player button click events
 void MainWindow::on_tool_pX_clicked(QAbstractButton* button) {
