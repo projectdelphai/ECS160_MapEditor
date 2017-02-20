@@ -76,9 +76,6 @@ void MapView2::setup(){
     QString scouttowerTool = ":/data/img/ScoutTower.dat";
 
 
-
-    int nObjects = 14;
-
     // append them to a vector
     QVector<QString> files;
     files.append(peasantTool);
@@ -96,6 +93,9 @@ void MapView2::setup(){
     files.append(keepTool);
     files.append(lumbermillTool);
     files.append(scouttowerTool);
+
+
+    int nObjects = files.size();
 
     // create a texture for each asset
     for(int i = 0; i < nObjects; i++){
