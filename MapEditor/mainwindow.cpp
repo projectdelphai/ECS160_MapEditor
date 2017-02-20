@@ -299,6 +299,7 @@ bool MainWindow::saveFile(const QString &fileName)
    return true;
 }
 
+// this function saves all assets and stores them inside a zip file
 void MainWindow::exportPkg()
 {
     QString pkgFileName;
@@ -306,6 +307,8 @@ void MainWindow::exportPkg()
         if (!setSaveFile(&pkgFileName)) // if fails
             return;
     }
+
+    // pkgFileName contains full path; eg. "Users/felix/Desktop/test.map"
 
     QFile pkgFile(pkgFileName);
 
@@ -322,10 +325,16 @@ void MainWindow::exportPkg()
 
     // create new file inside
     QuaZipFile qzf(&qz);
-    qzf.open(QIODevice::WriteOnly, QuaZipNewInfo("test.map"));
+    qzf.open(QIODevice::WriteOnly, QuaZipNewInfo("/data/"));
+    qzf.close();
+
+    qzf.open(QIODevice::WriteOnly, QuaZipNewInfo(pkgFile.fileName().split('/').last() + ".map")); // test.zip.map
 
         QTextStream stream(&qzf);
-        stream << "hello world!" << endl;
+        stream << curMap.getMapName() << endl;
+        stream << curMap.getMapDim().width()-2 << " " << curMap.getMapDim().height()-2 << endl;
+        stream << "description" << endl;
+        stream << "General" << endl;
 
     qzf.close();
 
