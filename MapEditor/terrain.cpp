@@ -78,6 +78,9 @@ QImage* Terrain::getImageTile(QString typeS){
         else if( tokens.at(0) == "rock"){
             typeName = "rock-255";
         }
+        else if(tokens.at(0)=="water"){
+            typeName = "water-126";
+        }
 
     }
     else if (typeS == "") {
@@ -90,12 +93,20 @@ QImage* Terrain::getImageTile(QString typeS){
         int numKey = getAlias(tokens.at(0),tokens.at(1).toInt());
         typeName = tokens.at(0) + "-" + QString().setNum(numKey);
         if (!texture->contains(typeName)){
-            typeName = "rock-107";
+            if(tokens.at(0)=="rock"){
+                typeName = "rock-107";
+            }
+            else if(tokens.at(0)=="water"){
+                typeName = "water-255";
+            }
+            else if(tokens.at(0)=="dirt"){
+                typeName = "dirt-255";
+            }
+            else{
+                typeName = "rock-0";
+            }
         }
     }
-
-
-
 
     return texture->value(typeName);
 }
