@@ -97,7 +97,18 @@ QImage* Terrain::getImageTile(QString typeS){
                 typeName = "rock-107";
             }
             else if(tokens.at(0)=="water"){
-                typeName = "water-255";
+                if(typeName == "water-0")
+                {
+                    qDebug()<<"its water-0";
+                    typeName = "dirt-255";
+                }
+                else
+                {
+                    qDebug() << typeName;
+                    typeName = "water-255";
+                    qDebug()<<"could not find water";
+
+                }
             }
             else if(tokens.at(0)=="dirt"){
                 typeName = "dirt-255";
@@ -263,6 +274,6 @@ QString Terrain::toString(Terrain::Type type){
         typeS = "rubble";
         break;
     }
-    qDebug() << "return " << typeS;
+  //  qDebug() << "return " << typeS;
     return typeS;
 }

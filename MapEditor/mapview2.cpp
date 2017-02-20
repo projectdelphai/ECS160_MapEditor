@@ -325,7 +325,7 @@ void MapView2::changeMapTile(QGraphicsScene *scene, QPointF pos , Terrain::Type 
     }
 
 
-}
+   }
 
 QChar MapView2::strToMapkey(QString str){
     QChar mapkey;
