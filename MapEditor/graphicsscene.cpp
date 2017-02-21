@@ -6,10 +6,11 @@
 #include "mainwindow.h"
 
 
-GraphicsScene::GraphicsScene(QObject *parent, MapView2 *curMap) : QGraphicsScene(parent)
+GraphicsScene::GraphicsScene(QObject *parent, MapView2 *curMap, QMap<QString, Texture *> *loadedAssets) : QGraphicsScene(parent)
 {
     GraphicsScene::parent = parent;
     GraphicsScene::mapInfo = curMap;
+    GraphicsScene::assets = loadedAssets;
     brushing = false;
 }
 
@@ -34,8 +35,8 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
 
         Terrain *terrain = mapInfo->getTerrain();
         Terrain::Type type;
-
         Texture *asset = 0;
+
 
         if (curTool == "grass")
             type = Terrain::Grass;
@@ -51,36 +52,12 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
             type = Terrain::Wall;
         else if (curTool == "rubble")
             type = Terrain::Rubble;
-        else if (curTool == "Peasant")
-            asset = mapInfo->getAsset("Peasant");
-        else if (curTool == "Ranger")
-            asset = mapInfo->getAsset("Ranger");
-        else if (curTool == "Archer")
-            asset = mapInfo->getAsset("Archer");
-        else if (curTool == "Knight")
-            asset = mapInfo->getAsset("Knight");
-        else if (curTool == "GoldMine")
-            asset = mapInfo->getAsset("GoldMine");
-        else if (curTool == "TownHall")
-            asset = mapInfo->getAsset("TownHall");
-        else if (curTool == "Barracks")
-            asset = mapInfo->getAsset("Barracks");
-        else if (curTool == "BlackSmith")
-            asset = mapInfo->getAsset("Blacksmith");
-        else if (curTool == "CannonTower")
-            asset = mapInfo->getAsset("CannonTower");
-        else if (curTool == "Castle")
-            asset = mapInfo->getAsset("Castle");
-        else if (curTool == "Farm")
-            asset = mapInfo->getAsset("Farm");
-        else if (curTool == "GuardTower")
-            asset = mapInfo->getAsset("GuardTower");
-        else if (curTool == "ScoutTower")
-            asset = mapInfo->getAsset("ScoutTower");
-        else if (curTool == "Keep")
-            asset = mapInfo->getAsset("Keep");
-        else if (curTool == "LumberMill")
-            asset = mapInfo->getAsset("LumberMill");
+        else if (curTool != "grass" || curTool != "dirt" || curTool != "water" || curTool != "tree" ||
+                 curTool != "rock" || curTool != "wall" || curTool != "rubble" ){
+            // all other non-Terrain
+            asset = assets->value(curTool);
+        }
+
         else
         {
             QGraphicsScene::mousePressEvent(mouseEvent);
@@ -89,7 +66,6 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
 
         QImage imageDx;
         if (!asset){
-//            imageDx = *terrain->getImageTile(type);
            // tile change
             mapInfo->changeMapTile(this, mouseEvent->scenePos(),type);
 

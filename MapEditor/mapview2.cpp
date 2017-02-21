@@ -27,28 +27,28 @@ Unit::Unit(QString n, int xc, int yc)
 MapView2::MapView2()
 {
     defaultMap();
-    // create and store all assets
-    setup();
+
     terrain = new Terrain;
     buttonColors = new Texture(":/data/img/ButtonColors.png", 1, 1);
     buttonIcons = new Texture(":/data/img/Icons.png", 46, 38);
 
     tileDim.setRect(1,1,32,32);
-    tileMap.reserve(mapDim.width()*mapDim.height());
 
     // testing for MapRendering parsing
     terrain->renderingInfo(":/data/img/MapRendering.dat");
 }
 
-MapView2::MapView2(const QString &mapFileName , const QString &mapTexName = ":/data/img/Terrain.png" )
+MapView2::MapView2(const QString &mapFileName ,QMap<QString,Texture*>& loadedAssets, const QString &mapTexName = ":/data/img/Terrain.png"  )
 {
     openMap(mapFileName);
-    setup();
+//    setup();
+
+    assets = loadedAssets;
+
     terrain = new Terrain(mapTexName);
 
     // upper-left corner and the rectangle size of width and height
     tileDim.setRect(1,1,32,32);
-    tileMap.reserve(mapDim.width()*mapDim.height());
 
     // testing for MapRendering parsing
     terrain->renderingInfo(":/data/img/MapRendering.dat");
@@ -539,6 +539,27 @@ void MapView2::builtTreeTop(QGraphicsScene *scene){
         scene->addItem(tile);
     }
     treeTopTiles.clear();
+}
+
+void MapView2::displayNewMap(QGraphicsScene *scene){
+    QString type = "";
+    int x = 0;
+    int y = 0;
+    for(int i = 0; i < mapDim.height(); ++i){
+        for(int j = 0; j < mapDim.width(); ++j){
+            if ( mapLayOut.at(i*mapDim.width() + j).toLatin1() == 'G'){
+                type = "grass-0";
+            }
+            QImage imageDx = *terrain->getImageTile(type);
+            Tile *tile = new Tile(type.split("-")[0] , QPixmap::fromImage(imageDx));
+
+            x = j*tileDim.width();
+            y = i*tileDim.height();
+            tile->setPos(x,y);
+            scene->addItem(tile);
+
+        }
+    }
 }
 
 // reads map array and updates the scene

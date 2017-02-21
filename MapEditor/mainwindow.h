@@ -79,6 +79,8 @@ private slots:
     void open_DgPlayerProperties();
     void open_DgAssets();
 
+    void setupAssets();
+
 private:
     Ui::MainWindow *ui;
     void updateUI();
@@ -93,6 +95,7 @@ private:
     QByteArray curFileDialogState;
     QString curPath = QDir::homePath(); // current directory
     DgAssets *wAssets = 0;
+    QMap<QString,Texture*> assets;
 };
 
 
