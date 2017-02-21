@@ -8,6 +8,8 @@
 #include "mapview2.h"
 #include "texture.h"
 #include "terrain.h"
+#include <QMediaPlayer>
+#include <QUrl>
 
 // reference: http://stackoverflow.com/questions/26901540/arc-in-qgraphicsscene/26903599#26903599
 
@@ -33,6 +35,7 @@ private:
     QObject *parent;
     MapView2 *mapInfo;
     bool brushing;
+    QMediaPlayer * unitsound;
 };
 
 #endif // GRAPHICSSCENE_H
