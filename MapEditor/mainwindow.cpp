@@ -348,6 +348,7 @@ void MainWindow::exportPkg()
     QuaZipFile qzf(&qz);
     qzf.open(QIODevice::WriteOnly, QuaZipNewInfo("/img/")); qzf.close();
     qzf.open(QIODevice::WriteOnly, QuaZipNewInfo("/res/")); qzf.close();
+    qzf.open(QIODevice::WriteOnly, QuaZipNewInfo("/scripts/")); qzf.close();
     qzf.open(QIODevice::WriteOnly, QuaZipNewInfo("/snd/")); qzf.close();
     qzf.open(QIODevice::WriteOnly, QuaZipNewInfo("/upg/")); qzf.close();
 
