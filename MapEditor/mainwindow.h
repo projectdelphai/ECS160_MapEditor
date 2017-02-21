@@ -73,8 +73,8 @@ private slots:
     void on_tool_archer_clicked();
     void on_tool_knight_clicked();
     void on_tool_ranger_clicked();
-
-    void on_tool_pX_clicked(QAbstractButton* button);
+    void on_tool_hand_clicked();
+    void on_tool_pX_clicked(QAbstractButton* Button);
     void open_DgAbout();
     void open_DgMapProperties();
     void open_DgPlayerProperties();

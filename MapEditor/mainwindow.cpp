@@ -3,11 +3,11 @@
 #include "graphicsscene.h"
 #include <QDebug>
 #include "mapview2.h"
-
 #include "dgabout.h"
 #include "dgmapproperties.h"
 #include "dgplayerproperties.h"
 #include "dgassets.h"
+#include <QMediaPlayer>
 
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
@@ -35,7 +35,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     // default values
     curPlayer = 1;
     scene->curPlayer = 1;
-
+    // play background music
+    QMediaPlayer * backgroundMusic = new QMediaPlayer();
+    backgroundMusic->setMedia(QUrl("qrc:/data/snd/basic/annoyed2.wav"));
+    backgroundMusic->play();
 }
 
 MainWindow::~MainWindow()
@@ -402,6 +405,7 @@ void MainWindow::updateUI() {
     ui->tool_rock->setIcon(curMap.getTerrain()->getPixTile(Terrain::Rock));
     ui->tool_wall->setIcon(curMap.getTerrain()->getPixTile(Terrain::Wall));
     ui->tool_rubble->setIcon(curMap.getTerrain()->getPixTile(Terrain::Rubble));
+    ui->tool_hand->setIcon(QIcon(":/toolbar/icons/toolbar/tool_hand.png"));
 
     // player color buttons
     ui->tool_p1->setIcon(curMap.getButtonColorsTx()->getPixTile("blue-light").scaled(16,16));
@@ -474,6 +478,13 @@ void MainWindow::on_button_open_clicked()
 void MainWindow::on_button_save_clicked()
 {
     save();
+}
+
+void MainWindow::on_tool_hand_clicked()
+{
+    curTool = "hand";
+    scene->curTool = "hand";
+    statusBar()->showMessage(tr("Hand/Cursor tool selected"), 2000);
 }
 
 void MainWindow::on_tool_grass_clicked()
