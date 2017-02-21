@@ -6,10 +6,11 @@
 #include "mainwindow.h"
 #include <QMediaPlayer>
 
-GraphicsScene::GraphicsScene(QObject *parent, MapView2 *curMap) : QGraphicsScene(parent)
+GraphicsScene::GraphicsScene(QObject *parent, MapView2 *curMap, QMap<QString, Texture *> *loadedAssets) : QGraphicsScene(parent)
 {
     GraphicsScene::parent = parent;
     GraphicsScene::mapInfo = curMap;
+    GraphicsScene::assets = loadedAssets;
     brushing = false;
     brushable = false;
 }
@@ -32,9 +33,9 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
 
         Terrain *terrain = mapInfo->getTerrain();
         Terrain::Type type;
-
         Texture *asset = 0;
         QMediaPlayer * music = new QMediaPlayer();
+
 
         if (curTool == "grass")
             type = Terrain::Grass;
@@ -48,6 +49,8 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
             type = Terrain::Tree;
         else if (curTool == "wall")
             type = Terrain::Wall;
+        else if (curTool == "rubble")
+            type = Terrain::Rubble;
         else if (curTool == "Peasant")
         {
             asset = mapInfo->getAsset("Peasant");
@@ -161,7 +164,6 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
                 addItem(pixItem);
                 // play background music
                 music->play();
-                qDebug() << addedItems;
             }
             else
                 return;

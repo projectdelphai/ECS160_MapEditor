@@ -7,6 +7,8 @@
 #include "texture.h"
 #include "graphicsscene.h"
 #include "dgassets.h"
+#include "quazip/quazip.h"
+#include "quazip/quazipfile.h"
 
 namespace Ui {
 class MainWindow;
@@ -21,8 +23,6 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-
-    void loadFile(const QString &fileName);
 
 public slots:
     void changeLayout(int x, int y, Terrain::Type type);
@@ -42,10 +42,13 @@ protected:
     GraphicsScene *scene;
 
 private slots:
-    bool save();
-    bool saveAs();
     void newFile();
-    void open();
+    bool open();
+    bool save();
+    void saveAs();
+
+    void exportPkg();
+
     void on_button_new_clicked();
     void on_button_open_clicked();
     void on_button_save_clicked();
@@ -71,24 +74,32 @@ private slots:
     void on_tool_knight_clicked();
     void on_tool_ranger_clicked();
     void on_tool_hand_clicked();
-    void on_tool_pX_clicked(QAbstractButton*);
+    void on_tool_pX_clicked(QAbstractButton* Button);
     void open_DgAbout();
     void open_DgMapProperties();
     void open_DgPlayerProperties();
     void open_DgAssets();
 
+    void setupAssets();
+
 private:
     Ui::MainWindow *ui;
     void updateUI();
     void writeSettings();
+    bool loadMapFile(QString fileName, QIODevice &file);
     bool maybeSave();
-    bool saveFile(const QString &fileName);
+    bool setSaveFile(QString*);
+    void writeMapFile(QIODevice*);
+    bool loadPkgFile(const QString &fileName);
     void setCurrentFile(const QString &fileName);
 
     int curPlayer;
     QString curTool;
     QString curFile;
+    QByteArray curFileDialogState;
+    QString curPath = QDir::homePath(); // current directory
     DgAssets *wAssets = 0;
+    QMap<QString,Texture*> assets;
 };
 
 
