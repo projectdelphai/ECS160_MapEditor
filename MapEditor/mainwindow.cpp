@@ -117,16 +117,20 @@ bool MainWindow::open()
     dialog.setWindowModality(Qt::WindowModal);
     dialog.setFileMode(QFileDialog::ExistingFile);
     dialog.setAcceptMode(QFileDialog::AcceptOpen);
-    dialog.setNameFilter(tr("Map Files (*.map)"));
+    dialog.setNameFilter(tr("Map Files (*.map *.zip *.mpk)"));
     if (!maybeSave())
         return false;
     if(dialog.exec() != QDialog::Accepted)
         return false;
     curFileDialogState = dialog.saveState();
-    return loadFile(dialog.selectedFiles().first());
+
+    if(dialog.selectedFiles().first().split(".").last() == "map")
+        return loadMapFile(dialog.selectedFiles().first());
+    else
+        return loadPkgFile(dialog.selectedFiles().first());
 }
 
-bool MainWindow::loadFile(const QString &fileName)
+bool MainWindow::loadMapFile(const QString &fileName)
 {
     QFile file(fileName);
     if (!file.open(QFile::ReadOnly | QFile::Text)) {

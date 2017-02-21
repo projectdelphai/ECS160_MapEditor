@@ -24,8 +24,6 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-    bool loadFile(const QString &fileName);
-
 public slots:
     void changeLayout(int x, int y, Terrain::Type type);
     void changeAsset(int x, int y, QString asset, int player);
@@ -50,6 +48,7 @@ private slots:
     void saveAs();
 
     void exportPkg();
+    void importPkg();
 
     void on_button_new_clicked();
     void on_button_open_clicked();
@@ -85,6 +84,7 @@ private:
     Ui::MainWindow *ui;
     void updateUI();
     void writeSettings();
+    bool loadMapFile(const QString &fileName);
     bool maybeSave();
     bool setSaveFile(QString*);
     bool saveFile(const QString &fileName);
