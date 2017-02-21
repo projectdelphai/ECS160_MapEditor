@@ -247,71 +247,76 @@ bool MainWindow::saveFile(const QString &fileName)
         return false;
     }
 
-   // write descriptive properties
-   QTextStream stream(&file);
-   stream << curMap.getMapName() << endl;
-   stream << curMap.getMapDim().width()-2 << " " << curMap.getMapDim().height()-2 << endl;
-   stream << "description" << endl;
-   stream << "General" << endl;
-
-   QVector<QChar>::iterator itr;
-
-   QVector<QChar> layout = curMap.getMapLayout();
-
-   // write out layout
-   int x = 0;
-   for (itr = layout.begin(); itr != layout.end(); itr++)
-   {
-       stream << *itr;
-       x++;
-       if (x == curMap.getMapDim().width())
-       {
-           stream << endl;
-           x = 0;
-       }
-   }
-
-   // write players
-   QVector<Player> players = curMap.getPlayers();
-
-   stream << curMap.getNumPlayers() << endl;
-
-   for (auto iter = players.begin(); iter != players.end(); iter++) {
-        stream << iter->num << " " << iter->gold << " " << iter->lumber << endl;
-   }
-
-   stream << curMap.getNumUnits() << endl;
-
-   for (int t = 0; t < curMap.getPlayers().size(); t++)
-   {
-       QVector<Unit> units = players[t].units;
-       QVector<Unit>::iterator itr3;
-
-       for (itr3 = units.begin(); itr3 != units.end(); itr3++)
-       {
-           stream << itr3->name << " " << t << " " << itr3->x << " " << itr3->y << endl;
-       }
-   }
-
+   // write map file
+   writeMapFile(&file);
+   file.close();
 
    setCurrentFile(fileName);
    statusBar()->showMessage(tr("File saved"), 2000);
    return true;
 }
 
+// this function takes an **opened** map file, writes everything that goes inside
+void MainWindow::writeMapFile(QIODevice *file){
+
+    QTextStream stream(file);
+
+    // write descriptive properties
+    stream << curMap.getMapName() << endl;
+    stream << curMap.getMapDim().width()-2 << " " << curMap.getMapDim().height()-2 << endl;
+    stream << "description" << endl;
+    stream << "General" << endl;
+
+    QVector<QChar>::iterator itr;
+
+    QVector<QChar> layout = curMap.getMapLayout();
+
+    // write out layout
+    int x = 0;
+    for (itr = layout.begin(); itr != layout.end(); itr++)
+    {
+        stream << *itr;
+        x++;
+        if (x == curMap.getMapDim().width())
+        {
+            stream << endl;
+            x = 0;
+        }
+    }
+
+    // write players
+    QVector<Player> players = curMap.getPlayers();
+
+    stream << curMap.getNumPlayers() << endl;
+
+    for (auto iter = players.begin(); iter != players.end(); iter++) {
+         stream << iter->num << " " << iter->gold << " " << iter->lumber << endl;
+    }
+
+    stream << curMap.getNumUnits() << endl;
+
+    for (int t = 0; t < curMap.getPlayers().size(); t++)
+    {
+        QVector<Unit> units = players[t].units;
+        QVector<Unit>::iterator itr3;
+
+        for (itr3 = units.begin(); itr3 != units.end(); itr3++)
+        {
+            stream << itr3->name << " " << t << " " << itr3->x << " " << itr3->y << endl;
+        }
+    }
+}
+
 // this function saves all assets and stores them inside a zip file
 void MainWindow::exportPkg()
 {
     QString pkgFileName;
-    if (curFile.isEmpty()) { // set file to save to
-        if (!setSaveFile(&pkgFileName)) // if fails
-            return;
-    }
+    // set file to save to
+    if (!setSaveFile(&pkgFileName))
+        return;
 
     // pkgFileName contains full path; eg. "Users/felix/Desktop/test.map"
-
     QFile pkgFile(pkgFileName);
-
     if (!pkgFile.open(QFile::WriteOnly | QFile::Text)) {
         QMessageBox::warning(this, tr("Application"),
                              tr("Cannot write file %1:\n%2.")
@@ -323,19 +328,16 @@ void MainWindow::exportPkg()
     QuaZip qz(pkgFileName);
     qz.open(QuaZip::mdCreate);
 
-    // create new file inside
+    // populate zip file with empty folders
     QuaZipFile qzf(&qz);
-    qzf.open(QIODevice::WriteOnly, QuaZipNewInfo("/data/"));
-    qzf.close();
+    qzf.open(QIODevice::WriteOnly, QuaZipNewInfo("/img/")); qzf.close();
+    qzf.open(QIODevice::WriteOnly, QuaZipNewInfo("/res/")); qzf.close();
+    qzf.open(QIODevice::WriteOnly, QuaZipNewInfo("/snd/")); qzf.close();
+    qzf.open(QIODevice::WriteOnly, QuaZipNewInfo("/upg/")); qzf.close();
 
-    qzf.open(QIODevice::WriteOnly, QuaZipNewInfo(pkgFile.fileName().split('/').last() + ".map")); // test.zip.map
-
-        QTextStream stream(&qzf);
-        stream << curMap.getMapName() << endl;
-        stream << curMap.getMapDim().width()-2 << " " << curMap.getMapDim().height()-2 << endl;
-        stream << "description" << endl;
-        stream << "General" << endl;
-
+    // create map file
+    qzf.open(QIODevice::WriteOnly, QuaZipNewInfo("map.map")); // main.map
+        writeMapFile(&qzf);
     qzf.close();
 
     qz.close();

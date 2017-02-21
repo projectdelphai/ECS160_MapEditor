@@ -88,6 +88,7 @@ private:
     bool maybeSave();
     bool setSaveFile(QString*);
     bool saveFile(const QString &fileName);
+    void writeMapFile(QIODevice*);
     void setCurrentFile(const QString &fileName);
 
     int curPlayer;
