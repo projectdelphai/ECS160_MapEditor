@@ -38,13 +38,11 @@ MapView2::MapView2()
     terrain->renderingInfo(":/data/img/MapRendering.dat");
 }
 
-MapView2::MapView2(const QString &mapFileName ,QMap<QString,Texture*>& loadedAssets, const QString &mapTexName = ":/data/img/Terrain.png"  )
+MapView2::MapView2(QIODevice &mapFile ,QMap<QString,Texture*>& loadedAssets, const QString &mapTexName = ":/data/img/Terrain.png"  )
 {
-    openMap(mapFileName);
+    openMap(mapFile);
 //    setup();
-
     assets = loadedAssets;
-
     terrain = new Terrain(mapTexName);
 
     // upper-left corner and the rectangle size of width and height
@@ -146,13 +144,12 @@ void MapView2::defaultMap(){
 }
 
 // parses .map file and updates variables
-void MapView2::openMap(const QString &mapFileName){
+void MapView2::openMap(QIODevice &mapFile){
     bool intTest;
 
-    QFile mapFile(mapFileName);
-
+    // check if the file is good
     if ( !mapFile.open(QIODevice::ReadOnly) ) {
-        QMessageBox::information(0,"error opening map",mapFile.errorString());
+        QMessageBox::warning(0,"error opening map",mapFile.errorString());
     }
 
 
@@ -240,6 +237,8 @@ void MapView2::openMap(const QString &mapFileName){
             }
         }
     }
+
+    mapFile.close();
 }
 
 void MapView2::changeMapTile(QGraphicsScene *scene, QPointF pos , Terrain::Type type ){

@@ -7,6 +7,8 @@
 #include "texture.h"
 #include "graphicsscene.h"
 #include "dgassets.h"
+#include "quazip/quazip.h"
+#include "quazip/quazipfile.h"
 
 namespace Ui {
 class MainWindow;
@@ -21,8 +23,6 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-
-    bool loadFile(const QString &fileName);
 
 public slots:
     void changeLayout(int x, int y, Terrain::Type type);
@@ -45,7 +45,8 @@ private slots:
     void newFile();
     bool open();
     bool save();
-    bool saveAs();
+    void saveAs();
+
     void exportPkg();
 
     void on_button_new_clicked();
@@ -73,7 +74,7 @@ private slots:
     void on_tool_knight_clicked();
     void on_tool_ranger_clicked();
 
-    void on_tool_pX_clicked(QAbstractButton*);
+    void on_tool_pX_clicked(QAbstractButton* button);
     void open_DgAbout();
     void open_DgMapProperties();
     void open_DgPlayerProperties();
@@ -85,8 +86,11 @@ private:
     Ui::MainWindow *ui;
     void updateUI();
     void writeSettings();
+    bool loadMapFile(QString fileName, QIODevice &file);
     bool maybeSave();
-    bool saveFile(const QString &fileName);
+    bool setSaveFile(QString*);
+    void writeMapFile(QIODevice*);
+    bool loadPkgFile(const QString &fileName);
     void setCurrentFile(const QString &fileName);
 
     int curPlayer;
