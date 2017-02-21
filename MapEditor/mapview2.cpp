@@ -23,11 +23,16 @@ Unit::Unit(QString n, int xc, int yc)
     y = yc;
 }
 
+// Empty constructor
+MapView2::MapView2() {
+}
+
 // Default (new map)
-MapView2::MapView2()
+MapView2::MapView2(QMap<QString,Texture*>& loadedAssets)
 {
     defaultMap();
 
+    assets = loadedAssets;
     terrain = new Terrain;
     buttonColors = new Texture(":/data/img/ButtonColors.png", 1, 1);
     buttonIcons = new Texture(":/data/img/Icons.png", 46, 38);
@@ -245,7 +250,6 @@ void MapView2::changeMapTile(QGraphicsScene *scene, QPointF pos , Terrain::Type 
 
     // tile inside scene to change
     Tile *centerTile = qgraphicsitem_cast< Tile*>( scene->itemAt(pos, QTransform()) );
-
 
     int x = centerTile->scenePos().x()/tileDim.width();
     int y = centerTile->scenePos().y()/tileDim.height();
