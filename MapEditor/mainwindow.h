@@ -48,7 +48,6 @@ private slots:
     void saveAs();
 
     void exportPkg();
-    void importPkg();
 
     void on_button_new_clicked();
     void on_button_open_clicked();
@@ -89,6 +88,7 @@ private:
     bool setSaveFile(QString*);
     bool saveFile(const QString &fileName);
     void writeMapFile(QIODevice*);
+    bool loadPkgFile(const QString &fileName);
     void setCurrentFile(const QString &fileName);
 
     int curPlayer;

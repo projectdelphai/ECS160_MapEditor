@@ -117,7 +117,7 @@ bool MainWindow::open()
     dialog.setWindowModality(Qt::WindowModal);
     dialog.setFileMode(QFileDialog::ExistingFile);
     dialog.setAcceptMode(QFileDialog::AcceptOpen);
-    dialog.setNameFilter(tr("Map Files (*.map *.zip *.mpk)"));
+    dialog.setNameFilter(tr("Map Files (*.map *.mpk)"));
     if (!maybeSave())
         return false;
     if(dialog.exec() != QDialog::Accepted)
@@ -169,6 +169,10 @@ bool MainWindow::loadMapFile(const QString &fileName)
     scene->curPlayer = 1;
 
     return true;
+}
+
+bool MainWindow::loadPkgFile(const QString &fileName){
+
 }
 
 void MainWindow::setCurrentFile(const QString &fileName)
