@@ -42,9 +42,9 @@ MapView2::MapView2()
     terrain->renderingInfo(":/data/img/MapRendering.dat");
 }
 
-MapView2::MapView2(const QString &mapFileName , const QString &mapTexName = ":/data/img/Terrain.png" )
+MapView2::MapView2(QFileDevice &mapFile , const QString &mapTexName = ":/data/img/Terrain.png" )
 {
-    openMap(mapFileName);
+    openMap(mapFile);
     setup();
     terrain = new Terrain(mapTexName);
 
@@ -145,10 +145,8 @@ void MapView2::defaultMap(){
 }
 
 // parses .map file and updates variables
-void MapView2::openMap(const QString &mapFileName){
+void MapView2::openMap(QFileDevice &mapFile){
     bool intTest;
-
-    QFile mapFile(mapFileName);
 
     if ( !mapFile.open(QIODevice::ReadOnly) ) {
         QMessageBox::information(0,"error opening map",mapFile.errorString());

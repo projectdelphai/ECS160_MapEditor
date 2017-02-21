@@ -34,7 +34,7 @@ class MapView2
 {
 public:
     MapView2();
-    MapView2(const QString &mapFileName, const QString &mapTexName);
+    MapView2(QFileDevice &mapFile, const QString &mapTexName);
     QString tileEncode(QString typeS,int i, int j);
     void builtTreeTop(QGraphicsScene *scene);
     Terrain* getTerrain();
@@ -56,7 +56,7 @@ private:
     void builtmap(QGraphicsScene *scene);
     void builtAssets(QGraphicsScene *scene);
 
-    void openMap(const QString &mapName);
+    void openMap(QFileDevice &mapFile);
     void openMapTexture(const QString &mapTexture);
     QImage createImageTile(QImage* image, const QRect &rect);
 

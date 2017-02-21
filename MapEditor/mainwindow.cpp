@@ -124,28 +124,21 @@ bool MainWindow::open()
         return false;
     curFileDialogState = dialog.saveState();
 
-    if(dialog.selectedFiles().first().split(".").last() == "map")
-        return loadMapFile(dialog.selectedFiles().first());
-    else
+    if(dialog.selectedFiles().first().split(".").last() == "map") {
+        QFile file(dialog.selectedFiles().first());
+        return loadMapFile(file);
+    } else
         return loadPkgFile(dialog.selectedFiles().first());
 }
 
-bool MainWindow::loadMapFile(const QString &fileName)
+bool MainWindow::loadMapFile(QFileDevice &file)
 {
-    QFile file(fileName);
-    if (!file.open(QFile::ReadOnly | QFile::Text)) {
-        QMessageBox::warning(this, tr("Application"),
-                             tr("Cannot read file %1:\n%2.")
-                             .arg(QDir::toNativeSeparators(fileName), file.errorString()));
-        return false;
-    }
-
 
     // load and display map and minimap
 
-    QString mapName = fileName;
+    QString mapName = file.fileName();
     QString texture = ":/data/img/Terrain.png";
-    curMap = MapView2(mapName, texture);
+    curMap = MapView2(file, texture);
 
     scene = new GraphicsScene(this, &curMap);
     curMap.displayMap(scene);
@@ -162,8 +155,8 @@ bool MainWindow::loadMapFile(const QString &fileName)
     QObject::connect(scene, &GraphicsScene::changedLayout, this, &MainWindow::changeLayout);
     QObject::connect(scene, &GraphicsScene::changedAsset, this, &MainWindow::changeAsset);
 
-    setCurrentFile(fileName);
-    statusBar()->showMessage(fileName + " loaded!", 2000);
+    setCurrentFile(mapName);
+    statusBar()->showMessage(mapName + " loaded!", 2000);
 
     curPlayer = 1;
     scene->curPlayer = 1;
@@ -173,14 +166,27 @@ bool MainWindow::loadMapFile(const QString &fileName)
 
 // opens up .mpk files
 bool MainWindow::loadPkgFile(const QString &pkgFileName){
-    QFile pkgFile(pkgFileName);
-    if(!pkgFile.open(QFile::ReadOnly)) return false;
-
     QuaZip qz(pkgFileName);
+    if(!qz.open(QuaZip::mdUnzip)) return false;
 
+    qDebug() << qz.getFileNameList();
+    qDebug() << qz.getEntriesCount();
+    qDebug() << qz.getCurrentFileName();
 
+    qz.setCurrentFile("map.map");
+    qDebug() << qz.getCurrentFileName();
+
+    QuaZipFile qzFile(&qz);
+    qzFile.open(QIODevice::ReadOnly);
+    qzFile.getFileName();
+
+    QTextStream stream(&qzFile);
+
+    qDebug() << stream.readLine();
 
 }
+
+
 
 void MainWindow::setCurrentFile(const QString &fileName)
 {
