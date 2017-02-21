@@ -87,7 +87,7 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
 
         QImage imageDx;
         if (!asset){
-            imageDx = *terrain->getImageTile(type);
+//            imageDx = *terrain->getImageTile(type);
            // tile change
             mapInfo->changeMapTile(this, mouseEvent->scenePos(),type);
 

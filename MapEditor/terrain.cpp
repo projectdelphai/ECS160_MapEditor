@@ -79,7 +79,7 @@ QImage* Terrain::getImageTile(QString typeS){
             typeName = "rock-255";
         }
         else if(tokens.at(0)=="water"){
-            typeName = "water-126";
+            typeName = "dirt-255";
         }
 
     }
@@ -99,22 +99,27 @@ QImage* Terrain::getImageTile(QString typeS){
             else if(tokens.at(0)=="water"){
                 if(typeName == "water-0")
                 {
-                    qDebug()<<"its water-0";
+                   // qDebug()<<"its water-0";
                     typeName = "dirt-255";
                 }
                 else
                 {
-                    qDebug() << typeName;
+                   // qDebug() << typeName;
                     typeName = "water-255";
-                    qDebug()<<"could not find water";
+                   // qDebug()<<"could not find water";
 
                 }
             }
             else if(tokens.at(0)=="dirt"){
                 typeName = "dirt-255";
             }
+            else if(tokens.at(0)=="tree")
+            {
+                typeName = "tree-63";
+            }
             else{
                 typeName = "rock-0";
+
             }
         }
     }

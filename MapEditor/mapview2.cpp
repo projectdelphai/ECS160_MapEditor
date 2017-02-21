@@ -279,13 +279,13 @@ void MapView2::changeMapTile(QGraphicsScene *scene, QPointF pos , Terrain::Type 
 //            QPointF pt(x,y);
             Tile *tile = dynamic_cast<Tile*>( scene->itemAt( QPoint(x,y), QTransform() ));
             if (tile == NULL ){
-                qDebug() << "null";
+               // qDebug() << "null";
                 continue;
             }
             tiles.append(tile);
             int xw = tile->scenePos().x()/tileDim.width();
             int yh = tile->scenePos().y()/tileDim.width();
-            qDebug() << "(" << xw << "," << yh << ")";
+            //qDebug() << "(" << xw << "," << yh << ")";
 
             QString typeStr;
             switch ( mapLayOut.at(yh*mapDim.width() + xw).toLatin1() ){
@@ -361,48 +361,15 @@ QString MapView2::tileEncode(QString strType ,int i , int j){
     QVector<QChar> tiles;
     QString encodeStr = "";
     QChar centerType = strToMapkey(strType);
-
-    // the following code to get the right tiles for the borders
-    if( i == 0 || j == 0 || i == mapDim.height()-1  || j == mapDim.width() -1 ){
-        if(j== 0 && strType == "grass" && i+2 < mapDim.height()  &&mapLayOut.at((i+1)*mapDim.width() + (j)) != 'G')
-        {
-            return "dirt-64";
-        }
-       else if(j== 0 && strType == "grass" && i-1 > 0 &&mapLayOut.at((i-1)*mapDim.width() + (j)) != 'G')
-        {
-            return "dirt-4";
-        }
-        else if(j== mapDim.width()-1 && strType == "rock" && i+2 < mapDim.height()&&mapLayOut.at((i+1)*mapDim.width() + (j)) != 'R')
-         {
-             return "rock-31";
-         }
-        else if(j== 0 && strType == "rock" && i+2 < mapDim.height()&&mapLayOut.at((i+1)*mapDim.width() + (j)) != 'R')
-         {
-             return "rock-31";
-        }
-        else if(j== 0 && strType == "rock" && i-1 >0 &&mapLayOut.at((i-1)*mapDim.width() + (j)) != 'R')
-         {
-             return "rock-248";
-         }
-        else if(j== mapDim.width()-1 && strType == "grass" && i-1 > 0&&mapLayOut.at((i-1)*mapDim.width() + (j)) != 'G')
-        {
-            return "dirt-22";
-        }
-
-        else{
-            return strType;
-
-        }
-    }
     // the following to ckeck whats around the current tile and get the right tile based in what around it.
-    QChar upperLTile = mapLayOut.at((i-1)*mapDim.width() + (j-1));
-    QChar TopTile = mapLayOut.at((i-1)*mapDim.width() + j );
-    QChar upperRTile = mapLayOut.at((i-1)*mapDim.width() + (j+1));
-    QChar centerLTile = mapLayOut.at((i)*mapDim.width() + (j-1));
-    QChar centerRTile = mapLayOut.at((i)*mapDim.width() + (j+1));
-    QChar downLTile = mapLayOut.at((i+1)*mapDim.width() + (j-1));
-    QChar belowTile = mapLayOut.at((i+1)*mapDim.width() + (j));
-    QChar downRTile = mapLayOut.at((i+1)*mapDim.width() + (j+1));
+    QChar upperLTile = (i-1 < 0 || j - 1  < 0) ? 'X' : mapLayOut.at((i-1)*mapDim.width() + (j-1));
+    QChar TopTile = (i-1 < 0 ) ? 'X' : mapLayOut.at((i-1)*mapDim.width() + j );
+    QChar upperRTile = (i-1 < 0 || j+1 > mapDim.width() - 1) ? 'X' : mapLayOut.at((i-1)*mapDim.width() + (j+1));
+    QChar centerLTile = (j-1 < 0) ? 'X': mapLayOut.at((i)*mapDim.width() + (j-1));
+    QChar centerRTile = (j+1 > mapDim.width() -1 ) ? 'X' : mapLayOut.at((i)*mapDim.width() + (j+1));
+    QChar downLTile = (i+1 > mapDim.height() -1 || j -1 < 0 ) ? 'X' : mapLayOut.at((i+1)*mapDim.width() + (j-1));
+    QChar belowTile = (i+1 > mapDim.height() -1 ) ? 'X': mapLayOut.at((i+1)*mapDim.width() + (j));
+    QChar downRTile = (i+1 > mapDim.height() -1 || j+1 > mapDim.width() -1) ? 'X': mapLayOut.at((i+1)*mapDim.width() + (j+1));
 
     // water and rock have the same way of getting the right tile we are using 3 by 3 matrix of 0 and 1's zero for unmatch and 1 for match
     // the current tile will be at position 1,1.
@@ -468,8 +435,10 @@ QString MapView2::tileEncode(QString strType ,int i , int j){
         int num1 = encodeStr.left(6).toInt(&ok,2);
         int num2 = encodeStr.right(6).toInt(&ok,2);
         if(TopTile != centerType){
-            QString sPoint = QString().setNum( j*tileDim.width() ) + " " +  QString().setNum( (i-1)*tileDim.height() );
-            treeTopTiles.insert( sPoint, strType + "-" + QString().setNum(num2) );
+            if (i - 1 > 0 ){
+                QString sPoint = QString().setNum( j*tileDim.width() ) + " " +  QString().setNum( (i-1)*tileDim.height() );
+                treeTopTiles.insert( sPoint, strType + "-" + QString().setNum(num2) );
+            }
           //  qDebug() << "tree top: " << strType + "-" + QString().setNum(num2);
         }
 
