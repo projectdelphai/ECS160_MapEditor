@@ -36,7 +36,6 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
         Texture *asset = 0;
         QMediaPlayer * music = new QMediaPlayer();
 
-
         if (curTool == "grass")
             type = Terrain::Grass;
         else if (curTool == "dirt")

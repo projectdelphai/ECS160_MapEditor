@@ -431,7 +431,9 @@ void MainWindow::updateUI() {
     ui->tool_keep->setIcon(curMap.getButtonIconsTx()->getPixTile("keep"));
     ui->tool_castle->setIcon(curMap.getButtonIconsTx()->getPixTile("castle"));
     ui->tool_barracks->setIcon(curMap.getButtonIconsTx()->getPixTile("human-barracks"));
-    ui->tool_tower->setIcon(curMap.getButtonIconsTx()->getPixTile("human-guard-tower"));
+    ui->tool_scouttower->setIcon(curMap.getButtonIconsTx()->getPixTile("scout-tower"));
+    ui->tool_cannontower->setIcon(curMap.getButtonIconsTx()->getPixTile("human-cannon-tower"));
+    ui->tool_guardtower->setIcon(curMap.getButtonIconsTx()->getPixTile("human-guard-tower"));
     ui->tool_goldmine->setIcon(curMap.getButtonIconsTx()->getPixTile("gold-mine"));
 }
 
@@ -485,6 +487,7 @@ void MainWindow::on_tool_hand_clicked()
     curTool = "hand";
     scene->curTool = "hand";
     statusBar()->showMessage(tr("Hand/Cursor tool selected"), 2000);
+    ui->graphicsView->setCursor(Qt::ArrowCursor);
 }
 
 void MainWindow::on_tool_grass_clicked()
@@ -589,6 +592,8 @@ void MainWindow::on_tool_peasant1_clicked()
     curTool = "Peasant";
     scene->curTool = "Peasant";
     statusBar()->showMessage(tr("Player 1 Peasant selected"), 2000);
+    asset = curMap.getAsset("Peasant");
+    ui->graphicsView->setCursor(QCursor(QPixmap::fromImage(asset->colorPlayerImg[curPlayer][20])));
 }
 
 void MainWindow::on_tool_townhall1_clicked()
@@ -596,6 +601,8 @@ void MainWindow::on_tool_townhall1_clicked()
     curTool = "TownHall";
     scene->curTool = "TownHall";
     statusBar()->showMessage(tr("Player 1 Townhall selected"), 2000);
+    asset = curMap.getAsset("TownHall");
+    ui->graphicsView->setCursor(QCursor(QPixmap::fromImage(asset->colorPlayerImg[curPlayer][2])));
 }
 
 void MainWindow::on_tool_goldmine_clicked()
@@ -603,6 +610,8 @@ void MainWindow::on_tool_goldmine_clicked()
     curTool = "GoldMine";
     scene->curTool = "GoldMine";
     statusBar()->showMessage(tr("Goldmine Tool selected"), 2000);
+    asset = curMap.getAsset("GoldMine");
+    ui->graphicsView->setCursor(QCursor(QPixmap::fromImage(asset->imageList[0])));
 }
 
 void MainWindow::on_tool_barracks_clicked()
@@ -610,6 +619,8 @@ void MainWindow::on_tool_barracks_clicked()
     curTool = "Barracks";
     scene->curTool = "Barracks";
     statusBar()->showMessage(tr("Barracks Tool selected"), 2000);
+    asset = curMap.getAsset("Barracks");
+    ui->graphicsView->setCursor(QCursor(QPixmap::fromImage(asset->colorPlayerImg[curPlayer][2])));
 }
 
 void MainWindow::on_tool_smith_clicked()
@@ -617,6 +628,8 @@ void MainWindow::on_tool_smith_clicked()
     curTool = "BlackSmith";
     scene->curTool = "BlackSmith";
     statusBar()->showMessage(tr("Black Smith Tool selected"), 2000);
+    asset = curMap.getAsset("Blacksmith");
+    ui->graphicsView->setCursor(QCursor(QPixmap::fromImage(asset->colorPlayerImg[curPlayer][2])));
 }
 
 void MainWindow::on_tool_cannontower_clicked()
@@ -624,6 +637,8 @@ void MainWindow::on_tool_cannontower_clicked()
     curTool = "CannonTower";
     scene->curTool = "CannonTower";
     statusBar()->showMessage(tr("Cannon Tower Tool selected"), 2000);
+    asset = curMap.getAsset("CannonTower");
+    ui->graphicsView->setCursor(QCursor(QPixmap::fromImage(asset->colorPlayerImg[curPlayer][1])));
 }
 
 void MainWindow::on_tool_castle_clicked()
@@ -631,6 +646,8 @@ void MainWindow::on_tool_castle_clicked()
     curTool = "Castle";
     scene->curTool = "Castle";
     statusBar()->showMessage(tr("Castle Tool selected"), 2000);
+    asset = curMap.getAsset("Castle");
+    ui->graphicsView->setCursor(QCursor(QPixmap::fromImage(asset->colorPlayerImg[curPlayer][1])));
 }
 
 void MainWindow::on_tool_farm_clicked()
@@ -638,6 +655,8 @@ void MainWindow::on_tool_farm_clicked()
     curTool = "Farm";
     scene->curTool = "Farm";
     statusBar()->showMessage(tr("Farm Tool selected"), 2000);
+    asset = curMap.getAsset("Farm");
+    ui->graphicsView->setCursor(QCursor(QPixmap::fromImage(asset->colorPlayerImg[curPlayer][2])));
 }
 
 void MainWindow::on_tool_guardtower_clicked()
@@ -645,13 +664,17 @@ void MainWindow::on_tool_guardtower_clicked()
     curTool = "GuardTower";
     scene->curTool = "GuardTower";
     statusBar()->showMessage(tr("Guard Tower Tool selected"), 2000);
+    asset = curMap.getAsset("GuardTower");
+    ui->graphicsView->setCursor(QCursor(QPixmap::fromImage(asset->colorPlayerImg[curPlayer][1])));
 }
 
-void MainWindow::on_tool_tower_clicked()
+void MainWindow::on_tool_scouttower_clicked()
 {
     curTool = "ScoutTower";
     scene->curTool = "ScoutTower";
     statusBar()->showMessage(tr("Scout Tower Tool selected"), 2000);
+    asset = curMap.getAsset("ScoutTower");
+    ui->graphicsView->setCursor(QCursor(QPixmap::fromImage(asset->colorPlayerImg[curPlayer][2])));
 }
 
 void MainWindow::on_tool_keep_clicked()
@@ -659,6 +682,8 @@ void MainWindow::on_tool_keep_clicked()
     curTool = "Keep";
     scene->curTool = "Keep";
     statusBar()->showMessage(tr("Keep Tool selected"), 2000);
+    asset = curMap.getAsset("Keep");
+    ui->graphicsView->setCursor(QCursor(QPixmap::fromImage(asset->colorPlayerImg[curPlayer][1])));
 }
 
 void MainWindow::on_tool_mill_clicked()
@@ -666,6 +691,8 @@ void MainWindow::on_tool_mill_clicked()
     curTool = "LumberMill";
     scene->curTool = "LumberMill";
     statusBar()->showMessage(tr("LumberMill Tool selected"), 2000);
+    asset = curMap.getAsset("LumberMill");
+    ui->graphicsView->setCursor(QCursor(QPixmap::fromImage(asset->colorPlayerImg[curPlayer][2])));
 }
 
 void MainWindow::on_tool_archer_clicked()
@@ -673,6 +700,8 @@ void MainWindow::on_tool_archer_clicked()
     curTool = "Archer";
     scene->curTool = "Archer";
     statusBar()->showMessage(tr("Player 1 Archer selected"), 2000);
+    asset = curMap.getAsset("Archer");
+    ui->graphicsView->setCursor(QCursor(QPixmap::fromImage(asset->colorPlayerImg[curPlayer][20])));
 }
 
 void MainWindow::on_tool_knight_clicked()
@@ -680,6 +709,8 @@ void MainWindow::on_tool_knight_clicked()
     curTool = "Knight";
     scene->curTool = "Knight";
     statusBar()->showMessage(tr("Player 1 Knight selected"), 2000);
+    asset = curMap.getAsset("Knight");
+    ui->graphicsView->setCursor(QCursor(QPixmap::fromImage(asset->colorPlayerImg[curPlayer][20])));
 }
 
 void MainWindow::on_tool_ranger_clicked()
@@ -687,6 +718,8 @@ void MainWindow::on_tool_ranger_clicked()
     curTool = "Ranger";
     scene->curTool = "Ranger";
     statusBar()->showMessage(tr("Player 1 Ranger selected"), 2000);
+    asset = curMap.getAsset("Ranger");
+    ui->graphicsView->setCursor(QCursor(QPixmap::fromImage(asset->colorPlayerImg[curPlayer][20])));
 }
 
 // function to generalize all the player button click events
@@ -787,3 +820,5 @@ void MainWindow::setupAssets(){
     assets.value("LumberMill")->paintAll();
     assets.value("ScoutTower")->paintAll();
 }
+
+

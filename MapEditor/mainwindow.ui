@@ -755,12 +755,12 @@
               </widget>
              </item>
              <item row="1" column="3">
-              <widget class="QToolButton" name="tool_tower">
+              <widget class="QToolButton" name="tool_scouttower">
                <property name="toolTip">
                 <string>Tower</string>
                </property>
                <property name="text">
-                <string>tower</string>
+                <string>scouttower</string>
                </property>
                <property name="iconSize">
                 <size>
@@ -798,29 +798,7 @@
                </property>
               </widget>
              </item>
-             <item row="0" column="0">
-              <widget class="QToolButton" name="tool_townhall1">
-               <property name="toolTip">
-                <string>Town Hall</string>
-               </property>
-               <property name="text">
-                <string>townhall</string>
-               </property>
-               <property name="iconSize">
-                <size>
-                 <width>46</width>
-                 <height>38</height>
-                </size>
-               </property>
-               <property name="checkable">
-                <bool>true</bool>
-               </property>
-               <property name="autoExclusive">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="6">
+             <item row="0" column="7">
               <spacer name="horizontalSpacer_4">
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
@@ -832,28 +810,6 @@
                 </size>
                </property>
               </spacer>
-             </item>
-             <item row="1" column="2">
-              <widget class="QToolButton" name="tool_castle">
-               <property name="toolTip">
-                <string>Castle</string>
-               </property>
-               <property name="text">
-                <string>castle</string>
-               </property>
-               <property name="iconSize">
-                <size>
-                 <width>46</width>
-                 <height>38</height>
-                </size>
-               </property>
-               <property name="checkable">
-                <bool>true</bool>
-               </property>
-               <property name="autoExclusive">
-                <bool>true</bool>
-               </property>
-              </widget>
              </item>
              <item row="1" column="1">
               <widget class="QToolButton" name="tool_keep">
@@ -877,6 +833,50 @@
                </property>
               </widget>
              </item>
+             <item row="1" column="2">
+              <widget class="QToolButton" name="tool_castle">
+               <property name="toolTip">
+                <string>Castle</string>
+               </property>
+               <property name="text">
+                <string>castle</string>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>46</width>
+                 <height>38</height>
+                </size>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+               <property name="autoExclusive">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QToolButton" name="tool_townhall1">
+               <property name="toolTip">
+                <string>Town Hall</string>
+               </property>
+               <property name="text">
+                <string>townhall</string>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>46</width>
+                 <height>38</height>
+                </size>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+               <property name="autoExclusive">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
              <item row="1" column="0">
               <widget class="QToolButton" name="tool_barracks">
                <property name="toolTip">
@@ -884,6 +884,44 @@
                </property>
                <property name="text">
                 <string>barracks</string>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>46</width>
+                 <height>38</height>
+                </size>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+               <property name="autoExclusive">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="4">
+              <widget class="QToolButton" name="tool_guardtower">
+               <property name="text">
+                <string>guardtower</string>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>46</width>
+                 <height>38</height>
+                </size>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+               <property name="autoExclusive">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="4">
+              <widget class="QToolButton" name="tool_cannontower">
+               <property name="text">
+                <string>cannontower</string>
                </property>
                <property name="iconSize">
                 <size>

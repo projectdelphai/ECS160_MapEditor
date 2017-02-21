@@ -69,7 +69,7 @@ private slots:
     void on_tool_keep_clicked();
     void on_tool_mill_clicked();
     void on_tool_smith_clicked();
-    void on_tool_tower_clicked();
+    void on_tool_scouttower_clicked();
     void on_tool_archer_clicked();
     void on_tool_knight_clicked();
     void on_tool_ranger_clicked();
@@ -100,6 +100,7 @@ private:
     QString curPath = QDir::homePath(); // current directory
     DgAssets *wAssets = 0;
     QMap<QString,Texture*> assets;
+    Texture *asset = 0;
 };
 
 
