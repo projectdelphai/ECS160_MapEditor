@@ -5,7 +5,6 @@
 #include "texture.h"
 #include "mainwindow.h"
 
-
 GraphicsScene::GraphicsScene(QObject *parent, MapView2 *curMap) : QGraphicsScene(parent)
 {
     GraphicsScene::parent = parent;
@@ -17,7 +16,6 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
 {
     QWidget *q =  mouseEvent->widget()->parentWidget();
     QString name = q->accessibleName();
-
     if (name.compare("minimap") == 0)
     {
         QGraphicsView *view = this->views()[0];
@@ -26,8 +24,6 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
     else
     {
         Tile *item = (Tile *)this->itemAt(mouseEvent->scenePos(), QTransform());
-
-
 
         int x = item->scenePos().x();
         int y = item->scenePos().y();
@@ -79,9 +75,9 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
             asset = mapInfo->getAsset("Keep");
         else if (curTool == "LumberMill")
             asset = mapInfo->getAsset("LumberMill");
-        else
+        else if (curTool == "hand")
         {
-            QGraphicsScene::mousePressEvent(mouseEvent);
+            clearSelection();
             return;
         }
 
@@ -90,7 +86,6 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
 //            imageDx = *terrain->getImageTile(type);
            // tile change
             mapInfo->changeMapTile(this, mouseEvent->scenePos(),type);
-
         }
         else
         {
@@ -106,12 +101,20 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
             QPixmap pixmap = QPixmap::fromImage(imageDx);
             Tile * pixItem = new Tile(type, pixmap);
 
-
             pixItem->setPos(x, y);
-            addItem(pixItem);
+            QString x;
+            x.setNum(pixItem->scenePos().x());
+            QString y;
+            y.setNum(pixItem->scenePos().y());
+            y.prepend(x);
+            if(addedItems.contains(y) == false){
+                addedItems.append(y);
+                addItem(pixItem);
+                qDebug() << addedItems;
+            }
+            else
+                return;
         }
-
-
 
         if (!asset)
             emit changedLayout(x, y, type);
@@ -122,6 +125,35 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
             else
                 emit changedAsset(x, y, curTool, curPlayer);
         }
+    }
+}
+
+void GraphicsScene::removeToolItem(QGraphicsSceneMouseEvent *mouseEvent)
+{
+    QWidget *q =  mouseEvent->widget()->parentWidget();
+    QString name = q->accessibleName();
+
+    if (name.compare("minimap") == 0)
+    {
+        QGraphicsView *view = this->views()[0];
+        view->centerOn(mouseEvent->scenePos());
+    }
+    else
+    {
+        Tile *item = (Tile *)this->itemAt(mouseEvent->scenePos(), QTransform());
+        QString x;
+        x.setNum(item->scenePos().x());
+        QString y;
+        y.setNum(item->scenePos().y());
+        y.prepend(x);
+        if (addedItems.contains(y))
+        {
+            this->removeItem(item);
+            addedItems.removeOne(y);
+            qDebug() << addedItems;
+        }
+        else
+            return;
     }
 }
 
@@ -140,6 +172,10 @@ void GraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
     if (mouseEvent->button() == Qt::LeftButton && withinBounds(mouseEvent)) {
         addToolItem(mouseEvent);
+        brushing = false;
+    }
+    if (mouseEvent->button() == Qt::RightButton){
+        removeToolItem(mouseEvent);
         brushing = false;
     }
 }

@@ -8,5 +8,6 @@
         <file>icons/toolbar/toolbar3.bmp</file>
         <file>icons/toolbar/tool_zoom+.bmp</file>
         <file>icons/toolbar/tool_zoom-.bmp</file>
+        <file>icons/toolbar/tool_hand.png</file>
     </qresource>
 </RCC>

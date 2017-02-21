@@ -20,19 +20,20 @@ public:
     virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent);
     virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent);
     void addToolItem(QGraphicsSceneMouseEvent *mouseEvent);
+    void removeToolItem(QGraphicsSceneMouseEvent *mouseEvent);
     bool withinBounds(QGraphicsSceneMouseEvent *mouseEvent);
     QString curTool;
     int curPlayer;
 signals:
     void changedLayout(int x, int y, Terrain::Type type);
     void changedAsset(int x, int y, QString asset, int curPlayer);
-
 public slots:
 
 private:
     QObject *parent;
     MapView2 *mapInfo;
     bool brushing;
+    QVector<QString> addedItems;
 };
 
 #endif // GRAPHICSSCENE_H
