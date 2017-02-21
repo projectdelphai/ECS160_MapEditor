@@ -34,6 +34,7 @@ class MapView2
 {
 public:
     MapView2();
+    MapView2(QMap<QString,Texture*>& loadedAssets);
 
     MapView2(QIODevice &mapFile, QMap<QString,Texture*>& ,const QString &mapTexName);
 //    QString tileEncode(QString strType,int i, int j);

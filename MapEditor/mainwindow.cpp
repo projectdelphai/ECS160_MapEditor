@@ -18,12 +18,14 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->graphicsView_2->setMouseTracking(true);
     curTool = "hand";
 
+    // Load all assets using
+    MainWindow::setupAssets();
+
     // Load and display a new file
     MainWindow::newFile();
     MainWindow::updateUI();
 
-    // Load all assets using
-    MainWindow::setupAssets();
+
 
     // resize minimap
     ui->graphicsView_2->fitInView(0,0,256,192, Qt::KeepAspectRatio);
@@ -101,7 +103,7 @@ void MainWindow::newFile()
     }
 
     // Set up the map grid
-    curMap = MapView2();
+    curMap = MapView2(assets);
     scene = new GraphicsScene(this, &curMap,&assets);
     curMap.displayNewMap(scene);
 
