@@ -12,6 +12,7 @@ Use -dmg to convert to dmg file.
 ## Map files
 The map package file is a renamed ZIP file with file extension .mpk .
 This package's directory structure is as follows:
+```
 	.mpk
 		|--- /index.dat
 		|--- /data.map
@@ -19,6 +20,7 @@ This package's directory structure is as follows:
 		|--- /res/
 		|--- /snd/
 		|--- /upg/
+```
 
 The index.dat file lists all included files(excluding empty directories) in the package.
 Each subdirectory contains custom asset files that must be overwritten upon loading the map.
