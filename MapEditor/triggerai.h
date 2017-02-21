@@ -6,6 +6,17 @@ class TriggerAI
 {
 public:
     TriggerAI();
+
+    void setTimer(double);
+    void writeAI();
+private:
+    QString triggerName;
+    QPoint position;
+    double time;
+    void hook();
+
 };
+
+
 
 #endif // TRIGGERAI_H
