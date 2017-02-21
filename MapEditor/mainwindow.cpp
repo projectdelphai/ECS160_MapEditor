@@ -236,12 +236,23 @@ bool MainWindow::save()
             return false;
     }
 
-    return saveFile(curFile);
+    // check if able to write to file
+    QFile file(curFile);
+    if (!file.open(QFile::WriteOnly)) {
+        QMessageBox::warning(this, "Application", file.errorString());
+        return false;
+    }
+
+    if(!writeMapFile(&file)) return false;
+
+    setCurrentFile(curFile);
+    statusBar()->showMessage(tr("File saved"), 2000);
+    return true;
 }
 
 void MainWindow::saveAs() {
     if (!setSaveFile(&curFile)) return;
-    saveFile(curFile);
+    save();
 }
 
 bool MainWindow::setSaveFile(QString* fileName)
@@ -267,29 +278,9 @@ bool MainWindow::setSaveFile(QString* fileName)
     return true;
 }
 
-bool MainWindow::saveFile(const QString &fileName)
-{
-    // check if able to write to file
-    QFile file(fileName);
-    if (!file.open(QFile::WriteOnly | QFile::Text)) {
-        QMessageBox::warning(this, tr("Application"),
-                             tr("Cannot write file %1:\n%2.")
-                             .arg(QDir::toNativeSeparators(fileName),
-                                  file.errorString()));
-        return false;
-    }
-
-   // write map file
-   writeMapFile(&file);
-   file.close();
-
-   setCurrentFile(fileName);
-   statusBar()->showMessage(tr("File saved"), 2000);
-   return true;
-}
 
 // this function takes an **opened** map file, writes everything that goes inside
-void MainWindow::writeMapFile(QIODevice *file){
+bool MainWindow::writeMapFile(QIODevice *file){
 
     QTextStream stream(file);
 
@@ -299,14 +290,11 @@ void MainWindow::writeMapFile(QIODevice *file){
     stream << "description" << endl;
     stream << "General" << endl;
 
-    QVector<QChar>::iterator itr;
-
-    QVector<QChar> layout = curMap.getMapLayout();
-
     // write out layout
+    QVector<QChar>::iterator itr;
+    QVector<QChar> layout = curMap.getMapLayout();
     int x = 0;
-    for (itr = layout.begin(); itr != layout.end(); itr++)
-    {
+    for (itr = layout.begin(); itr != layout.end(); itr++) {
         stream << *itr;
         x++;
         if (x == curMap.getMapDim().width())
@@ -318,25 +306,23 @@ void MainWindow::writeMapFile(QIODevice *file){
 
     // write players
     QVector<Player> players = curMap.getPlayers();
-
     stream << curMap.getNumPlayers() << endl;
-
     for (auto iter = players.begin(); iter != players.end(); iter++) {
          stream << iter->num << " " << iter->gold << " " << iter->lumber << endl;
     }
 
+    // write units
     stream << curMap.getNumUnits() << endl;
-
-    for (int t = 0; t < curMap.getPlayers().size(); t++)
-    {
+    for (int t = 0; t < curMap.getPlayers().size(); t++) {
         QVector<Unit> units = players[t].units;
         QVector<Unit>::iterator itr3;
 
-        for (itr3 = units.begin(); itr3 != units.end(); itr3++)
-        {
+        for (itr3 = units.begin(); itr3 != units.end(); itr3++) {
             stream << itr3->name << " " << t << " " << itr3->x << " " << itr3->y << endl;
         }
     }
+
+    file->close();
 }
 
 // this function saves all assets and stores them inside a zip file
@@ -361,7 +347,6 @@ void MainWindow::exportPkg()
     // create map file
     qzf.open(QIODevice::WriteOnly, QuaZipNewInfo("map.map")); // main.map
         writeMapFile(&qzf);
-    qzf.close();
 
     qz.close();
 }

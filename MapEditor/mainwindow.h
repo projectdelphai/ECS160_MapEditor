@@ -86,8 +86,7 @@ private:
     bool loadMapFile(QString fileName, QIODevice &file);
     bool maybeSave();
     bool setSaveFile(QString*);
-    bool saveFile(const QString &fileName);
-    void writeMapFile(QIODevice*);
+    bool writeMapFile(QIODevice*);
     bool loadPkgFile(const QString &fileName);
     void setCurrentFile(const QString &fileName);
 
