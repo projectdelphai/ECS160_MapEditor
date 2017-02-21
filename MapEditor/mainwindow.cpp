@@ -169,6 +169,7 @@ bool MainWindow::loadMapFile(QString fileName, QIODevice &file)
 
     curPlayer = 1;
     scene->curPlayer = 1;
+    on_tool_grass_clicked();
 
     return true;
 }
