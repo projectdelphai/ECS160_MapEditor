@@ -3,7 +3,6 @@
 #include "graphicsscene.h"
 #include <QDebug>
 #include "mapview2.h"
-
 #include "dgabout.h"
 #include "dgmapproperties.h"
 #include "dgplayerproperties.h"
@@ -26,7 +25,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     QObject::connect(scene, &GraphicsScene::changedAsset, this, &MainWindow::changeAsset);
     curPlayer = 1;
     scene->curPlayer = 1;
-
 }
 
 MainWindow::~MainWindow()

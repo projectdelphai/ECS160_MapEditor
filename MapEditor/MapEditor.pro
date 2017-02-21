@@ -4,7 +4,8 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui \
+         multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -58,7 +59,8 @@ FORMS    += mainwindow.ui \
 RESOURCES += \
     icons.qrc \
     maps.qrc \
-    images.qrc
+    images.qrc \
+    snd.qrc
 
 DISTFILES += \
     ../data/snd/music/game1.mid \
