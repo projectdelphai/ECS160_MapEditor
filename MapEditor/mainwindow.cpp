@@ -22,6 +22,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     MainWindow::newFile();
     MainWindow::updateUI();
 
+    // Load all assets using
+    MainWindow::setupAssets();
+
     // resize minimap
     ui->graphicsView_2->fitInView(0,0,256,192, Qt::KeepAspectRatio);
 
@@ -96,8 +99,8 @@ void MainWindow::newFile()
 
     // Set up the map grid
     curMap = MapView2();
-    scene = new GraphicsScene(this, &curMap);
-    curMap.displayMap(scene);
+    scene = new GraphicsScene(this, &curMap,&assets);
+    curMap.displayNewMap(scene);
 
     // show map + minimap
     ui->graphicsView->setScene(scene);
@@ -143,9 +146,10 @@ bool MainWindow::loadMapFile(QString fileName, QIODevice &file)
     // load and display map and minimap
     QString mapName = fileName;
     QString texture = ":/data/img/Terrain.png";
-    curMap = MapView2(file, texture);
 
-    scene = new GraphicsScene(this, &curMap);
+    curMap = MapView2(file, assets, texture );
+
+    scene = new GraphicsScene(this, &curMap, &assets);
     curMap.displayMap(scene);
 
     ui->graphicsView->setScene(scene);
@@ -273,7 +277,7 @@ bool MainWindow::setSaveFile(QString* fileName)
 }
 
 
-// this function takes an **opened** map file, writes everything that goes inside
+// this function takes an **opened** map file, writes everything that goes inside, and then closes it
 void MainWindow::writeMapFile(QIODevice *file){
 
     QTextStream stream(file);
@@ -410,6 +414,7 @@ void MainWindow::updateUI() {
     // unit buttons
     ui->tool_peasant1->setIcon(curMap.getButtonIconsTx()->getPixTile("peasant"));
     ui->tool_archer->setIcon(curMap.getButtonIconsTx()->getPixTile("archer"));
+    ui->tool_ranger->setIcon(curMap.getButtonIconsTx()->getPixTile("ranger"));
     ui->tool_knight->setIcon(curMap.getButtonIconsTx()->getPixTile("knight"));
 
     // building buttons
@@ -659,11 +664,17 @@ void MainWindow::on_tool_archer_clicked()
 
 void MainWindow::on_tool_knight_clicked()
 {
+    curTool = "Knight";
+    scene->curTool = "Knight";
+    statusBar()->showMessage(tr("Player 1 Knight selected"), 2000);
+}
+
+void MainWindow::on_tool_ranger_clicked()
+{
     curTool = "Ranger";
     scene->curTool = "Ranger";
     statusBar()->showMessage(tr("Player 1 Ranger selected"), 2000);
 }
-
 
 // function to generalize all the player button click events
 void MainWindow::on_tool_pX_clicked(QAbstractButton* button) {
@@ -699,3 +710,67 @@ void MainWindow::open_DgAssets(){
     wAssets->activateWindow();
 }
 
+void MainWindow::setupAssets(){
+    // grab all the asset files
+    QString path = ":/data/img";
+    QString colorFile = ":/data/img/Colors.png";
+    QString goldmineTool = ":/data/img/GoldMine.dat";
+    QString peasantTool = ":/data/img/Peasant.dat";
+    QString archerTool = ":/data/img/Archer.dat";
+    QString knightTool = ":/data/img/Knight.dat";
+    QString rangerTool = ":/data/img/Ranger.dat";
+    QString townhallTool = ":/data/img/TownHall.dat";
+    QString barracksTool = ":/data/img/Barracks.dat";
+    QString blacksmithTool = ":/data/img/Blacksmith.dat";
+    QString cannontowerTool = ":/data/img/CannonTower.dat";
+    QString castleTool = ":/data/img/Castle.dat";
+    QString farmTool = ":/data/img/Farm.dat";
+    QString guardtowerTool = ":/data/img/GuardTower.dat";
+    QString keepTool = ":/data/img/Keep.dat";
+    QString lumbermillTool = ":/data/img/LumberMill.dat";
+    QString scouttowerTool = ":/data/img/ScoutTower.dat";
+
+
+
+    int nObjects = 15;
+
+//    assets = new QMap<QString,Texture*>;
+
+    // append them to a vector
+    QVector<QString> files;
+    files.append(peasantTool);
+    files.append(archerTool);
+    files.append(knightTool);
+    files.append(rangerTool);
+    files.append(goldmineTool);
+    files.append(townhallTool);
+    files.append(barracksTool);
+    files.append(blacksmithTool);
+    files.append(cannontowerTool);
+    files.append(castleTool);
+    files.append(farmTool);
+    files.append(guardtowerTool);
+    files.append(keepTool);
+    files.append(lumbermillTool);
+    files.append(scouttowerTool);
+
+    // create a texture for each asset
+    for(int i = 0; i < nObjects; i++){
+        Texture *tex = new Texture(files.at(i),colorFile);
+        assets.insert( tex->textureName, tex);
+    }
+    assets.value("Peasant")->paintAll();
+    assets.value("Ranger")->paintAll();
+    assets.value("Archer")->paintAll();
+    assets.value("Knight")->paintAll();
+    assets.value("TownHall")->paintAll();
+    assets.value("Barracks")->paintAll();
+    assets.value("Blacksmith")->paintAll();
+    assets.value("CannonTower")->paintAll();
+    assets.value("Castle")->paintAll();
+    assets.value("Farm")->paintAll();
+    assets.value("GuardTower")->paintAll();
+    assets.value("Keep")->paintAll();
+    assets.value("LumberMill")->paintAll();
+    assets.value("ScoutTower")->paintAll();
+}

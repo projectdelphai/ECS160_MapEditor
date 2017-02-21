@@ -23,6 +23,7 @@ public:
 
     void renderingInfo(QString file);
     int  getAlias(QString typeS , int num);
+    QString toString(Terrain::Type type);
 
 protected:
     QMap< QString, QImage* >* texture;

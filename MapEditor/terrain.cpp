@@ -78,7 +78,14 @@ QImage* Terrain::getImageTile(QString typeS){
         else if( tokens.at(0) == "rock"){
             typeName = "rock-255";
         }
+        else if(tokens.at(0)=="water"){
+            typeName = "dirt-255";
+        }
 
+    }
+    else if (typeS == "") {
+        QMessageBox::information(0,"tile image error",typeS);
+        typeName = "wall-0";
     }
     else {
 
@@ -86,12 +93,36 @@ QImage* Terrain::getImageTile(QString typeS){
         int numKey = getAlias(tokens.at(0),tokens.at(1).toInt());
         typeName = tokens.at(0) + "-" + QString().setNum(numKey);
         if (!texture->contains(typeName)){
-            typeName = "rock-107";
+            if(tokens.at(0)=="rock"){
+                typeName = "rock-107";
+            }
+            else if(tokens.at(0)=="water"){
+                if(typeName == "water-0")
+                {
+                   // qDebug()<<"its water-0";
+                    typeName = "dirt-255";
+                }
+                else
+                {
+                   // qDebug() << typeName;
+                    typeName = "water-255";
+                   // qDebug()<<"could not find water";
+
+                }
+            }
+            else if(tokens.at(0)=="dirt"){
+                typeName = "dirt-255";
+            }
+            else if(tokens.at(0)=="tree")
+            {
+                typeName = "tree-63";
+            }
+            else{
+                typeName = "rock-0";
+
+            }
         }
     }
-
-
-
 
     return texture->value(typeName);
 }
@@ -217,4 +248,37 @@ void Terrain::renderingInfo(QString datFileName){
 
     }
 
+}
+
+QString Terrain::toString(Terrain::Type type){
+    QString typeS = "";
+    switch(type)
+    {
+    case Terrain::Grass:
+        typeS = "grass";
+        break;
+    case Terrain::Dirt:
+        typeS = "dirt";
+        break;
+    case Terrain::Tree:
+        typeS = "tree";
+        break;
+    case Terrain::Water:
+        typeS = "water";
+        break;
+    case Terrain::Rock:
+        typeS ="rock";
+        break;
+    case Terrain::Wall:
+        typeS = "wall";
+        break;
+    case Terrain::WallDamage:
+        typeS = "wallDamage";
+        break;
+    case Terrain::Rubble:
+        typeS = "rubble";
+        break;
+    }
+  //  qDebug() << "return " << typeS;
+    return typeS;
 }

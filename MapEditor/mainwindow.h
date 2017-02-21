@@ -72,12 +72,15 @@ private slots:
     void on_tool_tower_clicked();
     void on_tool_archer_clicked();
     void on_tool_knight_clicked();
+    void on_tool_ranger_clicked();
 
     void on_tool_pX_clicked(QAbstractButton*);
     void open_DgAbout();
     void open_DgMapProperties();
     void open_DgPlayerProperties();
     void open_DgAssets();
+
+    void setupAssets();
 
 private:
     Ui::MainWindow *ui;
@@ -96,6 +99,7 @@ private:
     QByteArray curFileDialogState;
     QString curPath = QDir::homePath(); // current directory
     DgAssets *wAssets = 0;
+    QMap<QString,Texture*> assets;
 };
 
 
