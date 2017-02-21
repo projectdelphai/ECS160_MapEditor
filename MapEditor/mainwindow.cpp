@@ -7,6 +7,7 @@
 #include "dgmapproperties.h"
 #include "dgplayerproperties.h"
 #include "dgassets.h"
+#include <QMediaPlayer>
 
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
@@ -25,6 +26,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     QObject::connect(scene, &GraphicsScene::changedAsset, this, &MainWindow::changeAsset);
     curPlayer = 1;
     scene->curPlayer = 1;
+    // play background music
+    QMediaPlayer * backgroundMusic = new QMediaPlayer();
+    backgroundMusic->setMedia(QUrl("qrc:/data/snd/basic/annoyed2.wav"));
+    backgroundMusic->play();
 }
 
 MainWindow::~MainWindow()

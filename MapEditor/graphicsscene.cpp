@@ -56,7 +56,7 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
         else if (curTool == "Ranger")
         {
             asset = mapInfo->getAsset("Ranger");
-            music->setMedia(QUrl("qrc:/data/snd/knight/ready.wav"));
+            music->setMedia(QUrl("qrc:/data/snd/archer/ready.wav"));
         }
         else if (curTool == "Archer")
         {
@@ -69,27 +69,60 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
             music->setMedia(QUrl("qrc:/data/snd/knight/ready.wav"));
         }
         else if (curTool == "GoldMine")
+        {
             asset = mapInfo->getAsset("GoldMine");
+            music->setMedia(QUrl("qrc:/data/snd/buildings/gold-mine.wav"));
+        }
         else if (curTool == "TownHall")
+        {
             asset = mapInfo->getAsset("TownHall");
+            music->setMedia(QUrl("qrc:/data/snd/misc/thunk.wav"));
+        }
         else if (curTool == "Barracks")
+        {
             asset = mapInfo->getAsset("Barracks");
+            music->setMedia(QUrl("qrc:/data/snd/misc/thunk.wav"));
+        }
         else if (curTool == "BlackSmith")
+        {
             asset = mapInfo->getAsset("Blacksmith");
+            music->setMedia(QUrl("qrc:/data/snd/buildings/blacksmith.wav"));
+        }
         else if (curTool == "CannonTower")
+        {
             asset = mapInfo->getAsset("CannonTower");
+            music->setMedia(QUrl("qrc:/data/snd/misc/thunk.wav"));
+        }
         else if (curTool == "Castle")
+        {
             asset = mapInfo->getAsset("Castle");
+            music->setMedia(QUrl("qrc:/data/snd/misc/thunk.wav"));
+        }
         else if (curTool == "Farm")
+        {
             asset = mapInfo->getAsset("Farm");
+            music->setMedia(QUrl("qrc:/data/snd/buildings/farm.wav"));
+        }
         else if (curTool == "GuardTower")
+        {
             asset = mapInfo->getAsset("GuardTower");
+            music->setMedia(QUrl("qrc:/data/snd/misc/construct.wav"));
+        }
         else if (curTool == "ScoutTower")
+        {
             asset = mapInfo->getAsset("ScoutTower");
+            music->setMedia(QUrl("qrc:/data/snd/misc/construct.wav"));
+        }
         else if (curTool == "Keep")
+        {
             asset = mapInfo->getAsset("Keep");
+            music->setMedia(QUrl("qrc:/data/snd/misc/thunk.wav"));
+        }
         else if (curTool == "LumberMill")
+        {
             asset = mapInfo->getAsset("LumberMill");
+             music->setMedia(QUrl("qrc:/data/snd/buildings/lumber-mill.wav"));
+        }
         else if (curTool == "hand")
         {
             clearSelection();
