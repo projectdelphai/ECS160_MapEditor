@@ -27,6 +27,11 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
     {
         Tile *item = (Tile *)this->itemAt(mouseEvent->scenePos(), QTransform());
 
+
+
+        int x = item->scenePos().x();
+        int y = item->scenePos().y();
+
         Terrain *terrain = mapInfo->getTerrain();
         Terrain::Type type;
 
@@ -52,6 +57,8 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
             asset = mapInfo->getAsset("Ranger");
         else if (curTool == "Archer")
             asset = mapInfo->getAsset("Archer");
+        else if (curTool == "Knight")
+            asset = mapInfo->getAsset("Knight");
         else if (curTool == "GoldMine")
             asset = mapInfo->getAsset("GoldMine");
         else if (curTool == "TownHall")
@@ -81,25 +88,32 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
         }
 
         QImage imageDx;
-        if (!asset)
-            imageDx = *terrain->getImageTile(type);
+        if (!asset){
+//            imageDx = *terrain->getImageTile(type);
+           // tile change
+            mapInfo->changeMapTile(this, mouseEvent->scenePos(),type);
+
+        }
         else
         {
             if (curTool == "GoldMine")
                 imageDx = asset->imageList[0];
             else if (curTool == "CannonTower" || curTool == "Castle" || curTool == "Keep" || curTool == "GuardTower")
                 imageDx = asset->colorPlayerImg[curPlayer][1];
+            else if (curTool == "Peasant" || curTool == "Knight" || curTool == "Archer" || curTool == "Ranger")
+                imageDx = asset->colorPlayerImg[curPlayer][20];
             else
                 imageDx = asset->colorPlayerImg[curPlayer][2];
+
+            QPixmap pixmap = QPixmap::fromImage(imageDx);
+            Tile * pixItem = new Tile(type, pixmap);
+
+
+            pixItem->setPos(x, y);
+            addItem(pixItem);
         }
 
-        QPixmap pixmap = QPixmap::fromImage(imageDx);
-        Tile * pixItem = new Tile(type, pixmap);
 
-        int x = item->scenePos().x();
-        int y = item->scenePos().y();
-        pixItem->setPos(x, y);
-        addItem(pixItem);
 
         if (!asset)
             emit changedLayout(x, y, type);
