@@ -1,5 +1,12 @@
 # ECS160Tools
 
+## Usage
+Check the bin directory for compiled packages.
+
+## Building
+### macOS
+Use Qt Creator build a release version. Then run QT_DIR/5.7/clang_64/bin/macdeployqt BUILD_PATH/MapEditor.app to deploy
+
 ## Map files
 
 Map files are to be stored in /bin/data/map, with file extension .map .

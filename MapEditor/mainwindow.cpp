@@ -171,7 +171,14 @@ bool MainWindow::loadMapFile(const QString &fileName)
     return true;
 }
 
-bool MainWindow::loadPkgFile(const QString &fileName){
+// opens up .mpk files
+bool MainWindow::loadPkgFile(const QString &pkgFileName){
+    QFile pkgFile(pkgFileName);
+    if(!pkgFile.open(QFile::ReadOnly)) return false;
+
+    QuaZip qz(pkgFileName);
+
+
 
 }
 
@@ -324,15 +331,6 @@ void MainWindow::exportPkg()
         return;
 
     // pkgFileName contains full path; eg. "Users/felix/Desktop/test.map"
-    QFile pkgFile(pkgFileName);
-    if (!pkgFile.open(QFile::WriteOnly | QFile::Text)) {
-        QMessageBox::warning(this, tr("Application"),
-                             tr("Cannot write file %1:\n%2.")
-                             .arg(QDir::toNativeSeparators(pkgFileName),
-                                  pkgFile.errorString()));
-        return;
-    }
-
     QuaZip qz(pkgFileName);
     qz.open(QuaZip::mdCreate);
 
