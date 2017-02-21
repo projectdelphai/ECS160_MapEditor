@@ -8,12 +8,28 @@ Check the bin directory for compiled packages.
 Use Qt Creator build a release version. Then run QT_DIR/5.7/clang_64/bin/macdeployqt BUILD_PATH/MapEditor.app to deploy
 Use -dmg to convert to dmg file.
 
-## Map files
 
-Map files are to be stored in /bin/data/map, with file extension .map .
+## Map files
+The map package file is a renamed ZIP file with file extension .mpk .
+This package's directory structure is as follows:
+	.mpk
+		|--- /index.dat
+		|--- /data.map
+		|--- /img/
+		|--- /res/
+		|--- /snd/
+		|--- /upg/
+
+The index.dat file lists all included files(excluding empty directories) in the package.
+Each subdirectory contains custom asset files that must be overwritten upon loading the map.
+More info on the data.map file:
+
+### The data.map file
 The file structure is as follows:
 - Mapname
 - Xsize Ysize
+- Description
+- AI types available
 - Map ASCII
 	* Note: Each letter corresponds to a tile, and there must be a one-unit border around the entire mapset (so 96x64 needs 98x66 characters)
 	```
@@ -45,12 +61,13 @@ The file structure is as follows:
 	Peasant 2 94 59    
 	TownHall 2 92 54
 	```
-- 2 empty new lines (not sure if necessary, but all the .map files have them)  
 
 # Code Example (with comments)
 ```
 North-South Divide  	// map name in map selection screen
 96 64   		// Xsize Ysize
+A map with a narrow path. // map description
+General			// Basic AI
 GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
 GFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFG
 GFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFG
@@ -117,7 +134,7 @@ GFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
 GFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFG
 GFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFG
 GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
-3               //Number of players
+3               // Number of players
 0 30000 500     // global maxes                                    
 1 900 125       // player 1's starting resources
 2 1000 0        // player 2's
@@ -131,6 +148,5 @@ Peasant 2 94 59
 TownHall 2 92 54
 Peasant 3 7 8
 TownHall 3 10 10
-
 
 ```

@@ -117,7 +117,7 @@ bool MainWindow::open()
     dialog.setWindowModality(Qt::WindowModal);
     dialog.setFileMode(QFileDialog::ExistingFile);
     dialog.setAcceptMode(QFileDialog::AcceptOpen);
-    dialog.setNameFilter(tr("Map Files (*.map *.mpk)"));
+    dialog.setNameFilter(tr("Map Files (*.map *.mpk *.zip)"));
     if (!maybeSave())
         return false;
     if(dialog.exec() != QDialog::Accepted)
@@ -177,12 +177,7 @@ bool MainWindow::loadPkgFile(const QString &pkgFileName){
         return false;
     }
 
-    qDebug() << qz.getFileNameList();
-    qDebug() << qz.getEntriesCount();
-    qDebug() << qz.getCurrentFileName();
-
-    qz.setCurrentFile("map.map");
-    qDebug() << qz.getCurrentFileName();
+    qz.setCurrentFile("data.map");
 
     QuaZipFile qzFile(&qz);
 
@@ -196,7 +191,6 @@ bool MainWindow::loadPkgFile(const QString &pkgFileName){
 
     return true;
 }
-
 
 
 void MainWindow::setCurrentFile(const QString &fileName)
@@ -243,7 +237,7 @@ bool MainWindow::save()
         return false;
     }
 
-    if(!writeMapFile(&file)) return false;
+    writeMapFile(&file);
 
     setCurrentFile(curFile);
     statusBar()->showMessage(tr("File saved"), 2000);
@@ -280,7 +274,7 @@ bool MainWindow::setSaveFile(QString* fileName)
 
 
 // this function takes an **opened** map file, writes everything that goes inside
-bool MainWindow::writeMapFile(QIODevice *file){
+void MainWindow::writeMapFile(QIODevice *file){
 
     QTextStream stream(file);
 
@@ -329,9 +323,18 @@ bool MainWindow::writeMapFile(QIODevice *file){
 void MainWindow::exportPkg()
 {
     QString pkgFileName;
+
     // set file to save to
-    if (!setSaveFile(&pkgFileName))
+    QFileDialog dialog(this);
+    dialog.restoreState(curFileDialogState);
+    dialog.setDirectory(curPath);
+    dialog.setWindowModality(Qt::WindowModal);
+    dialog.setAcceptMode(QFileDialog::AcceptSave);
+    dialog.setDefaultSuffix(".mpk");
+    if (dialog.exec() != QDialog::Accepted)
         return;
+    curFileDialogState = dialog.saveState();
+    pkgFileName = dialog.selectedFiles().first();
 
     // pkgFileName contains full path; eg. "Users/felix/Desktop/test.map"
     QuaZip qz(pkgFileName);
@@ -345,8 +348,15 @@ void MainWindow::exportPkg()
     qzf.open(QIODevice::WriteOnly, QuaZipNewInfo("/upg/")); qzf.close();
 
     // create map file
-    qzf.open(QIODevice::WriteOnly, QuaZipNewInfo("map.map")); // main.map
+    qzf.open(QIODevice::WriteOnly, QuaZipNewInfo("data.map"));
         writeMapFile(&qzf);
+
+    // create an index file with all assets
+    qzf.open(QIODevice::WriteOnly, QuaZipNewInfo("index.dat"));
+        QTextStream stream(&qzf);
+        stream << "index.dat" << endl;
+        stream << "data.map" << endl;
+    qzf.close();
 
     qz.close();
 }
