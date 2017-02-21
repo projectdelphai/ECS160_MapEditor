@@ -1,0 +1,60 @@
+<RCC>
+    <qresource prefix="/archer">
+        <file>acknowledge1.wav</file>
+        <file>acknowledge2.wav</file>
+        <file>acknowledge3.wav</file>
+        <file>acknowledge4.wav</file>
+        <file>annoyed1.wav</file>
+        <file>annoyed2.wav</file>
+        <file>annoyed3.wav</file>
+        <file>ready.wav</file>
+        <file>selected1.wav</file>
+        <file>selected2.wav</file>
+        <file>selected3.wav</file>
+        <file>selected4.wav</file>
+    </qresource>
+    <qresource prefix="/basic"/>
+    <qresource prefix="/buildings">
+        <file>blacksmith.wav</file>
+        <file>farm.wav</file>
+        <file>gold-mine.wav</file>
+        <file>lumber-mill.wav</file>
+    </qresource>
+    <qresource prefix="/misc">
+        <file>bowfire.wav</file>
+        <file>bowhit.wav</file>
+        <file>building-explode1.wav</file>
+        <file>building-explode2.wav</file>
+        <file>building-explode3.wav</file>
+        <file>burning.wav</file>
+        <file>cannonfire.wav</file>
+        <file>cannonhit.wav</file>
+        <file>construct.wav</file>
+        <file>explode.wav</file>
+        <file>sword1.wav</file>
+        <file>sword2.wav</file>
+        <file>sword3.wav</file>
+        <file>thunk.wav</file>
+        <file>tick.wav</file>
+        <file>tock.wav</file>
+        <file>tree1.wav</file>
+        <file>tree2.wav</file>
+        <file>tree3.wav</file>
+        <file>tree4.wav</file>
+    </qresource>
+    <qresource prefix="/music">
+        <file>game1.mid</file>
+        <file>game2.mid</file>
+        <file>game3.mid</file>
+        <file>game4.mid</file>
+        <file>game5.mid</file>
+        <file>intro.mid</file>
+        <file>load.mid</file>
+        <file>lose.mid</file>
+        <file>menu.mid</file>
+        <file>win.mid</file>
+    </qresource>
+    <qresource prefix="/peasant">
+        <file>annoyed7.wav</file>
+    </qresource>
+</RCC>
