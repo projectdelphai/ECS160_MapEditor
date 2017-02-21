@@ -36,13 +36,14 @@ public:
     MapView2();
     MapView2(const QString &mapFileName, QMap<QString,Texture*>& ,const QString &mapTexName  );
 
-    QString tileEncode(QString strType,int i, int j);
-    void builtTreeTop(QGraphicsScene *scene);
+//    QString tileEncode(QString strType,int i, int j);
+//    void builtTreeTop(QGraphicsScene *scene);
 
     Terrain* getTerrain();
     Texture* getButtonColorsTx();
     Texture* getButtonIconsTx();
     void displayMap(QGraphicsScene *scene);
+    void displayNewMap(QGraphicsScene *scene);
 
     QSize getMapDim();
     QString getMapName();

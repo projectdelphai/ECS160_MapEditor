@@ -541,6 +541,27 @@ void MapView2::builtTreeTop(QGraphicsScene *scene){
     treeTopTiles.clear();
 }
 
+void MapView2::displayNewMap(QGraphicsScene *scene){
+    QString type = "";
+    int x = 0;
+    int y = 0;
+    for(int i = 0; i < mapDim.height(); ++i){
+        for(int j = 0; j < mapDim.width(); ++j){
+            if ( mapLayOut.at(i*mapDim.width() + j).toLatin1() == 'G'){
+                type = "grass-0";
+            }
+            QImage imageDx = *terrain->getImageTile(type);
+            Tile *tile = new Tile(type.split("-")[0] , QPixmap::fromImage(imageDx));
+
+            x = j*tileDim.width();
+            y = i*tileDim.height();
+            tile->setPos(x,y);
+            scene->addItem(tile);
+
+        }
+    }
+}
+
 // reads map array and updates the scene
 void MapView2::builtmap(QGraphicsScene *scene)
 {

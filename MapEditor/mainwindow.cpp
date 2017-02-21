@@ -100,7 +100,7 @@ void MainWindow::newFile()
     // Set up the map grid
     curMap = MapView2();
     scene = new GraphicsScene(this, &curMap,&assets);
-    curMap.displayMap(scene);
+    curMap.displayNewMap(scene);
 
     // show map + minimap
     ui->graphicsView->setScene(scene);
@@ -654,6 +654,7 @@ void MainWindow::setupAssets(){
     QString goldmineTool = ":/data/img/GoldMine.dat";
     QString peasantTool = ":/data/img/Peasant.dat";
     QString archerTool = ":/data/img/Archer.dat";
+    QString knightTool = ":/data/img/Knight.dat";
     QString rangerTool = ":/data/img/Ranger.dat";
     QString townhallTool = ":/data/img/TownHall.dat";
     QString barracksTool = ":/data/img/Barracks.dat";
@@ -668,7 +669,7 @@ void MainWindow::setupAssets(){
 
 
 
-    int nObjects = 14;
+    int nObjects = 15;
 
 //    assets = new QMap<QString,Texture*>;
 
@@ -676,6 +677,7 @@ void MainWindow::setupAssets(){
     QVector<QString> files;
     files.append(peasantTool);
     files.append(archerTool);
+    files.append(knightTool);
     files.append(rangerTool);
     files.append(goldmineTool);
     files.append(townhallTool);
@@ -697,6 +699,7 @@ void MainWindow::setupAssets(){
     assets.value("Peasant")->paintAll();
     assets.value("Ranger")->paintAll();
     assets.value("Archer")->paintAll();
+    assets.value("Knight")->paintAll();
     assets.value("TownHall")->paintAll();
     assets.value("Barracks")->paintAll();
     assets.value("Blacksmith")->paintAll();

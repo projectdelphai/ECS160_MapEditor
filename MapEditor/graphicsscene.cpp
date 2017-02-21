@@ -35,7 +35,6 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
 
         Terrain *terrain = mapInfo->getTerrain();
         Terrain::Type type;
-
         Texture *asset = 0;
 
 
@@ -53,36 +52,12 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
             type = Terrain::Wall;
         else if (curTool == "rubble")
             type = Terrain::Rubble;
-        else if (curTool == "Peasant")
-            asset = assets->value("Peasant");
-        else if (curTool == "Ranger")
-            asset = assets->value("Ranger");
-        else if (curTool == "Archer")
-            asset = assets->value("Archer");
-        else if (curTool == "Knight")
-            asset = assets->value("Knight");
-        else if (curTool == "GoldMine")
-            asset = assets->value("GoldMine");
-        else if (curTool == "TownHall")
-            asset = assets->value("TownHall");
-        else if (curTool == "Barracks")
-            asset = assets->value("Barracks");
-        else if (curTool == "BlackSmith")
-            asset = assets->value("Blacksmith");
-        else if (curTool == "CannonTower")
-            asset = assets->value("CannonTower");
-        else if (curTool == "Castle")
-            asset = assets->value("Castle");
-        else if (curTool == "Farm")
-            asset = assets->value("Farm");
-        else if (curTool == "GuardTower")
-            asset = assets->value("GuardTower");
-        else if (curTool == "ScoutTower")
-            asset = assets->value("ScoutTower");
-        else if (curTool == "Keep")
-            asset = assets->value("Keep");
-        else if (curTool == "LumberMill")
-            asset = assets->value("LumberMill");
+        else if (curTool != "grass" || curTool != "dirt" || curTool != "water" || curTool != "tree" ||
+                 curTool != "rock" || curTool != "wall" || curTool != "rubble" ){
+            // all other non-Terrain
+            asset = assets->value(curTool);
+        }
+
         else
         {
             QGraphicsScene::mousePressEvent(mouseEvent);
@@ -91,7 +66,6 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
 
         QImage imageDx;
         if (!asset){
-//            imageDx = *terrain->getImageTile(type);
            // tile change
             mapInfo->changeMapTile(this, mouseEvent->scenePos(),type);
 
