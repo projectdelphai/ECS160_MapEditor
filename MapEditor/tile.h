@@ -13,6 +13,10 @@ public:
     Tile(QString typeStr,QPixmap texturePix);
 
     QString toString();
+//    void setTileImage(QPixmap pix);
+    void setTileImage(QPixmap pix, QString typeS);
+    QString getType();
+
 
 //protected:
     //void mousePressEvent(QGraphicsSceneMouseEvent *event);
@@ -20,8 +24,8 @@ public:
 private:
     Terrain::Type type;
     QString note;
-    QString typeStr;
 
+    QString typeStr;
     QPixmap texturePix;
 
 //    Texture *tex;

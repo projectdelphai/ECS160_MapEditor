@@ -12,6 +12,7 @@ Tile::Tile(Terrain::Type type){ // not sure if needed
 Tile::Tile(QString typeStr,QPixmap texturePix):QGraphicsPixmapItem(texturePix){
     typeStr = typeStr;
     texturePix = texturePix;
+
 }
 
 Tile::Tile(Terrain::Type type,QPixmap texturePix): QGraphicsPixmapItem(texturePix){
@@ -25,6 +26,22 @@ Tile::Tile(Terrain::Type type,QPixmap texturePix): QGraphicsPixmapItem(texturePi
     //qWarning() << Q_FUNC_INFO << event->scenePos();
     //qDebug() << "in Tile:mousePressEvent";
 //}
+
+//void Tile::setTileImage(QPixmap pix){
+//    setPixmap(pix);
+//}
+
+void Tile::setTileImage(QPixmap pix, QString typeS){
+    setPixmap(pix);
+    typeStr = typeS;
+}
+
+
+QString Tile::getType(){
+    return typeStr;
+}
+
+
 
 QString Tile::toString()
 {
