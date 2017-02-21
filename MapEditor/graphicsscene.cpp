@@ -10,6 +10,7 @@ GraphicsScene::GraphicsScene(QObject *parent, MapView2 *curMap) : QGraphicsScene
     GraphicsScene::parent = parent;
     GraphicsScene::mapInfo = curMap;
     brushing = false;
+    brushable = false;
 }
 
 void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
@@ -83,12 +84,14 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
 
         QImage imageDx;
         if (!asset){
-//            imageDx = *terrain->getImageTile(type);
+           //imageDx = *terrain->getImageTile(type);
            // tile change
+            brushable = true;
             mapInfo->changeMapTile(this, mouseEvent->scenePos(),type);
         }
         else
         {
+            brushable = false;
             if (curTool == "GoldMine")
                 imageDx = asset->imageList[0];
             else if (curTool == "CannonTower" || curTool == "Castle" || curTool == "Keep" || curTool == "GuardTower")
@@ -161,16 +164,17 @@ void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
     if (mouseEvent->button() == Qt::LeftButton && withinBounds(mouseEvent))
         brushing = true;
+        brushable = true;
 }
 
 void GraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent){
-    if ((mouseEvent->buttons() & Qt::LeftButton) && brushing && withinBounds(mouseEvent))
+    if ((mouseEvent->buttons() & Qt::LeftButton) && brushing && withinBounds(mouseEvent) && brushable)
         addToolItem(mouseEvent);
 }
 
 void GraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
-    if (mouseEvent->button() == Qt::LeftButton && withinBounds(mouseEvent)) {
+    if (mouseEvent->button() == Qt::LeftButton && withinBounds(mouseEvent) && brushable) {
         addToolItem(mouseEvent);
         brushing = false;
     }

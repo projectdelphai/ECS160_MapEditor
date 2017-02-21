@@ -33,6 +33,7 @@ private:
     QObject *parent;
     MapView2 *mapInfo;
     bool brushing;
+    bool brushable;
     QVector<QString> addedItems;
 };
 
