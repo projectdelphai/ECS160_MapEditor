@@ -4,6 +4,7 @@
 #include "tile.h"
 #include "texture.h"
 #include "mainwindow.h"
+#include <QMediaPlayer>
 
 GraphicsScene::GraphicsScene(QObject *parent, MapView2 *curMap) : QGraphicsScene(parent)
 {
@@ -33,6 +34,7 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
         Terrain::Type type;
 
         Texture *asset = 0;
+        QMediaPlayer * music = new QMediaPlayer();
 
         if (curTool == "grass")
             type = Terrain::Grass;
@@ -47,13 +49,25 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
         else if (curTool == "wall")
             type = Terrain::Wall;
         else if (curTool == "Peasant")
+        {
             asset = mapInfo->getAsset("Peasant");
+            music->setMedia(QUrl("qrc:/data/snd/peasant/ready.wav"));
+        }
         else if (curTool == "Ranger")
+        {
             asset = mapInfo->getAsset("Ranger");
+            music->setMedia(QUrl("qrc:/data/snd/knight/ready.wav"));
+        }
         else if (curTool == "Archer")
+        {
             asset = mapInfo->getAsset("Archer");
+            music->setMedia(QUrl("qrc:/data/snd/archer/ready.wav"));
+        }
         else if (curTool == "Knight")
+        {
             asset = mapInfo->getAsset("Knight");
+            music->setMedia(QUrl("qrc:/data/snd/knight/ready.wav"));
+        }
         else if (curTool == "GoldMine")
             asset = mapInfo->getAsset("GoldMine");
         else if (curTool == "TownHall")
@@ -105,14 +119,15 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
             Tile * pixItem = new Tile(type, pixmap);
 
             pixItem->setPos(x, y);
-            QString x;
+            QString x, y;
             x.setNum(pixItem->scenePos().x());
-            QString y;
             y.setNum(pixItem->scenePos().y());
             y.prepend(x);
             if(addedItems.contains(y) == false){
                 addedItems.append(y);
                 addItem(pixItem);
+                // play background music
+                music->play();
                 qDebug() << addedItems;
             }
             else
@@ -144,9 +159,8 @@ void GraphicsScene::removeToolItem(QGraphicsSceneMouseEvent *mouseEvent)
     else
     {
         Tile *item = (Tile *)this->itemAt(mouseEvent->scenePos(), QTransform());
-        QString x;
+        QString x, y;
         x.setNum(item->scenePos().x());
-        QString y;
         y.setNum(item->scenePos().y());
         y.prepend(x);
         if (addedItems.contains(y))
