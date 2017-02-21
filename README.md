@@ -18,6 +18,7 @@ This package's directory structure is as follows:
 		|--- /data.map
 		|--- /img/
 		|--- /res/
+		|--- /scripts/
 		|--- /snd/
 		|--- /upg/
 ```
