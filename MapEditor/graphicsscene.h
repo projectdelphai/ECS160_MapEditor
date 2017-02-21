@@ -15,7 +15,7 @@ class GraphicsScene : public QGraphicsScene
 {
     Q_OBJECT
 public:
-    explicit GraphicsScene(QObject *parent, MapView2 *curMap);
+    explicit GraphicsScene(QObject *parent, MapView2 *curMap, QMap<QString , Texture*> *loadedAssets);
     virtual void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent);
     virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent);
     virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent);
@@ -35,6 +35,7 @@ private:
     bool brushing;
     bool brushable;
     QVector<QString> addedItems;
+    QMap<QString,Texture*> *assets;
 };
 
 #endif // GRAPHICSSCENE_H

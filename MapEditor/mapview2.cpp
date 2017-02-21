@@ -27,28 +27,26 @@ Unit::Unit(QString n, int xc, int yc)
 MapView2::MapView2()
 {
     defaultMap();
-    // create and store all assets
-    setup();
+
     terrain = new Terrain;
     buttonColors = new Texture(":/data/img/ButtonColors.png", 1, 1);
     buttonIcons = new Texture(":/data/img/Icons.png", 46, 38);
 
     tileDim.setRect(1,1,32,32);
-    tileMap.reserve(mapDim.width()*mapDim.height());
 
     // testing for MapRendering parsing
     terrain->renderingInfo(":/data/img/MapRendering.dat");
 }
 
-MapView2::MapView2(const QString &mapFileName , const QString &mapTexName = ":/data/img/Terrain.png" )
+MapView2::MapView2(QIODevice &mapFile ,QMap<QString,Texture*>& loadedAssets, const QString &mapTexName = ":/data/img/Terrain.png"  )
 {
-    openMap(mapFileName);
-    setup();
+    openMap(mapFile);
+//    setup();
+    assets = loadedAssets;
     terrain = new Terrain(mapTexName);
 
     // upper-left corner and the rectangle size of width and height
     tileDim.setRect(1,1,32,32);
-    tileMap.reserve(mapDim.width()*mapDim.height());
 
     // testing for MapRendering parsing
     terrain->renderingInfo(":/data/img/MapRendering.dat");
@@ -134,27 +132,25 @@ void MapView2::defaultMap(){
             mapLayOut.append('G');
         }
     }
-    int MAXPLAYERS= 8;
-    players.resize(MAXPLAYERS);
 
-    // player zero is neutral
-
-    numPlayers = 0;
+    // set player 0 (neutral)
     Player player = Player(0, 30000, 500);
     players.append(player);
-    numUnits = 0;
+
+    // initialize players vector with 8 players
+    for (int i = 1; i != 9; i++)
+        players.append(Player(i, 1000, 1000));
+
 }
 
 // parses .map file and updates variables
-void MapView2::openMap(const QString &mapFileName){
+void MapView2::openMap(QIODevice &mapFile){
     bool intTest;
 
-    QFile mapFile(mapFileName);
-
-    if ( !mapFile.open(QIODevice::ReadOnly)){
-        QMessageBox::information(0,"error opening map",mapFile.errorString());
+    // check if the file is good
+    if ( !mapFile.open(QIODevice::ReadOnly) ) {
+        QMessageBox::warning(0,"error opening map",mapFile.errorString());
     }
-
 
 
     QString blankLine = " ";
@@ -204,24 +200,24 @@ void MapView2::openMap(const QString &mapFileName){
             }
         }
         else if (intTest){
-            numPlayers = line.toInt();
             lineNum++;
-            line = in.readLine();
+
+            int numPlayers = line.toInt();
 
             // assumes the next line may be player's starting gold and lumber amount
             // or just a single number
-            while(line.length() > 1)
+            for(int pl = 0; pl <= numPlayers ; pl++)
             {
-                // create players and add
+                line = in.readLine();
                 QStringList playerValues = line.split(" ");
                 Player player = Player(playerValues[0].toInt(), playerValues[1].toInt(), playerValues[2].toInt());
                 players.append(player);
                 lineNum++;
-                line = in.readLine();
             }
+            line = in.readLine();
 
             // grab number of units
-            numUnits = line.toInt();
+            int numUnits = line.toInt();
             lineNum++;
             line = in.readLine();
 
@@ -241,6 +237,8 @@ void MapView2::openMap(const QString &mapFileName){
             }
         }
     }
+
+    mapFile.close();
 }
 
 void MapView2::changeMapTile(QGraphicsScene *scene, QPointF pos , Terrain::Type type ){
@@ -542,6 +540,27 @@ void MapView2::builtTreeTop(QGraphicsScene *scene){
     treeTopTiles.clear();
 }
 
+void MapView2::displayNewMap(QGraphicsScene *scene){
+    QString type = "";
+    int x = 0;
+    int y = 0;
+    for(int i = 0; i < mapDim.height(); ++i){
+        for(int j = 0; j < mapDim.width(); ++j){
+            if ( mapLayOut.at(i*mapDim.width() + j).toLatin1() == 'G'){
+                type = "grass-0";
+            }
+            QImage imageDx = *terrain->getImageTile(type);
+            Tile *tile = new Tile(type.split("-")[0] , QPixmap::fromImage(imageDx));
+
+            x = j*tileDim.width();
+            y = i*tileDim.height();
+            tile->setPos(x,y);
+            scene->addItem(tile);
+
+        }
+    }
+}
+
 // reads map array and updates the scene
 void MapView2::builtmap(QGraphicsScene *scene)
 {
@@ -605,7 +624,7 @@ void MapView2::builtAssets(QGraphicsScene *scene){
             // skip player 0, since it has no color assets
             QImage imageDx;
             if( i > 0){
-                imageDx = assets.value(unitName)->colorPlayerImg.value(i).at(2);
+                imageDx = assets.value(unitName)->colorPlayerImg.value(i).at(1);
             }
             else{
                 imageDx = assets.value(unitName)->imageList.at(0);
@@ -664,12 +683,18 @@ void MapView2::addPlayer(Player p)
 
 int MapView2::getNumPlayers()
 {
-    return players.size();
+    return players.size() - 1; // ignore player 0
 }
 
 int MapView2::getNumUnits()
 {
-    return numUnits;
+    int n = 0;
+
+    for (auto itr = players.begin(); itr != players.end(); itr++){
+        n += (*itr).units.size();
+    }
+
+    return n;
 }
 
 void MapView2::addUnit(Unit u, int player)
