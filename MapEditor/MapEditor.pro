@@ -38,7 +38,8 @@ SOURCES += main.cpp\
     dgabout.cpp \
     dgplayerproperties.cpp \
     dgassets.cpp \
-    mapview.cpp
+    mapview.cpp \
+    triggerai.cpp
 
 HEADERS  += mainwindow.h \
     mapview2.h \
@@ -50,7 +51,8 @@ HEADERS  += mainwindow.h \
     dgabout.h \
     dgplayerproperties.h \
     dgassets.h \
-    mapview.h
+    mapview.h \
+    triggerai.h
 
 FORMS    += mainwindow.ui \
     dgmapproperties.ui \
