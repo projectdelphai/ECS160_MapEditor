@@ -83,7 +83,7 @@ private:
     Ui::MainWindow *ui;
     void updateUI();
     void writeSettings();
-    bool loadMapFile(QFileDevice &file);
+    bool loadMapFile(QString fileName, QIODevice &file);
     bool maybeSave();
     bool setSaveFile(QString*);
     bool saveFile(const QString &fileName);

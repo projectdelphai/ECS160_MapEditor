@@ -126,17 +126,22 @@ bool MainWindow::open()
 
     if(dialog.selectedFiles().first().split(".").last() == "map") {
         QFile file(dialog.selectedFiles().first());
-        return loadMapFile(file);
+        return loadMapFile(dialog.selectedFiles().first(), file);
     } else
         return loadPkgFile(dialog.selectedFiles().first());
 }
 
-bool MainWindow::loadMapFile(QFileDevice &file)
+bool MainWindow::loadMapFile(QString fileName, QIODevice &file)
 {
+    // check if the file is good
+    if(!file.open(QIODevice::ReadOnly)) {
+        QMessageBox::warning(0,"error opening map",file.errorString());
+        return false;
+    }
+    file.close();
 
     // load and display map and minimap
-
-    QString mapName = file.fileName();
+    QString mapName = fileName;
     QString texture = ":/data/img/Terrain.png";
     curMap = MapView2(file, texture);
 
@@ -167,7 +172,10 @@ bool MainWindow::loadMapFile(QFileDevice &file)
 // opens up .mpk files
 bool MainWindow::loadPkgFile(const QString &pkgFileName){
     QuaZip qz(pkgFileName);
-    if(!qz.open(QuaZip::mdUnzip)) return false;
+    if(!qz.open(QuaZip::mdUnzip)) {
+        QMessageBox::warning(0,"error opening map","MPK file is corrupted.");
+        return false;
+    }
 
     qDebug() << qz.getFileNameList();
     qDebug() << qz.getEntriesCount();
@@ -177,13 +185,16 @@ bool MainWindow::loadPkgFile(const QString &pkgFileName){
     qDebug() << qz.getCurrentFileName();
 
     QuaZipFile qzFile(&qz);
-    qzFile.open(QIODevice::ReadOnly);
-    qzFile.getFileName();
 
-    QTextStream stream(&qzFile);
+    // check if the file is good
+    if(!qzFile.open(QIODevice::ReadOnly)) {
+        QMessageBox::warning(0,"error opening map",qzFile.errorString());
+    }
+    qzFile.close();
 
-    qDebug() << stream.readLine();
+    loadMapFile(qzFile.getFileName(), qzFile );
 
+    return true;
 }
 
 
