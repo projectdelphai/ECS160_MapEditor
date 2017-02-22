@@ -29,6 +29,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->graphicsView_2->setMouseTracking(true);
     curTool = "hand";
     undone = false;
+    prevChar = 'G';
 
     // Load all assets using
     MainWindow::setupAssets();
@@ -654,11 +655,8 @@ void MainWindow::changeLayout(int x, int y, Terrain::Type type)
 
     QVector<QChar> layout = curMap.getMapLayout();
 
-    RecordedTile rt(getTileType(layout[n]), getTileType(c), x, y);
-    printf("Initial letter: %c", layout[n]);
-    printf("\n");
-    printf("Second letter: %c", c);
-    printf("\n");
+    RecordedTile rt(getTileType(curMap.getPreviousChar()), getTileType(c), x, y);
+
     if(!undone)//Prevent something not undone from being pushed onto the stack
     {
         if(undoTiles.isEmpty() || (!undoTiles.isEmpty()

@@ -246,6 +246,11 @@ void MapView2::openMap(QIODevice &mapFile){
     mapFile.close();
 }
 
+QChar MapView2::getPreviousChar()
+{
+    return prevChar;
+}
+
 void MapView2::changeMapTile(QGraphicsScene *scene, QPointF pos , Terrain::Type type ){
 
     // tile inside scene to change
@@ -254,6 +259,7 @@ void MapView2::changeMapTile(QGraphicsScene *scene, QPointF pos , Terrain::Type 
 
     int x = centerTile->scenePos().x()/tileDim.width();
     int y = centerTile->scenePos().y()/tileDim.height();
+    prevChar = mapLayOut[(y)*mapDim.width() + x];
     QString typedx = terrain->toString(type);
     QString strType = tileEncode(typedx, y , x );
 //    qDebug() << strType;

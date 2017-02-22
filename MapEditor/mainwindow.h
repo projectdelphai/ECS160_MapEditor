@@ -115,6 +115,7 @@ private:
     QString curPath = QDir::homePath(); // current directory
     DgAssets *wAssets = 0;
     QMap<QString,Texture*> assets;
+    QChar prevChar;
     //Stores tiles from undo button
      QStack<RecordedTile> undoTiles;
 
