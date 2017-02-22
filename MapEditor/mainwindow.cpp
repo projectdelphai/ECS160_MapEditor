@@ -636,14 +636,16 @@ void MainWindow::changeLayout(int x, int y, Terrain::Type type)
 
     QVector<QChar> layout = curMap.getMapLayout();
 
-    RecordedTile rt(getTileType(curMap.getPreviousTile()), getTileType(c), x, y);
+    RecordedTile rt(getTileType(curMap.getPreviousTile()), type, x, y);
 
-    if(!undone)//Prevent something not undone from being pushed onto the stack
-    {
+    if(!undone && rt.utype != type)
+    {//Prevent a duplicate or something not undone from being pushed onto the stack
         if(undoTiles.isEmpty() || (!undoTiles.isEmpty()
-            && (rt.x != undoTiles.top().x
+            && (rt.utype != undoTiles.top().utype
+                ||rt.x != undoTiles.top().x
                 || rt.y != undoTiles.top().y)))
-            //If there are neither previous tiles nor duplicates, push the previous tile
+            //If there are neither previous tiles nor duplicates,
+            //push the previous and new tile of the current x and y
             undoTiles.push(rt);
     }
 
