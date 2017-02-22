@@ -29,7 +29,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->graphicsView_2->setMouseTracking(true);
     curTool = "hand";
     undone = false;
-    prevChar = 'G';
 
     // Load all assets using
     MainWindow::setupAssets();
@@ -280,21 +279,12 @@ void MainWindow::undo()
     RecordedTile rt = undoTiles.pop();
     redoTiles.push(rt);
 
-   // QImage imageDx;
     if (!asset)
     {
         scene->setBrushable(true);
         scene->getMapInfo()->changeMapTile(scene, QPointF(rt.x, rt.y), rt.utype);
-    }
-
-   // QPixmap pixmap = QPixmap::fromImage(imageDx);
-   // Tile * pixItem = new Tile(rt.utype, pixmap);
-
-   // pixItem->setPos(rt.x, rt.y);
-   // scene->addItem(pixItem);
-
-    if (!asset)
         changeLayout(rt.x, rt.y, rt.utype);
+    }
 
     undone = false;
 }
@@ -313,21 +303,12 @@ void MainWindow::redo()
     RecordedTile rt = redoTiles.pop();
     undoTiles.push(rt);
 
-    QImage imageDx;
     if (!asset)
     {
         scene->setBrushable(true);
         scene->getMapInfo()->changeMapTile(scene, QPointF(rt.x, rt.y), rt.rtype);
-    }
-
-    QPixmap pixmap = QPixmap::fromImage(imageDx);
-    Tile * pixItem = new Tile(rt.rtype, pixmap);
-
-    pixItem->setPos(rt.x, rt.y);
-    scene->addItem(pixItem);
-
-    if (!asset)
         changeLayout(rt.x, rt.y, rt.rtype);
+    }
 
     undone = false;
 }
@@ -655,7 +636,7 @@ void MainWindow::changeLayout(int x, int y, Terrain::Type type)
 
     QVector<QChar> layout = curMap.getMapLayout();
 
-    RecordedTile rt(getTileType(curMap.getPreviousChar()), getTileType(c), x, y);
+    RecordedTile rt(getTileType(curMap.getPreviousTile()), getTileType(c), x, y);
 
     if(!undone)//Prevent something not undone from being pushed onto the stack
     {

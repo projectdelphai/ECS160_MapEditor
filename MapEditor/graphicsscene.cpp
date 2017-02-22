@@ -31,10 +31,10 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
         int x = item->scenePos().x();
         int y = item->scenePos().y();
 
-       // Terrain *terrain = mapInfo->getTerrain();
+        Terrain *terrain = mapInfo->getTerrain();
         Terrain::Type type;
         Texture *asset = 0;
-     //   QMediaPlayer * music = new QMediaPlayer();
+        QMediaPlayer * music = new QMediaPlayer();
 
 
         if (curTool == "grass")
@@ -51,7 +51,7 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
             type = Terrain::Wall;
         else if (curTool == "rubble")
             type = Terrain::Rubble;
-    /*    else if (curTool == "Peasant")
+        else if (curTool == "Peasant")
         {
             asset = mapInfo->getAsset("Peasant");
             music->setMedia(QUrl("qrc:/data/snd/peasant/ready.wav"));
@@ -130,16 +130,16 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
         {
             clearSelection();
             return;
-        }*/
+        }
 
-      //  QImage imageDx;
+        QImage imageDx;
         if (!asset){
            //imageDx = *terrain->getImageTile(type);
            // tile change
             brushable = true;
             mapInfo->changeMapTile(this, mouseEvent->scenePos(),type);
         }
-      /*  else
+        else
         {
             brushable = false;
             if (curTool == "GoldMine")
@@ -168,17 +168,17 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
             }
             else
                 return;
-        }*/
+        }
 
         if (!asset)
             emit changedLayout(x, y, type);
-      /*  else
+        else
         {
             if (curTool == "GoldMine")
                 emit changedAsset(x, y, curTool, 0);
             else
                 emit changedAsset(x, y, curTool, curPlayer);
-        }*/
+        }
     }
 }
 

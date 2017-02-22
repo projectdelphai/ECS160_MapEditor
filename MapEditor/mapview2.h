@@ -53,7 +53,7 @@ public:
     QVector<Player> getPlayers();
     int getNumPlayers();
     int getNumUnits();
-    QChar getPreviousChar();
+    QChar getPreviousTile();
     void addUnit(Unit u, int player);
     Texture *getAsset(QString assetName);
 

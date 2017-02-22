@@ -246,7 +246,7 @@ void MapView2::openMap(QIODevice &mapFile){
     mapFile.close();
 }
 
-QChar MapView2::getPreviousChar()
+QChar MapView2::getPreviousTile()
 {
     return prevChar;
 }
