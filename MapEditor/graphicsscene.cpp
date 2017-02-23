@@ -31,7 +31,6 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
         int x = item->scenePos().x();
         int y = item->scenePos().y();
 
-        Terrain *terrain = mapInfo->getTerrain();
         Terrain::Type type;
         Texture *asset = 0;
         QMediaPlayer * music = new QMediaPlayer();
@@ -164,7 +163,7 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
                 addItem(pixItem);
                 // play background music
                 music->play();
-                qDebug() << addedItems;
+//                qDebug() << addedItems;
             }
             else
                 return;

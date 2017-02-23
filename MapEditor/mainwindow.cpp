@@ -10,6 +10,7 @@
 #include <QMediaPlayer>
 
 
+
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     // set up UI elements
@@ -18,12 +19,14 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->graphicsView_2->setMouseTracking(true);
     curTool = "hand";
 
+    // Load all assets using
+    MainWindow::setupAssets();
+
     // Load and display a new file
     MainWindow::newFile();
     MainWindow::updateUI();
 
-    // Load all assets using
-    MainWindow::setupAssets();
+
 
     // resize minimap
     ui->graphicsView_2->fitInView(0,0,256,192, Qt::KeepAspectRatio);
@@ -31,6 +34,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     // connect signals and slots
     QObject::connect(scene, &GraphicsScene::changedLayout, this, &MainWindow::changeLayout);
     QObject::connect(scene, &GraphicsScene::changedAsset, this, &MainWindow::changeAsset);
+    QTimer *timer = new QTimer(this);
+    QObject::connect(timer, SIGNAL(timeout()), this , SLOT(update()));
+
 
     // default values
     curPlayer = 1;
@@ -101,7 +107,7 @@ void MainWindow::newFile()
     }
 
     // Set up the map grid
-    curMap = MapView2();
+    curMap = MapView2(assets);
     scene = new GraphicsScene(this, &curMap,&assets);
     curMap.displayNewMap(scene);
 
@@ -323,6 +329,12 @@ void MainWindow::writeMapFile(QIODevice *file){
             stream << itr3->name << " " << t << " " << itr3->x << " " << itr3->y << endl;
         }
     }
+
+    // write ai triggers
+//    stream << triggers.length() << endl;
+//    for( auto itr = triggers.begin(); itr != triggers.end(); itr++){
+//        stream << itr->infoAI() << endl;
+//    }
 
     file->close();
 }
@@ -742,10 +754,11 @@ void MainWindow::setupAssets(){
     QString keepTool = ":/data/img/Keep.dat";
     QString lumbermillTool = ":/data/img/LumberMill.dat";
     QString scouttowerTool = ":/data/img/ScoutTower.dat";
+    QString triggerTool = ":/data/img/trigger.dat";
 
 
 
-    int nObjects = 15;
+    int nObjects = 16;
 
 //    assets = new QMap<QString,Texture*>;
 
@@ -766,6 +779,7 @@ void MainWindow::setupAssets(){
     files.append(keepTool);
     files.append(lumbermillTool);
     files.append(scouttowerTool);
+    files.append(triggerTool);
 
     // create a texture for each asset
     for(int i = 0; i < nObjects; i++){
@@ -787,3 +801,4 @@ void MainWindow::setupAssets(){
     assets.value("LumberMill")->paintAll();
     assets.value("ScoutTower")->paintAll();
 }
+

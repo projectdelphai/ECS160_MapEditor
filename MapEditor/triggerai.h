@@ -1,19 +1,28 @@
 #ifndef TRIGGERAI_H
 #define TRIGGERAI_H
 
+#include <QString>
+#include <QPoint>
+#include <QTimer>
+#include <QWidget>
 
 class TriggerAI
 {
 public:
-    TriggerAI();
-
+    TriggerAI(QString name);
     void setTimer(double);
-    void writeAI();
+    QString infoAI();
+    void hook();
+    void startTimer(QWidget *widget);
+
+
+
+
 private:
     QString triggerName;
     QPoint position;
     double time;
-    void hook();
+    QTimer *timer;
 
 };
 

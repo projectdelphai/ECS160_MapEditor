@@ -23,11 +23,15 @@ Unit::Unit(QString n, int xc, int yc)
     y = yc;
 }
 
+MapView2::MapView2(){
+
+}
+
 // Default (new map)
-MapView2::MapView2()
+MapView2::MapView2(QMap<QString,Texture*>& loadedAssets)
 {
     defaultMap();
-
+    assets = loadedAssets;
     terrain = new Terrain;
     buttonColors = new Texture(":/data/img/ButtonColors.png", 1, 1);
     buttonIcons = new Texture(":/data/img/Icons.png", 46, 38);
