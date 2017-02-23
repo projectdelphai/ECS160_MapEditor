@@ -23,6 +23,7 @@ public:
     void removeToolItem(QGraphicsSceneMouseEvent *mouseEvent);
     bool withinBounds(QGraphicsSceneMouseEvent *mouseEvent);
     QString curTool;
+    int CurBrushSize = 1;
     int curPlayer;
 signals:
     void changedLayout(int x, int y, Terrain::Type type);
