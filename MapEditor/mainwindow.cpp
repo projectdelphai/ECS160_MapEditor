@@ -327,9 +327,9 @@ void MainWindow::writeMapFile(QIODevice *file){
     }
 
     // write ai triggers
-    stream << triggers.length() << endl;
-    for( int i = 0; i < triggers.length(); i++){
-        stream << triggers.at(i).infoAI();
+    stream << curMap.getTriggers().length() << endl;
+    for( int i = 0; i < curMap.getTriggers().length(); i++){
+        stream << curMap.getTriggers().at(i)->infoAI();
     }
 
     file->close();
@@ -745,6 +745,18 @@ void MainWindow::open_DTrigger(QGraphicsScene *scene , Tile *tile){
         scene->removeItem(tile);
         return;
     }
+    TriggerAI *trigger = new TriggerAI("ai");
+    trigger->setMarker(tile);
+    curMap.addTrigger(trigger);
+}
+void MainWindow::hideTriggers(){
+
+    for(TriggerAI *trigger : curMap.getTriggers()){
+        QGraphicsItem *item = dynamic_cast<QGraphicsItem*>(trigger->getMarker());
+        if ( scene->items().contains( item) ){
+            qDebug() << "found";
+        }
+    }
 }
 
 void MainWindow::setupAssets(){
@@ -813,3 +825,9 @@ void MainWindow::setupAssets(){
 }
 
 
+
+void MainWindow::on_actionHide_Trigger_triggered()
+{
+    qDebug() << "hide";
+    hideTriggers();
+}

@@ -8,6 +8,7 @@
 #include <QMessageBox>
 #include "tile.h"
 #include "texture.h"
+#include "triggerai.h"
 
 class Unit
 {
@@ -35,26 +36,25 @@ class MapView2
 public:
     MapView2();
     MapView2(QMap<QString,Texture*>& loadedAssets);
-
     MapView2(QIODevice &mapFile, QMap<QString,Texture*>& ,const QString &mapTexName);
-//    QString tileEncode(QString strType,int i, int j);
-//    void builtTreeTop(QGraphicsScene *scene);
 
     Terrain* getTerrain();
     Texture* getButtonColorsTx();
     Texture* getButtonIconsTx();
-    void displayMap(QGraphicsScene *scene);
-    void displayNewMap(QGraphicsScene *scene);
-
     QSize getMapDim();
     QString getMapName();
     QVector<QChar> getMapLayout();
-    void setMapLayout(QVector<QChar> layout);
-    QVector<Player> getPlayers();
     int getNumPlayers();
     int getNumUnits();
-    void addUnit(Unit u, int player);
     Texture *getAsset(QString assetName);
+    QVector<Player> getPlayers();
+    QVector<TriggerAI*> getTriggers();
+
+    void setMapLayout(QVector<QChar> layout);
+    void addTrigger(TriggerAI *trigger );
+    void addUnit(Unit u, int player);
+    void displayMap(QGraphicsScene *scene);
+    void displayNewMap(QGraphicsScene *scene);
 
     // change tile at some pos and tiles around it
     void changeMapTile(QGraphicsScene *scene , QPointF point , Terrain::Type type);
@@ -70,8 +70,8 @@ private:
     void openMapTexture(const QString &mapTexture);
     void addPlayer(Player p);
 
-    QImage createImageTile(QImage* image, const QRect &rect);
-
+//    QImage createImageTile(QImage* image, const QRect &rect);
+    QChar strToMapkey(QString str);
     QString mapName;
     QVector<Player> players;
     QVector<QChar> mapLayOut;
@@ -82,11 +82,11 @@ private:
     Texture* toolbar;
     Texture* buttonColors;
     Texture* buttonIcons;
-    QChar strToMapkey(QString str);
-
     QStringList mapAllowedAIs;
     QString mapDescription;
     QMap<QString,Texture*> assets;
+    QVector<TriggerAI*> triggers;
+
 };
 
 #endif // MAPVIEW2_H

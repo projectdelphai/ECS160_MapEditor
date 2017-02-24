@@ -93,7 +93,6 @@ void MapView2::openMap(QIODevice &mapFile){
         QMessageBox::warning(0,"error opening map",mapFile.errorString());
     }
 
-
     QString blankLine = " ";
     int lineNum = 0;
 
@@ -573,6 +572,16 @@ void MapView2::displayMap(QGraphicsScene *scene){
     builtmap(scene);
     builtTreeTop(scene);
     builtAssets(scene);
+}
+
+void MapView2::addTrigger(TriggerAI *trigger){
+    if (trigger)
+        return;
+    triggers.append(trigger);
+}
+
+QVector<TriggerAI*> MapView2::getTriggers(){
+    return triggers;
 }
 
 Texture* MapView2::getButtonColorsTx(){

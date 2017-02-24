@@ -26,3 +26,11 @@ void TriggerAI::startTimer(QWidget *widget){
 void TriggerAI::hook(){
 
 }
+
+void TriggerAI::setMarker(Tile *marker){
+    tile = marker;
+}
+
+Tile* TriggerAI::getMarker(){
+    return tile;
+}

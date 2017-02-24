@@ -1125,6 +1125,7 @@
     </property>
     <addaction name="actionAnimate"/>
     <addaction name="actionZoom_Out"/>
+    <addaction name="actionHide_Trigger"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -1329,6 +1330,14 @@
   <action name="actionExport_to_file">
    <property name="text">
     <string>Export to file...</string>
+   </property>
+  </action>
+  <action name="actionHide_Trigger">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Hide Trigger</string>
    </property>
   </action>
  </widget>

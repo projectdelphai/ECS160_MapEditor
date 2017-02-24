@@ -87,6 +87,8 @@ private slots:
 
     void on_tool_triggerAI_clicked();
 
+    void on_actionHide_Trigger_triggered();
+
 private:
     Ui::MainWindow *ui;
     void updateUI();
@@ -97,6 +99,7 @@ private:
     void writeMapFile(QIODevice*);
     bool loadPkgFile(const QString &fileName);
     void setCurrentFile(const QString &fileName);
+    void hideTriggers();
 
     int curPlayer;
     QString curTool;
@@ -105,7 +108,6 @@ private:
     QString curPath = QDir::homePath(); // current directory
     DgAssets *wAssets = 0;
     QMap<QString,Texture*> assets;
-    QVector<TriggerAI> triggers;
 
 };
 
