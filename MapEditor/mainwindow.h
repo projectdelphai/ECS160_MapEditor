@@ -9,6 +9,8 @@
 #include "dgassets.h"
 #include "quazip/quazip.h"
 #include "quazip/quazipfile.h"
+#include "triggerai.h"
+#include "dialogtrigger.h"
 
 namespace Ui {
 class MainWindow;
@@ -79,8 +81,11 @@ private slots:
     void open_DgMapProperties();
     void open_DgPlayerProperties();
     void open_DgAssets();
+    void open_DTrigger(QGraphicsScene* , Tile* );
 
     void setupAssets();
+
+    void on_tool_triggerAI_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -100,6 +105,8 @@ private:
     QString curPath = QDir::homePath(); // current directory
     DgAssets *wAssets = 0;
     QMap<QString,Texture*> assets;
+    QVector<TriggerAI> triggers;
+
 };
 
 

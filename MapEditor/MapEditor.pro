@@ -39,7 +39,8 @@ SOURCES += main.cpp\
     dgplayerproperties.cpp \
     dgassets.cpp \
     mapview.cpp \
-    triggerai.cpp
+    triggerai.cpp \
+    dialogtrigger.cpp
 
 HEADERS  += mainwindow.h \
     mapview2.h \
@@ -52,13 +53,15 @@ HEADERS  += mainwindow.h \
     dgplayerproperties.h \
     dgassets.h \
     mapview.h \
-    triggerai.h
+    triggerai.h \
+    dialogtrigger.h
 
 FORMS    += mainwindow.ui \
     dgmapproperties.ui \
     dgabout.ui \
     dgplayerproperties.ui \
-    dgassets.ui
+    dgassets.ui \
+    dialogtrigger.ui
 
 RESOURCES += \
     icons.qrc \

@@ -35,6 +35,7 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
         Texture *asset = 0;
         QMediaPlayer * music = new QMediaPlayer();
 
+        qDebug() << "curTool: " << curTool;
 
         if (curTool == "grass")
             type = Terrain::Grass;
@@ -130,10 +131,19 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
             clearSelection();
             return;
         }
-
+        else if( curTool == "Trigger"){
+            brushable = false;
+            QImage image;
+            image.load(":/data/img/Trigger.png");
+            Tile *item = new Tile("Trigger", QPixmap::fromImage(image));
+            item->setPos(x,y);
+            item->setZValue(10);
+            addItem(item);
+            emit open_DTrigger(this, item);
+            return;
+        }
         QImage imageDx;
         if (!asset){
-           //imageDx = *terrain->getImageTile(type);
            // tile change
             brushable = true;
             mapInfo->changeMapTile(this, mouseEvent->scenePos(),type);
@@ -154,6 +164,8 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
             Tile * pixItem = new Tile(type, pixmap);
 
             pixItem->setPos(x, y);
+            pixItem->setZValue(1);
+
             QString x, y;
             x.setNum(pixItem->scenePos().x());
             y.setNum(pixItem->scenePos().y());

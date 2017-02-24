@@ -27,6 +27,7 @@ public:
 signals:
     void changedLayout(int x, int y, Terrain::Type type);
     void changedAsset(int x, int y, QString asset, int curPlayer);
+    void open_DTrigger(QGraphicsScene* scene, Tile* );
 public slots:
 
 private:

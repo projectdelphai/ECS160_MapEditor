@@ -193,9 +193,6 @@
              <property name="autoExclusive">
               <bool>true</bool>
              </property>
-             <attribute name="buttonGroup">
-              <string notr="true">bgroup_player</string>
-             </attribute>
             </widget>
            </item>
            <item>
@@ -215,9 +212,6 @@
              <property name="autoExclusive">
               <bool>true</bool>
              </property>
-             <attribute name="buttonGroup">
-              <string notr="true">bgroup_player</string>
-             </attribute>
             </widget>
            </item>
            <item>
@@ -237,9 +231,6 @@
              <property name="autoExclusive">
               <bool>true</bool>
              </property>
-             <attribute name="buttonGroup">
-              <string notr="true">bgroup_player</string>
-             </attribute>
             </widget>
            </item>
            <item>
@@ -259,9 +250,6 @@
              <property name="autoExclusive">
               <bool>true</bool>
              </property>
-             <attribute name="buttonGroup">
-              <string notr="true">bgroup_player</string>
-             </attribute>
             </widget>
            </item>
            <item>
@@ -281,9 +269,6 @@
              <property name="autoExclusive">
               <bool>true</bool>
              </property>
-             <attribute name="buttonGroup">
-              <string notr="true">bgroup_player</string>
-             </attribute>
             </widget>
            </item>
            <item>
@@ -303,9 +288,6 @@
              <property name="autoExclusive">
               <bool>true</bool>
              </property>
-             <attribute name="buttonGroup">
-              <string notr="true">bgroup_player</string>
-             </attribute>
             </widget>
            </item>
            <item>
@@ -325,9 +307,6 @@
              <property name="autoExclusive">
               <bool>true</bool>
              </property>
-             <attribute name="buttonGroup">
-              <string notr="true">bgroup_player</string>
-             </attribute>
             </widget>
            </item>
            <item>
@@ -347,9 +326,6 @@
              <property name="autoExclusive">
               <bool>true</bool>
              </property>
-             <attribute name="buttonGroup">
-              <string notr="true">bgroup_player</string>
-             </attribute>
             </widget>
            </item>
           </layout>
@@ -910,6 +886,19 @@
            </item>
            <item>
             <layout class="QGridLayout" name="grid_neutral">
+             <item row="0" column="3">
+              <spacer name="horizontalSpacer_5">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
              <item row="0" column="0">
               <widget class="QToolButton" name="tool_goldmine">
                <property name="toolTip">
@@ -932,19 +921,6 @@
                </property>
               </widget>
              </item>
-             <item row="0" column="2">
-              <spacer name="horizontalSpacer_5">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
              <item row="0" column="1">
               <widget class="QToolButton" name="tool_startlocation">
                <property name="toolTip">
@@ -958,6 +934,19 @@
                  <width>46</width>
                  <height>38</height>
                 </size>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="2">
+              <widget class="QToolButton" name="tool_triggerAI">
+               <property name="toolTip">
+                <string>Trigger</string>
+               </property>
+               <property name="accessibleName">
+                <string>Trigger</string>
+               </property>
+               <property name="text">
+                <string>AI Trigger</string>
                </property>
               </widget>
              </item>
@@ -1047,6 +1036,9 @@
       <property name="toolTip">
        <string>Hand</string>
       </property>
+      <property name="accessibleName">
+       <string>Trigger</string>
+      </property>
       <property name="backgroundBrush">
        <brush brushstyle="SolidPattern">
         <color alpha="128">
@@ -1066,7 +1058,7 @@
      <x>0</x>
      <y>0</y>
      <width>1082</width>
-     <height>21</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -1458,22 +1450,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>bgroup_player</sender>
-   <signal>buttonClicked(QAbstractButton*)</signal>
-   <receiver>MainWindow</receiver>
-   <slot>on_tool_pX_clicked(QAbstractButton*)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>540</x>
-     <y>403</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>actionAssets</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
@@ -1520,7 +1496,4 @@
   <slot>open_DgAssets()</slot>
   <slot>exportPkg()</slot>
  </slots>
- <buttongroups>
-  <buttongroup name="bgroup_player"/>
- </buttongroups>
 </ui>

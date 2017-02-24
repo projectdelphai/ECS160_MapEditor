@@ -57,70 +57,7 @@ MapView2::MapView2(QIODevice &mapFile ,QMap<QString,Texture*>& loadedAssets, con
 }
 
 
-void MapView2::setup(){
-    // grab all the asset files
-    QString path = ":/data/img";
-    QString colorFile = ":/data/img/Colors.png";
-    QString goldmineTool = ":/data/img/GoldMine.dat";
-    QString peasantTool = ":/data/img/Peasant.dat";
-    QString archerTool = ":/data/img/Archer.dat";
-    QString knightTool = ":/data/img/Knight.dat";
-    QString rangerTool = ":/data/img/Ranger.dat";
-    QString townhallTool = ":/data/img/TownHall.dat";
-    QString barracksTool = ":/data/img/Barracks.dat";
-    QString blacksmithTool = ":/data/img/Blacksmith.dat";
-    QString cannontowerTool = ":/data/img/CannonTower.dat";
-    QString castleTool = ":/data/img/Castle.dat";
-    QString farmTool = ":/data/img/Farm.dat";
-    QString guardtowerTool = ":/data/img/GuardTower.dat";
-    QString keepTool = ":/data/img/Keep.dat";
-    QString lumbermillTool = ":/data/img/LumberMill.dat";
-    QString scouttowerTool = ":/data/img/ScoutTower.dat";
 
-
-    // append them to a vector
-    QVector<QString> files;
-    files.append(peasantTool);
-    files.append(archerTool);
-    files.append(knightTool);
-    files.append(rangerTool);
-    files.append(goldmineTool);
-    files.append(townhallTool);
-    files.append(barracksTool);
-    files.append(blacksmithTool);
-    files.append(cannontowerTool);
-    files.append(castleTool);
-    files.append(farmTool);
-    files.append(guardtowerTool);
-    files.append(keepTool);
-    files.append(lumbermillTool);
-    files.append(scouttowerTool);
-
-
-    int nObjects = files.size();
-
-    // create a texture for each asset
-    for(int i = 0; i < nObjects; i++){
-        Texture *tex = new Texture(files.at(i),colorFile);
-        assets.insert( tex->textureName, tex);
-    }
-    assets.value("Peasant")->paintAll();
-    assets.value("Knight")->paintAll();
-    assets.value("Ranger")->paintAll();
-    assets.value("Archer")->paintAll();
-    assets.value("TownHall")->paintAll();
-    assets.value("Barracks")->paintAll();
-    assets.value("Blacksmith")->paintAll();
-    assets.value("CannonTower")->paintAll();
-    assets.value("Castle")->paintAll();
-    assets.value("Farm")->paintAll();
-    assets.value("GuardTower")->paintAll();
-    assets.value("Keep")->paintAll();
-    assets.value("LumberMill")->paintAll();
-    assets.value("ScoutTower")->paintAll();
-
-
-}
 
 // creates a blank map and updates variables
 void MapView2::defaultMap(){
@@ -255,14 +192,10 @@ void MapView2::changeMapTile(QGraphicsScene *scene, QPointF pos , Terrain::Type 
     int y = centerTile->scenePos().y()/tileDim.height();
     QString typedx = terrain->toString(type);
     QString strType = tileEncode(typedx, y , x );
-//    qDebug() << strType;
-//    qDebug() << "before" <<mapLayOut.at(y*mapDim.width() + x) ;
+    // tile changed
     mapLayOut.replace((y)*mapDim.width() + x,strToMapkey(typedx));
-//    qDebug() << "After" <<mapLayOut.at(y*mapDim.width() + x) ;
-    // changes center tile
     QImage image = *terrain->getImageTile(strType);
     centerTile->setTileImage(QPixmap::fromImage(image), typedx );
-
 
     QVector<Tile*> tiles;
     int i = centerTile->scenePos().y() - tileDim.height();
@@ -276,9 +209,7 @@ void MapView2::changeMapTile(QGraphicsScene *scene, QPointF pos , Terrain::Type 
             // skip middle tile
             if( y == centerTile->scenePos().y() && x == centerTile->scenePos().x() )
                 continue;
-//            qDebug() << "(" << x << "," << y << ")";
 
-//            QPointF pt(x,y);
             Tile *tile = dynamic_cast<Tile*>( scene->itemAt( QPoint(x,y), QTransform() ));
             if (tile == NULL ){
                // qDebug() << "null";
@@ -417,9 +348,6 @@ QString MapView2::tileEncode(QString strType ,int i , int j){
         tiles.append(TopTile);
         tiles.append(upperLTile);
 
-       // qDebug() <<"this is the cordinate "<< "(" << i << "," << j << ")";
-
-
 
         for(int i = 0; i < tiles.size(); i++){
             if ( tiles.at(i) == centerType ){
@@ -430,7 +358,6 @@ QString MapView2::tileEncode(QString strType ,int i , int j){
             }
         }
 
-       // qDebug() << encodeStr;
 
         bool ok;
 
@@ -441,7 +368,6 @@ QString MapView2::tileEncode(QString strType ,int i , int j){
                 QString sPoint = QString().setNum( j*tileDim.width() ) + " " +  QString().setNum( (i-1)*tileDim.height() );
                 treeTopTiles.insert( sPoint, strType + "-" + QString().setNum(num2) );
             }
-          //  qDebug() << "tree top: " << strType + "-" + QString().setNum(num2);
         }
 
         valueStrType = strType + "-" + QString().setNum(num1);
@@ -501,7 +427,6 @@ QString MapView2::tileEncode(QString strType ,int i , int j){
         int num = encodeStr.toInt(&ok,2);
         if(num==0)
         {
-            //qDebug() << "all graas";
 
             valueStrType =  strType;
         }
@@ -522,7 +447,6 @@ QString MapView2::tileEncode(QString strType ,int i , int j){
 
 void MapView2::builtTreeTop(QGraphicsScene *scene){
     if(treeTopTiles.empty()){
-      //  qDebug() << "No tree tops";
         return;
     }
 
@@ -559,7 +483,9 @@ void MapView2::displayNewMap(QGraphicsScene *scene){
             x = j*tileDim.width();
             y = i*tileDim.height();
             tile->setPos(x,y);
+            tile->setZValue(-1);
             scene->addItem(tile);
+
 
         }
     }
@@ -610,6 +536,7 @@ void MapView2::builtmap(QGraphicsScene *scene)
             x = j*tileDim.width();
             y = i*tileDim.height();
             pixItem->setPos(x,y);
+            pixItem->setZValue(-1);
             scene->addItem(pixItem);
         }
     }

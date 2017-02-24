@@ -7,7 +7,7 @@ TriggerAI::TriggerAI(QString name)
    triggerName = name;
 }
 
-QString TriggerAI::infoAI(){
+QString TriggerAI::infoAI() const{
     QString ai = triggerName + " " + QString().setNum(position.x()) + " " + QString().setNum(position.y()) + " " + QString().setNum(time);
     return ai;
 }

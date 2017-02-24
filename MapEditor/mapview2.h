@@ -68,7 +68,6 @@ private:
 
     void openMap(QIODevice &mapFile);
     void openMapTexture(const QString &mapTexture);
-    void setup();
     void addPlayer(Player p);
 
     QImage createImageTile(QImage* image, const QRect &rect);

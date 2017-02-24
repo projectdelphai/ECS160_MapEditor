@@ -11,7 +11,7 @@ class TriggerAI
 public:
     TriggerAI(QString name);
     void setTimer(double);
-    QString infoAI();
+    QString infoAI() const;
     void hook();
     void startTimer(QWidget *widget);
 

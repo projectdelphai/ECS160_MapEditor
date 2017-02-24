@@ -26,25 +26,21 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     MainWindow::newFile();
     MainWindow::updateUI();
 
-
-
     // resize minimap
     ui->graphicsView_2->fitInView(0,0,256,192, Qt::KeepAspectRatio);
 
     // connect signals and slots
     QObject::connect(scene, &GraphicsScene::changedLayout, this, &MainWindow::changeLayout);
     QObject::connect(scene, &GraphicsScene::changedAsset, this, &MainWindow::changeAsset);
-    QTimer *timer = new QTimer(this);
-    QObject::connect(timer, SIGNAL(timeout()), this , SLOT(update()));
-
+    QObject::connect(scene,&GraphicsScene::open_DTrigger,this,&MainWindow::open_DTrigger);
 
     // default values
     curPlayer = 1;
     scene->curPlayer = 1;
     // play background music
-    QMediaPlayer * backgroundMusic = new QMediaPlayer();
-    backgroundMusic->setMedia(QUrl("qrc:/data/snd/basic/annoyed2.wav"));
-    backgroundMusic->play();
+//    QMediaPlayer * backgroundMusic = new QMediaPlayer();
+//    backgroundMusic->setMedia(QUrl("qrc:/data/snd/basic/annoyed2.wav"));
+//    backgroundMusic->play();
 }
 
 MainWindow::~MainWindow()
@@ -331,10 +327,10 @@ void MainWindow::writeMapFile(QIODevice *file){
     }
 
     // write ai triggers
-//    stream << triggers.length() << endl;
-//    for( auto itr = triggers.begin(); itr != triggers.end(); itr++){
-//        stream << itr->infoAI() << endl;
-//    }
+    stream << triggers.length() << endl;
+    for( int i = 0; i < triggers.length(); i++){
+        stream << triggers.at(i).infoAI();
+    }
 
     file->close();
 }
@@ -708,6 +704,14 @@ void MainWindow::on_tool_pX_clicked(QAbstractButton* button) {
     ui->statusBar->showMessage("Player " + button->text() + " selected");
 }
 
+void MainWindow::on_tool_triggerAI_clicked()
+{
+    curTool = "Trigger";
+    scene->curTool = "Trigger";
+    statusBar()->showMessage(tr("Trigger selected"),2000);
+}
+
+
 // for various dialog boxes
 void MainWindow::open_DgAbout(){
     DgAbout w(this);
@@ -735,6 +739,14 @@ void MainWindow::open_DgAssets(){
     wAssets->activateWindow();
 }
 
+void MainWindow::open_DTrigger(QGraphicsScene *scene , Tile *tile){
+    DialogTrigger window(this);
+    if ( window.exec() != QDialog::Accepted ){
+        scene->removeItem(tile);
+        return;
+    }
+}
+
 void MainWindow::setupAssets(){
     // grab all the asset files
     QString path = ":/data/img";
@@ -754,11 +766,10 @@ void MainWindow::setupAssets(){
     QString keepTool = ":/data/img/Keep.dat";
     QString lumbermillTool = ":/data/img/LumberMill.dat";
     QString scouttowerTool = ":/data/img/ScoutTower.dat";
-    QString triggerTool = ":/data/img/trigger.dat";
 
 
 
-    int nObjects = 16;
+    int nObjects = 15;
 
 //    assets = new QMap<QString,Texture*>;
 
@@ -779,7 +790,6 @@ void MainWindow::setupAssets(){
     files.append(keepTool);
     files.append(lumbermillTool);
     files.append(scouttowerTool);
-    files.append(triggerTool);
 
     // create a texture for each asset
     for(int i = 0; i < nObjects; i++){
@@ -801,4 +811,5 @@ void MainWindow::setupAssets(){
     assets.value("LumberMill")->paintAll();
     assets.value("ScoutTower")->paintAll();
 }
+
 
