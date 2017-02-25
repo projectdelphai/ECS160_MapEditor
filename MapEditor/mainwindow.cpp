@@ -745,8 +745,10 @@ void MainWindow::open_DTrigger(QGraphicsScene *scene , Tile *tile){
         scene->removeItem(tile);
         return;
     }
-    TriggerAI *trigger = new TriggerAI("ai");
+
+    TriggerAI *trigger = new TriggerAI(window.textLine1);
     trigger->setMarker(tile);
+    trigger->setTimer(window.textLine2.toInt());
     curMap.addTrigger(trigger);
 }
 void MainWindow::hideTriggers(){
