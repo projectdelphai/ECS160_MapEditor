@@ -185,6 +185,13 @@ void MapView2::changeMapTile(QGraphicsScene *scene, QPointF pos , Terrain::Type 
 
     // tile inside scene to change
     Tile *centerTile = qgraphicsitem_cast< Tile*>( scene->itemAt(pos, QTransform()) );
+    if ( !centerTile ){
+        qDebug() << "null pointer";
+        return;
+    }
+
+    qDebug() << "type: " << centerTile->getType();
+
 
 
     int x = centerTile->scenePos().x()/tileDim.width();
@@ -210,8 +217,8 @@ void MapView2::changeMapTile(QGraphicsScene *scene, QPointF pos , Terrain::Type 
                 continue;
 
             Tile *tile = dynamic_cast<Tile*>( scene->itemAt( QPoint(x,y), QTransform() ));
-            if (tile == NULL ){
-               // qDebug() << "null";
+            if (tile == NULL  ){
+                qDebug() << "null";
                 continue;
             }
             tiles.append(tile);
@@ -478,7 +485,6 @@ void MapView2::displayNewMap(QGraphicsScene *scene){
             }
             QImage imageDx = *terrain->getImageTile(type);
             Tile *tile = new Tile(type.split("-")[0] , QPixmap::fromImage(imageDx));
-
             x = j*tileDim.width();
             y = i*tileDim.height();
             tile->setPos(x,y);
@@ -535,7 +541,7 @@ void MapView2::builtmap(QGraphicsScene *scene)
             x = j*tileDim.width();
             y = i*tileDim.height();
             pixItem->setPos(x,y);
-            pixItem->setZValue(-1);
+//            pixItem->setZValue(-1);
             scene->addItem(pixItem);
         }
     }
@@ -575,8 +581,11 @@ void MapView2::displayMap(QGraphicsScene *scene){
 }
 
 void MapView2::addTrigger(TriggerAI *trigger){
-    if (trigger)
+    if (trigger == 0){
         return;
+    }
+
+    qDebug() << "added";
     triggers.append(trigger);
 }
 

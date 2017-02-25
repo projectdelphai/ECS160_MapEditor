@@ -579,6 +579,10 @@ void MainWindow::changeLayout(int x, int y, Terrain::Type type)
 
 }
 
+void MainWindow::activateAI(){
+    qDebug() << QTime::currentTime().toString();
+}
+
 void MainWindow::changeAsset(int x, int y, QString asset, int player)
 {
     int newX = x / 32;
@@ -749,16 +753,35 @@ void MainWindow::open_DTrigger(QGraphicsScene *scene , Tile *tile){
     TriggerAI *trigger = new TriggerAI(window.textLine1);
     trigger->setMarker(tile);
     trigger->setTimer(window.textLine2.toInt());
+    trigger->startTimer(this);
     curMap.addTrigger(trigger);
-}
-void MainWindow::hideTriggers(){
+    bool checked = ui->actionHide_Trigger->isChecked();
+    if ( checked == false ){
+        trigger->displayRange(scene);
+    }
 
+    trigger->getMarker()->setVisible(!checked);
+
+}
+void MainWindow::hideTriggers(bool visible){
     for(TriggerAI *trigger : curMap.getTriggers()){
-        QGraphicsItem *item = dynamic_cast<QGraphicsItem*>(trigger->getMarker());
+        QGraphicsItem *item = qgraphicsitem_cast<QGraphicsItem*>(trigger->getMarker());
         if ( scene->items().contains( item) ){
-            qDebug() << "found";
+            item->setVisible(visible);
+            if( visible == 0 && trigger->isRangeOn()){
+                trigger->removeRange(scene);
+            }
+            else if (visible != 0 || trigger->isRangeOn() == false ){
+                trigger->displayRange(scene);
+            }
         }
     }
+}
+
+void MainWindow::on_actionHide_Trigger_triggered()
+{
+    bool enable = !(ui->actionHide_Trigger->isChecked());
+    hideTriggers(enable);
 }
 
 void MainWindow::setupAssets(){
@@ -828,8 +851,3 @@ void MainWindow::setupAssets(){
 
 
 
-void MainWindow::on_actionHide_Trigger_triggered()
-{
-    qDebug() << "hide";
-    hideTriggers();
-}

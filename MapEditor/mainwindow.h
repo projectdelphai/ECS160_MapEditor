@@ -29,6 +29,8 @@ public:
 public slots:
     void changeLayout(int x, int y, Terrain::Type type);
     void changeAsset(int x, int y, QString asset, int player);
+    void activateAI();
+
 
 protected:
 #ifndef QT_NO_CONTEXTMENU
@@ -84,9 +86,7 @@ private slots:
     void open_DTrigger(QGraphicsScene* , Tile* );
 
     void setupAssets();
-
     void on_tool_triggerAI_clicked();
-
     void on_actionHide_Trigger_triggered();
 
 private:
@@ -99,7 +99,7 @@ private:
     void writeMapFile(QIODevice*);
     bool loadPkgFile(const QString &fileName);
     void setCurrentFile(const QString &fileName);
-    void hideTriggers();
+    void hideTriggers(bool visible);
 
     int curPlayer;
     QString curTool;
