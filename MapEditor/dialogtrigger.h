@@ -17,6 +17,7 @@ public:
     ~DialogTrigger();
     QString textLine1;
     QString textLine2;
+    QString textLine3;
 
 private slots:
     void on_lineEdit_textChanged(const QString &arg1);
@@ -24,6 +25,8 @@ private slots:
     void on_lineEdit_2_textEdited(const QString &arg1);
 
 
+
+    void on_lineEdit_3_textEdited(const QString &arg1);
 
 private:
     Ui::DialogTrigger *ui;

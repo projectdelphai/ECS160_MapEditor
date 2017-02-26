@@ -753,6 +753,7 @@ void MainWindow::open_DTrigger(QGraphicsScene *scene , Tile *tile){
     TriggerAI *trigger = new TriggerAI(window.textLine1);
     trigger->setMarker(tile);
     trigger->setTimer(window.textLine2.toInt());
+    trigger->setRange(window.textLine3.toInt());
     trigger->startTimer(this);
     curMap.addTrigger(trigger);
     bool checked = ui->actionHide_Trigger->isChecked();

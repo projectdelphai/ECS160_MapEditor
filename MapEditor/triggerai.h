@@ -19,6 +19,7 @@ public:
     void startTimer(QWidget *widget);
     void setMarker(Tile *tile);
     void setTimer(double);
+    void setRange(double);
 
     bool isRangeOn();
     double getTimer();

@@ -24,3 +24,8 @@ void DialogTrigger::on_lineEdit_2_textEdited(const QString &arg1)
     textLine2 = arg1;
 }
 
+
+void DialogTrigger::on_lineEdit_3_textEdited(const QString &arg1)
+{
+    textLine3 = arg1;
+}
