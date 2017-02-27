@@ -21,6 +21,7 @@ public:
     virtual void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent);
     virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent);
     virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent);
+    void delayUnit(int millisecondsToWait);
     void addToolItem(QGraphicsSceneMouseEvent *mouseEvent);
     bool withinBounds(QGraphicsSceneMouseEvent *mouseEvent);
     QString curTool;
