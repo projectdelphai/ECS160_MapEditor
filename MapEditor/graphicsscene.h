@@ -36,7 +36,6 @@ private:
     QObject *parent;
     MapView2 *mapInfo;
     bool brushing;
-    QMediaPlayer * unitsound;
 };
 
 #endif // GRAPHICSSCENE_H
