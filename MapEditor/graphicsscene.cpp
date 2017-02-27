@@ -16,6 +16,15 @@ GraphicsScene::GraphicsScene(QObject *parent, MapView2 *curMap) : QGraphicsScene
     unitsound = new QMediaPlayer();
 }
 
+void GraphicsScene::delayUnit(int millisecondsToWait)
+{
+    QTime dieTime = QTime::currentTime().addMSecs( millisecondsToWait );
+    while( QTime::currentTime() < dieTime )
+    {
+        QCoreApplication::processEvents( QEventLoop::AllEvents, 100 );
+    }
+}
+
 void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
 {
     QWidget *q =  mouseEvent->widget()->parentWidget();
@@ -122,22 +131,65 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
 
         }
         else
-        {
-            if (curTool == "GoldMine")
-                imageDx = asset->imageList[0];
-            else if (curTool == "CannonTower" || curTool == "Castle" || curTool == "Keep" || curTool == "GuardTower")
-                imageDx = asset->colorPlayerImg[curPlayer][1];
-            else if (curTool == "Peasant" || curTool == "Knight" || curTool == "Archer" || curTool == "Ranger")
-                imageDx = asset->colorPlayerImg[curPlayer][20];
-            else
-                imageDx = asset->colorPlayerImg[curPlayer][2];
+        {//Loads/Animates the assets
+            if (curTool == "GoldMine"){
+                for (int i=0; i<= 1;i++){
+                    imageDx = imageDx = asset->imageList[i];
+                    QPixmap pixmap = QPixmap::fromImage(imageDx);
+                    Tile * pixItem = new Tile(type, pixmap);
 
-            QPixmap pixmap = QPixmap::fromImage(imageDx);
-            Tile * pixItem = new Tile(type, pixmap);
+                    pixItem->setPos(x, y);
+                    addItem(pixItem);
+                    delayUnit(1000);
+                    if (i!=1){
+                        removeItem(pixItem);
+                    }
+                }
+            }
+            else if (curTool == "CannonTower" || curTool == "Castle" || curTool == "Keep" || curTool == "GuardTower"){
+                for (int i=0; i<= 1;i++){
+                    imageDx = asset->colorPlayerImg[curPlayer][i];
+                    QPixmap pixmap = QPixmap::fromImage(imageDx);
+                    Tile * pixItem = new Tile(type, pixmap);
 
+                    pixItem->setPos(x, y);
+                    addItem(pixItem);
+                    delayUnit(1000);
+                    if (i!=1){
+                        removeItem(pixItem);
+                    }
+                }
+            }
+            //for some reason barracks do not work
+            else if (curTool == "TownHall" || curTool == "Barracks" || curTool == "Blacksmith" || curTool == "Farm" || curTool == "ScoutTower" || curTool == "LumberMill"){
+                for (int i=0; i<= 3;i++){
+                    imageDx = asset->colorPlayerImg[curPlayer][i];
+                    QPixmap pixmap = QPixmap::fromImage(imageDx);
+                    Tile * pixItem = new Tile(type, pixmap);
 
-            pixItem->setPos(x, y);
-            addItem(pixItem);
+                    pixItem->setPos(x, y);
+                    addItem(pixItem);
+                    delayUnit(1000);
+                    if (i!=3){
+                        removeItem(pixItem);
+                    }
+                }
+            }
+
+            else if (curTool == "Peasant" || curTool == "Knight" || curTool == "Archer" || curTool == "Ranger"){
+                for (int i=0; i<= 39;i++){
+                    imageDx = asset->colorPlayerImg[curPlayer][i];
+                    QPixmap pixmap = QPixmap::fromImage(imageDx);
+                    Tile * pixItem = new Tile(type, pixmap);
+
+                    pixItem->setPos(x, y);
+                    addItem(pixItem);
+                    delayUnit(500);
+                    if (i!=39){
+                       removeItem(pixItem);
+                    }
+                }
+            }
         }
 
 
