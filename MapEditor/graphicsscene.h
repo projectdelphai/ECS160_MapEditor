@@ -35,6 +35,7 @@ private:
     bool brushing;
     bool brushable;
     QVector<QString> addedItems;
+    QVector<QString> tempXY;
     QMap<QString,Texture*> *assets;
 };
 
