@@ -7,6 +7,7 @@
 #include "dgmapproperties.h"
 #include "dgplayerproperties.h"
 #include "dgassets.h"
+#include "exporttoweb.h"
 #include <QMediaPlayer>
 
 
@@ -711,6 +712,12 @@ void MainWindow::open_DgMapProperties(){
 
 void MainWindow::open_DgPlayerProperties(){
     DgPlayerProperties w(this);
+    w.exec();
+}
+
+void MainWindow::open_exporttoweb()
+{
+    ExportToWeb w(this);
     w.exec();
 }
 

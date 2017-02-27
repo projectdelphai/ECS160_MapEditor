@@ -5,7 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui \
-         multimedia
+         multimedia network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 include(quazip/quazip.pri)
@@ -38,7 +38,8 @@ SOURCES += main.cpp\
     dgabout.cpp \
     dgplayerproperties.cpp \
     dgassets.cpp \
-    mapview.cpp
+    mapview.cpp \
+    exporttoweb.cpp
 
 HEADERS  += mainwindow.h \
     mapview2.h \
@@ -50,13 +51,15 @@ HEADERS  += mainwindow.h \
     dgabout.h \
     dgplayerproperties.h \
     dgassets.h \
-    mapview.h
+    mapview.h \
+    exporttoweb.h
 
 FORMS    += mainwindow.ui \
     dgmapproperties.ui \
     dgabout.ui \
     dgplayerproperties.ui \
-    dgassets.ui
+    dgassets.ui \
+    exporttoweb.ui
 
 RESOURCES += \
     icons.qrc \
