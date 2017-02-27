@@ -24,9 +24,12 @@ class Player
 public:
     Player();
     Player(int n, int g, int l);
+    enum playerType{ Human = 0, AI };
     int num;
     int gold;
     int lumber;
+    int stone;
+    playerType type = playerType::Human;
     QVector<Unit> units;
 };
 
@@ -53,6 +56,8 @@ public:
     QVector<Player> getPlayers();
     int getNumPlayers();
     int getNumUnits();
+
+    void setPlayers(QVector<Player> &newPlayers);
     void addUnit(Unit u, int player);
     Texture *getAsset(QString assetName);
 

@@ -164,7 +164,6 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
                 addItem(pixItem);
                 // play background music
                 music->play();
-                qDebug() << addedItems;
             }
             else
                 return;
