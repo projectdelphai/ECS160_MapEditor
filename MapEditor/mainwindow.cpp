@@ -755,6 +755,10 @@ void MainWindow::open_DTrigger(QGraphicsScene *scene , Tile *tile){
     trigger->setTimer(window.time);
     trigger->setRange(0);
     trigger->startTimer(this);
+    trigger->setCondition(window.condition);
+    trigger->setTriggerFunction(window.trigger);
+    trigger->setType(window.type);
+
     curMap.addTrigger(trigger);
     bool checked = ui->actionHide_Trigger->isChecked();
     if ( checked == false ){
@@ -764,6 +768,7 @@ void MainWindow::open_DTrigger(QGraphicsScene *scene , Tile *tile){
     trigger->getMarker()->setVisible(!checked);
 
 }
+
 void MainWindow::hideTriggers(bool visible){
     for(TriggerAI *trigger : curMap.getTriggers()){
         QGraphicsItem *item = qgraphicsitem_cast<QGraphicsItem*>(trigger->getMarker());

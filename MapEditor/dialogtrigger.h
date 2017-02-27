@@ -20,6 +20,7 @@ public:
     int time;
     QString condition;
     QString trigger;
+    QString type;
 
     void accept();
 

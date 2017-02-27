@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>206</width>
-    <height>199</height>
+    <height>214</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -36,14 +36,14 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="0">
+     <item row="2" column="0">
       <widget class="QLabel" name="label_time">
        <property name="text">
         <string>Time</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
+     <item row="2" column="1">
       <layout class="QHBoxLayout" name="horizontalLayout">
        <property name="sizeConstraint">
         <enum>QLayout::SetMaximumSize</enum>
@@ -126,32 +126,59 @@
        </item>
       </layout>
      </item>
-     <item row="2" column="0">
+     <item row="3" column="0">
       <widget class="QLabel" name="label_condition">
        <property name="text">
         <string>Condition</string>
        </property>
       </widget>
      </item>
-     <item row="2" column="1">
+     <item row="3" column="1">
       <widget class="QLineEdit" name="txt_condition">
+       <property name="inputMask">
+        <string/>
+       </property>
        <property name="placeholderText">
         <string>gold &gt; 5000</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="0">
+     <item row="4" column="0">
       <widget class="QLabel" name="label_trigger">
        <property name="text">
         <string>Trigger</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="1">
+     <item row="4" column="1">
       <widget class="QLineEdit" name="txt_trigger">
        <property name="placeholderText">
         <string>game_over()</string>
        </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_type">
+       <property name="text">
+        <string>Type</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QComboBox" name="txt_type">
+       <property name="editable">
+        <bool>true</bool>
+       </property>
+       <item>
+        <property name="text">
+         <string>Location</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Time</string>
+        </property>
+       </item>
       </widget>
      </item>
     </layout>

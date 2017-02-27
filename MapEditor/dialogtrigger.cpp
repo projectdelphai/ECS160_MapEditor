@@ -22,9 +22,15 @@ DialogTrigger::~DialogTrigger()
 
 void DialogTrigger::accept() {
     name = ui->txt_name->text();
+    type = ui->txt_type->currentText();
     time = ui->txt_min->text().toInt() * 60 + ui->txt_sec->text().toInt();
     condition = "{" + ui->txt_condition->text() + "}";
     trigger = ui->txt_trigger->text();
+
+    if(name.isEmpty() || type.isEmpty()) {
+        QMessageBox::warning(this, "Needs a name", "Please fill out name and type", QMessageBox::Ok);
+        return;
+    }
 
     QDialog::accept();
 }

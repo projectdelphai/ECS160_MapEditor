@@ -35,6 +35,18 @@ void TriggerAI::setRange(double rangeR){
 
 }
 
+void TriggerAI::setCondition(QString &cond) {
+    condition = cond;
+}
+
+void TriggerAI::setTriggerFunction(QString &trig) {
+    triggerFunction = trig;
+}
+
+void TriggerAI::setType(QString &type){
+    triggerType = type;
+}
+
 void TriggerAI::displayRange(QGraphicsScene * scene){
     circleRange = new QGraphicsEllipseItem( position.x()-32,position.y()-32,radius,radius);
     circleRange->setStartAngle(0);
