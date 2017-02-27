@@ -9,18 +9,19 @@ DgPlayerProperties::DgPlayerProperties(QWidget *parent, MapView2 &curMap) :
     QDialog(parent),
     ui(new Ui::DgPlayerProperties)
 {
-    numPlayers = curMap.getNumPlayers();
-    players = curMap.getPlayers();
-
     ui->setupUi(this);
-    DgPlayerProperties::setupUI();
 
+    DgPlayerProperties::curMap = &curMap;
+    DgPlayerProperties::setupUI();
 
 }
 
 // set up UI based on what is currently available.
 void DgPlayerProperties::setupUI() {
     // get UI info
+    numPlayers = curMap->getNumPlayers();
+    players = curMap->getPlayers();
+
     int col = ui->gridLayout->columnCount();
     int row = ui->gridLayout->rowCount();
 
@@ -34,15 +35,13 @@ void DgPlayerProperties::setupUI() {
 
             if(itemType == "QComboBox") {
                 int curIndex = 0;
-                if(i <= numPlayers) {
+                if(i <= numPlayers)
                     curIndex = players.at(i).type;
-                }
-
                 ((QComboBox*)item->widget())->setCurrentIndex(curIndex);
 
             } else if(itemType == "QLineEdit") {
                 QLineEdit* lineBox = (QLineEdit *)item->widget();
-
+                QValidator* validator = new QIntValidator(0, 999999, this);
                 int value = DEFAULT_VALUE;
                 if(i <= numPlayers) {
                     if(c == 1) value = players.at(i).gold;
@@ -51,6 +50,7 @@ void DgPlayerProperties::setupUI() {
                 }
 
                 lineBox->setText(QString::number(value));
+                lineBox->setValidator(validator);
             } // if QLineEdit
 
         } // for every col
@@ -91,4 +91,13 @@ void DgPlayerProperties::on_select_players_currentTextChanged(const QString &arg
 
         } // for each row
     } // for each col
+}
+
+void DgPlayerProperties::on_buttonBox_clicked(QAbstractButton *button)
+{
+    QDialogButtonBox::ButtonRole role = ui->buttonBox->buttonRole(button);
+
+    if (role == QDialogButtonBox::ResetRole)
+        DgPlayerProperties::setupUI();
+    //else if(role == QDialogButtonBox::A)
 }

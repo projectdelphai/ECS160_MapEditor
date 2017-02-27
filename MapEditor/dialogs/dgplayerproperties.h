@@ -25,27 +25,16 @@ public:
     explicit DgPlayerProperties(QWidget *parent, MapView2 &curMap);
     ~DgPlayerProperties();
 
-
 private slots:
     void on_select_players_currentTextChanged(const QString &arg1);
+    void on_buttonBox_clicked(QAbstractButton *button);
 
 private:
     Ui::DgPlayerProperties *ui;
     void setupUI();
     QVector<Player> players;
     int numPlayers;
-};
-
-// helper class to implement setText()
-class Widget : private QWidget
-{
-public:
-    Widget(QWidget *parent = 0) : QWidget(parent) {
-
-    }
-
-    virtual void setText(const QString &);
-
+    MapView2 *curMap;
 };
 
 #endif // DGPLAYERPROPERTIES_H
