@@ -13,7 +13,6 @@ GraphicsScene::GraphicsScene(QObject *parent, MapView2 *curMap) : QGraphicsScene
     GraphicsScene::parent = parent;
     GraphicsScene::mapInfo = curMap;
     brushing = false;
-    unitsound = new QMediaPlayer();
 }
 
 void GraphicsScene::delayUnit(int millisecondsToWait)
@@ -65,28 +64,18 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
             type = Terrain::Rubble;
         else if (curTool == "Peasant"){
             asset = mapInfo->getAsset("Peasant");
-            unitsound -> setMedia(QUrl("qrc:/archer/ready.wav"));
-            unitsound->play();
         }
         else if (curTool == "Ranger"){
             asset = mapInfo->getAsset("Ranger");
-            unitsound -> setMedia(QUrl("qrc:/archer/ready.wav"));
-            unitsound->play();
         }
         else if (curTool == "Archer"){
             asset = mapInfo->getAsset("Archer");
-            unitsound -> setMedia(QUrl("qrc:/archer/ready.wav"));
-            unitsound->play();
         }
         else if (curTool == "Knight"){
             asset = mapInfo->getAsset("Knight");
-            unitsound -> setMedia(QUrl("qrc:/archer/ready.wav"));
-            unitsound->play();
         }
         else if (curTool == "GoldMine"){
             asset = mapInfo->getAsset("GoldMine");
-            unitsound -> setMedia(QUrl("qrc:/buildings/gold-mine.wav"));
-            unitsound->play();
         }
         else if (curTool == "TownHall")
             asset = mapInfo->getAsset("TownHall");
@@ -94,8 +83,6 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
             asset = mapInfo->getAsset("Barracks");
         else if (curTool == "BlackSmith"){
             asset = mapInfo->getAsset("Blacksmith");
-            unitsound -> setMedia(QUrl("qrc:/buildings/blacksmith.wav"));
-            unitsound->play();
         }
         else if (curTool == "CannonTower")
             asset = mapInfo->getAsset("CannonTower");
@@ -103,8 +90,6 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
             asset = mapInfo->getAsset("Castle");
         else if (curTool == "Farm"){
             asset = mapInfo->getAsset("Farm");
-            unitsound -> setMedia(QUrl("qrc:/buildings/farm.wav"));
-            unitsound->play();
         }
         else if (curTool == "GuardTower")
             asset = mapInfo->getAsset("GuardTower");
@@ -114,8 +99,6 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
             asset = mapInfo->getAsset("Keep");
         else if (curTool == "LumberMill"){
             asset = mapInfo->getAsset("LumberMill");
-            unitsound -> setMedia(QUrl("qrc:/buildings/lumber-mill.wav"));
-            unitsound->play();
         }
         else
         {
