@@ -64,6 +64,7 @@ public:
 
     // change tile at some pos and tiles around it
     void changeMapTile(QGraphicsScene *scene , QPointF point , Terrain::Type type);
+    void brush_size(QGraphicsScene *scene , QPointF point , Terrain::Type type, int brush_size);
 
 private:
     void defaultMap();

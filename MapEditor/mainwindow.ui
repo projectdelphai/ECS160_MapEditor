@@ -1092,7 +1092,7 @@
      <x>0</x>
      <y>0</y>
      <width>1082</width>
-     <height>22</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -1131,6 +1131,10 @@
     <addaction name="actionHuman_Buildings"/>
     <addaction name="separator"/>
     <addaction name="actionGold_Mine"/>
+    <addaction name="actionBrush_size_1"/>
+    <addaction name="actionBrush_size_2"/>
+    <addaction name="actionBrush_size_3"/>
+    <addaction name="actionBrush_size_4"/>
    </widget>
    <widget class="QMenu" name="menuPlayer">
     <property name="title">
@@ -1363,6 +1367,26 @@
   <action name="actionExport_to_file">
    <property name="text">
     <string>Export to file...</string>
+   </property>
+  </action>
+  <action name="actionBrush_size_1">
+   <property name="text">
+    <string>Brush size = 1</string>
+   </property>
+  </action>
+  <action name="actionBrush_size_2">
+   <property name="text">
+    <string>Brush size = 2</string>
+   </property>
+  </action>
+  <action name="actionBrush_size_3">
+   <property name="text">
+    <string>Brush size = 3</string>
+   </property>
+  </action>
+  <action name="actionBrush_size_4">
+   <property name="text">
+    <string>Brush size = 4</string>
    </property>
   </action>
  </widget>

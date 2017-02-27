@@ -25,6 +25,7 @@ public:
     void setBrushable(bool b);
     MapView2 * getMapInfo();
     QString curTool;
+    int CurBrushSize = 1;
     int curPlayer;
 signals:
     void changedLayout(int x, int y, Terrain::Type type);

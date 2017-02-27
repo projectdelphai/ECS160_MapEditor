@@ -97,6 +97,14 @@ private slots:
 
     void setupAssets();
 
+    void on_actionBrush_size_1_triggered();
+
+    void on_actionBrush_size_2_triggered();
+
+    void on_actionBrush_size_3_triggered();
+
+    void on_actionBrush_size_4_triggered();
+
 private:
     Ui::MainWindow *ui;
     void setupUI();
@@ -113,6 +121,7 @@ private:
 
 
     int curPlayer;
+    //int curBrushSize;
     QString curTool;
     QString curFile;
     QByteArray curFileDialogState;

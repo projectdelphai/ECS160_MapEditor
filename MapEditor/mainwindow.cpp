@@ -932,6 +932,26 @@ void MainWindow::setupAssets(){
     assets.value("ScoutTower")->paintAll();
 }
 
+void MainWindow::on_actionBrush_size_1_triggered()
+{
+    scene->CurBrushSize = 1;
+}
+
+void MainWindow::on_actionBrush_size_2_triggered()
+{
+    scene->CurBrushSize = 2;
+}
+
+void MainWindow::on_actionBrush_size_3_triggered()
+{
+    scene->CurBrushSize = 3;
+}
+
+void MainWindow::on_actionBrush_size_4_triggered()
+{
+    scene->CurBrushSize = 4;
+}
+
 // checks UI parameters and updates them
 void MainWindow::updateUIPlayers(){
     int numPlayers = curMap.getNumPlayers();
