@@ -79,6 +79,7 @@ private slots:
     void open_DgMapProperties();
     void open_DgPlayerProperties();
     void open_DgAssets();
+    void open_exporttoweb();
 
     void setupAssets();
 

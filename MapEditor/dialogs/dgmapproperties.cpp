@@ -12,3 +12,8 @@ DgMapProperties::~DgMapProperties()
 {
     delete ui;
 }
+
+void DgMapProperties::on_buttonBox_accepted()
+{
+
+}

@@ -3,6 +3,7 @@
 #include "graphicsscene.h"
 #include <QDebug>
 #include "mapview2.h"
+#include "exporttoweb.h"
 #include "dialogs/dgabout.h"
 #include "dialogs/dgmapproperties.h"
 #include "dialogs/dgplayerproperties.h"
@@ -749,6 +750,11 @@ void MainWindow::open_DgPlayerProperties(){
     }
 }
 
+void MainWindow::open_exporttoweb()
+{
+    ExportToWeb w(this);
+    w.exec();
+}
 
 // for the assets editor window
 void MainWindow::open_DgAssets(){
