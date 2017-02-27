@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>DgPlayerProperties</class>
+ <widget class="QDialog" name="DgPlayerProperties">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>501</width>
+    <height>395</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Player Properties</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="10" column="4">
+      <widget class="QComboBox" name="C8">
+       <item>
+        <property name="text">
+         <string>Human</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>AI</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="7" column="4">
+      <widget class="QComboBox" name="C5">
+       <item>
+        <property name="text">
+         <string>Human</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>AI</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="8" column="4">
+      <widget class="QComboBox" name="C6">
+       <item>
+        <property name="text">
+         <string>Human</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>AI</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="3" column="4">
+      <widget class="QComboBox" name="C1">
+       <item>
+        <property name="text">
+         <string>Human</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>AI</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="1" column="4">
+      <widget class="QLabel" name="label_controller">
+       <property name="text">
+        <string>Controller</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="4">
+      <widget class="QComboBox" name="C4">
+       <item>
+        <property name="text">
+         <string>Human</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>AI</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_0">
+       <property name="text">
+        <string>Neutral</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLineEdit" name="G0"/>
+     </item>
+     <item row="0" column="1">
+      <widget class="QComboBox" name="select_players">
+       <property name="currentIndex">
+        <number>0</number>
+       </property>
+       <property name="insertPolicy">
+        <enum>QComboBox::InsertAtTop</enum>
+       </property>
+       <item>
+        <property name="text">
+         <string>2</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>3</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>4</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>5</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>6</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>7</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>8</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QLineEdit" name="G2"/>
+     </item>
+     <item row="8" column="2">
+      <widget class="QLineEdit" name="L6"/>
+     </item>
+     <item row="9" column="4">
+      <widget class="QComboBox" name="C7">
+       <item>
+        <property name="text">
+         <string>Human</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>AI</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_players">
+       <property name="text">
+        <string>Players</string>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="2">
+      <widget class="QLineEdit" name="L5"/>
+     </item>
+     <item row="9" column="1">
+      <widget class="QLineEdit" name="G7"/>
+     </item>
+     <item row="5" column="2">
+      <widget class="QLineEdit" name="L3"/>
+     </item>
+     <item row="8" column="0">
+      <widget class="QLabel" name="label_7">
+       <property name="text">
+        <string>6</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="2">
+      <widget class="QLineEdit" name="L1"/>
+     </item>
+     <item row="2" column="2">
+      <widget class="QLineEdit" name="L0"/>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>2</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="4">
+      <widget class="QComboBox" name="C3">
+       <item>
+        <property name="text">
+         <string>Human</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>AI</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>1</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="8" column="1">
+      <widget class="QLineEdit" name="G6"/>
+     </item>
+     <item row="9" column="0">
+      <widget class="QLabel" name="label_8">
+       <property name="text">
+        <string>7</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QLineEdit" name="G1"/>
+     </item>
+     <item row="10" column="0">
+      <widget class="QLabel" name="label_9">
+       <property name="text">
+        <string>8</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="0">
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>3</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="1">
+      <widget class="QLineEdit" name="G5"/>
+     </item>
+     <item row="7" column="0">
+      <widget class="QLabel" name="label_6">
+       <property name="text">
+        <string>5</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="QLabel" name="label_lumber">
+       <property name="text">
+        <string>Starting Lumber</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="0">
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>4</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="1">
+      <widget class="QLineEdit" name="G4"/>
+     </item>
+     <item row="9" column="2">
+      <widget class="QLineEdit" name="L7"/>
+     </item>
+     <item row="6" column="2">
+      <widget class="QLineEdit" name="L4"/>
+     </item>
+     <item row="4" column="2">
+      <widget class="QLineEdit" name="L2"/>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLabel" name="label_gold">
+       <property name="text">
+        <string>Starting Gold</string>
+       </property>
+      </widget>
+     </item>
+     <item row="10" column="2">
+      <widget class="QLineEdit" name="L8"/>
+     </item>
+     <item row="4" column="4">
+      <widget class="QComboBox" name="C2">
+       <item>
+        <property name="text">
+         <string>Human</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>AI</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="5" column="1">
+      <widget class="QLineEdit" name="G3"/>
+     </item>
+     <item row="10" column="1">
+      <widget class="QLineEdit" name="G8"/>
+     </item>
+     <item row="1" column="3">
+      <widget class="QLabel" name="label_stone">
+       <property name="text">
+        <string>Starting Stone</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="3">
+      <widget class="QLineEdit" name="S0"/>
+     </item>
+     <item row="3" column="3">
+      <widget class="QLineEdit" name="S1"/>
+     </item>
+     <item row="4" column="3">
+      <widget class="QLineEdit" name="S2"/>
+     </item>
+     <item row="5" column="3">
+      <widget class="QLineEdit" name="S3"/>
+     </item>
+     <item row="6" column="3">
+      <widget class="QLineEdit" name="S4"/>
+     </item>
+     <item row="7" column="3">
+      <widget class="QLineEdit" name="S5"/>
+     </item>
+     <item row="8" column="3">
+      <widget class="QLineEdit" name="S6"/>
+     </item>
+     <item row="9" column="3">
+      <widget class="QLineEdit" name="S7"/>
+     </item>
+     <item row="10" column="3">
+      <widget class="QLineEdit" name="S8"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok|QDialogButtonBox::Reset</set>
+     </property>
+     <property name="centerButtons">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>select_players</tabstop>
+  <tabstop>G0</tabstop>
+  <tabstop>L0</tabstop>
+  <tabstop>S0</tabstop>
+  <tabstop>G1</tabstop>
+  <tabstop>L1</tabstop>
+  <tabstop>S1</tabstop>
+  <tabstop>C1</tabstop>
+  <tabstop>G2</tabstop>
+  <tabstop>L2</tabstop>
+  <tabstop>S2</tabstop>
+  <tabstop>C2</tabstop>
+  <tabstop>G3</tabstop>
+  <tabstop>L3</tabstop>
+  <tabstop>S3</tabstop>
+  <tabstop>C3</tabstop>
+  <tabstop>G4</tabstop>
+  <tabstop>L4</tabstop>
+  <tabstop>S4</tabstop>
+  <tabstop>C4</tabstop>
+  <tabstop>G5</tabstop>
+  <tabstop>L5</tabstop>
+  <tabstop>S5</tabstop>
+  <tabstop>C5</tabstop>
+  <tabstop>G6</tabstop>
+  <tabstop>L6</tabstop>
+  <tabstop>S6</tabstop>
+  <tabstop>C6</tabstop>
+  <tabstop>G7</tabstop>
+  <tabstop>L7</tabstop>
+  <tabstop>S7</tabstop>
+  <tabstop>C7</tabstop>
+  <tabstop>G8</tabstop>
+  <tabstop>L8</tabstop>
+  <tabstop>S8</tabstop>
+  <tabstop>C8</tabstop>
+ </tabstops>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>DgPlayerProperties</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>260</x>
+     <y>390</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>DgPlayerProperties</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>289</x>
+     <y>390</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

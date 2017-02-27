@@ -104,6 +104,32 @@
              </property>
             </widget>
            </item>
+           <item>
+            <widget class="QToolButton" name="button_undo">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset theme="undo"/>
+             </property>
+             <property name="shortcut">
+              <string>Ctrl+Z</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QToolButton" name="button_redo">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset theme="redo"/>
+             </property>
+             <property name="shortcut">
+              <string>Ctrl+Y</string>
+             </property>
+            </widget>
+           </item>
           </layout>
          </widget>
         </item>
@@ -1529,6 +1555,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionExport_to_web</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>open_exporttoweb()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>540</x>
+     <y>403</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>open()</slot>
@@ -1543,6 +1585,7 @@
   <slot>on_tool_pX_clicked(QAbstractButton*)</slot>
   <slot>open_DgAssets()</slot>
   <slot>exportPkg()</slot>
+  <slot>open_exporttoweb()</slot>
  </slots>
  <buttongroups>
   <buttongroup name="bgroup_player"/>

@@ -165,7 +165,6 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
                 addItem(pixItem);
                 // play background music
                 music->play();
-                qDebug() << addedItems;
             }
             else
                 return;
@@ -209,6 +208,16 @@ void GraphicsScene::removeToolItem(QGraphicsSceneMouseEvent *mouseEvent)
         else
             return;
     }
+}
+
+void GraphicsScene::setBrushable(bool b)
+{
+    brushable = b;
+}
+
+MapView2 * GraphicsScene::getMapInfo()
+{
+    return mapInfo;
 }
 
 void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
