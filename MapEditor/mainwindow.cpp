@@ -3,10 +3,10 @@
 #include "graphicsscene.h"
 #include <QDebug>
 #include "mapview2.h"
-#include "dgabout.h"
-#include "dgmapproperties.h"
-#include "dgplayerproperties.h"
-#include "dgassets.h"
+#include "dialogs/dgabout.h"
+#include "dialogs/dgmapproperties.h"
+#include "dialogs/dgplayerproperties.h"
+#include "dialogs/dgassets.h"
 #include <QMediaPlayer>
 
 
@@ -23,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     // Load and display a new file
     MainWindow::newFile();
-    MainWindow::updateUI();
+    MainWindow::setupUI();
 
     // resize minimap
     ui->graphicsView_2->fitInView(0,0,256,192, Qt::KeepAspectRatio);
@@ -378,7 +378,7 @@ void MainWindow::writeSettings()
 }
 
 // This function sets up all the UI buttons depending on what map is loaded
-void MainWindow::updateUI() {
+void MainWindow::setupUI() {
     // zoom slider and buttons in statusbar
     QToolButton *zMinus = new QToolButton();
     zMinus->setIcon(QIcon(":/toolbar/icons/toolbar/tool_zoom-.bmp"));
@@ -704,11 +704,13 @@ void MainWindow::open_DgAbout(){
 
 void MainWindow::open_DgMapProperties(){
     DgMapProperties w(this);
+    updateUI();
     w.exec();
 }
 
 void MainWindow::open_DgPlayerProperties(){
-    DgPlayerProperties w(this);
+    DgPlayerProperties w(this, curMap);
+    updateUI();
     w.exec();
 }
 
@@ -786,4 +788,8 @@ void MainWindow::setupAssets(){
     assets.value("Keep")->paintAll();
     assets.value("LumberMill")->paintAll();
     assets.value("ScoutTower")->paintAll();
+}
+
+void MainWindow::updateUI(){
+
 }

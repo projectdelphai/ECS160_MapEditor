@@ -34,10 +34,10 @@ SOURCES += main.cpp\
     tile.cpp \
     graphicsscene.cpp \
     terrain.cpp \
-    dgmapproperties.cpp \
-    dgabout.cpp \
-    dgplayerproperties.cpp \
-    dgassets.cpp \
+    dialogs/dgmapproperties.cpp \
+    dialogs/dgabout.cpp \
+    dialogs/dgplayerproperties.cpp \
+    dialogs/dgassets.cpp \
     mapview.cpp
 
 HEADERS  += mainwindow.h \
@@ -46,17 +46,17 @@ HEADERS  += mainwindow.h \
     tile.h \
     graphicsscene.h \
     terrain.h \
-    dgmapproperties.h \
-    dgabout.h \
-    dgplayerproperties.h \
-    dgassets.h \
+    dialogs/dgmapproperties.h \
+    dialogs/dgabout.h \
+    dialogs/dgplayerproperties.h \
+    dialogs/dgassets.h \
     mapview.h
 
 FORMS    += mainwindow.ui \
-    dgmapproperties.ui \
-    dgabout.ui \
-    dgplayerproperties.ui \
-    dgassets.ui
+    dialogs/dgmapproperties.ui \
+    dialogs/dgabout.ui \
+    dialogs/dgplayerproperties.ui \
+    dialogs/dgassets.ui
 
 RESOURCES += \
     icons.qrc \

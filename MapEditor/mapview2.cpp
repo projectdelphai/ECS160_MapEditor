@@ -139,7 +139,7 @@ void MapView2::defaultMap(){
     }
 
     // set player 0 (neutral)
-    Player player = Player(0, 30000, 500);
+    Player player = Player(0, 30000, 5000);
     players.append(player);
 
     // initialize players vector with 8 players

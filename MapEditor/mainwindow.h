@@ -6,7 +6,7 @@
 #include "mapview2.h"
 #include "texture.h"
 #include "graphicsscene.h"
-#include "dgassets.h"
+#include "dialogs/dgassets.h"
 #include "quazip/quazip.h"
 #include "quazip/quazipfile.h"
 
@@ -84,7 +84,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    void updateUI();
+    void setupUI();
     void writeSettings();
     bool loadMapFile(QString fileName, QIODevice &file);
     bool maybeSave();
@@ -92,6 +92,7 @@ private:
     void writeMapFile(QIODevice*);
     bool loadPkgFile(const QString &fileName);
     void setCurrentFile(const QString &fileName);
+    void updateUI();
 
     int curPlayer;
     QString curTool;
