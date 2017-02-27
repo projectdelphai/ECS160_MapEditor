@@ -6,7 +6,7 @@
 #include "mapview2.h"
 #include "texture.h"
 #include "graphicsscene.h"
-#include "dgassets.h"
+#include "dialogs/dgassets.h"
 #include "quazip/quazip.h"
 #include "quazip/quazipfile.h"
 #include <QStack>
@@ -93,13 +93,15 @@ private slots:
     void open_DgMapProperties();
     void open_DgPlayerProperties();
     void open_DgAssets();
+    void open_exporttoweb();
 
     void setupAssets();
 
 private:
     Ui::MainWindow *ui;
-    void updateUI();
+    void setupUI();
     void writeSettings();
+    void loadScene();
     bool loadMapFile(QString fileName, QIODevice &file);
     bool maybeSave();
     bool setSaveFile(QString*);
@@ -107,6 +109,8 @@ private:
     bool loadPkgFile(const QString &fileName);
     void setCurrentFile(const QString &fileName);
     Terrain::Type getTileType(QChar tile);
+    void updateUIPlayers();
+
 
     int curPlayer;
     QString curTool;

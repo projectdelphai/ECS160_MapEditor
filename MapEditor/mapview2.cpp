@@ -23,9 +23,8 @@ Unit::Unit(QString n, int xc, int yc)
     y = yc;
 }
 
-MapView2::MapView2(){
-
-}
+// Empty constructor
+MapView2::MapView2() { }
 
 // Default (new map)
 MapView2::MapView2(QMap<QString,Texture*>& loadedAssets)
@@ -33,6 +32,7 @@ MapView2::MapView2(QMap<QString,Texture*>& loadedAssets)
     defaultMap();
     assets = loadedAssets;
 
+    assets = loadedAssets;
     terrain = new Terrain;
     buttonColors = new Texture(":/data/img/ButtonColors.png", 1, 1);
     buttonIcons = new Texture(":/data/img/Icons.png", 46, 38);
@@ -139,7 +139,7 @@ void MapView2::defaultMap(){
     }
 
     // set player 0 (neutral)
-    Player player = Player(0, 30000, 500);
+    Player player = Player(0, 30000, 5000);
     players.append(player);
 
     // initialize players vector with 8 players
@@ -255,7 +255,6 @@ void MapView2::changeMapTile(QGraphicsScene *scene, QPointF pos , Terrain::Type 
 
     // tile inside scene to change
     Tile *centerTile = qgraphicsitem_cast< Tile*>( scene->itemAt(pos, QTransform()) );
-
 
     int x = centerTile->scenePos().x()/tileDim.width();
     int y = centerTile->scenePos().y()/tileDim.height();
@@ -685,6 +684,10 @@ QVector<QChar> MapView2::getMapLayout()
 QVector<Player> MapView2::getPlayers()
 {
     return players;
+}
+
+void MapView2::setPlayers(QVector<Player> &newPlayers) {
+    players = newPlayers;
 }
 
 void MapView2::addPlayer(Player p)

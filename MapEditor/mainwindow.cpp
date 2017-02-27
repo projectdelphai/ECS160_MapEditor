@@ -3,10 +3,11 @@
 #include "graphicsscene.h"
 #include <QDebug>
 #include "mapview2.h"
-#include "dgabout.h"
-#include "dgmapproperties.h"
-#include "dgplayerproperties.h"
-#include "dgassets.h"
+#include "exporttoweb.h"
+#include "dialogs/dgabout.h"
+#include "dialogs/dgmapproperties.h"
+#include "dialogs/dgplayerproperties.h"
+#include "dialogs/dgassets.h"
 #include <QMediaPlayer>
 
 RecordedTile::RecordedTile()
@@ -35,9 +36,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     // Load and display a new file
     MainWindow::newFile();
-    MainWindow::updateUI();
-
-
+    MainWindow::setupUI();
 
     // resize minimap
     ui->graphicsView_2->fitInView(0,0,256,192, Qt::KeepAspectRatio);
@@ -126,6 +125,10 @@ void MainWindow::newFile()
     ui->graphicsView_2->show();
 
     // update status
+    curPlayer = 1;
+    scene->curPlayer = 1;
+    ui->tool_p1->setChecked(true);
+    ui->tool_grass->setChecked(true);
     on_tool_grass_clicked();
     statusBar()->showMessage("New File created", 2000);
 }
@@ -151,21 +154,8 @@ bool MainWindow::open()
         return loadPkgFile(dialog.selectedFiles().first());
 }
 
-bool MainWindow::loadMapFile(QString fileName, QIODevice &file)
-{
-    // check if the file is good
-    if(!file.open(QIODevice::ReadOnly)) {
-        QMessageBox::warning(0,"error opening map",file.errorString());
-        return false;
-    }
-    file.close();
 
-    // load and display map and minimap
-    QString mapName = fileName;
-    QString texture = ":/data/img/Terrain.png";
-
-    curMap = MapView2(file, assets, texture );
-
+void MainWindow::loadScene() {
     scene = new GraphicsScene(this, &curMap, &assets);
     curMap.displayMap(scene);
 
@@ -181,11 +171,34 @@ bool MainWindow::loadMapFile(QString fileName, QIODevice &file)
     QObject::connect(scene, &GraphicsScene::changedLayout, this, &MainWindow::changeLayout);
     QObject::connect(scene, &GraphicsScene::changedAsset, this, &MainWindow::changeAsset);
 
+
+}
+
+bool MainWindow::loadMapFile(QString fileName, QIODevice &file)
+{
+    // check if the file is good
+    if(!file.open(QIODevice::ReadOnly)) {
+        QMessageBox::warning(0,"error opening map",file.errorString());
+        return false;
+    }
+    file.close();
+
+    // load and display map and minimap
+    QString mapName = fileName;
+    QString texture = ":/data/img/Terrain.png";
+
+    curMap = MapView2(file, assets, texture );
+
+    MainWindow::loadScene();
+
     setCurrentFile(mapName);
     statusBar()->showMessage(mapName + " loaded!", 2000);
 
+    // reset ui
     curPlayer = 1;
     scene->curPlayer = 1;
+    ui->tool_p1->setChecked(true);
+    ui->tool_grass->setChecked(true);
     on_tool_grass_clicked();
 
     return true;
@@ -439,7 +452,7 @@ void MainWindow::writeSettings()
 }
 
 // This function sets up all the UI buttons depending on what map is loaded
-void MainWindow::updateUI() {
+void MainWindow::setupUI() {
     // zoom slider and buttons in statusbar
     QToolButton *zMinus = new QToolButton();
     zMinus->setIcon(QIcon(":/toolbar/icons/toolbar/tool_zoom-.bmp"));
@@ -810,7 +823,36 @@ void MainWindow::open_DgMapProperties(){
 }
 
 void MainWindow::open_DgPlayerProperties(){
-    DgPlayerProperties w(this);
+    DgPlayerProperties w(this, curMap);
+    if(w.exec()) {  // if changes were made
+        QVector<Player> newPlayers = w.players;
+
+        // copy over Units
+        auto oldItr = curMap.getPlayers().begin();
+        auto newItr = newPlayers.begin();
+        for( ;
+                   ( newItr != newPlayers.end() && oldItr != curMap.getPlayers().end() );
+                    newItr++, oldItr++ ) {
+            //qDebug() << newItr->num;
+            newItr->units = oldItr->units;
+        }
+        curMap.setPlayers(newPlayers);
+        loadScene();
+
+        // reset ui
+        curPlayer = 1;
+        scene->curPlayer = 1;
+        ui->tool_p1->setChecked(true);
+        ui->tool_grass->setChecked(true);
+        on_tool_grass_clicked();
+
+        updateUIPlayers();
+    }
+}
+
+void MainWindow::open_exporttoweb()
+{
+    ExportToWeb w(this);
     w.exec();
 }
 
@@ -888,4 +930,19 @@ void MainWindow::setupAssets(){
     assets.value("Keep")->paintAll();
     assets.value("LumberMill")->paintAll();
     assets.value("ScoutTower")->paintAll();
+}
+
+// checks UI parameters and updates them
+void MainWindow::updateUIPlayers(){
+    int numPlayers = curMap.getNumPlayers();
+    QList<QAbstractButton*> buttons = ui->bgroup_player->buttons();
+
+    // enable all:
+    for(int i = 0; i < 8; i++) {
+        buttons.at(i)->setEnabled(true);
+
+        // disable some:
+        if(i >= numPlayers )
+            buttons.at(i)->setDisabled(true);
+    }
 }
