@@ -86,6 +86,7 @@ private:
     Ui::MainWindow *ui;
     void setupUI();
     void writeSettings();
+    void loadScene();
     bool loadMapFile(QString fileName, QIODevice &file);
     bool maybeSave();
     bool setSaveFile(QString*);
@@ -93,6 +94,7 @@ private:
     bool loadPkgFile(const QString &fileName);
     void setCurrentFile(const QString &fileName);
     void updateUI();
+
 
     int curPlayer;
     QString curTool;

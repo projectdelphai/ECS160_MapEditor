@@ -112,6 +112,10 @@ void MainWindow::newFile()
     ui->graphicsView_2->show();
 
     // update status
+    curPlayer = 1;
+    scene->curPlayer = 1;
+    ui->tool_p1->setChecked(true);
+    ui->tool_grass->setChecked(true);
     on_tool_grass_clicked();
     statusBar()->showMessage("New File created", 2000);
 }
@@ -137,21 +141,8 @@ bool MainWindow::open()
         return loadPkgFile(dialog.selectedFiles().first());
 }
 
-bool MainWindow::loadMapFile(QString fileName, QIODevice &file)
-{
-    // check if the file is good
-    if(!file.open(QIODevice::ReadOnly)) {
-        QMessageBox::warning(0,"error opening map",file.errorString());
-        return false;
-    }
-    file.close();
 
-    // load and display map and minimap
-    QString mapName = fileName;
-    QString texture = ":/data/img/Terrain.png";
-
-    curMap = MapView2(file, assets, texture );
-
+void MainWindow::loadScene() {
     scene = new GraphicsScene(this, &curMap, &assets);
     curMap.displayMap(scene);
 
@@ -167,11 +158,34 @@ bool MainWindow::loadMapFile(QString fileName, QIODevice &file)
     QObject::connect(scene, &GraphicsScene::changedLayout, this, &MainWindow::changeLayout);
     QObject::connect(scene, &GraphicsScene::changedAsset, this, &MainWindow::changeAsset);
 
+
+}
+
+bool MainWindow::loadMapFile(QString fileName, QIODevice &file)
+{
+    // check if the file is good
+    if(!file.open(QIODevice::ReadOnly)) {
+        QMessageBox::warning(0,"error opening map",file.errorString());
+        return false;
+    }
+    file.close();
+
+    // load and display map and minimap
+    QString mapName = fileName;
+    QString texture = ":/data/img/Terrain.png";
+
+    curMap = MapView2(file, assets, texture );
+
+    MainWindow::loadScene();
+
     setCurrentFile(mapName);
     statusBar()->showMessage(mapName + " loaded!", 2000);
 
+    // reset ui
     curPlayer = 1;
     scene->curPlayer = 1;
+    ui->tool_p1->setChecked(true);
+    ui->tool_grass->setChecked(true);
     on_tool_grass_clicked();
 
     return true;
@@ -710,11 +724,32 @@ void MainWindow::open_DgMapProperties(){
 
 void MainWindow::open_DgPlayerProperties(){
     DgPlayerProperties w(this, curMap);
-    updateUI();
-    w.exec();
-    qDebug() << w.players.size();
+    if(w.exec()) {  // if changes were made
+        QVector<Player> newPlayers = w.players;
 
+        // copy over Units
+        auto oldItr = curMap.getPlayers().begin();
+        auto newItr = newPlayers.begin();
+        for( ;
+                   ( newItr != newPlayers.end() && oldItr != curMap.getPlayers().end() );
+                    newItr++, oldItr++ ) {
+
+            (*newItr).units = (*oldItr).units;
+        }
+        curMap.setPlayers(newPlayers);
+        loadScene();
+
+        // reset ui
+        curPlayer = 1;
+        scene->curPlayer = 1;
+        ui->tool_p1->setChecked(true);
+        ui->tool_grass->setChecked(true);
+        on_tool_grass_clicked();
+
+        updateUI();
+    }
 }
+
 
 // for the assets editor window
 void MainWindow::open_DgAssets(){
@@ -792,6 +827,19 @@ void MainWindow::setupAssets(){
     assets.value("ScoutTower")->paintAll();
 }
 
+// checks UI parameters and updates them
 void MainWindow::updateUI(){
+    int numPlayers = curMap.getNumPlayers();
+    QList<QAbstractButton*> buttons = ui->bgroup_player->buttons();
+
+    // enable all:
+    for(int i = 0; i < 8; i++) {
+        buttons.at(i)->setEnabled(true);
+
+        // disable some:
+        if(i >= numPlayers )
+            buttons.at(i)->setDisabled(true);
+    }
+
 
 }

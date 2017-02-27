@@ -56,6 +56,8 @@ public:
     QVector<Player> getPlayers();
     int getNumPlayers();
     int getNumUnits();
+
+    void setPlayers(QVector<Player> &newPlayers);
     void addUnit(Unit u, int player);
     Texture *getAsset(QString assetName);
 

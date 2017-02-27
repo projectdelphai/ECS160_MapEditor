@@ -680,6 +680,10 @@ QVector<Player> MapView2::getPlayers()
     return players;
 }
 
+void MapView2::setPlayers(QVector<Player> &newPlayers) {
+    players = newPlayers;
+}
+
 void MapView2::addPlayer(Player p)
 {
     players.append(p);
