@@ -718,7 +718,6 @@ void MainWindow::open_DgAbout(){
 
 void MainWindow::open_DgMapProperties(){
     DgMapProperties w(this);
-    updateUI();
     w.exec();
 }
 
@@ -733,8 +732,8 @@ void MainWindow::open_DgPlayerProperties(){
         for( ;
                    ( newItr != newPlayers.end() && oldItr != curMap.getPlayers().end() );
                     newItr++, oldItr++ ) {
-
-            (*newItr).units = (*oldItr).units;
+            //qDebug() << newItr->num;
+            newItr->units = oldItr->units;
         }
         curMap.setPlayers(newPlayers);
         loadScene();
@@ -746,7 +745,7 @@ void MainWindow::open_DgPlayerProperties(){
         ui->tool_grass->setChecked(true);
         on_tool_grass_clicked();
 
-        updateUI();
+        updateUIPlayers();
     }
 }
 
@@ -828,7 +827,7 @@ void MainWindow::setupAssets(){
 }
 
 // checks UI parameters and updates them
-void MainWindow::updateUI(){
+void MainWindow::updateUIPlayers(){
     int numPlayers = curMap.getNumPlayers();
     QList<QAbstractButton*> buttons = ui->bgroup_player->buttons();
 
@@ -840,6 +839,4 @@ void MainWindow::updateUI(){
         if(i >= numPlayers )
             buttons.at(i)->setDisabled(true);
     }
-
-
 }

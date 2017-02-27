@@ -93,7 +93,7 @@ private:
     void writeMapFile(QIODevice*);
     bool loadPkgFile(const QString &fileName);
     void setCurrentFile(const QString &fileName);
-    void updateUI();
+    void updateUIPlayers();
 
 
     int curPlayer;
