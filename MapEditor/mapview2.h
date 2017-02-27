@@ -56,6 +56,7 @@ public:
     QVector<Player> getPlayers();
     int getNumPlayers();
     int getNumUnits();
+    QChar getPreviousTile();
 
     void setPlayers(QVector<Player> &newPlayers);
     void addUnit(Unit u, int player);
@@ -93,6 +94,7 @@ private:
     QStringList mapAllowedAIs;
     QString mapDescription;
     QMap<QString,Texture*> assets;
+    QChar prevChar;
 };
 
 #endif // MAPVIEW2_H

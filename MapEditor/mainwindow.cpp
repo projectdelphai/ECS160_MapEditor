@@ -10,6 +10,17 @@
 #include "dialogs/dgassets.h"
 #include <QMediaPlayer>
 
+RecordedTile::RecordedTile()
+{
+
+}
+
+RecordedTile::RecordedTile(Terrain::Type u, Terrain::Type r, int a, int b){
+    utype = u;
+    rtype = r;
+    x = a;
+    y = b;
+}
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
@@ -18,6 +29,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->graphicsView->setMouseTracking(true);
     ui->graphicsView_2->setMouseTracking(true);
     curTool = "hand";
+    undone = false;
 
     // Load all assets using
     MainWindow::setupAssets();
@@ -267,6 +279,53 @@ bool MainWindow::save()
     return true;
 }
 
+void MainWindow::undo()
+{//Undo the most recent change
+    //If there hasn't been any changes, then skip
+    if(undoTiles.isEmpty())
+        return;
+
+    undone = true;
+    Texture * asset = 0;
+
+    //The first element of undo becomes the first element for redo
+    RecordedTile rt = undoTiles.pop();
+    redoTiles.push(rt);
+
+    if (!asset)
+    {
+        scene->setBrushable(true);
+        scene->getMapInfo()->changeMapTile(scene, QPointF(rt.x, rt.y), rt.utype);
+        changeLayout(rt.x, rt.y, rt.utype);
+    }
+
+    undone = false;
+}
+
+void MainWindow::redo()
+{//Redo the most recent change
+    //If there hasn't been any changes, then skip
+    if(redoTiles.isEmpty())
+        return;
+
+    undone = true;
+   // Terrain *terrain = scene->mapInfo->getTerrain();
+    Texture * asset = 0;
+
+    //The first element for redo becomes first element for undo
+    RecordedTile rt = redoTiles.pop();
+    undoTiles.push(rt);
+
+    if (!asset)
+    {
+        scene->setBrushable(true);
+        scene->getMapInfo()->changeMapTile(scene, QPointF(rt.x, rt.y), rt.rtype);
+        changeLayout(rt.x, rt.y, rt.rtype);
+    }
+
+    undone = false;
+}
+
 void MainWindow::saveAs() {
     if (!setSaveFile(&curFile)) return;
     save();
@@ -495,6 +554,16 @@ void MainWindow::on_button_save_clicked()
     save();
 }
 
+void MainWindow::on_button_undo_clicked()
+{
+    undo();
+}
+
+void MainWindow::on_button_redo_clicked()
+{
+    redo();
+}
+
 void MainWindow::on_tool_hand_clicked()
 {
     curTool = "hand";
@@ -578,12 +647,43 @@ void MainWindow::changeLayout(int x, int y, Terrain::Type type)
     break;
     }
 
-
     QVector<QChar> layout = curMap.getMapLayout();
+
+    RecordedTile rt(getTileType(curMap.getPreviousTile()), type, x, y);
+
+    if(!undone && rt.utype != type)
+    {//Prevent a duplicate or something not undone from being pushed onto the stack
+        if(undoTiles.isEmpty() || (!undoTiles.isEmpty()
+            && (rt.utype != undoTiles.top().utype
+                ||rt.x != undoTiles.top().x
+                || rt.y != undoTiles.top().y)))
+            //If there are neither previous tiles nor duplicates,
+            //push the previous and new tile of the current x and y
+            undoTiles.push(rt);
+    }
+
     layout[n] = c;
     curMap.setMapLayout(layout);
 
 
+}
+
+Terrain::Type MainWindow::getTileType(QChar tile)
+{//Obtain the appropriate tile based on a position on the current map layout
+    if(tile == ' ')
+        return Terrain::Water;
+    else if(tile == 'G')
+        return Terrain::Grass;
+    else if(tile == 'D')
+        return Terrain::Dirt;
+    else if(tile == 'R')
+        return Terrain::Rock;
+    else if(tile == 'F')
+        return Terrain::Tree;
+    else if(tile == 'W')
+        return Terrain::Wall;
+    else
+        return Terrain::Grass;
 }
 
 void MainWindow::changeAsset(int x, int y, QString asset, int player)

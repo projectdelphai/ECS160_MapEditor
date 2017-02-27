@@ -209,6 +209,16 @@ void GraphicsScene::removeToolItem(QGraphicsSceneMouseEvent *mouseEvent)
     }
 }
 
+void GraphicsScene::setBrushable(bool b)
+{
+    brushable = b;
+}
+
+MapView2 * GraphicsScene::getMapInfo()
+{
+    return mapInfo;
+}
+
 void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
     if (mouseEvent->button() == Qt::LeftButton && withinBounds(mouseEvent))

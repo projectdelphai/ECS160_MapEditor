@@ -104,6 +104,32 @@
              </property>
             </widget>
            </item>
+           <item>
+            <widget class="QToolButton" name="button_undo">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset theme="undo"/>
+             </property>
+             <property name="shortcut">
+              <string>Ctrl+Z</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QToolButton" name="button_redo">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset theme="redo"/>
+             </property>
+             <property name="shortcut">
+              <string>Ctrl+Y</string>
+             </property>
+            </widget>
+           </item>
           </layout>
          </widget>
         </item>
@@ -1066,7 +1092,7 @@
      <x>0</x>
      <y>0</y>
      <width>1082</width>
-     <height>19</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
