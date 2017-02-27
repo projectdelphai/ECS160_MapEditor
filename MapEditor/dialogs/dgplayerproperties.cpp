@@ -74,11 +74,11 @@ DgPlayerProperties::~DgPlayerProperties()
 // when this changes, disable UI element for player > arg1
 void DgPlayerProperties::on_select_players_currentTextChanged(const QString &arg1)
 {
-    numPlayers = arg1.toInt() + 1;
+    numPlayers = arg1.toInt();
     int col = ui->gridLayout->columnCount();
     int row = ui->gridLayout->rowCount();
 
-    for(int r = 0; r < row; r++ ) {
+    for(int r = 2; r < row; r++ ) {
         for(int c = 0; c < col; c++) {
             QLayoutItem* item = ui->gridLayout->itemAtPosition(r, c);
             if( !item ) break;
@@ -87,7 +87,7 @@ void DgPlayerProperties::on_select_players_currentTextChanged(const QString &arg
             item->widget()->setEnabled(true);
 
             // then disable
-            if(r > numPlayers + 1 )
+            if(r > numPlayers + 2 )
                 item->widget()->setDisabled(true);
 
         } // for each row
@@ -107,7 +107,7 @@ void DgPlayerProperties::on_buttonBox_clicked(QAbstractButton *button)
 
 void DgPlayerProperties::accept() {
     // double check they want to commit changes
-    if(numPlayers < players.size()) {
+    if(numPlayers < curMap->getNumPlayers()) {
         const QMessageBox::StandardButton ret =
                    QMessageBox::warning(this, tr("Application"),
                    tr("You have reduced the amount of players.\n"
@@ -133,8 +133,10 @@ void DgPlayerProperties::commitChanges() {
     int row = ui->gridLayout->rowCount();
 
     // save UI elements
-    for(int r = 2, i = 0; i < numPlayers; r++, i++) {
+    for(int r = 2, i = 0; i <= numPlayers; r++, i++) {
         Player newPlayer;
+        newPlayer.num = i;
+
         for(int c = 1; c < col; c++) {
             QLayoutItem* item = ui->gridLayout->itemAtPosition(r, c);
             if(!item) continue;
