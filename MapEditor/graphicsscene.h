@@ -37,6 +37,8 @@ private:
     QVector<QString> addedItems;
     QVector<QString> tempXY;
     QMap<QString,Texture*> *assets;
+    QString tempX, tempY, x, y;
+    int posX, posY, widthXheight = 0;
 };
 
 #endif // GRAPHICSSCENE_H
