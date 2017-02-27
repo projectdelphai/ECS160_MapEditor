@@ -24,13 +24,13 @@ Unit::Unit(QString n, int xc, int yc)
 }
 
 // Empty constructor
-MapView2::MapView2() {
-}
+MapView2::MapView2() { }
 
 // Default (new map)
 MapView2::MapView2(QMap<QString,Texture*>& loadedAssets)
 {
     defaultMap();
+    assets = loadedAssets;
 
     assets = loadedAssets;
     terrain = new Terrain;
