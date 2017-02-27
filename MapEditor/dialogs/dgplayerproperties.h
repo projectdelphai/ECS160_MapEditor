@@ -35,8 +35,10 @@ private slots:
 private:
     Ui::DgPlayerProperties *ui;
     void setupUI();
-    MapView2 *curMap;
     void commitChanges();
+    void accept();
+
+    MapView2 *curMap;
 };
 
 #endif // DGPLAYERPROPERTIES_H

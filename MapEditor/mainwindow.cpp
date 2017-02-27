@@ -711,7 +711,7 @@ void MainWindow::open_DgMapProperties(){
 void MainWindow::open_DgPlayerProperties(){
     DgPlayerProperties w(this, curMap);
     updateUI();
-    qDebug() << w.exec();
+    w.exec();
     qDebug() << w.players.size();
 
 }

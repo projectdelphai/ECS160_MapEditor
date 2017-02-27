@@ -1,6 +1,7 @@
 #include "dgplayerproperties.h"
 #include "ui_dgplayerproperties.h"
 #include <qdebug.h>
+#include <QCloseEvent>
 
 #define DEFAULT_VALUE 1000
 #define DEFAULT_CONTROLLER 0
@@ -73,7 +74,7 @@ DgPlayerProperties::~DgPlayerProperties()
 // when this changes, disable UI element for player > arg1
 void DgPlayerProperties::on_select_players_currentTextChanged(const QString &arg1)
 {
-    numPlayers = arg1.toInt();
+    numPlayers = arg1.toInt() + 1;
     int col = ui->gridLayout->columnCount();
     int row = ui->gridLayout->rowCount();
 
@@ -86,7 +87,7 @@ void DgPlayerProperties::on_select_players_currentTextChanged(const QString &arg
             item->widget()->setEnabled(true);
 
             // then disable
-            if(r > numPlayers + 2 )
+            if(r > numPlayers + 1 )
                 item->widget()->setDisabled(true);
 
         } // for each row
@@ -99,22 +100,40 @@ void DgPlayerProperties::on_buttonBox_clicked(QAbstractButton *button)
 
     if (role == QDialogButtonBox::ResetRole)
         DgPlayerProperties::setupUI();
-    else if(role == QDialogButtonBox::AcceptRole) {
-        // not sure what to do here
-        DgPlayerProperties::commitChanges();
+
+    // other buttons will trigger QDialog::accept() or reject()
+}
+
+
+void DgPlayerProperties::accept() {
+    // double check they want to commit changes
+    if(numPlayers < players.size()) {
+        const QMessageBox::StandardButton ret =
+                   QMessageBox::warning(this, tr("Application"),
+                   tr("You have reduced the amount of players.\n"
+                      "This will remove all units of those players.\n"
+                      "Are you sure you want to proceed?"),
+                   QMessageBox::Save | QMessageBox::Cancel);
+
+        if(ret == QMessageBox::Cancel) {
+            //DgPlayerProperties::reject();
+            return;
+        }
     }
+
+    DgPlayerProperties::commitChanges();
+    QDialog::accept();
 }
 
 // store UI elements into the players vector
 void DgPlayerProperties::commitChanges() {
-    //numPlayers;
     QVector<Player> new_players;
 
     int col = ui->gridLayout->columnCount();
     int row = ui->gridLayout->rowCount();
 
     // save UI elements
-    for(int r = 2, i = 0; i < numPlayers + 1; r++, i++) {
+    for(int r = 2, i = 0; i < numPlayers; r++, i++) {
         Player newPlayer;
         for(int c = 1; c < col; c++) {
             QLayoutItem* item = ui->gridLayout->itemAtPosition(r, c);
