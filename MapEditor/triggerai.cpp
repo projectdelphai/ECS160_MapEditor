@@ -23,8 +23,8 @@ void TriggerAI::startTimer(QWidget *widget){
     timer->start(time);
     timer->setSingleShot(true);
 
-
 }
+
 void TriggerAI::setRange(double rangeR){
     if(rangeR <= 0){
         radius = 100;
@@ -34,7 +34,6 @@ void TriggerAI::setRange(double rangeR){
     }
 
 }
-
 
 void TriggerAI::displayRange(QGraphicsScene * scene){
     circleRange = new QGraphicsEllipseItem( position.x()-32,position.y()-32,radius,radius);

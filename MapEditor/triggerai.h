@@ -30,8 +30,6 @@ public:
 
 
 
-
-
 private:
     QString triggerName;
     QPointF position;
