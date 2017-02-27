@@ -99,5 +99,50 @@ void DgPlayerProperties::on_buttonBox_clicked(QAbstractButton *button)
 
     if (role == QDialogButtonBox::ResetRole)
         DgPlayerProperties::setupUI();
-    //else if(role == QDialogButtonBox::A)
+    else if(role == QDialogButtonBox::AcceptRole) {
+        // not sure what to do here
+        DgPlayerProperties::commitChanges();
+    }
+}
+
+// store UI elements into the players vector
+void DgPlayerProperties::commitChanges() {
+    //numPlayers;
+    QVector<Player> new_players;
+
+    int col = ui->gridLayout->columnCount();
+    int row = ui->gridLayout->rowCount();
+
+    // save UI elements
+    for(int r = 2, i = 0; i < numPlayers + 1; r++, i++) {
+        Player newPlayer;
+        for(int c = 1; c < col; c++) {
+            QLayoutItem* item = ui->gridLayout->itemAtPosition(r, c);
+            if(!item) continue;
+
+            QString itemType = item->widget()->metaObject()->className();
+
+            if(itemType == "QComboBox") {
+                int curIndex = ((QComboBox*)item->widget())->currentIndex();
+                if(curIndex == Player::AI)
+                    newPlayer.type = Player::AI;
+                else
+                    newPlayer.type = Player::Human;
+
+            } else if(itemType == "QLineEdit") {
+                QString lineBoxText = ((QLineEdit *)item->widget())->text();
+
+                int value = lineBoxText.toInt();
+                if(i <= numPlayers) {
+                    if(c == 1) newPlayer.gold = value;
+                    else if(c == 2) newPlayer.lumber = value;
+                    else if(c == 3) newPlayer.stone = value;
+                }
+            } // if QLineEdit
+        } // for every col
+
+        new_players.append(newPlayer);
+    } // for every row
+
+    players = new_players;
 }

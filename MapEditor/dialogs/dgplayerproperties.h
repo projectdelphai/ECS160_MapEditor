@@ -25,6 +25,9 @@ public:
     explicit DgPlayerProperties(QWidget *parent, MapView2 &curMap);
     ~DgPlayerProperties();
 
+    QVector<Player> players;
+    int numPlayers;
+
 private slots:
     void on_select_players_currentTextChanged(const QString &arg1);
     void on_buttonBox_clicked(QAbstractButton *button);
@@ -32,9 +35,8 @@ private slots:
 private:
     Ui::DgPlayerProperties *ui;
     void setupUI();
-    QVector<Player> players;
-    int numPlayers;
     MapView2 *curMap;
+    void commitChanges();
 };
 
 #endif // DGPLAYERPROPERTIES_H

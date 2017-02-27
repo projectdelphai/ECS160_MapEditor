@@ -711,7 +711,9 @@ void MainWindow::open_DgMapProperties(){
 void MainWindow::open_DgPlayerProperties(){
     DgPlayerProperties w(this, curMap);
     updateUI();
-    w.exec();
+    qDebug() << w.exec();
+    qDebug() << w.players.size();
+
 }
 
 // for the assets editor window
