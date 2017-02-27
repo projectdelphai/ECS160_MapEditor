@@ -190,7 +190,7 @@ void MapView2::changeMapTile(QGraphicsScene *scene, QPointF pos , Terrain::Type 
         return;
     }
 
-    qDebug() << "type: " << centerTile->getType();
+//    qDebug() << "type: " << centerTile->getType();
 
 
 
@@ -216,8 +216,8 @@ void MapView2::changeMapTile(QGraphicsScene *scene, QPointF pos , Terrain::Type 
             if( y == centerTile->scenePos().y() && x == centerTile->scenePos().x() )
                 continue;
 
-            Tile *tile = dynamic_cast<Tile*>( scene->itemAt( QPoint(x,y), QTransform() ));
-            if (tile == NULL  ){
+            Tile *tile =  qgraphicsitem_cast<Tile*>( scene->itemAt( QPoint(x,y), QTransform() ));
+            if (tile == NULL || tile->getType() != "grass" || tile->getType() != "water" || tile->getType() != "dirt"  || tile->getType() != "wall" ){
                 qDebug() << "null";
                 continue;
             }
