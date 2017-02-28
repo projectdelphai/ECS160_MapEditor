@@ -144,6 +144,17 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
             clearSelection();
             return;
         }
+        else if( curTool == "Trigger"){
+            brushable = false;
+            QImage image;
+            image.load(":/data/img/Trigger.png");
+            Tile *item = new Tile("Trigger", QPixmap::fromImage(image));
+            item->setPos(x,y);
+            item->setZValue(10);
+            addItem(item);
+            emit open_DTrigger(this, item);
+            return;
+        }
 
         QImage imageDx;
         if (!asset){
@@ -212,14 +223,9 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
                     addItem(pixItem);
                     delayUnit(500);
                        removeItem(pixItem);
-                 }
-
-              
-              
+                 }              
             }
 
-
-        
          QString x, y;
          x.setNum(pixItem->scenePos().x());
          y.setNum(pixItem->scenePos().y());

@@ -689,6 +689,19 @@ void MapView2::displayMap(QGraphicsScene *scene){
     builtAssets(scene);
 }
 
+void MapView2::addTrigger(AITrigger *trigger){
+    if (trigger == 0){
+        return;
+    }
+
+    qDebug() << "added";
+    triggers.append(trigger);
+}
+
+QVector<AITrigger*> MapView2::getTriggers(){
+    return triggers;
+}
+
 Texture* MapView2::getButtonColorsTx(){
     return buttonColors;
 }
