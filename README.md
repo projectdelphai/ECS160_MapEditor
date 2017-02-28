@@ -8,8 +8,6 @@ Check the bin directory for compiled packages.
 Use Qt Creator build a release version. Then run QT_DIR/5.7/clang_64/bin/macdeployqt BUILD_PATH/MapEditor.app to deploy
 Use -dmg to convert to dmg file.
 
-Uses Quazip and zlib libraries.
-
 
 ## Map files
 The map package file is a renamed ZIP file with file extension .mpk .

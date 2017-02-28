@@ -3,24 +3,12 @@
 #include "graphicsscene.h"
 #include <QDebug>
 #include "mapview2.h"
-#include "exporttoweb.h"
-#include "dialogs/dgabout.h"
-#include "dialogs/dgmapproperties.h"
-#include "dialogs/dgplayerproperties.h"
-#include "dialogs/dgassets.h"
+#include "dgabout.h"
+#include "dgmapproperties.h"
+#include "dgplayerproperties.h"
+#include "dgassets.h"
 #include <QMediaPlayer>
 
-RecordedTile::RecordedTile()
-{
-
-}
-
-RecordedTile::RecordedTile(Terrain::Type u, Terrain::Type r, int a, int b){
-    utype = u;
-    rtype = r;
-    x = a;
-    y = b;
-}
 
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
@@ -31,14 +19,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->graphicsView_2->setMouseTracking(true);
     curTool = "hand";
 
-    undone = false;
-
     // Load all assets using
     MainWindow::setupAssets();
 
     // Load and display a new file
     MainWindow::newFile();
-    MainWindow::setupUI();
+    MainWindow::updateUI();
 
     // resize minimap
     ui->graphicsView_2->fitInView(0,0,256,192, Qt::KeepAspectRatio);
@@ -128,10 +114,6 @@ void MainWindow::newFile()
     ui->graphicsView_2->show();
 
     // update status
-    curPlayer = 1;
-    scene->curPlayer = 1;
-    ui->tool_p1->setChecked(true);
-    ui->tool_grass->setChecked(true);
     on_tool_grass_clicked();
     statusBar()->showMessage("New File created", 2000);
 }
@@ -157,26 +139,6 @@ bool MainWindow::open()
         return loadPkgFile(dialog.selectedFiles().first());
 }
 
-
-void MainWindow::loadScene() {
-    scene = new GraphicsScene(this, &curMap, &assets);
-    curMap.displayMap(scene);
-
-    ui->graphicsView->setScene(scene);
-    ui->graphicsView->setMouseTracking(true);
-    ui->graphicsView->show();
-
-    ui->graphicsView_2->setScene(scene);
-    ui->graphicsView_2->setMouseTracking(true);
-    ui->graphicsView_2->show();
-
-    // connect signals and slots
-    QObject::connect(scene, &GraphicsScene::changedLayout, this, &MainWindow::changeLayout);
-    QObject::connect(scene, &GraphicsScene::changedAsset, this, &MainWindow::changeAsset);
-
-
-}
-
 bool MainWindow::loadMapFile(QString fileName, QIODevice &file)
 {
     // check if the file is good
@@ -192,16 +154,26 @@ bool MainWindow::loadMapFile(QString fileName, QIODevice &file)
 
     curMap = MapView2(file, assets, texture );
 
-    MainWindow::loadScene();
+    scene = new GraphicsScene(this, &curMap, &assets);
+    curMap.displayMap(scene);
+
+    ui->graphicsView->setScene(scene);
+    ui->graphicsView->setMouseTracking(true);
+    ui->graphicsView->show();
+
+    ui->graphicsView_2->setScene(scene);
+    ui->graphicsView_2->setMouseTracking(true);
+    ui->graphicsView_2->show();
+
+    // connect signals and slots
+    QObject::connect(scene, &GraphicsScene::changedLayout, this, &MainWindow::changeLayout);
+    QObject::connect(scene, &GraphicsScene::changedAsset, this, &MainWindow::changeAsset);
 
     setCurrentFile(mapName);
     statusBar()->showMessage(mapName + " loaded!", 2000);
 
-    // reset ui
     curPlayer = 1;
     scene->curPlayer = 1;
-    ui->tool_p1->setChecked(true);
-    ui->tool_grass->setChecked(true);
     on_tool_grass_clicked();
 
     return true;
@@ -280,53 +252,6 @@ bool MainWindow::save()
     setCurrentFile(curFile);
     statusBar()->showMessage(tr("File saved"), 2000);
     return true;
-}
-
-void MainWindow::undo()
-{//Undo the most recent change
-    //If there hasn't been any changes, then skip
-    if(undoTiles.isEmpty())
-        return;
-
-    undone = true;
-    Texture * asset = 0;
-
-    //The first element of undo becomes the first element for redo
-    RecordedTile rt = undoTiles.pop();
-    redoTiles.push(rt);
-
-    if (!asset)
-    {
-        scene->setBrushable(true);
-        scene->getMapInfo()->changeMapTile(scene, QPointF(rt.x, rt.y), rt.utype);
-        changeLayout(rt.x, rt.y, rt.utype);
-    }
-
-    undone = false;
-}
-
-void MainWindow::redo()
-{//Redo the most recent change
-    //If there hasn't been any changes, then skip
-    if(redoTiles.isEmpty())
-        return;
-
-    undone = true;
-   // Terrain *terrain = scene->mapInfo->getTerrain();
-    Texture * asset = 0;
-
-    //The first element for redo becomes first element for undo
-    RecordedTile rt = redoTiles.pop();
-    undoTiles.push(rt);
-
-    if (!asset)
-    {
-        scene->setBrushable(true);
-        scene->getMapInfo()->changeMapTile(scene, QPointF(rt.x, rt.y), rt.rtype);
-        changeLayout(rt.x, rt.y, rt.rtype);
-    }
-
-    undone = false;
 }
 
 void MainWindow::saveAs() {
@@ -461,7 +386,7 @@ void MainWindow::writeSettings()
 }
 
 // This function sets up all the UI buttons depending on what map is loaded
-void MainWindow::setupUI() {
+void MainWindow::updateUI() {
     // zoom slider and buttons in statusbar
     QToolButton *zMinus = new QToolButton();
     zMinus->setIcon(QIcon(":/toolbar/icons/toolbar/tool_zoom-.bmp"));
@@ -563,16 +488,6 @@ void MainWindow::on_button_save_clicked()
     save();
 }
 
-void MainWindow::on_button_undo_clicked()
-{
-    undo();
-}
-
-void MainWindow::on_button_redo_clicked()
-{
-    redo();
-}
-
 void MainWindow::on_tool_hand_clicked()
 {
     curTool = "hand";
@@ -656,21 +571,8 @@ void MainWindow::changeLayout(int x, int y, Terrain::Type type)
     break;
     }
 
+
     QVector<QChar> layout = curMap.getMapLayout();
-
-    RecordedTile rt(getTileType(curMap.getPreviousTile()), type, x, y);
-
-    if(!undone && rt.utype != type)
-    {//Prevent a duplicate or something not undone from being pushed onto the stack
-        if(undoTiles.isEmpty() || (!undoTiles.isEmpty()
-            && (rt.utype != undoTiles.top().utype
-                ||rt.x != undoTiles.top().x
-                || rt.y != undoTiles.top().y)))
-            //If there are neither previous tiles nor duplicates,
-            //push the previous and new tile of the current x and y
-            undoTiles.push(rt);
-    }
-
     layout[n] = c;
     curMap.setMapLayout(layout);
 
@@ -679,24 +581,6 @@ void MainWindow::changeLayout(int x, int y, Terrain::Type type)
 
 void MainWindow::activateAI(){
     qDebug() << QTime::currentTime().toString();
- }
-
-Terrain::Type MainWindow::getTileType(QChar tile)
-{//Obtain the appropriate tile based on a position on the current map layout
-    if(tile == ' ')
-        return Terrain::Water;
-    else if(tile == 'G')
-        return Terrain::Grass;
-    else if(tile == 'D')
-        return Terrain::Dirt;
-    else if(tile == 'R')
-        return Terrain::Rock;
-    else if(tile == 'F')
-        return Terrain::Tree;
-    else if(tile == 'W')
-        return Terrain::Wall;
-    else
-        return Terrain::Grass;
 }
 
 void MainWindow::changeAsset(int x, int y, QString asset, int player)
@@ -844,36 +728,7 @@ void MainWindow::open_DgMapProperties(){
 }
 
 void MainWindow::open_DgPlayerProperties(){
-    DgPlayerProperties w(this, curMap);
-    if(w.exec()) {  // if changes were made
-        QVector<Player> newPlayers = w.players;
-
-        // copy over Units
-        auto oldItr = curMap.getPlayers().begin();
-        auto newItr = newPlayers.begin();
-        for( ;
-                   ( newItr != newPlayers.end() && oldItr != curMap.getPlayers().end() );
-                    newItr++, oldItr++ ) {
-            //qDebug() << newItr->num;
-            newItr->units = oldItr->units;
-        }
-        curMap.setPlayers(newPlayers);
-        loadScene();
-
-        // reset ui
-        curPlayer = 1;
-        scene->curPlayer = 1;
-        ui->tool_p1->setChecked(true);
-        ui->tool_grass->setChecked(true);
-        on_tool_grass_clicked();
-
-        updateUIPlayers();
-    }
-}
-
-void MainWindow::open_exporttoweb()
-{
-    ExportToWeb w(this);
+    DgPlayerProperties w(this);
     w.exec();
 }
 
@@ -1001,37 +856,4 @@ void MainWindow::setupAssets(){
 }
 
 
-void MainWindow::on_actionBrush_size_1_triggered()
-{
-    scene->CurBrushSize = 1;
-}
 
-void MainWindow::on_actionBrush_size_2_triggered()
-{
-    scene->CurBrushSize = 2;
-}
-
-void MainWindow::on_actionBrush_size_3_triggered()
-{
-    scene->CurBrushSize = 3;
-}
-
-void MainWindow::on_actionBrush_size_4_triggered()
-{
-    scene->CurBrushSize = 4;
-}
-
-// checks UI parameters and updates them
-void MainWindow::updateUIPlayers(){
-    int numPlayers = curMap.getNumPlayers();
-    QList<QAbstractButton*> buttons = ui->bgroup_player->buttons();
-
-    // enable all:
-    for(int i = 0; i < 8; i++) {
-        buttons.at(i)->setEnabled(true);
-
-        // disable some:
-        if(i >= numPlayers )
-            buttons.at(i)->setDisabled(true);
-    }
-}

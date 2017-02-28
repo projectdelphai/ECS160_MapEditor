@@ -25,12 +25,9 @@ class Player
 public:
     Player();
     Player(int n, int g, int l);
-    enum playerType{ Human = 0, AI };
     int num;
     int gold;
     int lumber;
-    int stone;
-    playerType type = playerType::Human;
     QVector<Unit> units;
 };
 
@@ -39,7 +36,6 @@ class MapView2
 public:
     MapView2();
     MapView2(QMap<QString,Texture*>& loadedAssets);
-
     MapView2(QIODevice &mapFile, QMap<QString,Texture*>& ,const QString &mapTexName);
 
     Terrain* getTerrain();
@@ -50,10 +46,6 @@ public:
     QVector<QChar> getMapLayout();
     int getNumPlayers();
     int getNumUnits();
-
-    QChar getPreviousTile();
-    void setPlayers(QVector<Player> &newPlayers);
-    void addUnit(Unit u, int player);
     Texture *getAsset(QString assetName);
     QVector<Player> getPlayers();
     QVector<TriggerAI*> getTriggers();
@@ -66,7 +58,6 @@ public:
 
     // change tile at some pos and tiles around it
     void changeMapTile(QGraphicsScene *scene , QPointF point , Terrain::Type type);
-    void brush_size(QGraphicsScene *scene , QPointF point , Terrain::Type type, int brush_size);
 
 private:
     void defaultMap();
@@ -96,7 +87,6 @@ private:
     QMap<QString,Texture*> assets;
     QVector<TriggerAI*> triggers;
 
-    QChar prevChar;
 };
 
 #endif // MAPVIEW2_H
