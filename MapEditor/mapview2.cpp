@@ -24,13 +24,13 @@ Unit::Unit(QString n, int xc, int yc)
 }
 
 // Empty constructor
-MapView2::MapView2() {
-}
+MapView2::MapView2() { }
 
 // Default (new map)
 MapView2::MapView2(QMap<QString,Texture*>& loadedAssets)
 {
     defaultMap();
+    assets = loadedAssets;
 
     assets = loadedAssets;
     terrain = new Terrain;
@@ -139,7 +139,7 @@ void MapView2::defaultMap(){
     }
 
     // set player 0 (neutral)
-    Player player = Player(0, 30000, 500);
+    Player player = Player(0, 30000, 5000);
     players.append(player);
 
     // initialize players vector with 8 players
@@ -246,13 +246,23 @@ void MapView2::openMap(QIODevice &mapFile){
     mapFile.close();
 }
 
+QChar MapView2::getPreviousTile()
+{
+    return prevChar;
+}
+
 void MapView2::changeMapTile(QGraphicsScene *scene, QPointF pos , Terrain::Type type ){
 
     // tile inside scene to change
     Tile *centerTile = qgraphicsitem_cast< Tile*>( scene->itemAt(pos, QTransform()) );
 
+    if(centerTile==0)
+    {
+        return;
+    }
     int x = centerTile->scenePos().x()/tileDim.width();
     int y = centerTile->scenePos().y()/tileDim.height();
+    prevChar = mapLayOut[(y)*mapDim.width() + x];
     QString typedx = terrain->toString(type);
     QString strType = tileEncode(typedx, y , x );
 //    qDebug() << strType;
@@ -328,6 +338,29 @@ void MapView2::changeMapTile(QGraphicsScene *scene, QPointF pos , Terrain::Type 
 
 
    }
+void MapView2::brush_size(QGraphicsScene *scene, QPointF pos , Terrain::Type type, int brush_size){
+   int Actual_brush_size = 1;
+   QPointF position;
+   QString typedx = terrain->toString(type);
+   if((typedx == "water"|| typedx == "rock") && brush_size < 2)
+   {
+       Actual_brush_size = 2;
+   }
+   else{
+       Actual_brush_size = brush_size;
+   }
+   for(int i =pos.y(); i <pos.y() + (Actual_brush_size*32); i+=32)
+   {
+       for(int j= pos.x(); j < pos.x()+(Actual_brush_size*32);j+=32)
+       {
+//           qDebug()<< "inside the lo0p";
+           position.setX(j);
+           position.setY(i);
+           changeMapTile(scene, position, type);
+       }
+   }
+}
+
 
 QChar MapView2::strToMapkey(QString str){
     QChar mapkey;
@@ -358,6 +391,10 @@ QChar MapView2::strToMapkey(QString str){
 }
 
 QString MapView2::tileEncode(QString strType ,int i , int j){
+    if(i==0 || j== 0 ||j==mapDim.width() -1 || i == mapDim.height() -1)
+    {
+         return "border";
+    }
 
     QString valueStrType ="";
     QVector<QChar> tiles;
@@ -546,23 +583,27 @@ void MapView2::builtTreeTop(QGraphicsScene *scene){
 
 void MapView2::displayNewMap(QGraphicsScene *scene){
     QString type = "";
-    int x = 0;
-    int y = 0;
-    for(int i = 0; i < mapDim.height(); ++i){
-        for(int j = 0; j < mapDim.width(); ++j){
-            if ( mapLayOut.at(i*mapDim.width() + j).toLatin1() == 'G'){
-                type = "grass-0";
+        int x = 0;
+        int y = 0;
+        for(int i = 0; i < mapDim.height(); ++i){
+            for(int j = 0; j < mapDim.width(); ++j){
+                if(i==0|| j==0||i== mapDim.height()-1 ||j==mapDim.width()-1)
+                {
+                    type = "border";
+                }
+                else if ( mapLayOut.at(i*mapDim.width() + j).toLatin1() == 'G'){
+                    type = "grass-0";
+                }
+                QImage imageDx = *terrain->getImageTile(type);
+                Tile *tile = new Tile(type.split("-")[0] , QPixmap::fromImage(imageDx));
+
+                x = j*tileDim.width();
+                y = i*tileDim.height();
+                tile->setPos(x,y);
+                scene->addItem(tile);
+
             }
-            QImage imageDx = *terrain->getImageTile(type);
-            Tile *tile = new Tile(type.split("-")[0] , QPixmap::fromImage(imageDx));
-
-            x = j*tileDim.width();
-            y = i*tileDim.height();
-            tile->setPos(x,y);
-            scene->addItem(tile);
-
         }
-    }
 }
 
 // reads map array and updates the scene
@@ -678,6 +719,10 @@ QVector<QChar> MapView2::getMapLayout()
 QVector<Player> MapView2::getPlayers()
 {
     return players;
+}
+
+void MapView2::setPlayers(QVector<Player> &newPlayers) {
+    players = newPlayers;
 }
 
 void MapView2::addPlayer(Player p)

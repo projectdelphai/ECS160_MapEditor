@@ -150,6 +150,7 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
         if (!asset){
            //imageDx = *terrain->getImageTile(type);
            // tile change
+
             QString x, y;
             x.setNum(item->scenePos().x());
             y.setNum(item->scenePos().y());
@@ -173,6 +174,7 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
                     }
                 }
             }
+
 
         }
         else
@@ -288,6 +290,16 @@ void GraphicsScene::removeToolItem(QGraphicsSceneMouseEvent *mouseEvent)
         else
             return;
     }
+}
+
+void GraphicsScene::setBrushable(bool b)
+{
+    brushable = b;
+}
+
+MapView2 * GraphicsScene::getMapInfo()
+{
+    return mapInfo;
 }
 
 void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
