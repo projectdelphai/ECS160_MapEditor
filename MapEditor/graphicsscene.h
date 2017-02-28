@@ -22,6 +22,7 @@ public:
     void addToolItem(QGraphicsSceneMouseEvent *mouseEvent);
     void removeToolItem(QGraphicsSceneMouseEvent *mouseEvent);
     bool withinBounds(QGraphicsSceneMouseEvent *mouseEvent);
+    void delayUnit(int millisecondsToWait);
     void setBrushable(bool b);
     MapView2 * getMapInfo();
     QString curTool;
