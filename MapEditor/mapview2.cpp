@@ -391,6 +391,10 @@ QChar MapView2::strToMapkey(QString str){
 }
 
 QString MapView2::tileEncode(QString strType ,int i , int j){
+    if(i==0 || j== 0 ||j==mapDim.width() -1 || i == mapDim.height() -1)
+    {
+         return "border";
+    }
 
     QString valueStrType ="";
     QVector<QChar> tiles;
@@ -579,23 +583,27 @@ void MapView2::builtTreeTop(QGraphicsScene *scene){
 
 void MapView2::displayNewMap(QGraphicsScene *scene){
     QString type = "";
-    int x = 0;
-    int y = 0;
-    for(int i = 0; i < mapDim.height(); ++i){
-        for(int j = 0; j < mapDim.width(); ++j){
-            if ( mapLayOut.at(i*mapDim.width() + j).toLatin1() == 'G'){
-                type = "grass-0";
+        int x = 0;
+        int y = 0;
+        for(int i = 0; i < mapDim.height(); ++i){
+            for(int j = 0; j < mapDim.width(); ++j){
+                if(i==0|| j==0||i== mapDim.height()-1 ||j==mapDim.width()-1)
+                {
+                    type = "border";
+                }
+                else if ( mapLayOut.at(i*mapDim.width() + j).toLatin1() == 'G'){
+                    type = "grass-0";
+                }
+                QImage imageDx = *terrain->getImageTile(type);
+                Tile *tile = new Tile(type.split("-")[0] , QPixmap::fromImage(imageDx));
+
+                x = j*tileDim.width();
+                y = i*tileDim.height();
+                tile->setPos(x,y);
+                scene->addItem(tile);
+
             }
-            QImage imageDx = *terrain->getImageTile(type);
-            Tile *tile = new Tile(type.split("-")[0] , QPixmap::fromImage(imageDx));
-
-            x = j*tileDim.width();
-            y = i*tileDim.height();
-            tile->setPos(x,y);
-            scene->addItem(tile);
-
         }
-    }
 }
 
 // reads map array and updates the scene
