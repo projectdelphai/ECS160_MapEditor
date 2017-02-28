@@ -6,6 +6,8 @@
 #include "mainwindow.h"
 #include <QMediaPlayer>
 
+#include <QUrl>
+
 GraphicsScene::GraphicsScene(QObject *parent, MapView2 *curMap, QMap<QString, Texture *> *loadedAssets) : QGraphicsScene(parent)
 {
     GraphicsScene::parent = parent;
@@ -61,6 +63,7 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
             type = Terrain::Wall;
         else if (curTool == "rubble")
             type = Terrain::Rubble;
+
         else if (curTool == "Peasant")
         {
             asset = mapInfo->getAsset("Peasant");
@@ -106,6 +109,7 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
         else if (curTool == "Barracks")
         {
             asset = mapInfo->getAsset("Barracks");
+
             music->setMedia(QUrl("qrc:/data/snd/misc/thunk.wav"));
             widthXheight = 3;
             frames = 3;
@@ -155,6 +159,7 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
         else if (curTool == "Keep")
         {
             asset = mapInfo->getAsset("Keep");
+
             music->setMedia(QUrl("qrc:/data/snd/misc/thunk.wav"));
             widthXheight = 4;
             frames = 2;
@@ -169,6 +174,17 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
         else if (curTool == "hand")
         {
             clearSelection();
+            return;
+        }
+        else if( curTool == "Trigger"){
+            brushable = false;
+            QImage image;
+            image.load(":/data/img/Trigger.png");
+            Tile *item = new Tile("Trigger", QPixmap::fromImage(image));
+            item->setPos(x,y);
+            item->setZValue(10);
+            addItem(item);
+            emit open_DTrigger(this, item);
             return;
         }
 
@@ -204,8 +220,10 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
 
         }
         else
-        {
+        {//Loads/Animates the assets
+            Tile *pixItem;
             brushable = false;
+
             if (curTool == "GoldMine")
                 imageDx = asset->imageList[0];
             else

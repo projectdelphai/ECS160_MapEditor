@@ -37,6 +37,7 @@ public:
 public slots:
     void changeLayout(int x, int y, Terrain::Type type);
     void changeAsset(int x, int y, QString asset, int player);
+    void activateAI();
 
 protected:
 #ifndef QT_NO_CONTEXTMENU
@@ -89,21 +90,23 @@ private slots:
     void on_tool_ranger_clicked();
     void on_tool_hand_clicked();
     void on_tool_pX_clicked(QAbstractButton* Button);
+    void on_actionBrush_size_1_triggered();
+    void on_actionBrush_size_2_triggered();
+    void on_actionBrush_size_3_triggered();
+    void on_actionBrush_size_4_triggered();
+    void on_tool_aitrigger_clicked();
+    void on_actionHide_Trigger_triggered();
+
     void open_DgAbout();
     void open_DgMapProperties();
     void open_DgPlayerProperties();
     void open_DgAssets();
+    void open_DTrigger(QGraphicsScene* , Tile* );
     void open_exporttoweb();
 
     void setupAssets();
 
-    void on_actionBrush_size_1_triggered();
 
-    void on_actionBrush_size_2_triggered();
-
-    void on_actionBrush_size_3_triggered();
-
-    void on_actionBrush_size_4_triggered();
 
 private:
     Ui::MainWindow *ui;
@@ -118,6 +121,7 @@ private:
     void setCurrentFile(const QString &fileName);
     Terrain::Type getTileType(QChar tile);
     void updateUIPlayers();
+    void hideTriggers(bool visible);
 
 
     int curPlayer;
@@ -134,12 +138,13 @@ private:
     //Stores tiles from undo button
      QStack<RecordedTile> undoTiles;
 
-     //Stores tiles from redo button
-     QStack<RecordedTile> redoTiles;
+    //Stores tiles from undo/redo
+    QStack<RecordedTile> undoTiles;
+    QStack<RecordedTile> redoTiles;
 
-     //Prevents already-dealt-with elements from being re-pushed onto either stack
-     bool undone;
 
+    //Prevents already-dealt-with elements from being re-pushed onto either stack
+    bool undone;
 };
 
 

@@ -40,13 +40,13 @@ The file structure is as follows:
 	```
 	# from /src/TerrainMap.cpp
 	case 'G':   Grass;
-  case 'F':   Tree;
-  case 'D':   Dirt;
-  case 'W':   Wall;    
-  case 'w':   WallDamaged;
-  case 'R':   Rock;
-  case ' ':   Water;
-  ```
+	case 'F':   Tree;
+	case 'D':   Dirt;
+	case 'W':   Wall;    
+	case 'w':   WallDamaged;
+	case 'R':   Rock;
+	case ' ':   Water;
+	```
 - Number of players
 - Resource values
 	* Global Cap:  
@@ -66,6 +66,10 @@ The file structure is as follows:
 	Peasant 2 94 59    
 	TownHall 2 92 54
 	```
+- AI Triggers
+	* `Name Type X Y Seconds {Conditions} Trigger`
+	* Conditions and Trigger are both user-defined
+
 
 # Code Example (with comments)
 ```
@@ -153,5 +157,8 @@ Peasant 2 94 59
 TownHall 2 92 54
 Peasant 3 7 8
 TownHall 3 10 10
+2				// number of AI Triggers
+Trigger1 location 24 74 0 {unit != peasant} startBattle()
+Trigger2 time 68 35 360 {gold < 5000} gameOver()
 
 ```

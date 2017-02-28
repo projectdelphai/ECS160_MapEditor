@@ -8,6 +8,8 @@
 #include "dialogs/dgmapproperties.h"
 #include "dialogs/dgplayerproperties.h"
 #include "dialogs/dgassets.h"
+#include "dialogs/dgaddtrigger.h"
+#include "aitrigger.h"
 #include <QMediaPlayer>
 
 RecordedTile::RecordedTile()
@@ -44,6 +46,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     // connect signals and slots
     QObject::connect(scene, &GraphicsScene::changedLayout, this, &MainWindow::changeLayout);
     QObject::connect(scene, &GraphicsScene::changedAsset, this, &MainWindow::changeAsset);
+    QObject::connect(scene, &GraphicsScene::open_DTrigger, this, &MainWindow::open_DTrigger);
 
     // default values
     curPlayer = 1;
@@ -170,7 +173,7 @@ void MainWindow::loadScene() {
     // connect signals and slots
     QObject::connect(scene, &GraphicsScene::changedLayout, this, &MainWindow::changeLayout);
     QObject::connect(scene, &GraphicsScene::changedAsset, this, &MainWindow::changeAsset);
-
+    QObject::connect(scene, &GraphicsScene::open_DTrigger, this, &MainWindow::open_DTrigger);
 
 }
 
@@ -541,6 +544,7 @@ void MainWindow::wheelEvent(QWheelEvent *event)
         //ui->graphicsView->fitInView(0,0,3075,2065);
     }
 }
+
 void MainWindow::on_button_new_clicked()
 {
     newFile();
@@ -595,26 +599,7 @@ void MainWindow::on_tool_water_clicked()
     statusBar()->showMessage(tr("Water tool selected"), 2000);
 }
 
-void MainWindow::on_tool_rock_clicked()
-{
-    curTool = "rock";
-    scene->curTool = "rock";
-    statusBar()->showMessage(tr("Rock tool selected"), 2000);
-}
 
-void MainWindow::on_tool_tree_clicked()
-{
-    curTool = "tree";
-    scene->curTool = "tree";
-    statusBar()->showMessage(tr("Tree tool selected"), 2000);
-}
-
-void MainWindow::on_tool_wall_clicked()
-{
-    curTool = "wall";
-    scene->curTool = "wall";
-    statusBar()->showMessage(tr("Wall tool selected"), 2000);
-}
 void MainWindow::changeLayout(int x, int y, Terrain::Type type)
 {
     int newX = x / 32;
@@ -689,6 +674,10 @@ Terrain::Type MainWindow::getTileType(QChar tile)
         return Terrain::Grass;
 }
 
+void MainWindow::activateAI(){
+    qDebug() << QTime::currentTime().toString();
+}
+
 void MainWindow::changeAsset(int x, int y, QString asset, int player)
 {
     int newX = x / 32;
@@ -701,6 +690,92 @@ void MainWindow::changeAsset(int x, int y, QString asset, int player)
 
     curMap.addUnit(unit, player);
 }
+
+
+
+
+
+/* =============================================
+ *
+ * Slots for button actions
+ *
+ * =============================================
+ */
+
+void MainWindow::on_button_new_clicked()
+{
+    newFile();
+}
+
+void MainWindow::on_button_open_clicked()
+{
+    open();
+}
+
+void MainWindow::on_button_save_clicked()
+{
+    save();
+}
+
+void MainWindow::on_button_undo_clicked()
+{
+    undo();
+}
+
+void MainWindow::on_button_redo_clicked()
+{
+    redo();
+}
+
+void MainWindow::on_tool_hand_clicked()
+{
+    curTool = "hand";
+    scene->curTool = "hand";
+    statusBar()->showMessage(tr("Hand/Cursor tool selected"), 2000);
+}
+
+void MainWindow::on_tool_grass_clicked()
+{
+    curTool = "grass";
+    scene->curTool = "grass";
+    statusBar()->showMessage(tr("Grass tool selected"), 2000);
+}
+
+void MainWindow::on_tool_dirt_clicked()
+{
+    curTool = "dirt";
+    scene->curTool = "dirt";
+    statusBar()->showMessage(tr("Dirt tool selected"), 2000);
+}
+
+void MainWindow::on_tool_water_clicked()
+{
+    curTool = "water";
+    scene->curTool = "water";
+    statusBar()->showMessage(tr("Water tool selected"), 2000);
+}
+
+void MainWindow::on_tool_rock_clicked()
+{
+    curTool = "rock";
+    scene->curTool = "rock";
+    statusBar()->showMessage(tr("Rock tool selected"), 2000);
+}
+
+void MainWindow::on_tool_tree_clicked()
+{
+    curTool = "tree";
+    scene->curTool = "tree";
+    statusBar()->showMessage(tr("Tree tool selected"), 2000);
+}
+
+void MainWindow::on_tool_wall_clicked()
+{
+    curTool = "wall";
+    scene->curTool = "wall";
+    statusBar()->showMessage(tr("Wall tool selected"), 2000);
+}
+
 
 void MainWindow::on_tool_peasant1_clicked()
 {
@@ -844,7 +919,46 @@ void MainWindow::on_tool_pX_clicked(QAbstractButton* button) {
     ui->statusBar->showMessage("Player " + button->text() + " selected");
 }
 
-// for various dialog boxes
+void MainWindow::on_tool_aitrigger_clicked()
+{
+    curTool = "Trigger";
+    scene->curTool = "Trigger";
+    statusBar()->showMessage(tr("Trigger selected"),2000);
+}
+
+void MainWindow::on_actionBrush_size_1_triggered()
+{
+    scene->CurBrushSize = 1;
+}
+
+void MainWindow::on_actionBrush_size_2_triggered()
+{
+    scene->CurBrushSize = 2;
+}
+
+void MainWindow::on_actionBrush_size_3_triggered()
+{
+    scene->CurBrushSize = 3;
+}
+
+void MainWindow::on_actionBrush_size_4_triggered()
+{
+    scene->CurBrushSize = 4;
+}
+
+
+
+
+
+
+
+/* ========================================
+ *
+ * for Various Dialog Boxes
+ *
+ * ========================================
+ */
+
 void MainWindow::open_DgAbout(){
     DgAbout w(this);
     w.exec();
@@ -898,6 +1012,53 @@ void MainWindow::open_DgAssets(){
     wAssets->show();
     wAssets->raise();
     wAssets->activateWindow();
+}
+
+void MainWindow::open_DTrigger(QGraphicsScene *scene , Tile *tile){
+    DgAddTrigger window(this);
+    if ( window.exec() != QDialog::Accepted ){
+        scene->removeItem(tile);
+        return;
+    }
+
+    AITrigger *trigger = new AITrigger(window.name);
+    trigger->setMarker(tile);
+    trigger->setTimer(window.time);
+    trigger->setRange(0);
+    trigger->startTimer(this);
+    trigger->setCondition(window.condition);
+    trigger->setTriggerFunction(window.trigger);
+    trigger->setType(window.type);
+
+    curMap.addTrigger(trigger);
+    bool checked = ui->actionHide_Triggers->isChecked();
+    if ( checked == false ){
+        trigger->displayRange(scene);
+    }
+
+    trigger->getMarker()->setVisible(!checked);
+
+}
+
+void MainWindow::hideTriggers(bool visible){
+    for(AITrigger *trigger : curMap.getTriggers()){
+        QGraphicsItem *item = qgraphicsitem_cast<QGraphicsItem*>(trigger->getMarker());
+        if ( scene->items().contains( item) ){
+            item->setVisible(visible);
+            if( visible == 0 && trigger->isRangeOn()){
+                trigger->removeRange(scene);
+            }
+            else if (visible != 0 || trigger->isRangeOn() == false ){
+                trigger->displayRange(scene);
+            }
+        }
+    }
+}
+
+void MainWindow::on_actionHide_Trigger_triggered()
+{
+    bool enable = !(ui->actionHide_Triggers->isChecked());
+    hideTriggers(enable);
 }
 
 void MainWindow::setupAssets(){

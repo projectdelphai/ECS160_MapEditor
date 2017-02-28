@@ -8,6 +8,7 @@
 #include <QMessageBox>
 #include "tile.h"
 #include "texture.h"
+#include "aitrigger.h"
 
 class Unit
 {
@@ -43,6 +44,7 @@ public:
 //    QString tileEncode(QString strType,int i, int j);
 //    void builtTreeTop(QGraphicsScene *scene);
 
+    // get
     Terrain* getTerrain();
     Texture* getButtonColorsTx();
     Texture* getButtonIconsTx();
@@ -52,15 +54,18 @@ public:
     QSize getMapDim();
     QString getMapName();
     QVector<QChar> getMapLayout();
-    void setMapLayout(QVector<QChar> layout);
     QVector<Player> getPlayers();
     int getNumPlayers();
     int getNumUnits();
     QChar getPreviousTile();
-
-    void setPlayers(QVector<Player> &newPlayers);
-    void addUnit(Unit u, int player);
+    QVector<AITrigger*> getTriggers();
     Texture *getAsset(QString assetName);
+
+    // set
+    void setPlayers(QVector<Player> &newPlayers);
+    void setMapLayout(QVector<QChar> layout);
+    void addTrigger(AITrigger *trigger );
+    void addUnit(Unit u, int player);
 
     // change tile at some pos and tiles around it
     void changeMapTile(QGraphicsScene *scene , QPointF point , Terrain::Type type);
@@ -95,6 +100,7 @@ private:
     QStringList mapAllowedAIs;
     QString mapDescription;
     QMap<QString,Texture*> assets;
+    QVector<AITrigger*> triggers;
     QChar prevChar;
 };
 
