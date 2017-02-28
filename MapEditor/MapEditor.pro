@@ -39,7 +39,9 @@ SOURCES += main.cpp\
     dialogs/dgplayerproperties.cpp \
     dialogs/dgassets.cpp \
     mapview.cpp \
-    exporttoweb.cpp
+    exporttoweb.cpp \
+    dialogs/dgaddtrigger.cpp \
+    aitrigger.cpp
 
 HEADERS  += mainwindow.h \
     mapview2.h \
@@ -52,14 +54,17 @@ HEADERS  += mainwindow.h \
     dialogs/dgplayerproperties.h \
     dialogs/dgassets.h \
     mapview.h \
-    exporttoweb.h
+    exporttoweb.h \
+    dialogs/dgaddtrigger.h \
+    aitrigger.h
 
 FORMS    += mainwindow.ui \
     dialogs/dgmapproperties.ui \
     dialogs/dgabout.ui \
     dialogs/dgplayerproperties.ui \
     dialogs/dgassets.ui \
-    exporttoweb.ui
+    exporttoweb.ui \
+    dialogs/dgaddtrigger.ui
 
 RESOURCES += \
     icons.qrc \
@@ -199,6 +204,7 @@ DISTFILES += \
     ../data/img/Terrain.png \
     ../data/img/Texture.png \
     ../data/img/TownHall.png \
+    ../data/img/Trigger.png \
     ../data/img/Archer.dat \
     ../data/img/Arrow.dat \
     ../data/img/AssetColor.dat \
@@ -244,6 +250,7 @@ DISTFILES += \
     ../data/img/Terrain.dat \
     ../data/img/Texture.dat \
     ../data/img/TownHall.dat \
+    ../data/img/Trigger.dat \
     ../data/res/Archer.dat \
     ../data/res/Barracks.dat \
     ../data/res/Blacksmith.dat \
