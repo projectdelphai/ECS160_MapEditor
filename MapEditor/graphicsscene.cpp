@@ -164,7 +164,14 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
             {
                 brushable = true;
                 mapInfo->changeMapTile(this, mouseEvent->scenePos(),type);
-                qDebug() << y;
+                if(type == Terrain::Water || type == Terrain::Rock || type == Terrain::Tree || type == Terrain::Wall)
+                {
+                    if(loc.contains(y) == false)
+                    {
+                        loc.append(y);
+                        qDebug() << loc;
+                    }
+                }
             }
 
         }
@@ -198,7 +205,7 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
             bool added = true;
             for (int i = 0; i < tempXY.size(); i++)
             {
-                if(addedItems.contains(tempXY[i]))
+                if(addedItems.contains(tempXY[i]) || loc.contains(tempXY[i]))
                 {
                     added = true;
                     break;
