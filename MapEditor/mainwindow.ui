@@ -104,6 +104,32 @@
              </property>
             </widget>
            </item>
+           <item>
+            <widget class="QToolButton" name="button_undo">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset theme="undo"/>
+             </property>
+             <property name="shortcut">
+              <string>Ctrl+Z</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QToolButton" name="button_redo">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset theme="redo"/>
+             </property>
+             <property name="shortcut">
+              <string>Ctrl+Y</string>
+             </property>
+            </widget>
+           </item>
           </layout>
          </widget>
         </item>
@@ -1066,7 +1092,7 @@
      <x>0</x>
      <y>0</y>
      <width>1082</width>
-     <height>21</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -1105,6 +1131,10 @@
     <addaction name="actionHuman_Buildings"/>
     <addaction name="separator"/>
     <addaction name="actionGold_Mine"/>
+    <addaction name="actionBrush_size_1"/>
+    <addaction name="actionBrush_size_2"/>
+    <addaction name="actionBrush_size_3"/>
+    <addaction name="actionBrush_size_4"/>
    </widget>
    <widget class="QMenu" name="menuPlayer">
     <property name="title">
@@ -1339,6 +1369,26 @@
     <string>Export to file...</string>
    </property>
   </action>
+  <action name="actionBrush_size_1">
+   <property name="text">
+    <string>Brush size = 1</string>
+   </property>
+  </action>
+  <action name="actionBrush_size_2">
+   <property name="text">
+    <string>Brush size = 2</string>
+   </property>
+  </action>
+  <action name="actionBrush_size_3">
+   <property name="text">
+    <string>Brush size = 3</string>
+   </property>
+  </action>
+  <action name="actionBrush_size_4">
+   <property name="text">
+    <string>Brush size = 4</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
@@ -1505,6 +1555,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionExport_to_web</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>open_exporttoweb()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>540</x>
+     <y>403</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>open()</slot>
@@ -1519,6 +1585,7 @@
   <slot>on_tool_pX_clicked(QAbstractButton*)</slot>
   <slot>open_DgAssets()</slot>
   <slot>exportPkg()</slot>
+  <slot>open_exporttoweb()</slot>
  </slots>
  <buttongroups>
   <buttongroup name="bgroup_player"/>

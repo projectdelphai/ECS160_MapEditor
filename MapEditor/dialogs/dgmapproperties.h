@@ -23,6 +23,9 @@ public:
     explicit DgMapProperties(QWidget *parent = 0);
     ~DgMapProperties();
 
+private slots:
+    void on_buttonBox_accepted();
+
 private:
     Ui::DgMapProperties *ui;
 };

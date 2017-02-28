@@ -112,7 +112,7 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
         else if (curTool == "Castle")
         {
             asset = mapInfo->getAsset("Castle");
-
+        }
         else if (curTool == "Farm")
         {
             asset = mapInfo->getAsset("Farm");
@@ -150,37 +150,40 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
            //imageDx = *terrain->getImageTile(type);
            // tile change
             brushable = true;
-            mapInfo->changeMapTile(this, mouseEvent->scenePos(),type);
+           mapInfo-> brush_size(this, mouseEvent->scenePos(),type,CurBrushSize);
+//            mapInfo->changeMapTile(this, mouseEvent->scenePos(),type);
         }
         else
         {//Loads/Animates the assets
+            Tile *pixItem;
+            brushable = false;
             if (curTool == "GoldMine"){
                 brushable = false;
                 for (int i=0; i<= 1;i++){
                     imageDx = imageDx = asset->imageList[i];
                     QPixmap pixmap = QPixmap::fromImage(imageDx);
-                    Tile * pixItem = new Tile(type, pixmap);
+                    pixItem = new Tile(type, pixmap);
 
                     pixItem->setPos(x, y);
                     addItem(pixItem);
                     delayUnit(1000);
-                    if (i!=1){
+                    //if (i!=1){
                         removeItem(pixItem);
-                    }
+                    //}
                 }
             }
             else if (curTool == "CannonTower" || curTool == "Castle" || curTool == "Keep" || curTool == "GuardTower"){
                 for (int i=0; i<= 1;i++){
                     imageDx = asset->colorPlayerImg[curPlayer][i];
                     QPixmap pixmap = QPixmap::fromImage(imageDx);
-                    Tile * pixItem = new Tile(type, pixmap);
+                    pixItem = new Tile(type, pixmap);
 
                     pixItem->setPos(x, y);
                     addItem(pixItem);
                     delayUnit(1000);
-                    if (i!=1){
+                    //if (i!=1){
                         removeItem(pixItem);
-                    }
+                    //}
                 }
             }
             //for some reason barracks do not work
@@ -188,14 +191,14 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
                 for (int i=0; i<= 3;i++){
                     imageDx = asset->colorPlayerImg[curPlayer][i];
                     QPixmap pixmap = QPixmap::fromImage(imageDx);
-                    Tile * pixItem = new Tile(type, pixmap);
+                    pixItem = new Tile(type, pixmap);
 
                     pixItem->setPos(x, y);
                     addItem(pixItem);
                     delayUnit(1000);
-                    if (i!=3){
+                    //if (i!=3){
                         removeItem(pixItem);
-                    }
+                    //}
                 }
             }
 
@@ -203,19 +206,18 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
                 for (int i=0; i<= 39;i++){
                     imageDx = asset->colorPlayerImg[curPlayer][i];
                     QPixmap pixmap = QPixmap::fromImage(imageDx);
-                    Tile * pixItem = new Tile(type, pixmap);
+                    pixItem = new Tile(type, pixmap);
 
                     pixItem->setPos(x, y);
                     addItem(pixItem);
                     delayUnit(500);
-                    if (i!=39){
                        removeItem(pixItem);
-                    }
                  }
 
               
               
             }
+
 
         
          QString x, y;
@@ -270,6 +272,16 @@ void GraphicsScene::removeToolItem(QGraphicsSceneMouseEvent *mouseEvent)
         else
             return;
     }
+}
+
+void GraphicsScene::setBrushable(bool b)
+{
+    brushable = b;
+}
+
+MapView2 * GraphicsScene::getMapInfo()
+{
+    return mapInfo;
 }
 
 void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)

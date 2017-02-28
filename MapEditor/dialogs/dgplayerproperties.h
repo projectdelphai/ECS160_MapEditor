@@ -2,6 +2,7 @@
 #define DGPLAYERPROPERTIES_H
 
 #include <QDialog>
+#include "mapview2.h"
 
 /* Name: dgplayerproperties.h
  * Class: DgPlayerProperties
@@ -21,10 +22,23 @@ class DgPlayerProperties : public QDialog
 
 public:
     explicit DgPlayerProperties(QWidget *parent = 0);
+    explicit DgPlayerProperties(QWidget *parent, MapView2 &curMap);
     ~DgPlayerProperties();
+
+    QVector<Player> players;
+    int numPlayers;
+
+private slots:
+    void on_select_players_currentTextChanged(const QString &arg1);
+    void on_buttonBox_clicked(QAbstractButton *button);
 
 private:
     Ui::DgPlayerProperties *ui;
+    void setupUI();
+    void commitChanges();
+    void accept();
+
+    MapView2 *curMap;
 };
 
 #endif // DGPLAYERPROPERTIES_H
