@@ -548,6 +548,28 @@
             </widget>
            </item>
            <item>
+            <widget class="QToolButton" name="tool_hand">
+             <property name="toolTip">
+              <string>Hand</string>
+             </property>
+             <property name="text">
+              <string>hand</string>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>32</width>
+               <height>32</height>
+              </size>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="autoExclusive">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
             <spacer name="verticalSpacer_2">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
@@ -1022,6 +1044,9 @@
         <height>480</height>
        </size>
       </property>
+      <property name="toolTip">
+       <string>Hand</string>
+      </property>
       <property name="backgroundBrush">
        <brush brushstyle="SolidPattern">
         <color alpha="128">
@@ -1156,8 +1181,14 @@
    </property>
   </action>
   <action name="actionDelete">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>&amp;Delete</string>
+   </property>
+   <property name="shortcut">
+    <string>Del</string>
    </property>
   </action>
   <action name="actionStatus_bar">

@@ -5,14 +5,16 @@
 #include "texture.h"
 #include "mainwindow.h"
 #include <QMediaPlayer>
+
 #include <QUrl>
 
-
-GraphicsScene::GraphicsScene(QObject *parent, MapView2 *curMap) : QGraphicsScene(parent)
+GraphicsScene::GraphicsScene(QObject *parent, MapView2 *curMap, QMap<QString, Texture *> *loadedAssets) : QGraphicsScene(parent)
 {
     GraphicsScene::parent = parent;
     GraphicsScene::mapInfo = curMap;
+    GraphicsScene::assets = loadedAssets;
     brushing = false;
+    brushable = false;
 }
 
 void GraphicsScene::delayUnit(int millisecondsToWait)
@@ -28,7 +30,6 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
 {
     QWidget *q =  mouseEvent->widget()->parentWidget();
     QString name = q->accessibleName();
-
     if (name.compare("minimap") == 0)
     {
         QGraphicsView *view = this->views()[0];
@@ -38,15 +39,14 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
     {
         Tile *item = (Tile *)this->itemAt(mouseEvent->scenePos(), QTransform());
 
-
-
         int x = item->scenePos().x();
         int y = item->scenePos().y();
 
         Terrain *terrain = mapInfo->getTerrain();
         Terrain::Type type;
-
         Texture *asset = 0;
+        QMediaPlayer * music = new QMediaPlayer();
+
 
         if (curTool == "grass")
             type = Terrain::Grass;
@@ -62,60 +62,100 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
             type = Terrain::Wall;
         else if (curTool == "rubble")
             type = Terrain::Rubble;
-        else if (curTool == "Peasant"){
+
+        else if (curTool == "Peasant")
+        {
             asset = mapInfo->getAsset("Peasant");
+            music->setMedia(QUrl("qrc:/data/snd/peasant/ready.wav"));
         }
-        else if (curTool == "Ranger"){
+        else if (curTool == "Ranger")
+        {
             asset = mapInfo->getAsset("Ranger");
+            music->setMedia(QUrl("qrc:/data/snd/archer/ready.wav"));
         }
-        else if (curTool == "Archer"){
+        else if (curTool == "Archer")
+        {
             asset = mapInfo->getAsset("Archer");
+            music->setMedia(QUrl("qrc:/data/snd/archer/ready.wav"));
         }
-        else if (curTool == "Knight"){
+        else if (curTool == "Knight")
+        {
             asset = mapInfo->getAsset("Knight");
+            music->setMedia(QUrl("qrc:/data/snd/knight/ready.wav"));
         }
-        else if (curTool == "GoldMine"){
+        else if (curTool == "GoldMine")
+        {
             asset = mapInfo->getAsset("GoldMine");
+            music->setMedia(QUrl("qrc:/data/snd/buildings/gold-mine.wav"));
         }
         else if (curTool == "TownHall")
+        {
             asset = mapInfo->getAsset("TownHall");
+            music->setMedia(QUrl("qrc:/data/snd/misc/thunk.wav"));
+        }
         else if (curTool == "Barracks")
+        {
             asset = mapInfo->getAsset("Barracks");
-        else if (curTool == "BlackSmith"){
+
+            music->setMedia(QUrl("qrc:/data/snd/misc/thunk.wav"));
+        }
+        else if (curTool == "BlackSmith")
+        {
             asset = mapInfo->getAsset("Blacksmith");
+            music->setMedia(QUrl("qrc:/data/snd/buildings/blacksmith.wav"));
         }
         else if (curTool == "CannonTower")
+        {
             asset = mapInfo->getAsset("CannonTower");
+            music->setMedia(QUrl("qrc:/data/snd/misc/thunk.wav"));
+        }
         else if (curTool == "Castle")
+        {
             asset = mapInfo->getAsset("Castle");
-        else if (curTool == "Farm"){
+
+        else if (curTool == "Farm")
+        {
             asset = mapInfo->getAsset("Farm");
+            music->setMedia(QUrl("qrc:/data/snd/buildings/farm.wav"));
         }
         else if (curTool == "GuardTower")
-            asset = mapInfo->getAsset("GuardTower");
-        else if (curTool == "ScoutTower")
-            asset = mapInfo->getAsset("ScoutTower");
-        else if (curTool == "Keep")
-            asset = mapInfo->getAsset("Keep");
-        else if (curTool == "LumberMill"){
-            asset = mapInfo->getAsset("LumberMill");
-        }
-        else
         {
-            QGraphicsScene::mousePressEvent(mouseEvent);
+            asset = mapInfo->getAsset("GuardTower");
+            music->setMedia(QUrl("qrc:/data/snd/misc/construct.wav"));
+        }
+        else if (curTool == "ScoutTower")
+        {
+            asset = mapInfo->getAsset("ScoutTower");
+            music->setMedia(QUrl("qrc:/data/snd/misc/construct.wav"));
+        }
+        else if (curTool == "Keep")
+        {
+            asset = mapInfo->getAsset("Keep");
+
+            music->setMedia(QUrl("qrc:/data/snd/misc/thunk.wav"));
+        }
+        else if (curTool == "LumberMill")
+        {
+            asset = mapInfo->getAsset("LumberMill");
+             music->setMedia(QUrl("qrc:/data/snd/buildings/lumber-mill.wav"));
+        }
+        else if (curTool == "hand")
+        {
+            clearSelection();
             return;
         }
 
         QImage imageDx;
         if (!asset){
-//            imageDx = *terrain->getImageTile(type);
+           //imageDx = *terrain->getImageTile(type);
            // tile change
+            brushable = true;
             mapInfo->changeMapTile(this, mouseEvent->scenePos(),type);
-
         }
         else
         {//Loads/Animates the assets
             if (curTool == "GoldMine"){
+                brushable = false;
                 for (int i=0; i<= 1;i++){
                     imageDx = imageDx = asset->imageList[i];
                     QPixmap pixmap = QPixmap::fromImage(imageDx);
@@ -171,11 +211,26 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
                     if (i!=39){
                        removeItem(pixItem);
                     }
-                }
+                 }
+
+              
+              
             }
+
+        
+         QString x, y;
+         x.setNum(pixItem->scenePos().x());
+         y.setNum(pixItem->scenePos().y());
+         y.prepend(x);
+         if(addedItems.contains(y) == false){
+            addedItems.append(y);
+            addItem(pixItem);
+            // play background music
+            music->play();
+         }
+          else
+                return;
         }
-
-
 
         if (!asset)
             emit changedLayout(x, y, type);
@@ -189,21 +244,54 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
     }
 }
 
+void GraphicsScene::removeToolItem(QGraphicsSceneMouseEvent *mouseEvent)
+{
+    QWidget *q =  mouseEvent->widget()->parentWidget();
+    QString name = q->accessibleName();
+
+    if (name.compare("minimap") == 0)
+    {
+        QGraphicsView *view = this->views()[0];
+        view->centerOn(mouseEvent->scenePos());
+    }
+    else
+    {
+        Tile *item = (Tile *)this->itemAt(mouseEvent->scenePos(), QTransform());
+        QString x, y;
+        x.setNum(item->scenePos().x());
+        y.setNum(item->scenePos().y());
+        y.prepend(x);
+        if (addedItems.contains(y))
+        {
+            this->removeItem(item);
+            addedItems.removeOne(y);
+            qDebug() << addedItems;
+        }
+        else
+            return;
+    }
+}
+
 void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
     if (mouseEvent->button() == Qt::LeftButton && withinBounds(mouseEvent))
         brushing = true;
+        brushable = true;
 }
 
 void GraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent){
-    if ((mouseEvent->buttons() & Qt::LeftButton) && brushing && withinBounds(mouseEvent))
+    if ((mouseEvent->buttons() & Qt::LeftButton) && brushing && withinBounds(mouseEvent) && brushable)
         addToolItem(mouseEvent);
 }
 
 void GraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
-    if (mouseEvent->button() == Qt::LeftButton && withinBounds(mouseEvent)) {
+    if (mouseEvent->button() == Qt::LeftButton && withinBounds(mouseEvent) && brushable) {
         addToolItem(mouseEvent);
+        brushing = false;
+    }
+    if (mouseEvent->button() == Qt::RightButton){
+        removeToolItem(mouseEvent);
         brushing = false;
     }
 }

@@ -3,11 +3,11 @@
 #include "graphicsscene.h"
 #include <QDebug>
 #include "mapview2.h"
-
 #include "dgabout.h"
 #include "dgmapproperties.h"
 #include "dgplayerproperties.h"
 #include "dgassets.h"
+#include <QMediaPlayer>
 
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
@@ -17,6 +17,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->graphicsView->setMouseTracking(true);
     ui->graphicsView_2->setMouseTracking(true);
     curTool = "hand";
+
+    // Load all assets using
+    MainWindow::setupAssets();
 
     // Load and display a new file
     MainWindow::newFile();
@@ -32,7 +35,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     // default values
     curPlayer = 1;
     scene->curPlayer = 1;
-
+    // play background music
+    QMediaPlayer * backgroundMusic = new QMediaPlayer();
+    backgroundMusic->setMedia(QUrl("qrc:/data/snd/basic/annoyed2.wav"));
+    backgroundMusic->play();
 }
 
 MainWindow::~MainWindow()
@@ -95,9 +101,9 @@ void MainWindow::newFile()
     }
 
     // Set up the map grid
-    curMap = MapView2();
-    scene = new GraphicsScene(this, &curMap);
-    curMap.displayMap(scene);
+    curMap = MapView2(assets);
+    scene = new GraphicsScene(this, &curMap,&assets);
+    curMap.displayNewMap(scene);
 
     // show map + minimap
     ui->graphicsView->setScene(scene);
@@ -117,33 +123,36 @@ bool MainWindow::open()
     dialog.setWindowModality(Qt::WindowModal);
     dialog.setFileMode(QFileDialog::ExistingFile);
     dialog.setAcceptMode(QFileDialog::AcceptOpen);
-    dialog.setNameFilter(tr("Map Files (*.map)"));
+    dialog.setNameFilter(tr("Map Files (*.map *.mpk *.zip)"));
     if (!maybeSave())
         return false;
     if(dialog.exec() != QDialog::Accepted)
         return false;
     curFileDialogState = dialog.saveState();
-    return loadFile(dialog.selectedFiles().first());
+
+    if(dialog.selectedFiles().first().split(".").last() == "map") {
+        QFile file(dialog.selectedFiles().first());
+        return loadMapFile(dialog.selectedFiles().first(), file);
+    } else
+        return loadPkgFile(dialog.selectedFiles().first());
 }
 
-bool MainWindow::loadFile(const QString &fileName)
+bool MainWindow::loadMapFile(QString fileName, QIODevice &file)
 {
-    QFile file(fileName);
-    if (!file.open(QFile::ReadOnly | QFile::Text)) {
-        QMessageBox::warning(this, tr("Application"),
-                             tr("Cannot read file %1:\n%2.")
-                             .arg(QDir::toNativeSeparators(fileName), file.errorString()));
+    // check if the file is good
+    if(!file.open(QIODevice::ReadOnly)) {
+        QMessageBox::warning(0,"error opening map",file.errorString());
         return false;
     }
-
+    file.close();
 
     // load and display map and minimap
-
     QString mapName = fileName;
     QString texture = ":/data/img/Terrain.png";
-    curMap = MapView2(mapName, texture);
 
-    scene = new GraphicsScene(this, &curMap);
+    curMap = MapView2(file, assets, texture );
+
+    scene = new GraphicsScene(this, &curMap, &assets);
     curMap.displayMap(scene);
 
     ui->graphicsView->setScene(scene);
@@ -158,14 +167,39 @@ bool MainWindow::loadFile(const QString &fileName)
     QObject::connect(scene, &GraphicsScene::changedLayout, this, &MainWindow::changeLayout);
     QObject::connect(scene, &GraphicsScene::changedAsset, this, &MainWindow::changeAsset);
 
-    setCurrentFile(fileName);
-    statusBar()->showMessage(fileName + " loaded!", 2000);
+    setCurrentFile(mapName);
+    statusBar()->showMessage(mapName + " loaded!", 2000);
 
     curPlayer = 1;
     scene->curPlayer = 1;
+    on_tool_grass_clicked();
 
     return true;
 }
+
+// opens up .mpk files
+bool MainWindow::loadPkgFile(const QString &pkgFileName){
+    QuaZip qz(pkgFileName);
+    if(!qz.open(QuaZip::mdUnzip)) {
+        QMessageBox::warning(0,"error opening map","MPK file is corrupted.");
+        return false;
+    }
+
+    qz.setCurrentFile("data.map");
+
+    QuaZipFile qzFile(&qz);
+
+    // check if the file is good
+    if(!qzFile.open(QIODevice::ReadOnly)) {
+        QMessageBox::warning(0,"error opening map",qzFile.errorString());
+    }
+    qzFile.close();
+
+    loadMapFile(qzFile.getFileName(), qzFile );
+
+    return true;
+}
+
 
 void MainWindow::setCurrentFile(const QString &fileName)
 {
@@ -199,14 +233,31 @@ bool MainWindow::maybeSave()
 
 bool MainWindow::save()
 {
-    if (curFile.isEmpty()) {
-        return saveAs();
-    } else {
-        return saveFile(curFile);
+    if (curFile.isEmpty()) { // set file to save to
+        if (!setSaveFile(&curFile)) // if fails
+            return false;
     }
+
+    // check if able to write to file
+    QFile file(curFile);
+    if (!file.open(QFile::WriteOnly)) {
+        QMessageBox::warning(this, "Application", file.errorString());
+        return false;
+    }
+
+    writeMapFile(&file);
+
+    setCurrentFile(curFile);
+    statusBar()->showMessage(tr("File saved"), 2000);
+    return true;
 }
 
-bool MainWindow::saveAs()
+void MainWindow::saveAs() {
+    if (!setSaveFile(&curFile)) return;
+    save();
+}
+
+bool MainWindow::setSaveFile(QString* fileName)
 {
     if (curMap.getPlayers().size() < 3)
     {
@@ -225,78 +276,98 @@ bool MainWindow::saveAs()
         return false;
     curFileDialogState = dialog.saveState();
 
-    return saveFile(dialog.selectedFiles().first());
+    *fileName = dialog.selectedFiles().first();
+    return true;
 }
 
-bool MainWindow::saveFile(const QString &fileName)
-{
-    // check if able to write to file
-    QFile file(fileName);
-    if (!file.open(QFile::WriteOnly | QFile::Text)) {
-        QMessageBox::warning(this, tr("Application"),
-                             tr("Cannot write file %1:\n%2.")
-                             .arg(QDir::toNativeSeparators(fileName),
-                                  file.errorString()));
-        return false;
+
+// this function takes an **opened** map file, writes everything that goes inside, and then closes it
+void MainWindow::writeMapFile(QIODevice *file){
+
+    QTextStream stream(file);
+
+    // write descriptive properties
+    stream << curMap.getMapName() << endl;
+    stream << curMap.getMapDim().width()-2 << " " << curMap.getMapDim().height()-2 << endl;
+    stream << "description" << endl;
+    stream << "General" << endl;
+
+    // write out layout
+    QVector<QChar>::iterator itr;
+    QVector<QChar> layout = curMap.getMapLayout();
+    int x = 0;
+    for (itr = layout.begin(); itr != layout.end(); itr++) {
+        stream << *itr;
+        x++;
+        if (x == curMap.getMapDim().width())
+        {
+            stream << endl;
+            x = 0;
+        }
     }
 
-   // write descriptive properties
-   QTextStream stream(&file);
-   stream << curMap.getMapName() << endl;
-   stream << curMap.getMapDim().width()-2 << " " << curMap.getMapDim().height()-2 << endl;
-   stream << "description" << endl;
-   stream << "General" << endl;
+    // write players
+    QVector<Player> players = curMap.getPlayers();
+    stream << curMap.getNumPlayers() << endl;
+    for (auto iter = players.begin(); iter != players.end(); iter++) {
+         stream << iter->num << " " << iter->gold << " " << iter->lumber << endl;
+    }
 
-   QVector<QChar>::iterator itr;
+    // write units
+    stream << curMap.getNumUnits() << endl;
+    for (int t = 0; t < curMap.getPlayers().size(); t++) {
+        QVector<Unit> units = players[t].units;
+        QVector<Unit>::iterator itr3;
 
-   QVector<QChar> layout = curMap.getMapLayout();
+        for (itr3 = units.begin(); itr3 != units.end(); itr3++) {
+            stream << itr3->name << " " << t << " " << itr3->x << " " << itr3->y << endl;
+        }
+    }
 
-   // write out layout
-   int x = 0;
-   for (itr = layout.begin(); itr != layout.end(); itr++)
-   {
-       stream << *itr;
-       x++;
-       if (x == curMap.getMapDim().width())
-       {
-           stream << endl;
-           x = 0;
-       }
-   }
-
-   // write players
-   QVector<Player> players = curMap.getPlayers();
-
-   stream << curMap.getNumPlayers() << endl;
-
-   for (auto iter = players.begin(); iter != players.end(); iter++) {
-        stream << iter->num << " " << iter->gold << " " << iter->lumber << endl;
-   }
-
-   stream << curMap.getNumUnits() << endl;
-
-   for (int t = 0; t < curMap.getPlayers().size(); t++)
-   {
-       QVector<Unit> units = players[t].units;
-       QVector<Unit>::iterator itr3;
-
-       for (itr3 = units.begin(); itr3 != units.end(); itr3++)
-       {
-           stream << itr3->name << " " << t << " " << itr3->x << " " << itr3->y << endl;
-       }
-   }
-
-
-   setCurrentFile(fileName);
-   statusBar()->showMessage(tr("File saved"), 2000);
-   return true;
+    file->close();
 }
 
+// this function saves all assets and stores them inside a zip file
 void MainWindow::exportPkg()
 {
-    qDebug() << "starting export" ;
+    QString pkgFileName;
 
+    // set file to save to
+    QFileDialog dialog(this);
+    dialog.restoreState(curFileDialogState);
+    dialog.setDirectory(curPath);
+    dialog.setWindowModality(Qt::WindowModal);
+    dialog.setAcceptMode(QFileDialog::AcceptSave);
+    dialog.setDefaultSuffix(".mpk");
+    if (dialog.exec() != QDialog::Accepted)
+        return;
+    curFileDialogState = dialog.saveState();
+    pkgFileName = dialog.selectedFiles().first();
 
+    // pkgFileName contains full path; eg. "Users/felix/Desktop/test.map"
+    QuaZip qz(pkgFileName);
+    qz.open(QuaZip::mdCreate);
+
+    // populate zip file with empty folders
+    QuaZipFile qzf(&qz);
+    qzf.open(QIODevice::WriteOnly, QuaZipNewInfo("/img/")); qzf.close();
+    qzf.open(QIODevice::WriteOnly, QuaZipNewInfo("/res/")); qzf.close();
+    qzf.open(QIODevice::WriteOnly, QuaZipNewInfo("/scripts/")); qzf.close();
+    qzf.open(QIODevice::WriteOnly, QuaZipNewInfo("/snd/")); qzf.close();
+    qzf.open(QIODevice::WriteOnly, QuaZipNewInfo("/upg/")); qzf.close();
+
+    // create map file
+    qzf.open(QIODevice::WriteOnly, QuaZipNewInfo("data.map"));
+        writeMapFile(&qzf);
+
+    // create an index file with all assets
+    qzf.open(QIODevice::WriteOnly, QuaZipNewInfo("index.dat"));
+        QTextStream stream(&qzf);
+        stream << "index.dat" << endl;
+        stream << "data.map" << endl;
+    qzf.close();
+
+    qz.close();
 }
 
 
@@ -334,6 +405,7 @@ void MainWindow::updateUI() {
     ui->tool_rock->setIcon(curMap.getTerrain()->getPixTile(Terrain::Rock));
     ui->tool_wall->setIcon(curMap.getTerrain()->getPixTile(Terrain::Wall));
     ui->tool_rubble->setIcon(curMap.getTerrain()->getPixTile(Terrain::Rubble));
+    ui->tool_hand->setIcon(QIcon(":/toolbar/icons/toolbar/tool_hand.png"));
 
     // player color buttons
     ui->tool_p1->setIcon(curMap.getButtonColorsTx()->getPixTile("blue-light").scaled(16,16));
@@ -406,6 +478,13 @@ void MainWindow::on_button_open_clicked()
 void MainWindow::on_button_save_clicked()
 {
     save();
+}
+
+void MainWindow::on_tool_hand_clicked()
+{
+    curTool = "hand";
+    scene->curTool = "hand";
+    statusBar()->showMessage(tr("Hand/Cursor tool selected"), 2000);
 }
 
 void MainWindow::on_tool_grass_clicked()
@@ -644,3 +723,67 @@ void MainWindow::open_DgAssets(){
     wAssets->activateWindow();
 }
 
+void MainWindow::setupAssets(){
+    // grab all the asset files
+    QString path = ":/data/img";
+    QString colorFile = ":/data/img/Colors.png";
+    QString goldmineTool = ":/data/img/GoldMine.dat";
+    QString peasantTool = ":/data/img/Peasant.dat";
+    QString archerTool = ":/data/img/Archer.dat";
+    QString knightTool = ":/data/img/Knight.dat";
+    QString rangerTool = ":/data/img/Ranger.dat";
+    QString townhallTool = ":/data/img/TownHall.dat";
+    QString barracksTool = ":/data/img/Barracks.dat";
+    QString blacksmithTool = ":/data/img/Blacksmith.dat";
+    QString cannontowerTool = ":/data/img/CannonTower.dat";
+    QString castleTool = ":/data/img/Castle.dat";
+    QString farmTool = ":/data/img/Farm.dat";
+    QString guardtowerTool = ":/data/img/GuardTower.dat";
+    QString keepTool = ":/data/img/Keep.dat";
+    QString lumbermillTool = ":/data/img/LumberMill.dat";
+    QString scouttowerTool = ":/data/img/ScoutTower.dat";
+
+
+
+    int nObjects = 15;
+
+//    assets = new QMap<QString,Texture*>;
+
+    // append them to a vector
+    QVector<QString> files;
+    files.append(peasantTool);
+    files.append(archerTool);
+    files.append(knightTool);
+    files.append(rangerTool);
+    files.append(goldmineTool);
+    files.append(townhallTool);
+    files.append(barracksTool);
+    files.append(blacksmithTool);
+    files.append(cannontowerTool);
+    files.append(castleTool);
+    files.append(farmTool);
+    files.append(guardtowerTool);
+    files.append(keepTool);
+    files.append(lumbermillTool);
+    files.append(scouttowerTool);
+
+    // create a texture for each asset
+    for(int i = 0; i < nObjects; i++){
+        Texture *tex = new Texture(files.at(i),colorFile);
+        assets.insert( tex->textureName, tex);
+    }
+    assets.value("Peasant")->paintAll();
+    assets.value("Ranger")->paintAll();
+    assets.value("Archer")->paintAll();
+    assets.value("Knight")->paintAll();
+    assets.value("TownHall")->paintAll();
+    assets.value("Barracks")->paintAll();
+    assets.value("Blacksmith")->paintAll();
+    assets.value("CannonTower")->paintAll();
+    assets.value("Castle")->paintAll();
+    assets.value("Farm")->paintAll();
+    assets.value("GuardTower")->paintAll();
+    assets.value("Keep")->paintAll();
+    assets.value("LumberMill")->paintAll();
+    assets.value("ScoutTower")->paintAll();
+}
