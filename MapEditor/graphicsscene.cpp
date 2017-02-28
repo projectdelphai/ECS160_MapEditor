@@ -221,7 +221,6 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
         }
         else
         {//Loads/Animates the assets
-            Tile *pixItem;
             brushable = false;
 
             if (curTool == "GoldMine")
