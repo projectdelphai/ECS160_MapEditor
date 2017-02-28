@@ -37,6 +37,7 @@ public:
 public slots:
     void changeLayout(int x, int y, Terrain::Type type);
     void changeAsset(int x, int y, QString asset, int player);
+    void activateAI();
 
 protected:
 #ifndef QT_NO_CONTEXTMENU

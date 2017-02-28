@@ -617,6 +617,10 @@ Terrain::Type MainWindow::getTileType(QChar tile)
         return Terrain::Grass;
 }
 
+void MainWindow::activateAI(){
+    qDebug() << QTime::currentTime().toString();
+}
+
 void MainWindow::changeAsset(int x, int y, QString asset, int player)
 {
     int newX = x / 32;
