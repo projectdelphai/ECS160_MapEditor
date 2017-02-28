@@ -91,7 +91,5 @@
         <file>../data/img/Archer.dat</file>
         <file>../data/img/Knight.dat</file>
         <file>../data/img/Knight.png</file>
-        <file>../data/img/trigger.dat</file>
-        <file>../data/img/Trigger.png</file>
     </qresource>
 </RCC>

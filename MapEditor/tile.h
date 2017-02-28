@@ -8,11 +8,10 @@
 class Tile : public QGraphicsPixmapItem
 {
 public:
-    enum { Type = UserType + 1, OtherTile = UserType + 2};
     Tile(Terrain::Type type);
     Tile(Terrain::Type type, QPixmap texturePix);
     Tile(QString typeStr,QPixmap texturePix);
-    int type()const;
+
     QString toString();
 //    void setTileImage(QPixmap pix);
     void setTileImage(QPixmap pix, QString typeS);
@@ -23,7 +22,7 @@ public:
     //void mousePressEvent(QGraphicsSceneMouseEvent *event);
 
 private:
-    Terrain::Type typeTile;
+    Terrain::Type type;
     QString note;
 
     QString typeStr;

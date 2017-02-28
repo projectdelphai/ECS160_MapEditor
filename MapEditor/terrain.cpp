@@ -4,6 +4,11 @@
 Terrain::Terrain(QString texFileName) : Texture(texFileName, 32, 32)
 {
     Terrain::texture = Texture::getTxMap();
+    QImage *img = new QImage(32, 32, QImage::Format_RGB32);
+        // Manually set our colors for the color table:
+    img->setColor(0, qRgba(255, 0, 0, 255)); // Index #0 = Red
+    img->fill(Qt::red);
+    texture->insert("border",img);
 }
 
 QPixmap Terrain::getPixTile(Terrain::Type type) {
@@ -80,6 +85,10 @@ QImage* Terrain::getImageTile(QString typeS){
         }
         else if(tokens.at(0)=="water"){
             typeName = "dirt-255";
+        }
+        else
+        {
+            typeName = "border";
         }
 
     }
