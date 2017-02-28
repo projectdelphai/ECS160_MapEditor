@@ -5,7 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui \
-         multimedia network
+         multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 include(quazip/quazip.pri)
@@ -34,12 +34,13 @@ SOURCES += main.cpp\
     tile.cpp \
     graphicsscene.cpp \
     terrain.cpp \
-    dialogs/dgmapproperties.cpp \
-    dialogs/dgabout.cpp \
-    dialogs/dgplayerproperties.cpp \
-    dialogs/dgassets.cpp \
+    dgmapproperties.cpp \
+    dgabout.cpp \
+    dgplayerproperties.cpp \
+    dgassets.cpp \
     mapview.cpp \
-    exporttoweb.cpp
+    triggerai.cpp \
+    dialogtrigger.cpp
 
 HEADERS  += mainwindow.h \
     mapview2.h \
@@ -47,19 +48,20 @@ HEADERS  += mainwindow.h \
     tile.h \
     graphicsscene.h \
     terrain.h \
-    dialogs/dgmapproperties.h \
-    dialogs/dgabout.h \
-    dialogs/dgplayerproperties.h \
-    dialogs/dgassets.h \
+    dgmapproperties.h \
+    dgabout.h \
+    dgplayerproperties.h \
+    dgassets.h \
     mapview.h \
-    exporttoweb.h
+    triggerai.h \
+    dialogtrigger.h
 
 FORMS    += mainwindow.ui \
-    dialogs/dgmapproperties.ui \
-    dialogs/dgabout.ui \
-    dialogs/dgplayerproperties.ui \
-    dialogs/dgassets.ui \
-    exporttoweb.ui
+    dgmapproperties.ui \
+    dgabout.ui \
+    dgplayerproperties.ui \
+    dgassets.ui \
+    dialogtrigger.ui
 
 RESOURCES += \
     icons.qrc \

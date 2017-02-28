@@ -6,19 +6,11 @@
 #include "mapview2.h"
 #include "texture.h"
 #include "graphicsscene.h"
-#include "dialogs/dgassets.h"
+#include "dgassets.h"
 #include "quazip/quazip.h"
 #include "quazip/quazipfile.h"
-#include <QStack>
-
-class RecordedTile
-{//Used to store a tile + its x- and y-coordinates for undo-redo functionality
-public:
-    RecordedTile();
-    RecordedTile(Terrain::Type u, Terrain::Type r, int a, int b);
-    Terrain::Type utype, rtype;
-    int x, y;
-};
+#include "triggerai.h"
+#include "dialogtrigger.h"
 
 namespace Ui {
 class MainWindow;
@@ -37,6 +29,8 @@ public:
 public slots:
     void changeLayout(int x, int y, Terrain::Type type);
     void changeAsset(int x, int y, QString asset, int player);
+    void activateAI();
+
 
 protected:
 #ifndef QT_NO_CONTEXTMENU
@@ -56,16 +50,12 @@ private slots:
     bool open();
     bool save();
     void saveAs();
-    void undo();
-    void redo();
 
     void exportPkg();
 
     void on_button_new_clicked();
     void on_button_open_clicked();
     void on_button_save_clicked();
-    void on_button_undo_clicked();
-    void on_button_redo_clicked();
     void on_tool_grass_clicked();
     void on_tool_dirt_clicked();
     void on_tool_water_clicked();
@@ -93,49 +83,32 @@ private slots:
     void open_DgMapProperties();
     void open_DgPlayerProperties();
     void open_DgAssets();
-    void open_exporttoweb();
+    void open_DTrigger(QGraphicsScene* , Tile* );
 
     void setupAssets();
-
-    void on_actionBrush_size_1_triggered();
-
-    void on_actionBrush_size_2_triggered();
-
-    void on_actionBrush_size_3_triggered();
-
-    void on_actionBrush_size_4_triggered();
+    void on_tool_triggerAI_clicked();
+    void on_actionHide_Trigger_triggered();
 
 private:
     Ui::MainWindow *ui;
-    void setupUI();
+    void updateUI();
     void writeSettings();
-    void loadScene();
     bool loadMapFile(QString fileName, QIODevice &file);
     bool maybeSave();
     bool setSaveFile(QString*);
     void writeMapFile(QIODevice*);
     bool loadPkgFile(const QString &fileName);
     void setCurrentFile(const QString &fileName);
-    Terrain::Type getTileType(QChar tile);
-    void updateUIPlayers();
-
+    void hideTriggers(bool visible);
 
     int curPlayer;
-    //int curBrushSize;
     QString curTool;
     QString curFile;
     QByteArray curFileDialogState;
     QString curPath = QDir::homePath(); // current directory
     DgAssets *wAssets = 0;
     QMap<QString,Texture*> assets;
-    //Stores tiles from undo button
-     QStack<RecordedTile> undoTiles;
 
-     //Stores tiles from redo button
-     QStack<RecordedTile> redoTiles;
-
-     //Prevents already-dealt-with elements from being re-pushed onto either stack
-     bool undone;
 };
 
 

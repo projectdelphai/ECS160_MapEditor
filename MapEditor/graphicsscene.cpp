@@ -6,8 +6,6 @@
 #include "mainwindow.h"
 #include <QMediaPlayer>
 
-#include <QUrl>
-
 GraphicsScene::GraphicsScene(QObject *parent, MapView2 *curMap, QMap<QString, Texture *> *loadedAssets) : QGraphicsScene(parent)
 {
     GraphicsScene::parent = parent;
@@ -15,15 +13,6 @@ GraphicsScene::GraphicsScene(QObject *parent, MapView2 *curMap, QMap<QString, Te
     GraphicsScene::assets = loadedAssets;
     brushing = false;
     brushable = false;
-}
-
-void GraphicsScene::delayUnit(int millisecondsToWait)
-{
-    QTime dieTime = QTime::currentTime().addMSecs( millisecondsToWait );
-    while( QTime::currentTime() < dieTime )
-    {
-        QCoreApplication::processEvents( QEventLoop::AllEvents, 100 );
-    }
 }
 
 void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
@@ -42,7 +31,6 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
         int x = item->scenePos().x();
         int y = item->scenePos().y();
 
-        Terrain *terrain = mapInfo->getTerrain();
         Terrain::Type type;
         Texture *asset = 0;
         QMediaPlayer * music = new QMediaPlayer();
@@ -62,7 +50,6 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
             type = Terrain::Wall;
         else if (curTool == "rubble")
             type = Terrain::Rubble;
-
         else if (curTool == "Peasant")
         {
             asset = mapInfo->getAsset("Peasant");
@@ -96,7 +83,6 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
         else if (curTool == "Barracks")
         {
             asset = mapInfo->getAsset("Barracks");
-
             music->setMedia(QUrl("qrc:/data/snd/misc/thunk.wav"));
         }
         else if (curTool == "BlackSmith")
@@ -112,6 +98,7 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
         else if (curTool == "Castle")
         {
             asset = mapInfo->getAsset("Castle");
+            music->setMedia(QUrl("qrc:/data/snd/misc/thunk.wav"));
         }
         else if (curTool == "Farm")
         {
@@ -131,7 +118,6 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
         else if (curTool == "Keep")
         {
             asset = mapInfo->getAsset("Keep");
-
             music->setMedia(QUrl("qrc:/data/snd/misc/thunk.wav"));
         }
         else if (curTool == "LumberMill")
@@ -144,93 +130,53 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
             clearSelection();
             return;
         }
-
+        else if( curTool == "Trigger"){
+            brushable = false;
+            QImage image;
+            image.load(":/data/img/Trigger.png");
+            Tile *item = new Tile("Trigger", QPixmap::fromImage(image));
+            item->setPos(x,y);
+            item->setZValue(10);
+            addItem(item);
+            emit open_DTrigger(this, item);
+            return;
+        }
         QImage imageDx;
         if (!asset){
-           //imageDx = *terrain->getImageTile(type);
            // tile change
             brushable = true;
-           mapInfo-> brush_size(this, mouseEvent->scenePos(),type,CurBrushSize);
-//            mapInfo->changeMapTile(this, mouseEvent->scenePos(),type);
+            mapInfo->changeMapTile(this, mouseEvent->scenePos(),type);
         }
         else
-        {//Loads/Animates the assets
-            Tile *pixItem;
+        {
             brushable = false;
-            if (curTool == "GoldMine"){
-                brushable = false;
-                for (int i=0; i<= 1;i++){
-                    imageDx = imageDx = asset->imageList[i];
-                    QPixmap pixmap = QPixmap::fromImage(imageDx);
-                    pixItem = new Tile(type, pixmap);
+            if (curTool == "GoldMine")
+                imageDx = asset->imageList[0];
+            else if (curTool == "CannonTower" || curTool == "Castle" || curTool == "Keep" || curTool == "GuardTower")
+                imageDx = asset->colorPlayerImg[curPlayer][1];
+            else if (curTool == "Peasant" || curTool == "Knight" || curTool == "Archer" || curTool == "Ranger")
+                imageDx = asset->colorPlayerImg[curPlayer][20];
+            else
+                imageDx = asset->colorPlayerImg[curPlayer][2];
 
-                    pixItem->setPos(x, y);
-                    addItem(pixItem);
-                    delayUnit(1000);
-                    //if (i!=1){
-                        removeItem(pixItem);
-                    //}
-                }
+            QPixmap pixmap = QPixmap::fromImage(imageDx);
+            Tile * pixItem = new Tile(type, pixmap);
+
+            pixItem->setPos(x, y);
+            pixItem->setZValue(1);
+
+            QString x, y;
+            x.setNum(pixItem->scenePos().x());
+            y.setNum(pixItem->scenePos().y());
+            y.prepend(x);
+            if(addedItems.contains(y) == false){
+                addedItems.append(y);
+                addItem(pixItem);
+                // play background music
+                music->play();
+//                qDebug() << addedItems;
             }
-            else if (curTool == "CannonTower" || curTool == "Castle" || curTool == "Keep" || curTool == "GuardTower"){
-                for (int i=0; i<= 1;i++){
-                    imageDx = asset->colorPlayerImg[curPlayer][i];
-                    QPixmap pixmap = QPixmap::fromImage(imageDx);
-                    pixItem = new Tile(type, pixmap);
-
-                    pixItem->setPos(x, y);
-                    addItem(pixItem);
-                    delayUnit(1000);
-                    //if (i!=1){
-                        removeItem(pixItem);
-                    //}
-                }
-            }
-            //for some reason barracks do not work
-            else if (curTool == "TownHall" || curTool == "Barracks" || curTool == "Blacksmith" || curTool == "Farm" || curTool == "ScoutTower" || curTool == "LumberMill"){
-                for (int i=0; i<= 3;i++){
-                    imageDx = asset->colorPlayerImg[curPlayer][i];
-                    QPixmap pixmap = QPixmap::fromImage(imageDx);
-                    pixItem = new Tile(type, pixmap);
-
-                    pixItem->setPos(x, y);
-                    addItem(pixItem);
-                    delayUnit(1000);
-                    //if (i!=3){
-                        removeItem(pixItem);
-                    //}
-                }
-            }
-
-            else if (curTool == "Peasant" || curTool == "Knight" || curTool == "Archer" || curTool == "Ranger"){
-                for (int i=0; i<= 39;i++){
-                    imageDx = asset->colorPlayerImg[curPlayer][i];
-                    QPixmap pixmap = QPixmap::fromImage(imageDx);
-                    pixItem = new Tile(type, pixmap);
-
-                    pixItem->setPos(x, y);
-                    addItem(pixItem);
-                    delayUnit(500);
-                       removeItem(pixItem);
-                 }
-
-              
-              
-            }
-
-
-        
-         QString x, y;
-         x.setNum(pixItem->scenePos().x());
-         y.setNum(pixItem->scenePos().y());
-         y.prepend(x);
-         if(addedItems.contains(y) == false){
-            addedItems.append(y);
-            addItem(pixItem);
-            // play background music
-            music->play();
-         }
-          else
+            else
                 return;
         }
 
@@ -272,16 +218,6 @@ void GraphicsScene::removeToolItem(QGraphicsSceneMouseEvent *mouseEvent)
         else
             return;
     }
-}
-
-void GraphicsScene::setBrushable(bool b)
-{
-    brushable = b;
-}
-
-MapView2 * GraphicsScene::getMapInfo()
-{
-    return mapInfo;
 }
 
 void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)

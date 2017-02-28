@@ -6,21 +6,27 @@
 
 
 Tile::Tile(Terrain::Type type){ // not sure if needed
-    Tile::type = type;
+    Tile::typeTile = type;
 }
 
-Tile::Tile(QString typeStr,QPixmap texturePix):QGraphicsPixmapItem(texturePix){
-    typeStr = typeStr;
+Tile::Tile(QString typeS,QPixmap texturePix):QGraphicsPixmapItem(texturePix){
+    typeStr = typeS;
     texturePix = texturePix;
 
 }
 
 Tile::Tile(Terrain::Type type,QPixmap texturePix): QGraphicsPixmapItem(texturePix){
-    Tile::type = type;
+    Tile::typeTile = type;
     Tile::texturePix = texturePix;
     note = "test";
 }
 
+int Tile::type()const{
+//    if (typeStr == "grass" || typeStr == "water" || typeStr == "tree" || typeStr == "wall" || typeStr == "rock"){
+//        return TerrainTile;
+//    }
+    return Type;
+}
 //void Tile::mousePressEvent(QGraphicsSceneMouseEvent *event)
 //{
     //qWarning() << Q_FUNC_INFO << event->scenePos();
@@ -46,7 +52,7 @@ QString Tile::getType(){
 QString Tile::toString()
 {
     // enum  Type { Grass = 0, Dirt , Tree , Water , Rock , WallDamage , Wall , Rubble };
-    switch(type)
+    switch(typeTile)
     {
     case Terrain::Grass:
         return "Grass";
