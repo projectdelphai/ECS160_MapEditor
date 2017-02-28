@@ -6,11 +6,21 @@
 #include "mapview2.h"
 #include "texture.h"
 #include "graphicsscene.h"
-#include "dgassets.h"
+#include "dialogs/dgassets.h"
 #include "quazip/quazip.h"
 #include "quazip/quazipfile.h"
 #include "triggerai.h"
 #include "dialogtrigger.h"
+#include <QStack>
+
+class RecordedTile
+{//Used to store a tile + its x- and y-coordinates for undo-redo functionality
+public:
+    RecordedTile();
+    RecordedTile(Terrain::Type u, Terrain::Type r, int a, int b);
+    Terrain::Type utype, rtype;
+    int x, y;
+};
 
 namespace Ui {
 class MainWindow;
@@ -50,12 +60,16 @@ private slots:
     bool open();
     bool save();
     void saveAs();
+    void undo();
+    void redo();
 
     void exportPkg();
 
     void on_button_new_clicked();
     void on_button_open_clicked();
     void on_button_save_clicked();
+    void on_button_undo_clicked();
+    void on_button_redo_clicked();
     void on_tool_grass_clicked();
     void on_tool_dirt_clicked();
     void on_tool_water_clicked();
@@ -84,15 +98,25 @@ private slots:
     void open_DgPlayerProperties();
     void open_DgAssets();
     void open_DTrigger(QGraphicsScene* , Tile* );
+    void open_exporttoweb();
 
     void setupAssets();
     void on_tool_triggerAI_clicked();
     void on_actionHide_Trigger_triggered();
 
+    void on_actionBrush_size_1_triggered();
+
+    void on_actionBrush_size_2_triggered();
+
+    void on_actionBrush_size_3_triggered();
+
+    void on_actionBrush_size_4_triggered();
+
 private:
     Ui::MainWindow *ui;
-    void updateUI();
+    void setupUI();
     void writeSettings();
+    void loadScene();
     bool loadMapFile(QString fileName, QIODevice &file);
     bool maybeSave();
     bool setSaveFile(QString*);
@@ -100,8 +124,12 @@ private:
     bool loadPkgFile(const QString &fileName);
     void setCurrentFile(const QString &fileName);
     void hideTriggers(bool visible);
+    Terrain::Type getTileType(QChar tile);
+    void updateUIPlayers();
+
 
     int curPlayer;
+    //int curBrushSize;
     QString curTool;
     QString curFile;
     QByteArray curFileDialogState;
@@ -109,6 +137,14 @@ private:
     DgAssets *wAssets = 0;
     QMap<QString,Texture*> assets;
 
+    //Stores tiles from undo button
+     QStack<RecordedTile> undoTiles;
+
+     //Stores tiles from redo button
+     QStack<RecordedTile> redoTiles;
+
+     //Prevents already-dealt-with elements from being re-pushed onto either stack
+     bool undone;
 };
 
 

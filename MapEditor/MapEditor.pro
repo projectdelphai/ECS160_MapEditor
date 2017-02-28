@@ -5,7 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui \
-         multimedia
+         multimedia network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 include(quazip/quazip.pri)
@@ -34,13 +34,15 @@ SOURCES += main.cpp\
     tile.cpp \
     graphicsscene.cpp \
     terrain.cpp \
-    dgmapproperties.cpp \
-    dgabout.cpp \
-    dgplayerproperties.cpp \
-    dgassets.cpp \
-    mapview.cpp \
+
     triggerai.cpp \
     dialogtrigger.cpp
+    dialogs/dgmapproperties.cpp \
+    dialogs/dgabout.cpp \
+    dialogs/dgplayerproperties.cpp \
+    dialogs/dgassets.cpp \
+    mapview.cpp \
+    exporttoweb.cpp
 
 HEADERS  += mainwindow.h \
     mapview2.h \
@@ -48,20 +50,17 @@ HEADERS  += mainwindow.h \
     tile.h \
     graphicsscene.h \
     terrain.h \
-    dgmapproperties.h \
-    dgabout.h \
-    dgplayerproperties.h \
-    dgassets.h \
-    mapview.h \
+
     triggerai.h \
     dialogtrigger.h
 
 FORMS    += mainwindow.ui \
-    dgmapproperties.ui \
-    dgabout.ui \
-    dgplayerproperties.ui \
-    dgassets.ui \
     dialogtrigger.ui
+    dialogs/dgmapproperties.ui \
+    dialogs/dgabout.ui \
+    dialogs/dgplayerproperties.ui \
+    dialogs/dgassets.ui \
+    exporttoweb.ui
 
 RESOURCES += \
     icons.qrc \
