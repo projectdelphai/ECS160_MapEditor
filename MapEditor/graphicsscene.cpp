@@ -55,25 +55,25 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
         {
             asset = mapInfo->getAsset("Peasant");
             music->setMedia(QUrl("qrc:/data/snd/peasant/ready.wav"));
-            widthXheight = 2;
+            widthXheight = 1;
         }
         else if (curTool == "Ranger")
         {
             asset = mapInfo->getAsset("Ranger");
             music->setMedia(QUrl("qrc:/data/snd/archer/ready.wav"));
-            widthXheight = 2;
+            widthXheight = 1;
         }
         else if (curTool == "Archer")
         {
             asset = mapInfo->getAsset("Archer");
             music->setMedia(QUrl("qrc:/data/snd/archer/ready.wav"));            
-            widthXheight = 2;
+            widthXheight = 1;
         }
         else if (curTool == "Knight")
         {
             asset = mapInfo->getAsset("Knight");
             music->setMedia(QUrl("qrc:/data/snd/knight/ready.wav"));
-            widthXheight = 2;
+            widthXheight = 1;
         }
         else if (curTool == "GoldMine")
         {
