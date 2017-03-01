@@ -201,7 +201,7 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
             if(addedItems.contains(y))
             {
                 QMessageBox::warning(0,"Error!","Cannot put tile on assets");
-                qDebug() << y;
+               // qDebug() << y;
                 return;
             }
             else
@@ -213,7 +213,7 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
                     if(loc.contains(y) == false)
                     {
                         loc.append(y);
-                        qDebug() << loc;
+                       // qDebug() << loc;
                     }
                 }
             }
@@ -290,7 +290,7 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
                         addedItems.append(tempY);
                     }
                 }
-                qDebug() << addedItems;
+              //  qDebug() << addedItems;
             }
             else
             {
@@ -344,7 +344,7 @@ void GraphicsScene::removeToolItem(QGraphicsSceneMouseEvent *mouseEvent)
                 }
             }
             this->removeItem(item);
-            qDebug() << addedItems;
+          //  qDebug() << addedItems;
         }
         else
             return;

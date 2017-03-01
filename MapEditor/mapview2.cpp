@@ -335,6 +335,11 @@ void MapView2::changeMapTile(QGraphicsScene *scene, QPointF pos , Terrain::Type 
     if (typedx == "tree"){
         builtTreeTop(scene);
     }
+    else
+    {
+        treeTopTiles.clear();
+    }
+
 
 
    }
@@ -694,7 +699,7 @@ void MapView2::addTrigger(AITrigger *trigger){
         return;
     }
 
-    qDebug() << "added";
+    //qDebug() << "added";
     triggers.append(trigger);
 }
 
