@@ -139,7 +139,6 @@ private:
      QStack<RecordedTile> undoTiles;
 
     //Stores tiles from undo/redo
-    QStack<RecordedTile> undoTiles;
     QStack<RecordedTile> redoTiles;
 
 

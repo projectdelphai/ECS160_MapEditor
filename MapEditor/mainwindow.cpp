@@ -545,59 +545,6 @@ void MainWindow::wheelEvent(QWheelEvent *event)
     }
 }
 
-void MainWindow::on_button_new_clicked()
-{
-    newFile();
-}
-
-void MainWindow::on_button_open_clicked()
-{
-    open();
-}
-
-void MainWindow::on_button_save_clicked()
-{
-    save();
-}
-
-void MainWindow::on_button_undo_clicked()
-{
-    undo();
-}
-
-void MainWindow::on_button_redo_clicked()
-{
-    redo();
-}
-
-void MainWindow::on_tool_hand_clicked()
-{
-    curTool = "hand";
-    scene->curTool = "hand";
-    statusBar()->showMessage(tr("Hand/Cursor tool selected"), 2000);
-    ui->graphicsView->setCursor(Qt::ArrowCursor);
-}
-
-void MainWindow::on_tool_grass_clicked()
-{
-    curTool = "grass";
-    scene->curTool = "grass";
-    statusBar()->showMessage(tr("Grass tool selected"), 2000);
-}
-
-void MainWindow::on_tool_dirt_clicked()
-{
-    curTool = "dirt";
-    scene->curTool = "dirt";
-    statusBar()->showMessage(tr("Dirt tool selected"), 2000);
-}
-
-void MainWindow::on_tool_water_clicked()
-{
-    curTool = "water";
-    scene->curTool = "water";
-    statusBar()->showMessage(tr("Water tool selected"), 2000);
-}
 
 
 void MainWindow::changeLayout(int x, int y, Terrain::Type type)
@@ -1127,25 +1074,6 @@ void MainWindow::setupAssets(){
 }
 
 
-void MainWindow::on_actionBrush_size_1_triggered()
-{
-    scene->CurBrushSize = 1;
-}
-
-void MainWindow::on_actionBrush_size_2_triggered()
-{
-    scene->CurBrushSize = 2;
-}
-
-void MainWindow::on_actionBrush_size_3_triggered()
-{
-    scene->CurBrushSize = 3;
-}
-
-void MainWindow::on_actionBrush_size_4_triggered()
-{
-    scene->CurBrushSize = 4;
-}
 
 // checks UI parameters and updates them
 void MainWindow::updateUIPlayers(){
