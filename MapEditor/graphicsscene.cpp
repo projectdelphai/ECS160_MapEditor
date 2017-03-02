@@ -381,6 +381,11 @@ int GraphicsScene::getWidthXHeight()
     return widthXheight;
 }
 
+QVector<QString> GraphicsScene::getLoc()
+{
+    return loc;
+}
+
 void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
     if (mouseEvent->button() == Qt::LeftButton && withinBounds(mouseEvent))

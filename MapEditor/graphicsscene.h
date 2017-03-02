@@ -30,6 +30,7 @@ public:
     QVector<QString> getAddedItems();
     QString getTempX();
     QString getTempY();
+    QVector<QString> getLoc();
     int getWidthXHeight();
     QString curTool;
     int CurBrushSize = 1;

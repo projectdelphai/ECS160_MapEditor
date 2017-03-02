@@ -297,7 +297,7 @@ void MainWindow::undo()
 
     if (!asset)
     {
-        Tile *item = (Tile *)scene->itemAt(QPointF(rt.x, rt.y), QTransform());
+        //Tile *item = (Tile *)scene->itemAt(QPointF(rt.x, rt.y), QTransform());
         scene->setBrushable(true);
         scene->getMapInfo()->brush_size(scene, QPointF(rt.x, rt.y), rt.utype, scene->CurBrushSize);
         QString x, y;
@@ -306,18 +306,22 @@ void MainWindow::undo()
         y.prepend(x);
         if(scene->getAddedItems().contains(y))
         {
-            for(int i = 0; i < scene->getWidthXHeight(); i++)
+            QMessageBox::warning(0,"Error!","Cannot put tile on assets");
+            // qDebug() << y;
+            return;
+        }
+        else
+        {
+            scene->setBrushable(true);
+            scene->getMapInfo()->changeMapTile(scene, QPointF(rt.x, rt.y), rt.utype);
+            if(rt.utype == Terrain::Water || rt.utype == Terrain::Rock || rt.utype == Terrain::Tree || rt.utype == Terrain::Wall)
             {
-                for(int j = 0; j < scene->getWidthXHeight(); j++)
+                if(scene->getLoc().contains(y) == false)
                 {
-                    scene->getTempX().setNum(rt.x + 32*i);
-                    scene->getTempY().setNum(rt.y + 32*j);
-                    scene->getTempY().prepend(scene->getTempX());
-                    scene->getAddedItems().removeOne(scene->getTempY());
+                    scene->getLoc().append(y);
+                    qDebug() << scene->getLoc();
                 }
             }
-            scene->removeItem(item);
-            //qDebug() << scene->getAddedItems();
         }
         changeLayout(rt.x, rt.y, rt.utype);
     }
@@ -352,6 +356,19 @@ void MainWindow::redo()
             QMessageBox::warning(0,"Error!","Cannot put tile on assets");
             // qDebug() << y;
             return;
+        }
+        else
+        {
+            scene->setBrushable(true);
+            scene->getMapInfo()->changeMapTile(scene, QPointF(rt.x, rt.y), rt.rtype);
+            if(rt.rtype == Terrain::Water || rt.rtype == Terrain::Rock || rt.rtype == Terrain::Tree || rt.rtype == Terrain::Wall)
+            {
+                if(scene->getLoc().contains(y) == false)
+                {
+                    scene->getLoc().append(y);
+                    qDebug() << scene->getLoc();
+                }
+            }
         }
         changeLayout(rt.x, rt.y, rt.rtype);
     }
