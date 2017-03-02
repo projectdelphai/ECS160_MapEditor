@@ -150,7 +150,8 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
         if (!asset){
            //imageDx = *terrain->getImageTile(type);
            // tile change
-
+            brushable = true;
+            mapInfo-> brush_size(this, mouseEvent->scenePos(),type,CurBrushSize);
             QString x, y;
             x.setNum(item->scenePos().x());
             y.setNum(item->scenePos().y());
