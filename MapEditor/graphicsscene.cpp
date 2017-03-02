@@ -5,7 +5,6 @@
 #include "texture.h"
 #include "mainwindow.h"
 #include <QMediaPlayer>
-
 #include <QUrl>
 
 GraphicsScene::GraphicsScene(QObject *parent, MapView2 *curMap, QMap<QString, Texture *> *loadedAssets) : QGraphicsScene(parent)
@@ -366,6 +365,7 @@ void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
     if (mouseEvent->button() == Qt::LeftButton && withinBounds(mouseEvent))
         brushing = true;
         brushable = true;
+    QGraphicsScene::mousePressEvent(mouseEvent);
 }
 
 void GraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent){
@@ -377,12 +377,13 @@ void GraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
     if (mouseEvent->button() == Qt::LeftButton && withinBounds(mouseEvent) && brushable) {
         addToolItem(mouseEvent);
-        brushing = false;
+        brushing = false;        
     }
     if (mouseEvent->button() == Qt::RightButton){
         removeToolItem(mouseEvent);
         brushing = false;
     }
+   QGraphicsScene::mouseReleaseEvent(mouseEvent);
 }
 
 bool GraphicsScene::withinBounds(QGraphicsSceneMouseEvent *mouseEvent)
