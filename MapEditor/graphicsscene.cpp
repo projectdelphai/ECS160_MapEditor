@@ -311,11 +311,6 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
     }
 }
 
-QVector<QString> GraphicsScene::getAddedItems()
-{
-    return addedItems;
-}
-
 void GraphicsScene::removeToolItem(QGraphicsSceneMouseEvent *mouseEvent)
 {
     QWidget *q =  mouseEvent->widget()->parentWidget();
@@ -364,6 +359,26 @@ void GraphicsScene::setBrushable(bool b)
 MapView2 * GraphicsScene::getMapInfo()
 {
     return mapInfo;
+}
+
+QVector<QString> GraphicsScene::getAddedItems()
+{
+    return addedItems;
+}
+
+int GraphicsScene::getTempX()
+{
+    return tempX;
+}
+
+int GraphicsScene::getTempY()
+{
+    return tempY;
+}
+
+int GraphicsScene::getWidthXHeight()
+{
+    return widthXheight;
 }
 
 void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
