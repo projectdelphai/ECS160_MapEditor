@@ -311,6 +311,11 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
     }
 }
 
+QVector<QString> GraphicsScene::getAddedItems()
+{
+    return addedItems;
+}
+
 void GraphicsScene::removeToolItem(QGraphicsSceneMouseEvent *mouseEvent)
 {
     QWidget *q =  mouseEvent->widget()->parentWidget();

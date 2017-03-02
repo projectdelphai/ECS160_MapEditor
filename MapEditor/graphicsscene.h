@@ -27,6 +27,7 @@ public:
     bool withinBounds(QGraphicsSceneMouseEvent *mouseEvent);
     void setBrushable(bool b);
     MapView2 * getMapInfo();
+    QVector<QString> getAddedItems();
     QString curTool;
     int CurBrushSize = 1;
     int curPlayer;

@@ -298,7 +298,17 @@ void MainWindow::undo()
     if (!asset)
     {
         scene->setBrushable(true);
-        scene->getMapInfo()->changeMapTile(scene, QPointF(rt.x, rt.y), rt.utype);
+        scene->getMapInfo()->brush_size(scene, QPointF(rt.x, rt.y), rt.utype, scene->CurBrushSize);
+        QString x, y;
+        x.setNum(rt.x);
+        y.setNum(rt.y);
+        y.prepend(x);
+        if(scene->getAddedItems().contains(y))
+        {
+            QMessageBox::warning(0,"Error!","Cannot put tile on assets");
+            qDebug() << y;
+            return;
+        }
         changeLayout(rt.x, rt.y, rt.utype);
     }
 
@@ -322,7 +332,17 @@ void MainWindow::redo()
     if (!asset)
     {
         scene->setBrushable(true);
-        scene->getMapInfo()->changeMapTile(scene, QPointF(rt.x, rt.y), rt.rtype);
+        scene->getMapInfo()->brush_size(scene, QPointF(rt.x, rt.y), rt.rtype, scene->CurBrushSize);
+        QString x, y;
+        x.setNum(rt.x);
+        y.setNum(rt.y);
+        y.prepend(x);
+        if(scene->getAddedItems().contains(y))
+        {
+            QMessageBox::warning(0,"Error!","Cannot put tile on assets");
+            qDebug() << y;
+            return;
+        }
         changeLayout(rt.x, rt.y, rt.rtype);
     }
 
