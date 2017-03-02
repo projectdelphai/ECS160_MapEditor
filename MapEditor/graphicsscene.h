@@ -28,8 +28,8 @@ public:
     void setBrushable(bool b);
     MapView2 * getMapInfo();
     QVector<QString> getAddedItems();
-    int getTempX();
-    int getTempY();
+    QString getTempX();
+    QString getTempY();
     int getWidthXHeight();
     QString curTool;
     int CurBrushSize = 1;

@@ -366,12 +366,12 @@ QVector<QString> GraphicsScene::getAddedItems()
     return addedItems;
 }
 
-int GraphicsScene::getTempX()
+QString GraphicsScene::getTempX()
 {
     return tempX;
 }
 
-int GraphicsScene::getTempY()
+QString GraphicsScene::getTempY()
 {
     return tempY;
 }
