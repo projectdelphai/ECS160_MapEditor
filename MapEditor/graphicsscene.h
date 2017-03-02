@@ -8,6 +8,8 @@
 #include "mapview2.h"
 #include "texture.h"
 #include "terrain.h"
+#include <QMediaPlayer>
+#include <QUrl>
 
 // reference: http://stackoverflow.com/questions/26901540/arc-in-qgraphicsscene/26903599#26903599
 
@@ -19,6 +21,7 @@ public:
     virtual void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent);
     virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent);
     virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent);
+    void delayUnit(int millisecondsToWait);
     void addToolItem(QGraphicsSceneMouseEvent *mouseEvent);
     void removeToolItem(QGraphicsSceneMouseEvent *mouseEvent);
     bool withinBounds(QGraphicsSceneMouseEvent *mouseEvent);
@@ -30,6 +33,7 @@ public:
 signals:
     void changedLayout(int x, int y, Terrain::Type type);
     void changedAsset(int x, int y, QString asset, int curPlayer);
+    void open_DTrigger(QGraphicsScene* scene, Tile* );
 public slots:
 
 private:
