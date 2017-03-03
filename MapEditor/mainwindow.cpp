@@ -52,9 +52,13 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     curPlayer = 1;
     scene->curPlayer = 1;
     // play background music
-    QMediaPlayer * backgroundMusic = new QMediaPlayer();
-    backgroundMusic->setMedia(QUrl("qrc:/data/snd/basic/annoyed2.wav"));
-    backgroundMusic->play();
+//    QMediaPlayer * backgroundMusic = new QMediaPlayer();
+//    backgroundMusic->setMedia(QUrl("qrc:/data/snd/basic/annoyed2.wav"));
+//    backgroundMusic->play();
+
+
+
+
 }
 
 MainWindow::~MainWindow()
@@ -116,10 +120,13 @@ void MainWindow::newFile()
         // fill tile here
     }
 
+
+
     // Set up the map grid
     curMap = MapView2(assets);
     scene = new GraphicsScene(this, &curMap,&assets);
     curMap.displayNewMap(scene);
+
 
     // show map + minimap
     ui->graphicsView->setScene(scene);
@@ -1090,3 +1097,10 @@ void MainWindow::updateUIPlayers(){
     }
 }
 
+
+
+
+void MainWindow::on_actionGrid_triggered()
+{
+
+}

@@ -36,6 +36,8 @@ signals:
     void open_DTrigger(QGraphicsScene* scene, Tile* );
 public slots:
 
+protected:
+    void drawForeground(QPainter *painter, const QRectF &rect);
 private:
     QObject *parent;
     MapView2 *mapInfo;

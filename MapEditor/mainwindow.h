@@ -20,6 +20,8 @@ public:
     int x, y;
 };
 
+
+
 namespace Ui {
 class MainWindow;
 }
@@ -107,6 +109,8 @@ private slots:
     void setupAssets();
 
 
+
+    void on_actionGrid_triggered();
 
 private:
     Ui::MainWindow *ui;
