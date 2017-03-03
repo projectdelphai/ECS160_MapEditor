@@ -193,6 +193,7 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
            //imageDx = *terrain->getImageTile(type);
            // tile change
             brushable = true;
+            mapInfo->setSaveChar(true);
             mapInfo-> brush_size(this, mouseEvent->scenePos(),type,CurBrushSize);
             QString x, y;
             x.setNum(item->scenePos().x());
@@ -207,6 +208,7 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
             else
             {
                 brushable = true;
+                mapInfo->setSaveChar(false);
                 mapInfo->changeMapTile(this, mouseEvent->scenePos(),type);
                 if(type == Terrain::Water || type == Terrain::Rock || type == Terrain::Tree || type == Terrain::Wall)
                 {

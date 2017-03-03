@@ -299,6 +299,7 @@ void MainWindow::undo()
     {
         //Tile *item = (Tile *)scene->itemAt(QPointF(rt.x, rt.y), QTransform());
         scene->setBrushable(true);
+        scene->getMapInfo()->setSaveChar(true);
         scene->getMapInfo()->brush_size(scene, QPointF(rt.x, rt.y), rt.utype, scene->CurBrushSize);
         QString x, y;
         x.setNum(rt.x);
@@ -313,6 +314,7 @@ void MainWindow::undo()
         else
         {
             scene->setBrushable(true);
+            scene->getMapInfo()->setSaveChar(false);
             scene->getMapInfo()->changeMapTile(scene, QPointF(rt.x, rt.y), rt.utype);
             if(rt.utype == Terrain::Water || rt.utype == Terrain::Rock || rt.utype == Terrain::Tree || rt.utype == Terrain::Wall)
             {
@@ -346,6 +348,7 @@ void MainWindow::redo()
     if (!asset)
     {
         scene->setBrushable(true);
+        scene->getMapInfo()->setSaveChar(true);
         scene->getMapInfo()->brush_size(scene, QPointF(rt.x, rt.y), rt.rtype, scene->CurBrushSize);
         QString x, y;
         x.setNum(rt.x);
@@ -360,6 +363,7 @@ void MainWindow::redo()
         else
         {
             scene->setBrushable(true);
+            scene->getMapInfo()->setSaveChar(false);
             scene->getMapInfo()->changeMapTile(scene, QPointF(rt.x, rt.y), rt.rtype);
             if(rt.rtype == Terrain::Water || rt.rtype == Terrain::Rock || rt.rtype == Terrain::Tree || rt.rtype == Terrain::Wall)
             {
@@ -632,7 +636,10 @@ void MainWindow::changeLayout(int x, int y, Terrain::Type type)
     QVector<QChar> layout = curMap.getMapLayout();
 
     RecordedTile rt(getTileType(curMap.getPreviousTile()), type, x, y);
-
+    printf("Initial tile: %c", layout[n]);
+    printf("\n");
+    printf("Second tile: %c", c);
+    printf("\n");
     if(!undone && rt.utype != type)
     {//Prevent a duplicate or something not undone from being pushed onto the stack
         if(undoTiles.isEmpty() || (!undoTiles.isEmpty()

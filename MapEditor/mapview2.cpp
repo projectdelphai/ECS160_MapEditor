@@ -251,6 +251,11 @@ QChar MapView2::getPreviousTile()
     return prevChar;
 }
 
+void MapView2::setSaveChar(bool b)
+{
+    saveChar = b;
+}
+
 void MapView2::changeMapTile(QGraphicsScene *scene, QPointF pos , Terrain::Type type ){
 
     // tile inside scene to change
@@ -262,13 +267,14 @@ void MapView2::changeMapTile(QGraphicsScene *scene, QPointF pos , Terrain::Type 
     }
     int x = centerTile->scenePos().x()/tileDim.width();
     int y = centerTile->scenePos().y()/tileDim.height();
-    prevChar = mapLayOut[(y)*mapDim.width() + x];
+    if(saveChar)
+        prevChar = mapLayOut.at(y*mapDim.width() + x);
     QString typedx = terrain->toString(type);
     QString strType = tileEncode(typedx, y , x );
-//    qDebug() << strType;
-//    qDebug() << "before" <<mapLayOut.at(y*mapDim.width() + x) ;
+    //qDebug() << strType;
+    //qDebug() << "before" << mapLayOut.at(y*mapDim.width() + x) ;
     mapLayOut.replace((y)*mapDim.width() + x,strToMapkey(typedx));
-//    qDebug() << "After" <<mapLayOut.at(y*mapDim.width() + x) ;
+    //qDebug() << "After" <<mapLayOut.at(y*mapDim.width() + x) ;
     // changes center tile
     QImage image = *terrain->getImageTile(strType);
     centerTile->setTileImage(QPixmap::fromImage(image), typedx );
@@ -356,6 +362,7 @@ void MapView2::brush_size(QGraphicsScene *scene, QPointF pos , Terrain::Type typ
 //           qDebug()<< "inside the lo0p";
            position.setX(j);
            position.setY(i);
+           //prevChar = mapLayOut.at(i*mapDim.width() + j);
            changeMapTile(scene, position, type);
        }
    }
