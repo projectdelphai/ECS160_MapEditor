@@ -15,6 +15,8 @@ GraphicsScene::GraphicsScene(QObject *parent, MapView2 *curMap, QMap<QString, Te
     GraphicsScene::assets = loadedAssets;
     brushing = false;
     brushable = false;
+    music = new QMediaPlayer();
+
 }
 
 void GraphicsScene::delayUnit(int millisecondsToWait)
@@ -46,7 +48,6 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
         Terrain *terrain = mapInfo->getTerrain();
         Terrain::Type type;
         Texture *asset = 0;
-        QMediaPlayer * music = new QMediaPlayer();
 
 
         if (curTool == "grass")
