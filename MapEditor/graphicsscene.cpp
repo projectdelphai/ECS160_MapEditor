@@ -26,6 +26,15 @@ void GraphicsScene::delayUnit(int millisecondsToWait)
     }
 }
 
+void GraphicsScene::removeLastInLoc()
+{
+    loc.removeLast();
+}
+
+void GraphicsScene::appendInLoc(QString str)
+{
+    loc.append(str);
+}
 
 void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
 {
@@ -216,6 +225,8 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
                     {
                         loc.append(y);
                         qDebug() << loc;
+                       // loc.clear();
+                        //qDebug() << "size of list: " << loc.size();
                     }
                 }
             }

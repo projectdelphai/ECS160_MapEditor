@@ -301,7 +301,7 @@ void MainWindow::undo()
         //Tile *item = (Tile *)scene->itemAt(QPointF(rt.x, rt.y), QTransform());
         scene->setBrushable(true);
         scene->getMapInfo()->setSaveChar(true);
-        if(rt.rtype == Terrain::Water || rt.rtype == Terrain::Rock)
+        if(rt.rtype == Terrain::Water || rt.rtype == Terrain::Rock || rt.rtype == Terrain::Tree || rt.rtype == Terrain::Wall)
             brushSize = 2;
         scene->getMapInfo()->brush_size(scene, QPointF(rt.x, rt.y), rt.utype, brushSize);
         QString x, y;
@@ -319,11 +319,19 @@ void MainWindow::undo()
             scene->setBrushable(true);
             scene->getMapInfo()->setSaveChar(false);
             scene->getMapInfo()->changeMapTile(scene, QPointF(rt.x, rt.y), rt.utype);
+            if(rt.rtype == Terrain::Water || rt.rtype == Terrain::Rock || rt.rtype == Terrain::Tree || rt.rtype == Terrain::Wall)
+            {
+                if(scene->getLoc().contains(y) == true)
+                {
+                    scene->removeLastInLoc();
+                    qDebug() << scene->getLoc();
+                }
+            }
             if(rt.utype == Terrain::Water || rt.utype == Terrain::Rock || rt.utype == Terrain::Tree || rt.utype == Terrain::Wall)
             {
                 if(scene->getLoc().contains(y) == false)
                 {
-                    scene->getLoc().append(y);
+                    scene->appendInLoc(y);
                     qDebug() << scene->getLoc();
                 }
             }
@@ -353,7 +361,7 @@ void MainWindow::redo()
     {
         scene->setBrushable(true);
         scene->getMapInfo()->setSaveChar(true);
-        if(rt.utype == Terrain::Water || rt.utype == Terrain::Rock)
+        if(rt.utype == Terrain::Water || rt.utype == Terrain::Rock || rt.utype == Terrain::Tree || rt.utype == Terrain::Wall)
             brushSize = 2;
         scene->getMapInfo()->brush_size(scene, QPointF(rt.x, rt.y), rt.rtype, brushSize);
         QString x, y;
@@ -371,11 +379,19 @@ void MainWindow::redo()
             scene->setBrushable(true);
             scene->getMapInfo()->setSaveChar(false);
             scene->getMapInfo()->changeMapTile(scene, QPointF(rt.x, rt.y), rt.rtype);
+            if(rt.utype == Terrain::Water || rt.utype == Terrain::Rock || rt.utype == Terrain::Tree || rt.utype == Terrain::Wall)
+            {
+                if(scene->getLoc().contains(y) == true)
+                {
+                    scene->removeLastInLoc();
+                    qDebug() << scene->getLoc();
+                }
+            }
             if(rt.rtype == Terrain::Water || rt.rtype == Terrain::Rock || rt.rtype == Terrain::Tree || rt.rtype == Terrain::Wall)
             {
                 if(scene->getLoc().contains(y) == false)
                 {
-                    scene->getLoc().append(y);
+                    scene->appendInLoc(y);
                     qDebug() << scene->getLoc();
                 }
             }

@@ -32,6 +32,8 @@ public:
     QString getTempY();
     QVector<QString> getLoc();
     int getWidthXHeight();
+    void removeLastInLoc();
+    void appendInLoc(QString str);
     QString curTool;
     int CurBrushSize = 1;
     int curPlayer;
