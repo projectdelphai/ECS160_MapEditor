@@ -113,7 +113,7 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
             widthXheight = 3;
             frames = 3;
         }
-        else if (curTool == "BlackSmith")
+        else if (curTool == "Blacksmith")
         {
             asset = mapInfo->getAsset("Blacksmith");
             music->setMedia(QUrl("qrc:/data/snd/buildings/blacksmith.wav"));

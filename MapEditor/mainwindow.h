@@ -103,7 +103,7 @@ private slots:
     void open_DgAssets();
     void open_DTrigger(QGraphicsScene* , Tile* );
     void open_exporttoweb();
-
+    void changecursor(QString currentTool);
     void setupAssets();
 
 
@@ -132,7 +132,7 @@ private:
     QString curPath = QDir::homePath(); // current directory
     DgAssets *wAssets = 0;
     QMap<QString,Texture*> assets;
-
+    QImage cursorImage;
     Texture *asset = 0;
 
     //Stores tiles from undo button
