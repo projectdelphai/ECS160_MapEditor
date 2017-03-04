@@ -624,7 +624,6 @@ void MainWindow::changeLayout(int x, int y, Terrain::Type type)
 {
     int newX = x / 32;
     int newY = y / 32;
-
     int n = newY * curMap.getMapDim().width() + newX;
     statusBar()->showMessage("x: " + QString::number(newX) + ", y: " + QString::number(newY) + ", n: " + QString::number(n));
 
@@ -658,6 +657,7 @@ void MainWindow::changeLayout(int x, int y, Terrain::Type type)
     QVector<QChar> layout = curMap.getMapLayout();
 
     RecordedTile rt(getTileType(curMap.getPreviousTile()), type, x, y);
+
     if(!undone && rt.utype != type)
     {//Prevent a duplicate or something not undone from being pushed onto the stack
         if(undoTiles.isEmpty() || (!undoTiles.isEmpty()

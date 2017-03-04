@@ -225,8 +225,6 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
                     {
                         loc.append(y);
                         qDebug() << loc;
-                       // loc.clear();
-                        //qDebug() << "size of list: " << loc.size();
                     }
                 }
             }
