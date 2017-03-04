@@ -288,6 +288,7 @@ void MainWindow::undo()
     if(undoTiles.isEmpty())
         return;
 
+    int brushSize = 1;
     undone = true;
     Texture * asset = 0;
 
@@ -300,7 +301,9 @@ void MainWindow::undo()
         //Tile *item = (Tile *)scene->itemAt(QPointF(rt.x, rt.y), QTransform());
         scene->setBrushable(true);
         scene->getMapInfo()->setSaveChar(true);
-        scene->getMapInfo()->brush_size(scene, QPointF(rt.x, rt.y), rt.utype, scene->CurBrushSize);
+        if(rt.rtype == Terrain::Water || rt.rtype == Terrain::Rock)
+            brushSize = 2;
+        scene->getMapInfo()->brush_size(scene, QPointF(rt.x, rt.y), rt.utype, brushSize);
         QString x, y;
         x.setNum(rt.x);
         y.setNum(rt.y);
@@ -337,6 +340,7 @@ void MainWindow::redo()
     if(redoTiles.isEmpty())
         return;
 
+    int brushSize = 1;
     undone = true;
    // Terrain *terrain = scene->mapInfo->getTerrain();
     Texture * asset = 0;
@@ -349,7 +353,9 @@ void MainWindow::redo()
     {
         scene->setBrushable(true);
         scene->getMapInfo()->setSaveChar(true);
-        scene->getMapInfo()->brush_size(scene, QPointF(rt.x, rt.y), rt.rtype, scene->CurBrushSize);
+        if(rt.utype == Terrain::Water || rt.utype == Terrain::Rock)
+            brushSize = 2;
+        scene->getMapInfo()->brush_size(scene, QPointF(rt.x, rt.y), rt.rtype, brushSize);
         QString x, y;
         x.setNum(rt.x);
         y.setNum(rt.y);
@@ -636,15 +642,11 @@ void MainWindow::changeLayout(int x, int y, Terrain::Type type)
     QVector<QChar> layout = curMap.getMapLayout();
 
     RecordedTile rt(getTileType(curMap.getPreviousTile()), type, x, y);
-    printf("Initial tile: %c", layout[n]);
-    printf("\n");
-    printf("Second tile: %c", c);
-    printf("\n");
     if(!undone && rt.utype != type)
     {//Prevent a duplicate or something not undone from being pushed onto the stack
         if(undoTiles.isEmpty() || (!undoTiles.isEmpty()
             && (rt.utype != undoTiles.top().utype
-                ||rt.x != undoTiles.top().x
+                || rt.x != undoTiles.top().x
                 || rt.y != undoTiles.top().y)))
             //If there are neither previous tiles nor duplicates,
             //push the previous and new tile of the current x and y

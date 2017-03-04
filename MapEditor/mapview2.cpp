@@ -362,7 +362,6 @@ void MapView2::brush_size(QGraphicsScene *scene, QPointF pos , Terrain::Type typ
 //           qDebug()<< "inside the lo0p";
            position.setX(j);
            position.setY(i);
-           //prevChar = mapLayOut.at(i*mapDim.width() + j);
            changeMapTile(scene, position, type);
        }
    }
