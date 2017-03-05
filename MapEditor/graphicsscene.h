@@ -34,6 +34,7 @@ public:
     int getWidthXHeight();
     void removeLastInLoc();
     void appendInLoc(QString str);
+    bool getBrushing();
     QString curTool;
     int CurBrushSize = 1;
     int curPlayer;

@@ -397,6 +397,11 @@ QVector<QString> GraphicsScene::getLoc()
     return loc;
 }
 
+bool GraphicsScene::getBrushing()
+{
+    return brushing;
+}
+
 void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
     if (mouseEvent->button() == Qt::LeftButton && withinBounds(mouseEvent))

@@ -11,6 +11,7 @@
 #include "dialogs/dgaddtrigger.h"
 #include "aitrigger.h"
 #include <QMediaPlayer>
+#include <QtMath>
 
 RecordedTile::RecordedTile()
 {
@@ -298,7 +299,6 @@ void MainWindow::undo()
 
     if (!asset)
     {
-        //Tile *item = (Tile *)scene->itemAt(QPointF(rt.x, rt.y), QTransform());
         scene->setBrushable(true);
         scene->getMapInfo()->setSaveChar(true);
         if(rt.rtype == Terrain::Water || rt.rtype == Terrain::Rock || rt.rtype == Terrain::Tree || rt.rtype == Terrain::Wall)
@@ -350,7 +350,6 @@ void MainWindow::redo()
 
     int brushSize = 1;
     undone = true;
-   // Terrain *terrain = scene->mapInfo->getTerrain();
     Texture * asset = 0;
 
     //The first element for redo becomes first element for undo
@@ -377,7 +376,7 @@ void MainWindow::redo()
         else
         {
             scene->setBrushable(true);
-            scene->getMapInfo()->setSaveChar(false);
+            scene->getMapInfo()->setSaveChar(false);//Prevents incorrect previous tile from being saved
             scene->getMapInfo()->changeMapTile(scene, QPointF(rt.x, rt.y), rt.rtype);
             if(rt.utype == Terrain::Water || rt.utype == Terrain::Rock || rt.utype == Terrain::Tree || rt.utype == Terrain::Wall)
             {
@@ -657,6 +656,10 @@ void MainWindow::changeLayout(int x, int y, Terrain::Type type)
     QVector<QChar> layout = curMap.getMapLayout();
 
     RecordedTile rt(getTileType(curMap.getPreviousTile()), type, x, y);
+
+    if(scene->getBrushing() && !undoTiles.isEmpty())
+        //Ensures that the correct previous tile is saved whenever the brush is used
+        rt.utype = undoTiles.top().utype;
 
     if(!undone && rt.utype != type)
     {//Prevent a duplicate or something not undone from being pushed onto the stack

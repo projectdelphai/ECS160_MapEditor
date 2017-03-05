@@ -348,6 +348,7 @@ void MapView2::brush_size(QGraphicsScene *scene, QPointF pos , Terrain::Type typ
    int Actual_brush_size = 1;
    QPointF position;
    QString typedx = terrain->toString(type);
+
    if((typedx == "water"|| typedx == "rock") && brush_size < 2)
    {
        Actual_brush_size = 2;
@@ -356,8 +357,10 @@ void MapView2::brush_size(QGraphicsScene *scene, QPointF pos , Terrain::Type typ
        Actual_brush_size = brush_size;
    }
    for(int i =pos.y(); i <pos.y() + (Actual_brush_size*32); i+=32)
+   //for(int i = pos.y() + (Actual_brush_size*32); i >= pos.y(); i-=32)
    {
        for(int j= pos.x(); j < pos.x()+(Actual_brush_size*32);j+=32)
+       //for(int j = pos.x() + (Actual_brush_size*32); i >= pos.x(); i-=32)
        {
 //           qDebug()<< "inside the lo0p";
            position.setX(j);
