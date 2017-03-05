@@ -377,21 +377,6 @@ QVector<QString> GraphicsScene::getAddedItems()
     return addedItems;
 }
 
-QString GraphicsScene::getTempX()
-{
-    return tempX;
-}
-
-QString GraphicsScene::getTempY()
-{
-    return tempY;
-}
-
-int GraphicsScene::getWidthXHeight()
-{
-    return widthXheight;
-}
-
 QVector<QString> GraphicsScene::getLoc()
 {
     return loc;

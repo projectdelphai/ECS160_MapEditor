@@ -28,10 +28,7 @@ public:
     void setBrushable(bool b);
     MapView2 * getMapInfo();
     QVector<QString> getAddedItems();
-    QString getTempX();
-    QString getTempY();
     QVector<QString> getLoc();
-    int getWidthXHeight();
     void removeLastInLoc();
     void appendInLoc(QString str);
     bool getBrushing();
