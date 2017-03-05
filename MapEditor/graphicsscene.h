@@ -30,6 +30,8 @@ public:
     QString curTool;
     int CurBrushSize = 1;
     int curPlayer;
+    void setGridlines(bool);
+
 signals:
     void changedLayout(int x, int y, Terrain::Type type);
     void changedAsset(int x, int y, QString asset, int curPlayer);
@@ -50,6 +52,7 @@ private:
     QString tempX, tempY, x, y;
     int posX, posY, widthXheight = 0;
     QMediaPlayer * music;
+    bool gridON;
 };
 
 #endif // GRAPHICSSCENE_H

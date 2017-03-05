@@ -16,6 +16,7 @@ GraphicsScene::GraphicsScene(QObject *parent, MapView2 *curMap, QMap<QString, Te
     brushing = false;
     brushable = false;
     music = new QMediaPlayer();
+    gridON = false;
 
 }
 
@@ -392,12 +393,15 @@ bool GraphicsScene::withinBounds(QGraphicsSceneMouseEvent *mouseEvent)
             && mouseEvent->scenePos().y() >= 0 && mouseEvent->scenePos().y() < height();
 }
 
-void GraphicsScene::drawForeground(QPainter *painter, const QRectF &rect){
-//    QGraphicsView *view = new QGraphicsView(parent);
-//    int width =  view->size().width();
-//    int height = view->size().height();
-    const int gridSize = 32;
+void GraphicsScene::setGridlines(bool showGrid){
+    gridON = showGrid;
+}
 
+void GraphicsScene::drawForeground(QPainter *painter, const QRectF &rect){
+    if( !gridON){
+        return;
+    }
+    const int gridSize = 32;
     qreal left = int(rect.left()) - (int(rect.left()) % gridSize);
     qreal top = int(rect.top()) - (int(rect.top()) % gridSize);
 

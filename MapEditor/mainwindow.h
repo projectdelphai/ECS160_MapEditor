@@ -98,6 +98,7 @@ private slots:
     void on_actionBrush_size_4_triggered();
     void on_tool_aitrigger_clicked();
     void on_actionHide_Trigger_triggered();
+    void on_actionGridlines_toggled(bool arg1);
 
     void open_DgAbout();
     void open_DgMapProperties();
@@ -105,12 +106,7 @@ private slots:
     void open_DgAssets();
     void open_DTrigger(QGraphicsScene* , Tile* );
     void open_exporttoweb();
-
     void setupAssets();
-
-
-
-    void on_actionGrid_triggered();
 
 private:
     Ui::MainWindow *ui;

@@ -899,7 +899,12 @@ void MainWindow::on_actionBrush_size_4_triggered()
 {
     scene->CurBrushSize = 4;
 }
-
+void MainWindow::on_actionGridlines_toggled(bool arg1)
+{
+    scene->setGridlines(arg1);
+    scene->update();
+//    QApplication::processEvents();
+}
 
 
 
@@ -1100,7 +1105,6 @@ void MainWindow::updateUIPlayers(){
 
 
 
-void MainWindow::on_actionGrid_triggered()
-{
 
-}
+
+
