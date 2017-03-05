@@ -11,7 +11,6 @@
 #include "dialogs/dgaddtrigger.h"
 #include "aitrigger.h"
 #include <QMediaPlayer>
-#include <QtMath>
 
 RecordedTile::RecordedTile()
 {
