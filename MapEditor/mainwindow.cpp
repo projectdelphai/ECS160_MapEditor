@@ -30,6 +30,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->setupUi(this);
     ui->graphicsView->setMouseTracking(true);
     ui->graphicsView_2->setMouseTracking(true);
+    ui->graphicsView->setDragMode(QGraphicsView::RubberBandDrag);
     curTool = "hand";
     undone = false;
 

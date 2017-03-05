@@ -589,6 +589,9 @@
                <height>32</height>
               </size>
              </property>
+             <property name="shortcut">
+              <string>Esc</string>
+             </property>
              <property name="checkable">
               <bool>true</bool>
              </property>
@@ -1151,7 +1154,7 @@
      <x>0</x>
      <y>0</y>
      <width>1142</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

@@ -365,6 +365,7 @@ void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
     if (mouseEvent->button() == Qt::LeftButton && withinBounds(mouseEvent))
         brushing = true;
         brushable = true;
+    rubberband = mouseEvent->scenePos().toPoint();
     QGraphicsScene::mousePressEvent(mouseEvent);
 }
 
@@ -383,8 +384,13 @@ void GraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
         removeToolItem(mouseEvent);
         brushing = false;
     }
+   QRect rect(rubberband, mouseEvent->scenePos().toPoint());
+   QPainterPath pp;
+   pp.addRect(rect);
+   setSelectionArea(pp);
    QGraphicsScene::mouseReleaseEvent(mouseEvent);
 }
+
 
 bool GraphicsScene::withinBounds(QGraphicsSceneMouseEvent *mouseEvent)
 {//Checks to see if the mouse event occurs within map bounds to prevent crashing
