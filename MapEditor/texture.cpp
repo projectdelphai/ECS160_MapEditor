@@ -32,14 +32,14 @@ QString Texture::toDat(QString texFileName) {
     QStringList filePath = texFileName.split(".");
     QStringList pathnames = filePath[0].split("/");
     QString texName = pathnames.back();
-    return QString(":/data/img/" + texName + ".dat");
+    return QString(":/data/default/img/" + texName + ".dat");
 }
 
 // load QImage from file
 QImage Texture::open(const QString &textureName){
     QImage img;
     if( !img.load(textureName)){
-        QMessageBox::information(0,"error","image");
+        QMessageBox::information(0,"error1","image");
     }
     return img;
 }
@@ -48,7 +48,7 @@ void Texture::openColor(const QString &colorFile){
     QImage colorImg;
 
     if( !colorImg.load(colorFile)){
-        QMessageBox::information(0,"error","image");
+        QMessageBox::information(0,"error2","image");
     }
 
 
@@ -120,7 +120,7 @@ void Texture::scanDatFile(const QString datFileName, int width, int height) {
     QFile file(datFileName);
 
     if (!file.open(QIODevice::ReadOnly)){
-        QMessageBox::information(0,"error",file.errorString());
+        QMessageBox::information(0,"error5",file.errorString());
     }
 
     QString name;
@@ -150,7 +150,7 @@ void Texture::scanTexture(const QString &texFileName){
     QFile file(texFileName);
 
     if (!file.open(QIODevice::ReadOnly)){
-        QMessageBox::information(0,"error",file.errorString());
+        QMessageBox::information(0,"error4",file.errorString());
     }
 
     QString name;
@@ -185,12 +185,12 @@ void Texture::scanTexture(const QString &texFileName){
     }
 
     QDir dir;
-    QString path = ":data/img/";
+    QString path = ":data/default/img/";
     QString nameFile = path+textureName+".png";
 
     QImage img;
     if( !img.load(nameFile)){
-        QMessageBox::information(0,"error","image");
+        QMessageBox::information(0,"error3","Couldn't load: " + nameFile);
     }
 
     int offsetHeight = 0;

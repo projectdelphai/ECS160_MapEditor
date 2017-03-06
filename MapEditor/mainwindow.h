@@ -40,6 +40,7 @@ public slots:
     void changeLayout(int x, int y, Terrain::Type type);
     void changeAsset(int x, int y, QString asset, int player);
     void activateAI();
+    void changeProjectName(QString projectName);
 
 protected:
 #ifndef QT_NO_CONTEXTMENU
@@ -128,6 +129,7 @@ private:
     //int curBrushSize;
     QString curTool;
     QString curFile;
+    QString curProjectName;
     QByteArray curFileDialogState;
     QString curPath = QDir::homePath(); // current directory
     DgAssets *wAssets = 0;
