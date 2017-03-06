@@ -268,7 +268,11 @@ void MapView2::changeMapTile(QGraphicsScene *scene, QPointF pos , Terrain::Type 
     int x = centerTile->scenePos().x()/tileDim.width();
     int y = centerTile->scenePos().y()/tileDim.height();
     if(saveChar)
+    {
         prevChar = mapLayOut.at(y*mapDim.width() + x);
+        saveChar = false;
+    }
+
     QString typedx = terrain->toString(type);
     QString strType = tileEncode(typedx, y , x );
     //qDebug() << strType;
@@ -356,11 +360,12 @@ void MapView2::brush_size(QGraphicsScene *scene, QPointF pos , Terrain::Type typ
    else{
        Actual_brush_size = brush_size;
    }
+   Actual_brush_size = 1;
    for(int i =pos.y(); i <pos.y() + (Actual_brush_size*32); i+=32)
-   //for(int i = pos.y() + (Actual_brush_size*32); i >= pos.y(); i-=32)
+   //for(int i = pos.y() + 32; i >= pos.y(); i-=32)
    {
        for(int j= pos.x(); j < pos.x()+(Actual_brush_size*32);j+=32)
-       //for(int j = pos.x() + (Actual_brush_size*32); i >= pos.x(); i-=32)
+       //for(int j = pos.x() + 32; i >= pos.x(); i-=32)
        {
 //           qDebug()<< "inside the lo0p";
            position.setX(j);
