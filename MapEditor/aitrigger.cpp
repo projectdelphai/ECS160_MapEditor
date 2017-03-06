@@ -61,7 +61,7 @@ void AITrigger::removeRange(QGraphicsScene *scene){
 }
 
 void AITrigger::hook(){
-    qDebug() << "hell";
+    //qDebug() << "hell";
 }
 
 void AITrigger::setMarker(Tile *marker){

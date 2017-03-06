@@ -54,9 +54,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     curPlayer = 1;
     scene->curPlayer = 1;
     // play background music
-    QMediaPlayer * backgroundMusic = new QMediaPlayer();
-    backgroundMusic->setMedia(QUrl("qrc:/data/default/snd/basic/annoyed2.wav"));
-    backgroundMusic->play();
+//    QMediaPlayer * backgroundMusic = new QMediaPlayer();
+//    backgroundMusic->setMedia(QUrl("qrc:/data/snd/basic/annoyed2.wav"));
+//    backgroundMusic->play();
+
 }
 
 MainWindow::~MainWindow()
@@ -133,6 +134,7 @@ void MainWindow::newFile()
     curMap = MapView2(assets);
     scene = new GraphicsScene(this, &curMap,&assets);
     curMap.displayNewMap(scene);
+
 
     // show map + minimap
     ui->graphicsView->setScene(scene);
@@ -635,7 +637,7 @@ Terrain::Type MainWindow::getTileType(QChar tile)
 }
 
 void MainWindow::activateAI(){
-    qDebug() << QTime::currentTime().toString();
+   // qDebug() << QTime::currentTime().toString();
 }
 
 void MainWindow::changeAsset(int x, int y, QString asset, int player)
@@ -910,7 +912,12 @@ void MainWindow::on_actionBrush_size_4_triggered()
 {
     scene->CurBrushSize = 4;
 }
-
+void MainWindow::on_actionGridlines_toggled(bool arg1)
+{
+    scene->setGridlines(arg1);
+    scene->update();
+//    QApplication::processEvents();
+}
 
 
 
@@ -1107,4 +1114,10 @@ void MainWindow::updateUIPlayers(){
             buttons.at(i)->setDisabled(true);
     }
 }
+
+
+
+
+
+
 

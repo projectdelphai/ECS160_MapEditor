@@ -15,6 +15,9 @@ GraphicsScene::GraphicsScene(QObject *parent, MapView2 *curMap, QMap<QString, Te
     GraphicsScene::assets = loadedAssets;
     brushing = false;
     brushable = false;
+    music = new QMediaPlayer();
+    gridON = false;
+
 }
 
 void GraphicsScene::delayUnit(int millisecondsToWait)
@@ -46,7 +49,6 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
         Terrain *terrain = mapInfo->getTerrain();
         Terrain::Type type;
         Texture *asset = 0;
-        QMediaPlayer * music = new QMediaPlayer();
 
 
         if (curTool == "grass")
@@ -201,7 +203,7 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
             if(addedItems.contains(y))
             {
                 QMessageBox::warning(0,"Error!","Cannot put tile on assets");
-                qDebug() << y;
+               // qDebug() << y;
                 return;
             }
             else
@@ -213,7 +215,7 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
                     if(loc.contains(y) == false)
                     {
                         loc.append(y);
-                        qDebug() << loc;
+                       // qDebug() << loc;
                     }
                 }
             }
@@ -290,7 +292,7 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
                         addedItems.append(tempY);
                     }
                 }
-                qDebug() << addedItems;
+              //  qDebug() << addedItems;
             }
             else
             {
@@ -344,7 +346,7 @@ void GraphicsScene::removeToolItem(QGraphicsSceneMouseEvent *mouseEvent)
                 }
             }
             this->removeItem(item);
-            qDebug() << addedItems;
+          //  qDebug() << addedItems;
         }
         else
             return;
@@ -389,4 +391,29 @@ bool GraphicsScene::withinBounds(QGraphicsSceneMouseEvent *mouseEvent)
 {//Checks to see if the mouse event occurs within map bounds to prevent crashing
     return mouseEvent->scenePos().x() >= 0 && mouseEvent->scenePos().x() < width()
             && mouseEvent->scenePos().y() >= 0 && mouseEvent->scenePos().y() < height();
+}
+
+void GraphicsScene::setGridlines(bool showGrid){
+    gridON = showGrid;
+}
+
+void GraphicsScene::drawForeground(QPainter *painter, const QRectF &rect){
+    if( !gridON){
+        return;
+    }
+    const int gridSize = 32;
+    qreal left = int(rect.left()) - (int(rect.left()) % gridSize);
+    qreal top = int(rect.top()) - (int(rect.top()) % gridSize);
+
+    QVarLengthArray<QLineF, 100> lines;
+
+    for (qreal x = left; x < rect.right(); x += gridSize)
+        lines.append(QLineF(x, rect.top(), x, rect.bottom()));
+    for (qreal y = top; y < rect.bottom(); y += gridSize)
+        lines.append(QLineF(rect.left(), y, rect.right(), y));
+
+    qDebug() << lines.size();
+
+    painter->drawLines(lines.data(), lines.size());
+
 }

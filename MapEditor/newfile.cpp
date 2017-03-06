@@ -57,7 +57,7 @@ void NewFile::on_accept_accepted()
 
     foreach (const QString &snd, QDir(":data/default/snd/").entryList() )
     {
-        QFile::copy(":/data/default/snd/" + snd, sndDir.path() + "/" + snd);`
+        QFile::copy(":/data/default/snd/" + snd, sndDir.path() + "/" + snd);
     }
 
 
