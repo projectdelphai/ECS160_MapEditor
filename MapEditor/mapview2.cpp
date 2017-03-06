@@ -276,7 +276,7 @@ void MapView2::changeMapTile(QGraphicsScene *scene, QPointF pos , Terrain::Type 
     if(saveChar)
     {
         prevChar = mapLayOut.at(y*mapDim.width() + x);
-        saveChar = false;
+       // saveChar = false;
     }
   
     QString typedx = terrain->toString(type);
@@ -371,7 +371,7 @@ void MapView2::brush_size(QGraphicsScene *scene, QPointF pos , Terrain::Type typ
    else{
        Actual_brush_size = brush_size;
    }
-   Actual_brush_size = 1;
+   //Actual_brush_size = 1;
    for(int i =pos.y(); i <pos.y() + (Actual_brush_size*32); i+=32)
    //for(int i = pos.y() + 32; i >= pos.y(); i-=32)
    {

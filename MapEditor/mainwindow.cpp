@@ -302,8 +302,8 @@ void MainWindow::undo()
         scene->setBrushable(true);
 
         scene->getMapInfo()->setSaveChar(true);
-       // if(rt.rtype == Terrain::Water || rt.rtype == Terrain::Rock || rt.rtype == Terrain::Tree || rt.rtype == Terrain::Wall)
-         //   brushSize = 1;
+        if(rt.rtype == Terrain::Water || rt.rtype == Terrain::Rock || rt.rtype == Terrain::Tree || rt.rtype == Terrain::Wall)
+            brushSize = 2;
         scene->getMapInfo()->brush_size(scene, QPointF(rt.x, rt.y), rt.utype, brushSize);
         QString x, y;
         x.setNum(rt.x);
@@ -360,8 +360,8 @@ void MainWindow::redo()
     {
         scene->setBrushable(true);
         scene->getMapInfo()->setSaveChar(true);
-        //if(rt.utype == Terrain::Water || rt.utype == Terrain::Rock || rt.utype == Terrain::Tree || rt.utype == Terrain::Wall)
-          //  brushSize = 1;
+        if(rt.utype == Terrain::Water || rt.utype == Terrain::Rock || rt.utype == Terrain::Tree || rt.utype == Terrain::Wall)
+            brushSize = 1;
         scene->getMapInfo()->brush_size(scene, QPointF(rt.x, rt.y), rt.rtype, brushSize);
         QString x, y;
         x.setNum(rt.x);
