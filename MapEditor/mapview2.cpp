@@ -251,15 +251,6 @@ void MapView2::openMap(QIODevice &mapFile){
             for(int i = 0; i < numTriggers; i++) {
                 QStringList list = line.split(',');
 
-                // each trigger type has its own number of arguments
-                /* TriggerTypeTime 1
-                 * TriggerTypeResource 2
-                 * TriggerTypeLocation 2
-                 * TriggerTypeAssetObtained 2
-                 * TriggerTypeLocation 2
-                 * TriggerName,TriggerTypeName,0,trigArg1,trigArg2,ExampleEvent1,exampleEventArgs
-                 */
-
                 QString name = list.takeFirst();
                 QString type = list.takeFirst();
                 bool persistence = list.takeFirst().toInt();
@@ -268,10 +259,6 @@ void MapView2::openMap(QIODevice &mapFile){
                 trigArgs.append(list.takeFirst());
                 QString event = list.takeFirst();
                 QStringList eventArgs = list;
-
-                qDebug() << line;
-                qDebug() << trigArgs;
-                qDebug() << eventArgs;
 
                 // create Trigger
                 AITrigger* trigger = new AITrigger(name, type, persistence, event, trigArgs, eventArgs);

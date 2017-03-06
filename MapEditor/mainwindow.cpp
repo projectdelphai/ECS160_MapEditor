@@ -934,7 +934,7 @@ void MainWindow::open_DgAssets(){
 }
 
 void MainWindow::open_DTrigger(QGraphicsScene *scene , Tile *tile){
-    DgAddTrigger wTrigger(this);
+    DgAddTrigger wTrigger(tile, this);
     if ( wTrigger.exec() != QDialog::Accepted ){
         scene->removeItem(tile);
         return;
@@ -946,7 +946,6 @@ void MainWindow::open_DTrigger(QGraphicsScene *scene , Tile *tile){
     bool checked = ui->actionHide_Triggers->isChecked();
 
     trigger->getTile()->setVisible(!checked);
-
 }
 
 void MainWindow::hideTriggers(bool visible){

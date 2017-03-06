@@ -2,14 +2,17 @@
 #include "ui_dgaddtrigger.h"
 #include "aitrigger.h"
 
-DgAddTrigger::DgAddTrigger(QWidget *parent) :
+DgAddTrigger::DgAddTrigger(Tile *t, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::DgAddTrigger)
 {
     ui->setupUi(this);
+    DgAddTrigger::tile = t;
 
     // setup list views with their models
-    trigArgsListModel = new QStringListModel;
+    QStringList trigArgsList;
+    trigArgsList << "trigArg1" << "trigArg2";
+    trigArgsListModel = new QStringListModel(trigArgsList);
     ui->list_trigArgs->setModel(trigArgsListModel);
     eventArgsListModel = new QStringListModel;
     ui->list_eventArgs->setModel(eventArgsListModel);
@@ -29,7 +32,7 @@ void DgAddTrigger::accept() {
     event = ui->txt_event->text();
 
     trigArgsList = trigArgsListModel->stringList();
-    eventArgsList = trigArgsListModel->stringList();
+    eventArgsList = eventArgsListModel->stringList();
 
     if(name.isEmpty()) {
         QMessageBox::warning(this, "Needs a name", "Must have a trigger name!", QMessageBox::Ok);
@@ -55,29 +58,11 @@ void DgAddTrigger::accept() {
     }
 
     aiTrigger = new AITrigger(name, type, persistence, event, trigArgsList, eventArgsList);
+    aiTrigger->setTile(tile);
     QDialog::accept();
 }
 
 // for adding new conditions, update listModel and then do some View stuff
-void DgAddTrigger::on_tool_addTrigArg_clicked()
-{
-    trigArgsListModel->insertRow(trigArgsListModel->rowCount());
-
-    QModelIndex index = trigArgsListModel->index(trigArgsListModel->rowCount()-1);
-    trigArgsListModel->setData(index, "TrigArg" + QString::number(index.row()) );
-    ui->list_trigArgs->setFocus();
-    ui->list_trigArgs->setCurrentIndex(index);
-    ui->list_trigArgs->edit(index);
-}
-
-void DgAddTrigger::on_tool_remTrigArg_clicked()
-{
-    QModelIndex index = ui->list_trigArgs->currentIndex();
-
-    trigArgsListModel->removeRow(index.row());
-    ui->list_trigArgs->setFocus();
-}
-
 void DgAddTrigger::on_tool_addEventArg_clicked()
 {
     eventArgsListModel->insertRow(eventArgsListModel->rowCount());
@@ -95,4 +80,14 @@ void DgAddTrigger::on_tool_remEventArg_clicked()
 
     eventArgsListModel->removeRow(index.row());
     ui->list_eventArgs->setFocus();
+}
+
+void DgAddTrigger::on_tool_curLocation_clicked()
+{
+    if(QMessageBox::question(this, "", "Are you sure you want to set the current location as the trigger arguments?", QMessageBox::Yes, QMessageBox::No) == QMessageBox::No)
+        return;
+
+    QStringList newList;
+    newList << QString::number(tile->pos().x()/32) << QString::number(tile->pos().y()/32);
+    trigArgsListModel->setStringList(newList);
 }

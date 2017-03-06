@@ -17,10 +17,12 @@ AITrigger::AITrigger(QString name, QString type, bool persistence, QString event
 }
 
 QString AITrigger::infoAI() const{
-    QString ai = triggerName + " " +
-                 QString().setNum(position.x()) + " " +
-                 QString().setNum(position.y()) + " " +
-                 event + " ";
+    QString ai = triggerName + "," +
+                 type + "," +
+                 QString::number(persistence) + "," +
+                 trigArgsList.join(',') + "," +
+                 event + "," +
+                 eventArgsList.join(',');
     return ai;
 }
 
@@ -45,6 +47,7 @@ void AITrigger::setPersistence(bool checked) {
 
 void AITrigger::setPosition(int x, int y) {
     position = QPointF(x, y);
+    tile->setPos(position);
 }
 
 void AITrigger::setEvent(QString &func) {
@@ -52,7 +55,7 @@ void AITrigger::setEvent(QString &func) {
 }
 
 void AITrigger::setTrigArgsList(QStringList &list) {
-    eventArgsList = list;
+    trigArgsList = list;
 }
 
 void AITrigger::setEventArgsList(QStringList &list) {

@@ -134,6 +134,7 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
 
             music->setMedia(QUrl("qrc:/data/snd/misc/thunk.wav"));
         }
+
         else if (curTool == "LumberMill")
         {
             asset = mapInfo->getAsset("LumberMill");

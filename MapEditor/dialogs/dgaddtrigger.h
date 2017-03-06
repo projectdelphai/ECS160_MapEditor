@@ -15,7 +15,7 @@ class DgAddTrigger : public QDialog
     Q_OBJECT
 
 public:
-    explicit DgAddTrigger(QWidget *parent = 0);
+    explicit DgAddTrigger(Tile* t, QWidget *parent = 0);
     ~DgAddTrigger();
 
     AITrigger* aiTrigger = 0;
@@ -23,13 +23,12 @@ public:
     void accept();
 
 private slots:
-    void on_tool_addTrigArg_clicked();
-    void on_tool_remTrigArg_clicked();
     void on_tool_addEventArg_clicked();
     void on_tool_remEventArg_clicked();
+    void on_tool_curLocation_clicked();
 
 private:
-    Ui::DgAddTrigger *ui;
+    Ui::DgAddTrigger* ui;
     QStringListModel* trigArgsListModel;
     QStringListModel* eventArgsListModel;
 
@@ -39,6 +38,8 @@ private:
     QStringList trigArgsList;
     QString event;
     QStringList eventArgsList;
+
+    Tile *tile;
 };
 
 #endif // DIALOGTRIGGER_H
