@@ -268,15 +268,15 @@ void MapView2::changeMapTile(QGraphicsScene *scene, QPointF pos , Terrain::Type 
     int x = centerTile->scenePos().x()/tileDim.width();
     int y = centerTile->scenePos().y()/tileDim.height();
 
+    if(y==0 || x == 0 ||x ==mapDim.width() -1 || y == mapDim.height() -1)
+    {
+         return;
+    }
+
     if(saveChar)
     {
         prevChar = mapLayOut.at(y*mapDim.width() + x);
         saveChar = false;
-    }
-
-    if(y==0 || x == 0 ||x ==mapDim.width() -1 || y == mapDim.height() -1)
-    {
-         return;
     }
   
     QString typedx = terrain->toString(type);
