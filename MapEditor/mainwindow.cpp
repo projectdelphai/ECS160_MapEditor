@@ -361,7 +361,7 @@ void MainWindow::redo()
         scene->setBrushable(true);
         scene->getMapInfo()->setSaveChar(true);
         if(rt.utype == Terrain::Water || rt.utype == Terrain::Rock || rt.utype == Terrain::Tree || rt.utype == Terrain::Wall)
-            brushSize = 1;
+            brushSize = 2;
         scene->getMapInfo()->brush_size(scene, QPointF(rt.x, rt.y), rt.rtype, brushSize);
         QString x, y;
         x.setNum(rt.x);
