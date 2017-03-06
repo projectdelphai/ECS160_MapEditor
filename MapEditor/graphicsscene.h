@@ -47,11 +47,8 @@ private:
     QMap<QString,Texture*> *assets;
     QString tempX, tempY, x, y;
     int posX, posY, widthXheight = 0;
-<<<<<<< HEAD
     QPoint rubberband;
-=======
     QMediaPlayer * music;
->>>>>>> refs/remotes/origin/develop
 };
 
 #endif // GRAPHICSSCENE_H
