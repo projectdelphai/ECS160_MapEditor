@@ -15,7 +15,6 @@ GraphicsScene::GraphicsScene(QObject *parent, MapView2 *curMap, QMap<QString, Te
     brushing = false;
     brushable = false;
     music = new QMediaPlayer();
-
 }
 
 void GraphicsScene::delayUnit(int millisecondsToWait)
@@ -273,7 +272,7 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
                     Tile * pixItem = new Tile(type, pixmap);
                     pixItem->setPos(x, y);
                     addItem(pixItem);
-                    delayUnit(500);
+                    //delayUnit(500);
                     if(i != frames-1)
                         removeItem(pixItem);
                 }
@@ -290,7 +289,7 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
                         addedItems.append(tempY);
                     }
                 }
-              //  qDebug() << addedItems;
+                //qDebug() << addedItems;
             }
             else
             {
@@ -344,7 +343,7 @@ void GraphicsScene::removeToolItem(QGraphicsSceneMouseEvent *mouseEvent)
                 }
             }
             this->removeItem(item);
-          //  qDebug() << addedItems;
+            //qDebug() << addedItems;
         }
         else
             return;
@@ -389,9 +388,41 @@ void GraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
    QPainterPath pp;
    pp.addRect(rect);
    setSelectionArea(pp);
+   itemList = selectedItems();
    QGraphicsScene::mouseReleaseEvent(mouseEvent);
 }
 
+void GraphicsScene::keyPressEvent(QKeyEvent *keyEvent)
+{
+    if(keyEvent->key() == Qt::Key_D)
+    {
+        for (int i=0; i<itemList.size(); i++)
+        {
+            Tile *item = (Tile *)this->itemAt(itemList[i]->scenePos(), QTransform());
+            posX = item->scenePos().x();
+            posY = item->scenePos().y();
+            QString x, y;
+            x.setNum(item->scenePos().x());
+            y.setNum(item->scenePos().y());
+            y.prepend(x);
+            if (addedItems.contains(y))
+            {
+                for(int i = 0; i < widthXheight; i++)
+                {
+                    for(int j = 0; j < widthXheight; j++)
+                    {
+                        tempX.setNum(posX + 32*i);
+                        tempY.setNum(posY + 32*j);
+                        tempY.prepend(tempX);
+                        addedItems.removeOne(tempY);
+                    }
+                }
+                this->removeItem(itemList[i]);
+                //qDebug() << addedItems;
+            }
+        }
+    }
+}
 
 bool GraphicsScene::withinBounds(QGraphicsSceneMouseEvent *mouseEvent)
 {//Checks to see if the mouse event occurs within map bounds to prevent crashing

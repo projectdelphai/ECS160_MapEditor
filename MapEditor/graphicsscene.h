@@ -21,6 +21,7 @@ public:
     virtual void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent);
     virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent);
     virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent);
+    void keyPressEvent(QKeyEvent *keyEvent);
     void delayUnit(int millisecondsToWait);
     void addToolItem(QGraphicsSceneMouseEvent *mouseEvent);
     void removeToolItem(QGraphicsSceneMouseEvent *mouseEvent);
@@ -49,6 +50,7 @@ private:
     int posX, posY, widthXheight = 0;
     QPoint rubberband;
     QMediaPlayer * music;
+    QList<QGraphicsItem*> itemList;
 };
 
 #endif // GRAPHICSSCENE_H
