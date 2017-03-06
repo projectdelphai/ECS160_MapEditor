@@ -26,6 +26,7 @@ void GraphicsScene::delayUnit(int millisecondsToWait)
     }
 }
 
+
 void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
 {
     QWidget *q =  mouseEvent->widget()->parentWidget();
@@ -41,7 +42,7 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
 
         int x = item->scenePos().x();
         int y = item->scenePos().y();
-
+        int frames = 0;
         Terrain *terrain = mapInfo->getTerrain();
         Terrain::Type type;
         Texture *asset = 0;
@@ -67,78 +68,109 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
         {
             asset = mapInfo->getAsset("Peasant");
             music->setMedia(QUrl("qrc:/data/snd/peasant/ready.wav"));
+            widthXheight = 1;
+            frames = 40;
         }
         else if (curTool == "Ranger")
         {
             asset = mapInfo->getAsset("Ranger");
             music->setMedia(QUrl("qrc:/data/snd/archer/ready.wav"));
+            widthXheight = 1;
+            frames = 40;
         }
         else if (curTool == "Archer")
         {
             asset = mapInfo->getAsset("Archer");
-            music->setMedia(QUrl("qrc:/data/snd/archer/ready.wav"));
+            music->setMedia(QUrl("qrc:/data/snd/archer/ready.wav"));            
+            widthXheight = 1;
+            frames = 40;
         }
         else if (curTool == "Knight")
         {
             asset = mapInfo->getAsset("Knight");
             music->setMedia(QUrl("qrc:/data/snd/knight/ready.wav"));
+            widthXheight = 1;
+            frames = 40;
         }
         else if (curTool == "GoldMine")
         {
             asset = mapInfo->getAsset("GoldMine");
             music->setMedia(QUrl("qrc:/data/snd/buildings/gold-mine.wav"));
+            widthXheight = 4;
+            frames = 1;
         }
         else if (curTool == "TownHall")
         {
             asset = mapInfo->getAsset("TownHall");
             music->setMedia(QUrl("qrc:/data/snd/misc/thunk.wav"));
+            widthXheight = 4;
+            frames = 3;
         }
         else if (curTool == "Barracks")
         {
             asset = mapInfo->getAsset("Barracks");
 
             music->setMedia(QUrl("qrc:/data/snd/misc/thunk.wav"));
+            widthXheight = 3;
+            frames = 3;
         }
         else if (curTool == "BlackSmith")
         {
             asset = mapInfo->getAsset("Blacksmith");
             music->setMedia(QUrl("qrc:/data/snd/buildings/blacksmith.wav"));
+            widthXheight = 3;
+            frames = 3;
         }
         else if (curTool == "CannonTower")
         {
             asset = mapInfo->getAsset("CannonTower");
             music->setMedia(QUrl("qrc:/data/snd/misc/thunk.wav"));
+            widthXheight = 2;
+            frames = 2;
         }
         else if (curTool == "Castle")
         {
             asset = mapInfo->getAsset("Castle");
+            music->setMedia(QUrl("qrc:/data/snd/misc/thunk.wav"));
+            widthXheight = 4;
+            frames = 2;
         }
         else if (curTool == "Farm")
         {
             asset = mapInfo->getAsset("Farm");
             music->setMedia(QUrl("qrc:/data/snd/buildings/farm.wav"));
+            widthXheight = 2;
+            frames = 3;
         }
         else if (curTool == "GuardTower")
         {
             asset = mapInfo->getAsset("GuardTower");
             music->setMedia(QUrl("qrc:/data/snd/misc/construct.wav"));
+            widthXheight = 2;
+            frames = 2;
         }
         else if (curTool == "ScoutTower")
         {
             asset = mapInfo->getAsset("ScoutTower");
             music->setMedia(QUrl("qrc:/data/snd/misc/construct.wav"));
+            widthXheight = 2;
+            frames = 3;
         }
         else if (curTool == "Keep")
         {
             asset = mapInfo->getAsset("Keep");
 
             music->setMedia(QUrl("qrc:/data/snd/misc/thunk.wav"));
+            widthXheight = 4;
+            frames = 2;
         }
 
         else if (curTool == "LumberMill")
         {
             asset = mapInfo->getAsset("LumberMill");
-             music->setMedia(QUrl("qrc:/data/snd/buildings/lumber-mill.wav"));
+            music->setMedia(QUrl("qrc:/data/snd/buildings/lumber-mill.wav"));
+            widthXheight = 3;
+            frames = 3;
         }
         else if (curTool == "hand")
         {
@@ -162,59 +194,104 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
            //imageDx = *terrain->getImageTile(type);
            // tile change
             brushable = true;
-           mapInfo-> brush_size(this, mouseEvent->scenePos(),type,CurBrushSize);
-//            mapInfo->changeMapTile(this, mouseEvent->scenePos(),type);
+            mapInfo-> brush_size(this, mouseEvent->scenePos(),type,CurBrushSize);
+            QString x, y;
+            x.setNum(item->scenePos().x());
+            y.setNum(item->scenePos().y());
+            y.prepend(x);
+            if(addedItems.contains(y))
+            {
+                QMessageBox::warning(0,"Error!","Cannot put tile on assets");
+                qDebug() << y;
+                return;
+            }
+            else
+            {
+                brushable = true;
+                mapInfo->changeMapTile(this, mouseEvent->scenePos(),type);
+                if(type == Terrain::Water || type == Terrain::Rock || type == Terrain::Tree || type == Terrain::Wall)
+                {
+                    if(loc.contains(y) == false)
+                    {
+                        loc.append(y);
+                        qDebug() << loc;
+                    }
+                }
+            }
+
+
         }
         else
         {//Loads/Animates the assets
-            Tile *pixItem;
             brushable = false;
-            if (curTool == "GoldMine"){
-                brushable = false;
-                for (int i=0; i<= 1;i++){
-                    imageDx = imageDx = asset->imageList[i];
-                    QPixmap pixmap = QPixmap::fromImage(imageDx);
-                    pixItem = new Tile(type, pixmap);
 
-                    pixItem->setPos(x, y);
-                    addItem(pixItem);
-                    delayUnit(1000);
-                    //if (i!=1){
-                        removeItem(pixItem);
-                    //}
+            if (curTool == "GoldMine")
+                imageDx = asset->imageList[0];
+            else
+                imageDx = asset->colorPlayerImg[curPlayer][0];
+//            else if (curTool == "CannonTower" || curTool == "Castle" || curTool == "Keep" || curTool == "GuardTower")
+//                imageDx = asset->colorPlayerImg[curPlayer][1];
+//            else if (curTool == "Peasant" || curTool == "Knight" || curTool == "Archer" || curTool == "Ranger")
+//                imageDx = asset->colorPlayerImg[curPlayer][20];
+
+
+            QPixmap pixmap = QPixmap::fromImage(imageDx);
+            Tile * pixItem = new Tile(type, pixmap);
+            pixItem->setPos(x, y);
+            posX = x;
+            posY = y;
+            for(int i = 0; i < widthXheight; i++)
+            { 
+                for(int j = 0; j < widthXheight; j++)
+                {
+                    tempX.setNum(posX + 32*i);
+                    tempY.setNum(posY + 32*j);
+                    tempY.prepend(tempX);
+                    tempXY.append(tempY);
                 }
             }
-            else if (curTool == "CannonTower" || curTool == "Castle" || curTool == "Keep" || curTool == "GuardTower"){
-                for (int i=0; i<= 1;i++){
-                    imageDx = asset->colorPlayerImg[curPlayer][i];
+            bool added = true;
+            for (int i = 0; i < tempXY.size(); i++)
+            {
+                if(addedItems.contains(tempXY[i]) || loc.contains(tempXY[i]))
+                {
+                    added = true;
+                    break;
+                }
+                else
+                    added = false;
+            }
+            tempXY.clear();
+            if(added == false)
+            {
+                for(int i = 0; i < frames; i++)
+                {
+                    if(curTool == "GoldMine")
+                        imageDx = asset->imageList[i];
+                    else
+                        imageDx = asset->colorPlayerImg[curPlayer][i];
                     QPixmap pixmap = QPixmap::fromImage(imageDx);
-                    pixItem = new Tile(type, pixmap);
-
+                    Tile * pixItem = new Tile(type, pixmap);
                     pixItem->setPos(x, y);
                     addItem(pixItem);
-                    delayUnit(1000);
-                    //if (i!=1){
+                    delayUnit(500);
+                    if(i != frames-1)
                         removeItem(pixItem);
-                    //}
                 }
-            }
-            //for some reason barracks do not work
-            else if (curTool == "TownHall" || curTool == "Barracks" || curTool == "Blacksmith" || curTool == "Farm" || curTool == "ScoutTower" || curTool == "LumberMill"){
-                for (int i=0; i<= 3;i++){
-                    imageDx = asset->colorPlayerImg[curPlayer][i];
-                    QPixmap pixmap = QPixmap::fromImage(imageDx);
-                    pixItem = new Tile(type, pixmap);
-
-                    pixItem->setPos(x, y);
-                    addItem(pixItem);
-                    delayUnit(1000);
-                    //if (i!=3){
-                        removeItem(pixItem);
-                    //}
+                 // play background music
+                music->play();
+                for(int i = 0; i < widthXheight; i++)
+                {
+                    for(int j = 0; j < widthXheight; j++)
+                    {
+                        tempX.setNum(posX + 32*i);
+                        tempY.setNum(posY + 32*j);
+                        tempY.prepend(tempX);
+                        addedItems.append(tempY);
+                    }
                 }
-            }
-
-            else if (curTool == "Peasant" || curTool == "Knight" || curTool == "Archer" || curTool == "Ranger"){
+                qDebug() << addedItems;
+            } else if (curTool == "Peasant" || curTool == "Knight" || curTool == "Archer" || curTool == "Ranger"){
                 for (int i=0; i<= 39;i++){
                     imageDx = asset->colorPlayerImg[curPlayer][i];
                     QPixmap pixmap = QPixmap::fromImage(imageDx);
@@ -224,21 +301,13 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
                     addItem(pixItem);
                     delayUnit(500);
                     removeItem(pixItem);
-                 }              
+                }
             }
-
-         QString x, y;
-         x.setNum(pixItem->scenePos().x());
-         y.setNum(pixItem->scenePos().y());
-         y.prepend(x);
-         if(addedItems.contains(y) == false){
-            addedItems.append(y);
-            addItem(pixItem);
-            // play background music
-            music->play();
-         }
-          else
+            else
+            {
+                QMessageBox::warning(0,"Cannot overlap","Place somewhere else!");
                 return;
+            }
         }
 
         if (!asset)
@@ -266,14 +335,26 @@ void GraphicsScene::removeToolItem(QGraphicsSceneMouseEvent *mouseEvent)
     else
     {
         Tile *item = (Tile *)this->itemAt(mouseEvent->scenePos(), QTransform());
+        posX = item->scenePos().x();
+        posY = item->scenePos().y();
         QString x, y;
         x.setNum(item->scenePos().x());
         y.setNum(item->scenePos().y());
         y.prepend(x);
+
         if (addedItems.contains(y))
         {
+            for(int i = 0; i < widthXheight; i++)
+            {
+                for(int j = 0; j < widthXheight; j++)
+                {
+                    tempX.setNum(posX + 32*i);
+                    tempY.setNum(posY + 32*j);
+                    tempY.prepend(tempX);
+                    addedItems.removeOne(tempY);
+                }
+            }
             this->removeItem(item);
-            addedItems.removeOne(y);
             qDebug() << addedItems;
         }
         else

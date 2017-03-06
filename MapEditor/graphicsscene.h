@@ -42,7 +42,11 @@ private:
     bool brushing;
     bool brushable;
     QVector<QString> addedItems;
+    QVector<QString> tempXY;
+    QVector<QString> loc;
     QMap<QString,Texture*> *assets;
+    QString tempX, tempY, x, y;
+    int posX, posY, widthXheight = 0;
 };
 
 #endif // GRAPHICSSCENE_H

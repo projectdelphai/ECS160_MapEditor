@@ -67,9 +67,13 @@ The file structure is as follows:
 	TownHall 2 92 54
 	```
 - AI Triggers
-	* `Name X Y Range Function {Conditions}`
-	* Conditions and Function are both user-defined
-	* Use Regex `(\w+) (\d+) (\d+) (\d+) (.*) ({.*})`
+	* `Name,Type,Persistence,TrigArg1,TrigArg2,Event,EventArg1,EventArg2`
+	* TrigArg1 and TrigArg2 are dependent on the Type
+	* TriggerTypeTime timeStamp timeUnit
+	* TriggerTypeLocation posX posY
+	* TriggerTypeResource resourceType resourceAmount
+	* TriggerTypeAssetObtained assetType assetAmount
+	* TriggerTypeAssetLost assetType assetAmount
 
 
 # Code Example (with comments)
@@ -159,7 +163,7 @@ TownHall 2 92 54
 Peasant 3 7 8
 TownHall 3 10 10
 2				// number of AI Triggers
-Trigger1 24 74 100 startBattle() {}
-Trigger2 68 35 0 gameOver() {curTime == Trigger2.time, gold < 5000}
+Bob,TriggerTypeTime,0,500,cycles,GiveGoldEvent,100
+Steve,TriggerTypeLocation,0,50,50,AddBuildingsEvent,50,50,8,1
 
 ```

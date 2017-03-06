@@ -84,7 +84,7 @@ private slots:
     void on_tool_keep_clicked();
     void on_tool_mill_clicked();
     void on_tool_smith_clicked();
-    void on_tool_tower_clicked();
+    void on_tool_scouttower_clicked();
     void on_tool_archer_clicked();
     void on_tool_knight_clicked();
     void on_tool_ranger_clicked();
@@ -133,9 +133,14 @@ private:
     DgAssets *wAssets = 0;
     QMap<QString,Texture*> assets;
 
+    Texture *asset = 0;
+
+    //Stores tiles from undo button
+     QStack<RecordedTile> undoTiles;
+
     //Stores tiles from undo/redo
-    QStack<RecordedTile> undoTiles;
     QStack<RecordedTile> redoTiles;
+
 
     //Prevents already-dealt-with elements from being re-pushed onto either stack
     bool undone;
