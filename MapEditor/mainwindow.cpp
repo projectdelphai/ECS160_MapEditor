@@ -10,6 +10,7 @@
 #include "dialogs/dgassets.h"
 #include "dialogs/dgaddtrigger.h"
 #include "aitrigger.h"
+#include "newproject.h"
 #include <QMediaPlayer>
 
 RecordedTile::RecordedTile()
@@ -43,10 +44,16 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     // resize minimap
     ui->graphicsView_2->fitInView(0,0,256,192, Qt::KeepAspectRatio);
 
+    newproject *project = new newproject();
+
     // connect signals and slots
     QObject::connect(scene, &GraphicsScene::changedLayout, this, &MainWindow::changeLayout);
     QObject::connect(scene, &GraphicsScene::changedAsset, this, &MainWindow::changeAsset);
     QObject::connect(scene, &GraphicsScene::open_DTrigger, this, &MainWindow::open_DTrigger);
+    QObject::connect(project, &newproject::changeProjectName, this ,&MainWindow::changeProjectName);
+
+    project->show();
+
 
     // default values
     curPlayer = 1;
@@ -115,6 +122,12 @@ void MainWindow::newFile()
     if (maybeSave()) {
         // fill tile here
     }
+
+    newproject *project = new newproject();
+
+    QObject::connect(project, &newproject::changeProjectName, this, &MainWindow::changeProjectName);
+    project->show();
+
 
     // Set up the map grid
     curMap = MapView2(assets);
@@ -636,6 +649,11 @@ void MainWindow::changeAsset(int x, int y, QString asset, int player)
     Unit unit = Unit(asset, newX, newY);
 
     curMap.addUnit(unit, player);
+}
+
+void MainWindow::changeProjectName(QString projectName)
+{
+    curProjectName = projectName;
 }
 
 
