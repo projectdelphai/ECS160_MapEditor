@@ -52,6 +52,7 @@ private:
     QMap<QString,Texture*> *assets;
     QString tempX, tempY, x, y;
     int posX, posY, widthXheight = 0;
+    QMediaPlayer * music;
 };
 
 #endif // GRAPHICSSCENE_H
