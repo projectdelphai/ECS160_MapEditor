@@ -291,6 +291,10 @@ void MapView2::changeMapTile(QGraphicsScene *scene, QPointF pos , Terrain::Type 
     }
     int x = centerTile->scenePos().x()/tileDim.width();
     int y = centerTile->scenePos().y()/tileDim.height();
+    if(y==0 || x == 0 ||x ==mapDim.width() -1 || y == mapDim.height() -1)
+    {
+         return;
+    }
     prevChar = mapLayOut[(y)*mapDim.width() + x];
     QString typedx = terrain->toString(type);
     QString strType = tileEncode(typedx, y , x );
@@ -364,6 +368,11 @@ void MapView2::changeMapTile(QGraphicsScene *scene, QPointF pos , Terrain::Type 
     if (typedx == "tree"){
         builtTreeTop(scene);
     }
+    else
+    {
+        treeTopTiles.clear();
+    }
+
 
 
    }
@@ -430,14 +439,14 @@ QString MapView2::tileEncode(QString strType ,int i , int j){
     QString encodeStr = "";
     QChar centerType = strToMapkey(strType);
     // the following to ckeck whats around the current tile and get the right tile based in what around it.
-    QChar upperLTile = (i-1 < 0 || j - 1  < 0) ? 'X' : mapLayOut.at((i-1)*mapDim.width() + (j-1));
-    QChar TopTile = (i-1 < 0 ) ? 'X' : mapLayOut.at((i-1)*mapDim.width() + j );
-    QChar upperRTile = (i-1 < 0 || j+1 > mapDim.width() - 1) ? 'X' : mapLayOut.at((i-1)*mapDim.width() + (j+1));
-    QChar centerLTile = (j-1 < 0) ? 'X': mapLayOut.at((i)*mapDim.width() + (j-1));
-    QChar centerRTile = (j+1 > mapDim.width() -1 ) ? 'X' : mapLayOut.at((i)*mapDim.width() + (j+1));
-    QChar downLTile = (i+1 > mapDim.height() -1 || j -1 < 0 ) ? 'X' : mapLayOut.at((i+1)*mapDim.width() + (j-1));
-    QChar belowTile = (i+1 > mapDim.height() -1 ) ? 'X': mapLayOut.at((i+1)*mapDim.width() + (j));
-    QChar downRTile = (i+1 > mapDim.height() -1 || j+1 > mapDim.width() -1) ? 'X': mapLayOut.at((i+1)*mapDim.width() + (j+1));
+    QChar upperLTile = (i-1 <= 0 || j - 1  <= 0) ? 'X' : mapLayOut.at((i-1)*mapDim.width() + (j-1));
+    QChar TopTile = (i-1 <= 0 ) ? 'X' : mapLayOut.at((i-1)*mapDim.width() + j );
+    QChar upperRTile = (i-1 <= 0 || j+1 >= mapDim.width() - 1) ? 'X' : mapLayOut.at((i-1)*mapDim.width() + (j+1));
+    QChar centerLTile = (j-1 <= 0) ? 'X': mapLayOut.at((i)*mapDim.width() + (j-1));
+    QChar centerRTile = (j+1 >= mapDim.width() -1 ) ? 'X' : mapLayOut.at((i)*mapDim.width() + (j+1));
+    QChar downLTile = (i+1 >= mapDim.height() -1 || j -1 <= 0 ) ? 'X' : mapLayOut.at((i+1)*mapDim.width() + (j-1));
+    QChar belowTile = (i+1 >= mapDim.height() -1 ) ? 'X': mapLayOut.at((i+1)*mapDim.width() + (j));
+    QChar downRTile = (i+1 >= mapDim.height() -1 || j+1 >= mapDim.width() -1) ? 'X': mapLayOut.at((i+1)*mapDim.width() + (j+1));
 
     // water and rock have the same way of getting the right tile we are using 3 by 3 matrix of 0 and 1's zero for unmatch and 1 for match
     // the current tile will be at position 1,1.
@@ -723,7 +732,7 @@ void MapView2::addTrigger(AITrigger *trigger){
         return;
     }
 
-    qDebug() << "added";
+    //qDebug() << "added";
     triggers.append(trigger);
 }
 

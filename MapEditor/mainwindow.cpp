@@ -626,7 +626,7 @@ Terrain::Type MainWindow::getTileType(QChar tile)
 }
 
 void MainWindow::activateAI(){
-    qDebug() << QTime::currentTime().toString();
+   // qDebug() << QTime::currentTime().toString();
 }
 
 void MainWindow::changeAsset(int x, int y, QString asset, int player)
