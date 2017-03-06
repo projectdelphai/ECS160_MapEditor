@@ -14,6 +14,7 @@ GraphicsScene::GraphicsScene(QObject *parent, MapView2 *curMap, QMap<QString, Te
     GraphicsScene::assets = loadedAssets;
     brushing = false;
     brushable = false;
+    large = false;
     music = new QMediaPlayer();
 }
 
@@ -97,6 +98,7 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
             music->setMedia(QUrl("qrc:/data/snd/buildings/gold-mine.wav"));
             widthXheight = 4;
             frames = 1;
+            large = true;
         }
         else if (curTool == "TownHall")
         {
@@ -104,6 +106,7 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
             music->setMedia(QUrl("qrc:/data/snd/misc/thunk.wav"));
             widthXheight = 4;
             frames = 3;
+            large = true;
         }
         else if (curTool == "Barracks")
         {
@@ -112,6 +115,7 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
             music->setMedia(QUrl("qrc:/data/snd/misc/thunk.wav"));
             widthXheight = 3;
             frames = 3;
+            large = true;
         }
         else if (curTool == "Blacksmith")
         {
@@ -119,6 +123,7 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
             music->setMedia(QUrl("qrc:/data/snd/buildings/blacksmith.wav"));
             widthXheight = 3;
             frames = 3;
+            large = true;
         }
         else if (curTool == "CannonTower")
         {
@@ -133,6 +138,7 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
             music->setMedia(QUrl("qrc:/data/snd/misc/thunk.wav"));
             widthXheight = 4;
             frames = 2;
+            large = true;
         }
         else if (curTool == "Farm")
         {
@@ -162,6 +168,7 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
             music->setMedia(QUrl("qrc:/data/snd/misc/thunk.wav"));
             widthXheight = 4;
             frames = 2;
+            large = true;
         }
         else if (curTool == "LumberMill")
         {
@@ -169,6 +176,7 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
             music->setMedia(QUrl("qrc:/data/snd/buildings/lumber-mill.wav"));
             widthXheight = 3;
             frames = 3;
+            large = true;
         }
         else if (curTool == "hand")
         {
@@ -220,7 +228,18 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
 
         }
         else
-        {//Loads/Animates the assets            
+        {//Loads/Animates the assets
+
+            int besho = 2;
+            if(large)
+            {
+                besho = widthXheight;
+            }
+            if(x==0||y==0|| (x/32) + besho>= mapInfo->getMapDim().width()||(y/32)+besho >= mapInfo->getMapDim().height())
+            {
+                QMessageBox::warning(0,"Cannot place","Place somewhere else away from border!");
+                return;
+            }
             brushable = false;
 
             if (curTool == "GoldMine")

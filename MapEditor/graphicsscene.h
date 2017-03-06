@@ -42,6 +42,7 @@ private:
     MapView2 *mapInfo;
     bool brushing;
     bool brushable;
+    bool large;
     QVector<QString> addedItems;
     QVector<QString> tempXY;
     QVector<QString> loc;
