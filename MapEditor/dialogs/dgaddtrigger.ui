@@ -237,6 +237,17 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>txt_name</tabstop>
+  <tabstop>select_type</tabstop>
+  <tabstop>check_persistence</tabstop>
+  <tabstop>list_trigArgs</tabstop>
+  <tabstop>tool_curLocation</tabstop>
+  <tabstop>txt_event</tabstop>
+  <tabstop>list_eventArgs</tabstop>
+  <tabstop>tool_addEventArg</tabstop>
+  <tabstop>tool_remEventArg</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>
