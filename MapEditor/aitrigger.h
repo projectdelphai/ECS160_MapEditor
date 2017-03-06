@@ -4,11 +4,9 @@
 #include <QObject>
 #include <QString>
 #include <QPoint>
-#include <QTimer>
 #include <QWidget>
 #include "tile.h"
 #include <QDebug>
-#include <QGraphicsEllipseItem>
 
 class AITrigger
 {
@@ -20,6 +18,8 @@ public:
 
     // gets
     Tile* getTile();
+    QString getType();
+    QPoint* getPos();
 
     // sets
     void setTile(Tile *tile);

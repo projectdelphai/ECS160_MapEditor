@@ -719,6 +719,19 @@ void MapView2::builtAssets(QGraphicsScene *scene){
             scene->addItem(unitItem);
         }
      }
+
+    for(int i = 0; i < triggers.size(); i++) {
+        QImage trigImage(":/data/img/Trigger.png");
+        Tile* newTriggerTile = new Tile("Trigger", QPixmap::fromImage(trigImage));
+        newTriggerTile->setZValue(10);
+
+        newTriggerTile->setPos(32, (i+1)*32);
+        if(triggers.at(i)->getType() == "TriggerTypeLocation")
+            newTriggerTile->setPos((*triggers.at(i)->getPos())*32);
+
+        triggers[i]->setTile(newTriggerTile);
+        scene->addItem(newTriggerTile);
+    }
 }
 
 void MapView2::displayMap(QGraphicsScene *scene){

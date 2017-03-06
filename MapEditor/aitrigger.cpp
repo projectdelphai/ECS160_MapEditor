@@ -31,6 +31,16 @@ Tile* AITrigger::getTile(){
     return tile;
 }
 
+QString AITrigger::getType(){
+    return type;
+}
+
+QPoint* AITrigger::getPos(){
+    if(type != "TriggerTypeLocation") return 0;
+    QPoint* pos = new QPoint(trigArgsList.front().toInt(), trigArgsList.back().toInt());
+    return pos;
+}
+
 
 // sets
 void AITrigger::setName(QString name) {
