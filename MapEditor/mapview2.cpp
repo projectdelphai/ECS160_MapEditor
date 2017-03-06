@@ -35,16 +35,16 @@ MapView2::MapView2(QMap<QString,Texture*>& loadedAssets)
 
     assets = loadedAssets;
     terrain = new Terrain;
-    buttonColors = new Texture(":/data/img/ButtonColors.png", 1, 1);
-    buttonIcons = new Texture(":/data/img/Icons.png", 46, 38);
+    buttonColors = new Texture(":/data/default/img/ButtonColors.png", 1, 1);
+    buttonIcons = new Texture(":/data/default/img/Icons.png", 46, 38);
 
     tileDim.setRect(1,1,32,32);
 
     // testing for MapRendering parsing
-    terrain->renderingInfo(":/data/img/MapRendering.dat");
+    terrain->renderingInfo(":/data/default/img/MapRendering.dat");
 }
 
-MapView2::MapView2(QIODevice &mapFile ,QMap<QString,Texture*>& loadedAssets, const QString &mapTexName = ":/data/img/Terrain.png"  )
+MapView2::MapView2(QIODevice &mapFile ,QMap<QString,Texture*>& loadedAssets, const QString &mapTexName = ":/data/default/img/Terrain.png"  )
 {
     openMap(mapFile);
 //    setup();
@@ -55,29 +55,29 @@ MapView2::MapView2(QIODevice &mapFile ,QMap<QString,Texture*>& loadedAssets, con
     tileDim.setRect(1,1,32,32);
 
     // testing for MapRendering parsing
-    terrain->renderingInfo(":/data/img/MapRendering.dat");
+    terrain->renderingInfo(":/data/default/img/MapRendering.dat");
 }
 
 
 void MapView2::setup(){
     // grab all the asset files
-    QString path = ":/data/img";
-    QString colorFile = ":/data/img/Colors.png";
-    QString goldmineTool = ":/data/img/GoldMine.dat";
-    QString peasantTool = ":/data/img/Peasant.dat";
-    QString archerTool = ":/data/img/Archer.dat";
-    QString knightTool = ":/data/img/Knight.dat";
-    QString rangerTool = ":/data/img/Ranger.dat";
-    QString townhallTool = ":/data/img/TownHall.dat";
-    QString barracksTool = ":/data/img/Barracks.dat";
-    QString blacksmithTool = ":/data/img/Blacksmith.dat";
-    QString cannontowerTool = ":/data/img/CannonTower.dat";
-    QString castleTool = ":/data/img/Castle.dat";
-    QString farmTool = ":/data/img/Farm.dat";
-    QString guardtowerTool = ":/data/img/GuardTower.dat";
-    QString keepTool = ":/data/img/Keep.dat";
-    QString lumbermillTool = ":/data/img/LumberMill.dat";
-    QString scouttowerTool = ":/data/img/ScoutTower.dat";
+    QString path = ":/data/default/img";
+    QString colorFile = ":/data/default/img/Colors.png";
+    QString goldmineTool = ":/data/default/img/GoldMine.dat";
+    QString peasantTool = ":/data/default/img/Peasant.dat";
+    QString archerTool = ":/data/default/img/Archer.dat";
+    QString knightTool = ":/data/default/img/Knight.dat";
+    QString rangerTool = ":/data/default/img/Ranger.dat";
+    QString townhallTool = ":/data/default/img/TownHall.dat";
+    QString barracksTool = ":/data/default/img/Barracks.dat";
+    QString blacksmithTool = ":/data/default/img/Blacksmith.dat";
+    QString cannontowerTool = ":/data/default/img/CannonTower.dat";
+    QString castleTool = ":/data/default/img/Castle.dat";
+    QString farmTool = ":/data/default/img/Farm.dat";
+    QString guardtowerTool = ":/data/default/img/GuardTower.dat";
+    QString keepTool = ":/data/default/img/Keep.dat";
+    QString lumbermillTool = ":/data/default/img/LumberMill.dat";
+    QString scouttowerTool = ":/data/default/img/ScoutTower.dat";
 
 
     // append them to a vector
