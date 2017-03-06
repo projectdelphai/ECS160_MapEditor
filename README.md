@@ -67,8 +67,9 @@ The file structure is as follows:
 	TownHall 2 92 54
 	```
 - AI Triggers
-	* `Name Type X Y Seconds {Conditions} Trigger`
-	* Conditions and Trigger are both user-defined
+	* `Name X Y Range Function {Conditions}`
+	* Conditions and Function are both user-defined
+	* Use Regex `(\w+) (\d+) (\d+) (\d+) (.*) ({.*})`
 
 
 # Code Example (with comments)
@@ -158,7 +159,7 @@ TownHall 2 92 54
 Peasant 3 7 8
 TownHall 3 10 10
 2				// number of AI Triggers
-Trigger1 location 24 74 0 {unit != peasant} startBattle()
-Trigger2 time 68 35 360 {gold < 5000} gameOver()
+Trigger1 24 74 100 startBattle() {}
+Trigger2 68 35 0 gameOver() {curTime == Trigger2.time, gold < 5000}
 
 ```

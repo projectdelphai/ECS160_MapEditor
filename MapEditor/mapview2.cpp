@@ -1,5 +1,6 @@
 #include "mapview2.h"
 #include <QDebug>
+#include <QRegularExpression>
 
 Player::Player()
 {
@@ -240,6 +241,47 @@ void MapView2::openMap(QIODevice &mapFile){
                 lineNum++;
                 line = in.readLine();
             }
+
+
+            // for each AI Trigger
+            int numTriggers = line.toInt();
+            lineNum++;
+            line = in.readLine();
+
+            for(int i = 0; i < numTriggers; i++) {
+                QStringList list = line.split(',');
+
+                // each trigger type has its own number of arguments
+                /* TriggerTypeTime 1
+                 * TriggerTypeResource 2
+                 * TriggerTypeLocation 2
+                 * TriggerTypeAssetObtained 2
+                 * TriggerTypeLocation 2
+                 * TriggerName,TriggerTypeName,0,trigArg1,trigArg2,ExampleEvent1,exampleEventArgs
+                 */
+
+                QString name = list.takeFirst();
+                QString type = list.takeFirst();
+                bool persistence = list.takeFirst().toInt();
+                QStringList trigArgs;
+                trigArgs.append(list.takeFirst());
+                trigArgs.append(list.takeFirst());
+                QString event = list.takeFirst();
+                QStringList eventArgs = list;
+
+                qDebug() << line;
+                qDebug() << trigArgs;
+                qDebug() << eventArgs;
+
+                // create Trigger
+                AITrigger* trigger = new AITrigger(name, type, persistence, event, trigArgs, eventArgs);
+
+                triggers.append(trigger);
+
+                lineNum++;
+                line = in.readLine();
+            }
+
         }
     }
 
@@ -761,15 +803,6 @@ int MapView2::getNumUnits()
 
 void MapView2::addUnit(Unit u, int player)
 {
-    if (getNumPlayers() < player)
-    {
-        for (int i = getNumPlayers(); i < player + 1; i++)
-        {
-            Player player = Player(i, 100, 100);
-            addPlayer(player);
-        }
-    }
-
     players[player].units.append(u);
 }
 

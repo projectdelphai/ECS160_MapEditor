@@ -222,7 +222,7 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
                     pixItem->setPos(x, y);
                     addItem(pixItem);
                     delayUnit(500);
-                       removeItem(pixItem);
+                    removeItem(pixItem);
                  }              
             }
 
