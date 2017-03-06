@@ -15,6 +15,8 @@ GraphicsScene::GraphicsScene(QObject *parent, MapView2 *curMap, QMap<QString, Te
     GraphicsScene::assets = loadedAssets;
     brushing = false;
     brushable = false;
+    music = new QMediaPlayer();
+
 }
 
 void GraphicsScene::delayUnit(int millisecondsToWait)
@@ -46,7 +48,6 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
         Terrain *terrain = mapInfo->getTerrain();
         Terrain::Type type;
         Texture *asset = 0;
-        QMediaPlayer * music = new QMediaPlayer();
 
 
         if (curTool == "grass")
@@ -201,7 +202,7 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
             if(addedItems.contains(y))
             {
                 QMessageBox::warning(0,"Error!","Cannot put tile on assets");
-                qDebug() << y;
+               // qDebug() << y;
                 return;
             }
             else
@@ -213,7 +214,7 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
                     if(loc.contains(y) == false)
                     {
                         loc.append(y);
-                        qDebug() << loc;
+                       // qDebug() << loc;
                     }
                 }
             }
@@ -290,7 +291,7 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
                         addedItems.append(tempY);
                     }
                 }
-                qDebug() << addedItems;
+              //  qDebug() << addedItems;
             }
             else
             {
@@ -344,7 +345,7 @@ void GraphicsScene::removeToolItem(QGraphicsSceneMouseEvent *mouseEvent)
                 }
             }
             this->removeItem(item);
-            qDebug() << addedItems;
+          //  qDebug() << addedItems;
         }
         else
             return;
