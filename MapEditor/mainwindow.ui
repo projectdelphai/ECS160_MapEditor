@@ -1151,7 +1151,7 @@
      <x>0</x>
      <y>0</y>
      <width>1142</width>
-     <height>22</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -1222,6 +1222,8 @@
     </property>
     <addaction name="actionAnimate"/>
     <addaction name="actionZoom_Out"/>
+    <addaction name="separator"/>
+    <addaction name="actionGridlines"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -1454,6 +1456,14 @@
    </property>
    <property name="text">
     <string>Hide Triggers</string>
+   </property>
+  </action>
+  <action name="actionGridlines">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Gridlines</string>
    </property>
   </action>
  </widget>
