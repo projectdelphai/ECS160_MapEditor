@@ -69,6 +69,7 @@ The file structure is as follows:
 - AI Triggers
 	* `Name,Type,Persistence,TrigArg1,TrigArg2,Event,EventArg1,EventArg2`
 	* TrigArg1 and TrigArg2 are dependent on the Type
+	
 	  |Type| TrigArg1 | TrigArg2
       |---| --- | ---
       |TriggerTypeTime | timeStamp | timeUnit
