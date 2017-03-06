@@ -1,5 +1,6 @@
 #include "mapview2.h"
 #include <QDebug>
+#include <QRegularExpression>
 
 Player::Player()
 {
@@ -240,6 +241,34 @@ void MapView2::openMap(QIODevice &mapFile){
                 lineNum++;
                 line = in.readLine();
             }
+
+
+            // for each AI Trigger
+            int numTriggers = line.toInt();
+            lineNum++;
+            line = in.readLine();
+
+            for(int i = 0; i < numTriggers; i++) {
+                QStringList list = line.split(',');
+
+                QString name = list.takeFirst();
+                QString type = list.takeFirst();
+                bool persistence = list.takeFirst().toInt();
+                QStringList trigArgs;
+                trigArgs.append(list.takeFirst());
+                trigArgs.append(list.takeFirst());
+                QString event = list.takeFirst();
+                QStringList eventArgs = list;
+
+                // create Trigger
+                AITrigger* trigger = new AITrigger(name, type, persistence, event, trigArgs, eventArgs);
+
+                triggers.append(trigger);
+
+                lineNum++;
+                line = in.readLine();
+            }
+
         }
     }
 
@@ -690,6 +719,19 @@ void MapView2::builtAssets(QGraphicsScene *scene){
             scene->addItem(unitItem);
         }
      }
+
+    for(int i = 0; i < triggers.size(); i++) {
+        QImage trigImage(":/data/img/Trigger.png");
+        Tile* newTriggerTile = new Tile("Trigger", QPixmap::fromImage(trigImage));
+        newTriggerTile->setZValue(10);
+
+        newTriggerTile->setPos(32, (i+1)*32);
+        if(triggers.at(i)->getType() == "TriggerTypeLocation")
+            newTriggerTile->setPos((*triggers.at(i)->getPos())*32);
+
+        triggers[i]->setTile(newTriggerTile);
+        scene->addItem(newTriggerTile);
+    }
 }
 
 void MapView2::displayMap(QGraphicsScene *scene){
@@ -770,15 +812,6 @@ int MapView2::getNumUnits()
 
 void MapView2::addUnit(Unit u, int player)
 {
-    if (getNumPlayers() < player)
-    {
-        for (int i = getNumPlayers(); i < player + 1; i++)
-        {
-            Player player = Player(i, 100, 100);
-            addPlayer(player);
-        }
-    }
-
     players[player].units.append(u);
 }
 

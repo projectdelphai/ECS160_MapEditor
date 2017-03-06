@@ -416,6 +416,12 @@ void MainWindow::writeMapFile(QIODevice *file){
         }
     }
 
+    // write ai triggers
+    stream << curMap.getTriggers().length() << endl;
+    for( int i = 0; i < curMap.getTriggers().length(); i++){
+        stream << curMap.getTriggers().at(i)->infoAI() << endl;
+    }
+
     file->close();
 }
 
@@ -559,8 +565,6 @@ void MainWindow::wheelEvent(QWheelEvent *event)
         //ui->graphicsView->fitInView(0,0,3075,2065);
     }
 }
-
-
 
 void MainWindow::changeLayout(int x, int y, Terrain::Type type)
 {
@@ -987,50 +991,15 @@ void MainWindow::open_DgAssets(){
 }
 
 void MainWindow::open_DTrigger(QGraphicsScene *scene , Tile *tile){
-    DgAddTrigger window(this);
-    if ( window.exec() != QDialog::Accepted ){
+    DgAddTrigger wTrigger(tile, this);
+    if ( wTrigger.exec() != QDialog::Accepted ){
         scene->removeItem(tile);
         return;
     }
 
-    AITrigger *trigger = new AITrigger(window.name);
-    trigger->setMarker(tile);
-    trigger->setTimer(window.time);
-    trigger->setRange(0);
-    trigger->startTimer(this);
-    trigger->setCondition(window.condition);
-    trigger->setTriggerFunction(window.trigger);
-    trigger->setType(window.type);
+    AITrigger* trigger = wTrigger.aiTrigger;
 
     curMap.addTrigger(trigger);
-    bool checked = ui->actionHide_Triggers->isChecked();
-    if ( checked == false ){
-        trigger->displayRange(scene);
-    }
-
-    trigger->getMarker()->setVisible(!checked);
-
-}
-
-void MainWindow::hideTriggers(bool visible){
-    for(AITrigger *trigger : curMap.getTriggers()){
-        QGraphicsItem *item = qgraphicsitem_cast<QGraphicsItem*>(trigger->getMarker());
-        if ( scene->items().contains( item) ){
-            item->setVisible(visible);
-            if( visible == 0 && trigger->isRangeOn()){
-                trigger->removeRange(scene);
-            }
-            else if (visible != 0 || trigger->isRangeOn() == false ){
-                trigger->displayRange(scene);
-            }
-        }
-    }
-}
-
-void MainWindow::on_actionHide_Trigger_triggered()
-{
-    bool enable = !(ui->actionHide_Triggers->isChecked());
-    hideTriggers(enable);
 }
 
 void MainWindow::setupAssets(){

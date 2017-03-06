@@ -166,6 +166,7 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
             widthXheight = 4;
             frames = 2;
         }
+
         else if (curTool == "LumberMill")
         {
             asset = mapInfo->getAsset("LumberMill");
@@ -215,7 +216,6 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
                     if(loc.contains(y) == false)
                     {
                         loc.append(y);
-                       // qDebug() << loc;
                     }
                 }
             }
@@ -223,7 +223,8 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
 
         }
         else
-        {//Loads/Animates the assets            
+        {//Loads/Animates the assets
+
             brushable = false;
 
             if (curTool == "GoldMine")
@@ -279,8 +280,7 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
                     if(i != frames-1)
                         removeItem(pixItem);
                 }
-
-                // play background music
+                 // play background music
                 music->play();
                 for(int i = 0; i < widthXheight; i++)
                 {
@@ -292,7 +292,17 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
                         addedItems.append(tempY);
                     }
                 }
-              //  qDebug() << addedItems;
+            } else if (curTool == "Peasant" || curTool == "Knight" || curTool == "Archer" || curTool == "Ranger"){
+                for (int i=0; i<= 39;i++){
+                    imageDx = asset->colorPlayerImg[curPlayer][i];
+                    QPixmap pixmap = QPixmap::fromImage(imageDx);
+                    pixItem = new Tile(type, pixmap);
+
+                    pixItem->setPos(x, y);
+                    addItem(pixItem);
+                    delayUnit(500);
+                    removeItem(pixItem);
+                }
             }
             else
             {
@@ -346,7 +356,6 @@ void GraphicsScene::removeToolItem(QGraphicsSceneMouseEvent *mouseEvent)
                 }
             }
             this->removeItem(item);
-          //  qDebug() << addedItems;
         }
         else
             return;
