@@ -214,7 +214,6 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
                     if(loc.contains(y) == false)
                     {
                         loc.append(y);
-                        qDebug() << loc;
                     }
                 }
             }
@@ -291,7 +290,6 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
                         addedItems.append(tempY);
                     }
                 }
-                qDebug() << addedItems;
             } else if (curTool == "Peasant" || curTool == "Knight" || curTool == "Archer" || curTool == "Ranger"){
                 for (int i=0; i<= 39;i++){
                     imageDx = asset->colorPlayerImg[curPlayer][i];
@@ -356,7 +354,6 @@ void GraphicsScene::removeToolItem(QGraphicsSceneMouseEvent *mouseEvent)
                 }
             }
             this->removeItem(item);
-            qDebug() << addedItems;
         }
         else
             return;
