@@ -1222,7 +1222,6 @@
     </property>
     <addaction name="actionAnimate"/>
     <addaction name="actionZoom_Out"/>
-    <addaction name="actionHide_Triggers"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>

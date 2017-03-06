@@ -975,24 +975,6 @@ void MainWindow::open_DTrigger(QGraphicsScene *scene , Tile *tile){
     AITrigger* trigger = wTrigger.aiTrigger;
 
     curMap.addTrigger(trigger);
-    bool checked = ui->actionHide_Triggers->isChecked();
-
-    trigger->getTile()->setVisible(!checked);
-}
-
-void MainWindow::hideTriggers(bool visible){
-    for(AITrigger *trigger : curMap.getTriggers()){
-        QGraphicsItem *item = qgraphicsitem_cast<QGraphicsItem*>(trigger->getTile());
-        if ( scene->items().contains(item) ){
-            item->setVisible(visible);
-        }
-    }
-}
-
-void MainWindow::on_actionHide_Trigger_triggered()
-{
-    bool enable = !(ui->actionHide_Triggers->isChecked());
-    hideTriggers(enable);
 }
 
 void MainWindow::setupAssets(){
