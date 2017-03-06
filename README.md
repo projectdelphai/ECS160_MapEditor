@@ -67,9 +67,10 @@ The file structure is as follows:
 	TownHall 2 92 54
 	```
 - AI Triggers
-	* `Name,Type,Persistence,TrigArg1,TrigArg2,Event,EventArg1,EventArg2`
+	* `Name,Type,Persistence,TrigArg1,TrigArg2,Event,EventArgs*`
+	* EventArgs* can be any number of arguments
 	* TrigArg1 and TrigArg2 are dependent on the Type
-	
+
 	  |Type| TrigArg1 | TrigArg2
       |---| --- | ---
       |TriggerTypeTime | timeStamp | timeUnit
