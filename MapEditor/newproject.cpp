@@ -19,3 +19,8 @@ void newproject::on_confirmProject_clicked()
     emit changeProjectName(ui->newProjectName->text());
     this->close();
 }
+
+void newproject::on_testValid_clicked()
+{
+
+}

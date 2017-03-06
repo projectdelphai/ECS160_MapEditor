@@ -10,7 +10,7 @@
 #include "dialogs/dgassets.h"
 #include "dialogs/dgaddtrigger.h"
 #include "aitrigger.h"
-#include "newproject.h"
+#include "newfile.h"
 #include <QMediaPlayer>
 
 RecordedTile::RecordedTile()
@@ -44,15 +44,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     // resize minimap
     ui->graphicsView_2->fitInView(0,0,256,192, Qt::KeepAspectRatio);
 
-    newproject *project = new newproject();
-
     // connect signals and slots
     QObject::connect(scene, &GraphicsScene::changedLayout, this, &MainWindow::changeLayout);
     QObject::connect(scene, &GraphicsScene::changedAsset, this, &MainWindow::changeAsset);
     QObject::connect(scene, &GraphicsScene::open_DTrigger, this, &MainWindow::open_DTrigger);
-    QObject::connect(project, &newproject::changeProjectName, this ,&MainWindow::changeProjectName);
-
-    project->show();
 
 
     // default values
@@ -60,7 +55,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     scene->curPlayer = 1;
     // play background music
     QMediaPlayer * backgroundMusic = new QMediaPlayer();
-    backgroundMusic->setMedia(QUrl("qrc:/data/snd/basic/annoyed2.wav"));
+    backgroundMusic->setMedia(QUrl("qrc:/data/default/snd/basic/annoyed2.wav"));
     backgroundMusic->play();
 }
 
@@ -123,10 +118,15 @@ void MainWindow::newFile()
         // fill tile here
     }
 
-    newproject *project = new newproject();
+    NewFile *newfile = new NewFile();
 
-    QObject::connect(project, &newproject::changeProjectName, this, &MainWindow::changeProjectName);
-    project->show();
+    QObject::connect(newfile, &NewFile::changeProjectName, this, &MainWindow::changeProjectName);
+
+    newfile->exec();\
+
+    if (curProjectName == "")
+        this->close();
+
 
 
     // Set up the map grid
@@ -201,7 +201,7 @@ bool MainWindow::loadMapFile(QString fileName, QIODevice &file)
 
     // load and display map and minimap
     QString mapName = fileName;
-    QString texture = ":/data/img/Terrain.png";
+    QString texture = ":/data/default/img/Terrain.png";
 
     curMap = MapView2(file, assets, texture );
 
@@ -1028,23 +1028,23 @@ void MainWindow::on_actionHide_Trigger_triggered()
 
 void MainWindow::setupAssets(){
     // grab all the asset files
-    QString path = ":/data/img";
-    QString colorFile = ":/data/img/Colors.png";
-    QString goldmineTool = ":/data/img/GoldMine.dat";
-    QString peasantTool = ":/data/img/Peasant.dat";
-    QString archerTool = ":/data/img/Archer.dat";
-    QString knightTool = ":/data/img/Knight.dat";
-    QString rangerTool = ":/data/img/Ranger.dat";
-    QString townhallTool = ":/data/img/TownHall.dat";
-    QString barracksTool = ":/data/img/Barracks.dat";
-    QString blacksmithTool = ":/data/img/Blacksmith.dat";
-    QString cannontowerTool = ":/data/img/CannonTower.dat";
-    QString castleTool = ":/data/img/Castle.dat";
-    QString farmTool = ":/data/img/Farm.dat";
-    QString guardtowerTool = ":/data/img/GuardTower.dat";
-    QString keepTool = ":/data/img/Keep.dat";
-    QString lumbermillTool = ":/data/img/LumberMill.dat";
-    QString scouttowerTool = ":/data/img/ScoutTower.dat";
+    QString path = ":/data/default/img";
+    QString colorFile = ":/data/default/img/Colors.png";
+    QString goldmineTool = ":/data/default/img/GoldMine.dat";
+    QString peasantTool = ":/data/default/img/Peasant.dat";
+    QString archerTool = ":/data/default/img/Archer.dat";
+    QString knightTool = ":/data/default/img/Knight.dat";
+    QString rangerTool = ":/data/default/img/Ranger.dat";
+    QString townhallTool = ":/data/default/img/TownHall.dat";
+    QString barracksTool = ":/data/default/img/Barracks.dat";
+    QString blacksmithTool = ":/data/default/img/Blacksmith.dat";
+    QString cannontowerTool = ":/data/default/img/CannonTower.dat";
+    QString castleTool = ":/data/default/img/Castle.dat";
+    QString farmTool = ":/data/default/img/Farm.dat";
+    QString guardtowerTool = ":/data/default/img/GuardTower.dat";
+    QString keepTool = ":/data/default/img/Keep.dat";
+    QString lumbermillTool = ":/data/default/img/LumberMill.dat";
+    QString scouttowerTool = ":/data/default/img/ScoutTower.dat";
 
 
 

@@ -42,7 +42,8 @@ SOURCES += main.cpp\
     exporttoweb.cpp \
     dialogs/dgaddtrigger.cpp \
     aitrigger.cpp \
-    newproject.cpp
+    newproject.cpp \
+    newfile.cpp
 
 HEADERS  += mainwindow.h \
     mapview2.h \
@@ -58,7 +59,8 @@ HEADERS  += mainwindow.h \
     exporttoweb.h \
     dialogs/dgaddtrigger.h \
     aitrigger.h \
-    newproject.h
+    newproject.h \
+    newfile.h
 
 FORMS    += mainwindow.ui \
     dialogs/dgmapproperties.ui \
@@ -67,7 +69,8 @@ FORMS    += mainwindow.ui \
     dialogs/dgassets.ui \
     exporttoweb.ui \
     dialogs/dgaddtrigger.ui \
-    newproject.ui
+    newproject.ui \
+    newfile.ui
 
 RESOURCES += \
     icons.qrc \

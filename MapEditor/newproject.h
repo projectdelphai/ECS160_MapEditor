@@ -21,6 +21,8 @@ signals:
 private slots:
     void on_confirmProject_clicked();
 
+    void on_testValid_clicked();
+
 private:
     Ui::newproject *ui;
 };
