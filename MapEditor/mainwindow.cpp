@@ -300,7 +300,6 @@ void MainWindow::undo()
     if (!asset)
     {
         scene->setBrushable(true);
-
         scene->getMapInfo()->setSaveChar(true);
         if(rt.rtype == Terrain::Water || rt.rtype == Terrain::Rock || rt.rtype == Terrain::Tree || rt.rtype == Terrain::Wall)
             brushSize = 2;
@@ -318,6 +317,7 @@ void MainWindow::undo()
         else
         {
             scene->setBrushable(true);
+            scene->getMapInfo()->setSaveChar(false);
             scene->getMapInfo()->changeMapTile(scene, QPointF(rt.x, rt.y), rt.utype);
             if(rt.rtype == Terrain::Water || rt.rtype == Terrain::Rock || rt.rtype == Terrain::Tree || rt.rtype == Terrain::Wall)
             {

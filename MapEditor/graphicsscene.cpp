@@ -218,6 +218,7 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
             else
             {
                 brushable = true;
+                mapInfo->setSaveChar(false);
                 mapInfo->changeMapTile(this, mouseEvent->scenePos(),type);
                 if(type == Terrain::Water || type == Terrain::Rock || type == Terrain::Tree || type == Terrain::Wall)
                 {
