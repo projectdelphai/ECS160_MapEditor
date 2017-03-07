@@ -6,184 +6,134 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>206</width>
-    <height>214</height>
+    <width>293</width>
+    <height>315</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>296</width>
+    <height>342</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Add Trigger</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
-    <layout class="QFormLayout" name="formLayout">
-     <item row="0" column="0">
-      <widget class="QLabel" name="label_name">
-       <property name="text">
-        <string>Name</string>
-       </property>
-      </widget>
+  <layout class="QGridLayout" name="gridLayout">
+   <property name="sizeConstraint">
+    <enum>QLayout::SetFixedSize</enum>
+   </property>
+   <item row="1" column="1">
+    <widget class="QComboBox" name="select_type">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>150</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <item>
+      <property name="text">
+       <string>Time</string>
+      </property>
      </item>
-     <item row="0" column="1">
-      <widget class="QLineEdit" name="txt_name">
-       <property name="accessibleName">
-        <string>name</string>
-       </property>
-       <property name="readOnly">
-        <bool>false</bool>
-       </property>
-       <property name="placeholderText">
-        <string>trigger_1</string>
-       </property>
-      </widget>
+     <item>
+      <property name="text">
+       <string>Resource</string>
+      </property>
      </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="label_time">
-       <property name="text">
-        <string>Time</string>
-       </property>
-      </widget>
+     <item>
+      <property name="text">
+       <string>Location</string>
+      </property>
      </item>
-     <item row="2" column="1">
-      <layout class="QHBoxLayout" name="horizontalLayout">
-       <property name="sizeConstraint">
-        <enum>QLayout::SetMaximumSize</enum>
-       </property>
-       <item>
-        <widget class="QLineEdit" name="txt_min">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>30</width>
-           <height>30</height>
-          </size>
-         </property>
-         <property name="maxLength">
-          <number>3</number>
-         </property>
-         <property name="placeholderText">
-          <string>mm</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>10</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>:</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="txt_sec">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>30</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="maxLength">
-          <number>2</number>
-         </property>
-         <property name="placeholderText">
-          <string>ss</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <spacer name="horizontalSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-      </layout>
+     <item>
+      <property name="text">
+       <string>Asset Obtained</string>
+      </property>
      </item>
-     <item row="3" column="0">
-      <widget class="QLabel" name="label_condition">
-       <property name="text">
-        <string>Condition</string>
-       </property>
-      </widget>
+     <item>
+      <property name="text">
+       <string>Asset Lost</string>
+      </property>
      </item>
-     <item row="3" column="1">
-      <widget class="QLineEdit" name="txt_condition">
-       <property name="inputMask">
-        <string/>
-       </property>
-       <property name="placeholderText">
-        <string>gold &gt; 5000</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="0">
-      <widget class="QLabel" name="label_trigger">
-       <property name="text">
-        <string>Trigger</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="1">
-      <widget class="QLineEdit" name="txt_trigger">
-       <property name="placeholderText">
-        <string>game_over()</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="label_type">
-       <property name="text">
-        <string>Type</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QComboBox" name="txt_type">
-       <property name="editable">
-        <bool>true</bool>
-       </property>
-       <item>
-        <property name="text">
-         <string>Location</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Time</string>
-        </property>
-       </item>
-      </widget>
-     </item>
-    </layout>
+    </widget>
    </item>
-   <item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Persistent?</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTop|Qt::AlignTrailing</set>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="1">
+    <widget class="QLineEdit" name="txt_event">
+     <property name="maximumSize">
+      <size>
+       <width>138</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="placeholderText">
+      <string/>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QCheckBox" name="check_persistence">
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0">
+    <widget class="QLabel" name="label_event">
+     <property name="text">
+      <string>Event Name</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTop|Qt::AlignTrailing</set>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="2">
+    <widget class="QToolButton" name="tool_curLocation">
+     <property name="text">
+      <string>O</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1" rowspan="2">
+    <widget class="QListView" name="list_trigArgs">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>138</width>
+       <height>50</height>
+      </size>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="0" colspan="3">
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -193,8 +143,111 @@
      </property>
     </widget>
    </item>
+   <item row="6" column="1" rowspan="3">
+    <widget class="QListView" name="list_eventArgs">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>138</width>
+       <height>100</height>
+      </size>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>Type</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTop|Qt::AlignTrailing</set>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="QLabel" name="label_name">
+     <property name="text">
+      <string> Trigger Name</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTop|Qt::AlignTrailing</set>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QLineEdit" name="txt_name">
+     <property name="maximumSize">
+      <size>
+       <width>138</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="accessibleName">
+      <string>name</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="2" rowspan="3">
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QToolButton" name="tool_addEventArg">
+       <property name="maximumSize">
+        <size>
+         <width>32</width>
+         <height>32</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>+</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="tool_remEventArg">
+       <property name="maximumSize">
+        <size>
+         <width>32</width>
+         <height>32</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>-</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="verticalSpacer">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>txt_name</tabstop>
+  <tabstop>select_type</tabstop>
+  <tabstop>check_persistence</tabstop>
+  <tabstop>list_trigArgs</tabstop>
+  <tabstop>tool_curLocation</tabstop>
+  <tabstop>txt_event</tabstop>
+  <tabstop>list_eventArgs</tabstop>
+  <tabstop>tool_addEventArg</tabstop>
+  <tabstop>tool_remEventArg</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

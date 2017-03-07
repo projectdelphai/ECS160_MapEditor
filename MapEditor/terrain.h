@@ -14,7 +14,7 @@
 class Terrain: private Texture
 {
 public:
-    explicit Terrain(QString texFileName = ":/data/img/Terrain.png");
+    explicit Terrain(QString texFileName = ":/data/default/img/Terrain.png");
     enum  Type { Grass = 0, Dirt , Tree , Water , Rock , WallDamage , Wall , Rubble };
     QImage* getImageTile(Terrain::Type type);
     QImage* getImageTile(QString typeS);

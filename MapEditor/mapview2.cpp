@@ -1,5 +1,6 @@
 #include "mapview2.h"
 #include <QDebug>
+#include <QRegularExpression>
 
 Player::Player()
 {
@@ -34,16 +35,16 @@ MapView2::MapView2(QMap<QString,Texture*>& loadedAssets)
 
     assets = loadedAssets;
     terrain = new Terrain;
-    buttonColors = new Texture(":/data/img/ButtonColors.png", 1, 1);
-    buttonIcons = new Texture(":/data/img/Icons.png", 46, 38);
+    buttonColors = new Texture(":/data/default/img/ButtonColors.png", 1, 1);
+    buttonIcons = new Texture(":/data/default/img/Icons.png", 46, 38);
 
     tileDim.setRect(1,1,32,32);
 
     // testing for MapRendering parsing
-    terrain->renderingInfo(":/data/img/MapRendering.dat");
+    terrain->renderingInfo(":/data/default/img/MapRendering.dat");
 }
 
-MapView2::MapView2(QIODevice &mapFile ,QMap<QString,Texture*>& loadedAssets, const QString &mapTexName = ":/data/img/Terrain.png"  )
+MapView2::MapView2(QIODevice &mapFile ,QMap<QString,Texture*>& loadedAssets, const QString &mapTexName = ":/data/default/img/Terrain.png"  )
 {
     openMap(mapFile);
 //    setup();
@@ -54,29 +55,29 @@ MapView2::MapView2(QIODevice &mapFile ,QMap<QString,Texture*>& loadedAssets, con
     tileDim.setRect(1,1,32,32);
 
     // testing for MapRendering parsing
-    terrain->renderingInfo(":/data/img/MapRendering.dat");
+    terrain->renderingInfo(":/data/default/img/MapRendering.dat");
 }
 
 
 void MapView2::setup(){
     // grab all the asset files
-    QString path = ":/data/img";
-    QString colorFile = ":/data/img/Colors.png";
-    QString goldmineTool = ":/data/img/GoldMine.dat";
-    QString peasantTool = ":/data/img/Peasant.dat";
-    QString archerTool = ":/data/img/Archer.dat";
-    QString knightTool = ":/data/img/Knight.dat";
-    QString rangerTool = ":/data/img/Ranger.dat";
-    QString townhallTool = ":/data/img/TownHall.dat";
-    QString barracksTool = ":/data/img/Barracks.dat";
-    QString blacksmithTool = ":/data/img/Blacksmith.dat";
-    QString cannontowerTool = ":/data/img/CannonTower.dat";
-    QString castleTool = ":/data/img/Castle.dat";
-    QString farmTool = ":/data/img/Farm.dat";
-    QString guardtowerTool = ":/data/img/GuardTower.dat";
-    QString keepTool = ":/data/img/Keep.dat";
-    QString lumbermillTool = ":/data/img/LumberMill.dat";
-    QString scouttowerTool = ":/data/img/ScoutTower.dat";
+    QString path = ":/data/default/img";
+    QString colorFile = ":/data/default/img/Colors.png";
+    QString goldmineTool = ":/data/default/img/GoldMine.dat";
+    QString peasantTool = ":/data/default/img/Peasant.dat";
+    QString archerTool = ":/data/default/img/Archer.dat";
+    QString knightTool = ":/data/default/img/Knight.dat";
+    QString rangerTool = ":/data/default/img/Ranger.dat";
+    QString townhallTool = ":/data/default/img/TownHall.dat";
+    QString barracksTool = ":/data/default/img/Barracks.dat";
+    QString blacksmithTool = ":/data/default/img/Blacksmith.dat";
+    QString cannontowerTool = ":/data/default/img/CannonTower.dat";
+    QString castleTool = ":/data/default/img/Castle.dat";
+    QString farmTool = ":/data/default/img/Farm.dat";
+    QString guardtowerTool = ":/data/default/img/GuardTower.dat";
+    QString keepTool = ":/data/default/img/Keep.dat";
+    QString lumbermillTool = ":/data/default/img/LumberMill.dat";
+    QString scouttowerTool = ":/data/default/img/ScoutTower.dat";
 
 
     // append them to a vector
@@ -240,6 +241,34 @@ void MapView2::openMap(QIODevice &mapFile){
                 lineNum++;
                 line = in.readLine();
             }
+
+
+            // for each AI Trigger
+            int numTriggers = line.toInt();
+            lineNum++;
+            line = in.readLine();
+
+            for(int i = 0; i < numTriggers; i++) {
+                QStringList list = line.split(',');
+
+                QString name = list.takeFirst();
+                QString type = list.takeFirst();
+                bool persistence = list.takeFirst().toInt();
+                QStringList trigArgs;
+                trigArgs.append(list.takeFirst());
+                trigArgs.append(list.takeFirst());
+                QString event = list.takeFirst();
+                QStringList eventArgs = list;
+
+                // create Trigger
+                AITrigger* trigger = new AITrigger(name, type, persistence, event, trigArgs, eventArgs);
+
+                triggers.append(trigger);
+
+                lineNum++;
+                line = in.readLine();
+            }
+
         }
     }
 
@@ -706,6 +735,19 @@ void MapView2::builtAssets(QGraphicsScene *scene){
             scene->addItem(unitItem);
         }
      }
+
+    for(int i = 0; i < triggers.size(); i++) {
+        QImage trigImage(":/data/img/Trigger.png");
+        Tile* newTriggerTile = new Tile("Trigger", QPixmap::fromImage(trigImage));
+        newTriggerTile->setZValue(10);
+
+        newTriggerTile->setPos(32, (i+1)*32);
+        if(triggers.at(i)->getType() == "TriggerTypeLocation")
+            newTriggerTile->setPos((*triggers.at(i)->getPos())*32);
+
+        triggers[i]->setTile(newTriggerTile);
+        scene->addItem(newTriggerTile);
+    }
 }
 
 void MapView2::displayMap(QGraphicsScene *scene){
@@ -786,15 +828,6 @@ int MapView2::getNumUnits()
 
 void MapView2::addUnit(Unit u, int player)
 {
-    if (getNumPlayers() < player)
-    {
-        for (int i = getNumPlayers(); i < player + 1; i++)
-        {
-            Player player = Player(i, 100, 100);
-            addPlayer(player);
-        }
-    }
-
     players[player].units.append(u);
 }
 

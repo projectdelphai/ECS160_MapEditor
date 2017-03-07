@@ -4,79 +4,77 @@
 AITrigger::AITrigger(QString name)
 {
    triggerName = name;
-   radius = 100;
+}
+
+AITrigger::AITrigger(QString name, QString type, bool persistence, QString event, QStringList trigArgsList, QStringList eventArgsList)
+{
+    setName(name);
+    setType(type);
+    setPersistence(persistence);
+    setEvent(event);
+    setTrigArgsList(trigArgsList);
+    setEventArgsList(eventArgsList);
 }
 
 QString AITrigger::infoAI() const{
-    QString ai = triggerName + " " + QString().setNum(position.x()) + " " + QString().setNum(position.y()) + " " + QString().setNum(time);
+    QString ai = triggerName + "," +
+                 type + "," +
+                 QString::number(persistence) + "," +
+                 trigArgsList.join(',') + "," +
+                 event + "," +
+                 eventArgsList.join(',');
     return ai;
 }
 
-void AITrigger::setTimer(double setTime){
-    time = setTime;
+// gets
+Tile* AITrigger::getTile(){
+    return tile;
 }
 
-void AITrigger::startTimer(QWidget *widget){
-    timer = new QTimer();
-    QObject::connect(timer, SIGNAL(timeout()), widget, SLOT(activateAI()));
-    timer->start(time);
-    timer->setSingleShot(true);
-
+QString AITrigger::getType(){
+    return type;
 }
 
-void AITrigger::setRange(double rangeR){
-    if(rangeR <= 0){
-        radius = 100;
-    }
-    else{
-        radius = rangeR;
-    }
-
+QPoint* AITrigger::getPos(){
+    if(type != "TriggerTypeLocation") return 0;
+    QPoint* pos = new QPoint(trigArgsList.front().toInt(), trigArgsList.back().toInt());
+    return pos;
 }
 
-void AITrigger::setCondition(QString &cond) {
-    condition = cond;
+
+// sets
+void AITrigger::setName(QString name) {
+    triggerName = name;
 }
 
-void AITrigger::setTriggerFunction(QString &trig) {
-    triggerFunction = trig;
+void AITrigger::setType(QString t) {
+    type = t;
 }
 
-void AITrigger::setType(QString &type){
-    triggerType = type;
+void AITrigger::setPersistence(bool checked) {
+    persistence = checked;
 }
 
-void AITrigger::displayRange(QGraphicsScene * scene){
-    circleRange = new QGraphicsEllipseItem( position.x()-32,position.y()-32,radius,radius);
-    circleRange->setStartAngle(0);
-    circleRange->setSpanAngle(360*16);
-
-    circleRange->setBrush(QBrush(QColor(128, 128, 255, 128)));
-    circleRange->setZValue(100);
-    scene->addItem(circleRange);
+void AITrigger::setPosition(int x, int y) {
+    position = QPointF(x, y);
+    tile->setPos(position);
 }
 
-void AITrigger::removeRange(QGraphicsScene *scene){
-    scene->removeItem(circleRange);
+void AITrigger::setEvent(QString &func) {
+    event = func;
 }
 
-void AITrigger::hook(){
-    //qDebug() << "hell";
+void AITrigger::setTrigArgsList(QStringList &list) {
+    trigArgsList = list;
 }
 
-void AITrigger::setMarker(Tile *marker){
+void AITrigger::setEventArgsList(QStringList &list) {
+    eventArgsList = list;
+}
+
+void AITrigger::setTile(Tile *marker){
     tile = marker;
     position = tile->pos();
 }
 
-Tile* AITrigger::getMarker(){
-    return tile;
-}
 
-bool AITrigger::isRangeOn(){
-    bool init = false;
-    if (  circleRange != 0 ){
-        init = true;
-    }
-    return init;
-}

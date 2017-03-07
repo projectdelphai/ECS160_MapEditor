@@ -20,6 +20,8 @@ public:
     int x, y;
 };
 
+
+
 namespace Ui {
 class MainWindow;
 }
@@ -38,6 +40,7 @@ public slots:
     void changeLayout(int x, int y, Terrain::Type type);
     void changeAsset(int x, int y, QString asset, int player);
     void activateAI();
+    void changeProjectName(QString projectName);
 
 protected:
 #ifndef QT_NO_CONTEXTMENU
@@ -95,7 +98,7 @@ private slots:
     void on_actionBrush_size_3_triggered();
     void on_actionBrush_size_4_triggered();
     void on_tool_aitrigger_clicked();
-    void on_actionHide_Trigger_triggered();
+    void on_actionGridlines_toggled(bool arg1);
 
     void open_DgAbout();
     void open_DgMapProperties();
@@ -103,10 +106,7 @@ private slots:
     void open_DgAssets();
     void open_DTrigger(QGraphicsScene* , Tile* );
     void open_exporttoweb();
-
     void setupAssets();
-
-
 
 private:
     Ui::MainWindow *ui;
@@ -128,6 +128,7 @@ private:
     //int curBrushSize;
     QString curTool;
     QString curFile;
+    QString curProjectName;
     QByteArray curFileDialogState;
     QString curPath = QDir::homePath(); // current directory
     DgAssets *wAssets = 0;

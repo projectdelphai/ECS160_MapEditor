@@ -2,17 +2,20 @@
 #include "ui_dgaddtrigger.h"
 #include "aitrigger.h"
 
-DgAddTrigger::DgAddTrigger(QWidget *parent) :
+DgAddTrigger::DgAddTrigger(Tile *t, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::DgAddTrigger)
 {
     ui->setupUi(this);
+    DgAddTrigger::tile = t;
 
-    QValidator* minsValid = new QIntValidator(0, 255, this);
-    QValidator* secsValid = new QIntValidator(0, 59, this);
-
-    ui->txt_min->setValidator(minsValid);
-    ui->txt_sec->setValidator(secsValid);
+    // setup list views with their models
+    QStringList trigArgsList;
+    trigArgsList << "trigArg1" << "trigArg2";
+    trigArgsListModel = new QStringListModel(trigArgsList);
+    ui->list_trigArgs->setModel(trigArgsListModel);
+    eventArgsListModel = new QStringListModel;
+    ui->list_eventArgs->setModel(eventArgsListModel);
 }
 
 DgAddTrigger::~DgAddTrigger()
@@ -20,17 +23,71 @@ DgAddTrigger::~DgAddTrigger()
     delete ui;
 }
 
+// before accepting, check text parameters
 void DgAddTrigger::accept() {
+    // save the easy ones first
     name = ui->txt_name->text();
-    type = ui->txt_type->currentText();
-    time = ui->txt_min->text().toInt() * 60 + ui->txt_sec->text().toInt();
-    condition = "{" + ui->txt_condition->text() + "}";
-    trigger = ui->txt_trigger->text();
+    type = "TriggerType" + ui->select_type->currentText().remove(" "); // removes all spaces
+    persistence = ui->check_persistence->isChecked();
+    event = ui->txt_event->text();
 
-    if(name.isEmpty() || type.isEmpty()) {
-        QMessageBox::warning(this, "Needs a name", "Please fill out name and type", QMessageBox::Ok);
+    trigArgsList = trigArgsListModel->stringList();
+    eventArgsList = eventArgsListModel->stringList();
+
+    if(name.isEmpty()) {
+        QMessageBox::warning(this, "Needs a name", "Must have a trigger name!", QMessageBox::Ok);
+        ui->txt_name->setFocus();
+        return;
+    } else if(type == "TriggerType") {
+        QMessageBox::warning(this, "Needs a type", "Must have a type!", QMessageBox::Ok);
+        ui->txt_event->setFocus();
+        return;
+    } else if(event.isEmpty()) {
+        QMessageBox::warning(this, "Needs a trigger", "Must have an event function!", QMessageBox::Ok);
+        ui->txt_event->setFocus();
         return;
     }
 
+    if(true) {
+        qDebug() << name;
+        qDebug() << type;
+        qDebug() << persistence;
+        qDebug() << event;
+        qDebug() << trigArgsList;
+        qDebug() << eventArgsList;
+    }
+
+    aiTrigger = new AITrigger(name, type, persistence, event, trigArgsList, eventArgsList);
+    aiTrigger->setTile(tile);
     QDialog::accept();
+}
+
+// for adding new conditions, update listModel and then do some View stuff
+void DgAddTrigger::on_tool_addEventArg_clicked()
+{
+    eventArgsListModel->insertRow(eventArgsListModel->rowCount());
+
+    QModelIndex index = eventArgsListModel->index(eventArgsListModel->rowCount()-1);
+    eventArgsListModel->setData(index, "EventArg" + QString::number(index.row()) );
+    ui->list_eventArgs->setFocus();
+    ui->list_eventArgs->setCurrentIndex(index);
+    ui->list_eventArgs->edit(index);
+}
+
+void DgAddTrigger::on_tool_remEventArg_clicked()
+{
+    QModelIndex index = ui->list_eventArgs->currentIndex();
+
+    eventArgsListModel->removeRow(index.row());
+    ui->list_eventArgs->setFocus();
+}
+
+void DgAddTrigger::on_tool_curLocation_clicked()
+{
+    if(QMessageBox::question(this, "", "Are you sure you want to set the current location as the trigger arguments?", QMessageBox::Yes, QMessageBox::No) == QMessageBox::No)
+        return;
+
+    QStringList newList;
+    newList << QString::number(tile->pos().x()/32) << QString::number(tile->pos().y()/32);
+    trigArgsListModel->setStringList(newList);
 }

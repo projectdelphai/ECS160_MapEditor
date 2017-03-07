@@ -67,8 +67,17 @@ The file structure is as follows:
 	TownHall 2 92 54
 	```
 - AI Triggers
-	* `Name Type X Y Seconds {Conditions} Trigger`
-	* Conditions and Trigger are both user-defined
+	* `Name,Type,Persistence,TrigArg1,TrigArg2,Event,EventArgs*`
+	* EventArgs* can be any number of arguments
+	* TrigArg1 and TrigArg2 are dependent on the Type
+
+	  |Type| TrigArg1 | TrigArg2
+      |---| --- | ---
+      |TriggerTypeTime | timeStamp | timeUnit
+	  |TriggerTypeLocation | posX | posY |
+	  |TriggerTypeResource | resourceType | resourceAmount
+	  |TriggerTypeAssetObtained | assetType | assetAmount
+	  |TriggerTypeAssetLost | assetType | assetAmount
 
 
 # Code Example (with comments)
@@ -158,7 +167,7 @@ TownHall 2 92 54
 Peasant 3 7 8
 TownHall 3 10 10
 2				// number of AI Triggers
-Trigger1 location 24 74 0 {unit != peasant} startBattle()
-Trigger2 time 68 35 360 {gold < 5000} gameOver()
+Bob,TriggerTypeTime,0,500,cycles,GiveGoldEvent,100
+Steve,TriggerTypeLocation,0,50,50,AddBuildingsEvent,50,50,8,1
 
 ```
