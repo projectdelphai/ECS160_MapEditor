@@ -339,7 +339,7 @@ void MainWindow::undo()
                 if(scene->getLoc().contains(y) == true)
                 {
                     scene->removeLastInLoc();
-                    qDebug() << scene->getLoc();
+                    //qDebug() << scene->getLoc();
                 }
             }
             if(rt.utype == Terrain::Water || rt.utype == Terrain::Rock || rt.utype == Terrain::Tree || rt.utype == Terrain::Wall)
@@ -347,7 +347,7 @@ void MainWindow::undo()
                 if(scene->getLoc().contains(y) == false)
                 {
                     scene->appendInLoc(y);
-                    qDebug() << scene->getLoc();
+                    //qDebug() << scene->getLoc();
                 }
             }
         }
@@ -397,7 +397,7 @@ void MainWindow::redo()
                 if(scene->getLoc().contains(y) == true)
                 {
                     scene->removeLastInLoc();
-                    qDebug() << scene->getLoc();
+                    //qDebug() << scene->getLoc();
                 }
             }
             if(rt.rtype == Terrain::Water || rt.rtype == Terrain::Rock || rt.rtype == Terrain::Tree || rt.rtype == Terrain::Wall)
@@ -405,7 +405,7 @@ void MainWindow::redo()
                 if(scene->getLoc().contains(y) == false)
                 {
                     scene->appendInLoc(y);
-                    qDebug() << scene->getLoc();
+                    //qDebug() << scene->getLoc();
                 }
             }
         }
@@ -1161,13 +1161,16 @@ void MainWindow::changecursor(QString currentTool){
         return;
     }
     else
+    {
+        ui->graphicsView->setCursor(Qt::ArrowCursor);
         return;
+    }
     QPixmap pixmap = QPixmap::fromImage(cursorImage);
     QPainter painter(&pixmap);
     painter.setOpacity(0);
     painter.end();
     pixmap.setMask(pixmap);
-    QCursor cursorTarget = QCursor(pixmap);
+    QCursor cursorTarget = QCursor(pixmap, 16, 16);
     ui->graphicsView->setCursor(cursorTarget);
 }
 
