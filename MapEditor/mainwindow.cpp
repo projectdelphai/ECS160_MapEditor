@@ -12,6 +12,7 @@
 #include "aitrigger.h"
 #include "newfile.h"
 #include <QMediaPlayer>
+#include <QtMath>
 
 RecordedTile::RecordedTile()
 {
@@ -303,6 +304,7 @@ void MainWindow::undo()
     if(undoTiles.isEmpty())
         return;
 
+    int brushSize = 1;
     undone = true;
     Texture * asset = 0;
 
@@ -313,7 +315,42 @@ void MainWindow::undo()
     if (!asset)
     {
         scene->setBrushable(true);
-        scene->getMapInfo()->changeMapTile(scene, QPointF(rt.x, rt.y), rt.utype);
+        scene->getMapInfo()->setSaveChar(true);
+        if(rt.rtype == Terrain::Water || rt.rtype == Terrain::Rock || rt.rtype == Terrain::Tree || rt.rtype == Terrain::Wall)
+            brushSize = 2;
+        scene->getMapInfo()->brush_size(scene, QPointF(rt.x, rt.y), rt.utype, brushSize);
+        QString x, y;
+        x.setNum(rt.x);
+        y.setNum(rt.y);
+        y.prepend(x);
+        if(scene->getAddedItems().contains(y))
+        {
+            QMessageBox::warning(0,"Error!","Cannot put tile on assets");
+            // qDebug() << y;
+            return;
+        }
+        else
+        {
+            scene->setBrushable(true);
+            scene->getMapInfo()->setSaveChar(false);
+            scene->getMapInfo()->changeMapTile(scene, QPointF(rt.x, rt.y), rt.utype);
+            if(rt.rtype == Terrain::Water || rt.rtype == Terrain::Rock || rt.rtype == Terrain::Tree || rt.rtype == Terrain::Wall)
+            {
+                if(scene->getLoc().contains(y) == true)
+                {
+                    scene->removeLastInLoc();
+                    qDebug() << scene->getLoc();
+                }
+            }
+            if(rt.utype == Terrain::Water || rt.utype == Terrain::Rock || rt.utype == Terrain::Tree || rt.utype == Terrain::Wall)
+            {
+                if(scene->getLoc().contains(y) == false)
+                {
+                    scene->appendInLoc(y);
+                    qDebug() << scene->getLoc();
+                }
+            }
+        }
         changeLayout(rt.x, rt.y, rt.utype);
     }
 
@@ -326,8 +363,8 @@ void MainWindow::redo()
     if(redoTiles.isEmpty())
         return;
 
+    int brushSize = 1;
     undone = true;
-   // Terrain *terrain = scene->mapInfo->getTerrain();
     Texture * asset = 0;
 
     //The first element for redo becomes first element for undo
@@ -337,7 +374,41 @@ void MainWindow::redo()
     if (!asset)
     {
         scene->setBrushable(true);
-        scene->getMapInfo()->changeMapTile(scene, QPointF(rt.x, rt.y), rt.rtype);
+        scene->getMapInfo()->setSaveChar(true);
+        if(rt.utype == Terrain::Water || rt.utype == Terrain::Rock || rt.utype == Terrain::Tree || rt.utype == Terrain::Wall)
+            brushSize = 2;
+        scene->getMapInfo()->brush_size(scene, QPointF(rt.x, rt.y), rt.rtype, brushSize);
+        QString x, y;
+        x.setNum(rt.x);
+        y.setNum(rt.y);
+        y.prepend(x);
+        if(scene->getAddedItems().contains(y))
+        {
+            QMessageBox::warning(0,"Error!","Cannot put tile on assets");
+            // qDebug() << y;
+            return;
+        }
+        else
+        {
+            scene->setBrushable(true);
+            scene->getMapInfo()->changeMapTile(scene, QPointF(rt.x, rt.y), rt.rtype);
+            if(rt.utype == Terrain::Water || rt.utype == Terrain::Rock || rt.utype == Terrain::Tree || rt.utype == Terrain::Wall)
+            {
+                if(scene->getLoc().contains(y) == true)
+                {
+                    scene->removeLastInLoc();
+                    qDebug() << scene->getLoc();
+                }
+            }
+            if(rt.rtype == Terrain::Water || rt.rtype == Terrain::Rock || rt.rtype == Terrain::Tree || rt.rtype == Terrain::Wall)
+            {
+                if(scene->getLoc().contains(y) == false)
+                {
+                    scene->appendInLoc(y);
+                    qDebug() << scene->getLoc();
+                }
+            }
+        }
         changeLayout(rt.x, rt.y, rt.rtype);
     }
 
@@ -570,7 +641,6 @@ void MainWindow::changeLayout(int x, int y, Terrain::Type type)
 {
     int newX = x / 32;
     int newY = y / 32;
-
     int n = newY * curMap.getMapDim().width() + newX;
     statusBar()->showMessage("x: " + QString::number(newX) + ", y: " + QString::number(newY) + ", n: " + QString::number(n));
 
@@ -609,7 +679,7 @@ void MainWindow::changeLayout(int x, int y, Terrain::Type type)
     {//Prevent a duplicate or something not undone from being pushed onto the stack
         if(undoTiles.isEmpty() || (!undoTiles.isEmpty()
             && (rt.utype != undoTiles.top().utype
-                ||rt.x != undoTiles.top().x
+                || rt.x != undoTiles.top().x
                 || rt.y != undoTiles.top().y)))
             //If there are neither previous tiles nor duplicates,
             //push the previous and new tile of the current x and y

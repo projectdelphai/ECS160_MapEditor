@@ -280,6 +280,11 @@ QChar MapView2::getPreviousTile()
     return prevChar;
 }
 
+void MapView2::setSaveChar(bool b)
+{
+    saveChar = b;
+}
+
 void MapView2::changeMapTile(QGraphicsScene *scene, QPointF pos , Terrain::Type type ){
 
     // tile inside scene to change
@@ -291,17 +296,24 @@ void MapView2::changeMapTile(QGraphicsScene *scene, QPointF pos , Terrain::Type 
     }
     int x = centerTile->scenePos().x()/tileDim.width();
     int y = centerTile->scenePos().y()/tileDim.height();
+
     if(y==0 || x == 0 ||x ==mapDim.width() -1 || y == mapDim.height() -1)
     {
          return;
     }
-    prevChar = mapLayOut[(y)*mapDim.width() + x];
+
+    if(saveChar)
+    {
+        prevChar = mapLayOut.at(y*mapDim.width() + x);
+       // saveChar = false;
+    }
+  
     QString typedx = terrain->toString(type);
     QString strType = tileEncode(typedx, y , x );
-//    qDebug() << strType;
-//    qDebug() << "before" <<mapLayOut.at(y*mapDim.width() + x) ;
+    //qDebug() << strType;
+    //qDebug() << "before" << mapLayOut.at(y*mapDim.width() + x) ;
     mapLayOut.replace((y)*mapDim.width() + x,strToMapkey(typedx));
-//    qDebug() << "After" <<mapLayOut.at(y*mapDim.width() + x) ;
+    //qDebug() << "After" <<mapLayOut.at(y*mapDim.width() + x) ;
     // changes center tile
     QImage image = *terrain->getImageTile(strType);
     centerTile->setTileImage(QPixmap::fromImage(image), typedx );
@@ -380,6 +392,7 @@ void MapView2::brush_size(QGraphicsScene *scene, QPointF pos , Terrain::Type typ
    int Actual_brush_size = 1;
    QPointF position;
    QString typedx = terrain->toString(type);
+
    if((typedx == "water"|| typedx == "rock") && brush_size < 2)
    {
        Actual_brush_size = 2;
@@ -387,9 +400,12 @@ void MapView2::brush_size(QGraphicsScene *scene, QPointF pos , Terrain::Type typ
    else{
        Actual_brush_size = brush_size;
    }
+   //Actual_brush_size = 1;
    for(int i =pos.y(); i <pos.y() + (Actual_brush_size*32); i+=32)
+   //for(int i = pos.y() + 32; i >= pos.y(); i-=32)
    {
        for(int j= pos.x(); j < pos.x()+(Actual_brush_size*32);j+=32)
+       //for(int j = pos.x() + 32; i >= pos.x(); i-=32)
        {
 //           qDebug()<< "inside the lo0p";
            position.setX(j);

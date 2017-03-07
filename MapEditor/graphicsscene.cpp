@@ -29,6 +29,15 @@ void GraphicsScene::delayUnit(int millisecondsToWait)
     }
 }
 
+void GraphicsScene::removeLastInLoc()
+{
+    loc.removeLast();
+}
+
+void GraphicsScene::appendInLoc(QString str)
+{
+    loc.append(str);
+}
 
 void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
 {
@@ -196,6 +205,7 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
            //imageDx = *terrain->getImageTile(type);
            // tile change
             brushable = true;
+            mapInfo->setSaveChar(true);
             mapInfo-> brush_size(this, mouseEvent->scenePos(),type,CurBrushSize);
             QString x, y;
             x.setNum(item->scenePos().x());
@@ -210,6 +220,7 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
             else
             {
                 brushable = true;
+                mapInfo->setSaveChar(false);
                 mapInfo->changeMapTile(this, mouseEvent->scenePos(),type);
                 if(type == Terrain::Water || type == Terrain::Rock || type == Terrain::Tree || type == Terrain::Wall)
                 {
@@ -226,7 +237,6 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
         {//Loads/Animates the assets
 
             brushable = false;
-
             if (curTool == "GoldMine")
                 imageDx = asset->imageList[0];
             else
@@ -370,6 +380,21 @@ void GraphicsScene::setBrushable(bool b)
 MapView2 * GraphicsScene::getMapInfo()
 {
     return mapInfo;
+}
+
+QVector<QString> GraphicsScene::getAddedItems()
+{
+    return addedItems;
+}
+
+QVector<QString> GraphicsScene::getLoc()
+{
+    return loc;
+}
+
+bool GraphicsScene::getBrushing()
+{
+    return brushing;
 }
 
 void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
