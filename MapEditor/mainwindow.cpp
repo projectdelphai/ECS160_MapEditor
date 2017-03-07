@@ -10,7 +10,9 @@
 #include "dialogs/dgassets.h"
 #include "dialogs/dgaddtrigger.h"
 #include "aitrigger.h"
+#include "newfile.h"
 #include <QMediaPlayer>
+#include <QtMath>
 
 RecordedTile::RecordedTile()
 {
@@ -49,13 +51,15 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     QObject::connect(scene, &GraphicsScene::changedAsset, this, &MainWindow::changeAsset);
     QObject::connect(scene, &GraphicsScene::open_DTrigger, this, &MainWindow::open_DTrigger);
 
+
     // default values
     curPlayer = 1;
     scene->curPlayer = 1;
     // play background music
-    QMediaPlayer * backgroundMusic = new QMediaPlayer();
-    backgroundMusic->setMedia(QUrl("qrc:/data/snd/basic/annoyed2.wav"));
-    backgroundMusic->play();
+//    QMediaPlayer * backgroundMusic = new QMediaPlayer();
+//    backgroundMusic->setMedia(QUrl("qrc:/data/snd/basic/annoyed2.wav"));
+//    backgroundMusic->play();
+
 }
 
 MainWindow::~MainWindow()
@@ -117,10 +121,22 @@ void MainWindow::newFile()
         // fill tile here
     }
 
+    NewFile *newfile = new NewFile();
+
+    QObject::connect(newfile, &NewFile::changeProjectName, this, &MainWindow::changeProjectName);
+
+    newfile->exec();\
+
+    if (curProjectName == "")
+        this->close();
+
+
+
     // Set up the map grid
     curMap = MapView2(assets);
     scene = new GraphicsScene(this, &curMap,&assets);
     curMap.displayNewMap(scene);
+
 
     // show map + minimap
     ui->graphicsView->setScene(scene);
@@ -189,7 +205,7 @@ bool MainWindow::loadMapFile(QString fileName, QIODevice &file)
 
     // load and display map and minimap
     QString mapName = fileName;
-    QString texture = ":/data/img/Terrain.png";
+    QString texture = ":/data/default/img/Terrain.png";
 
     curMap = MapView2(file, assets, texture );
 
@@ -289,6 +305,7 @@ void MainWindow::undo()
     if(undoTiles.isEmpty())
         return;
 
+    int brushSize = 1;
     undone = true;
     Texture * asset = 0;
 
@@ -299,7 +316,42 @@ void MainWindow::undo()
     if (!asset)
     {
         scene->setBrushable(true);
-        scene->getMapInfo()->changeMapTile(scene, QPointF(rt.x, rt.y), rt.utype);
+        scene->getMapInfo()->setSaveChar(true);
+        if(rt.rtype == Terrain::Water || rt.rtype == Terrain::Rock || rt.rtype == Terrain::Tree || rt.rtype == Terrain::Wall)
+            brushSize = 2;
+        scene->getMapInfo()->brush_size(scene, QPointF(rt.x, rt.y), rt.utype, brushSize);
+        QString x, y;
+        x.setNum(rt.x);
+        y.setNum(rt.y);
+        y.prepend(x);
+        if(scene->getAddedItems().contains(y))
+        {
+            QMessageBox::warning(0,"Error!","Cannot put tile on assets");
+            // qDebug() << y;
+            return;
+        }
+        else
+        {
+            scene->setBrushable(true);
+            scene->getMapInfo()->setSaveChar(false);
+            scene->getMapInfo()->changeMapTile(scene, QPointF(rt.x, rt.y), rt.utype);
+            if(rt.rtype == Terrain::Water || rt.rtype == Terrain::Rock || rt.rtype == Terrain::Tree || rt.rtype == Terrain::Wall)
+            {
+                if(scene->getLoc().contains(y) == true)
+                {
+                    scene->removeLastInLoc();
+                    qDebug() << scene->getLoc();
+                }
+            }
+            if(rt.utype == Terrain::Water || rt.utype == Terrain::Rock || rt.utype == Terrain::Tree || rt.utype == Terrain::Wall)
+            {
+                if(scene->getLoc().contains(y) == false)
+                {
+                    scene->appendInLoc(y);
+                    qDebug() << scene->getLoc();
+                }
+            }
+        }
         changeLayout(rt.x, rt.y, rt.utype);
     }
 
@@ -312,8 +364,8 @@ void MainWindow::redo()
     if(redoTiles.isEmpty())
         return;
 
+    int brushSize = 1;
     undone = true;
-   // Terrain *terrain = scene->mapInfo->getTerrain();
     Texture * asset = 0;
 
     //The first element for redo becomes first element for undo
@@ -323,7 +375,41 @@ void MainWindow::redo()
     if (!asset)
     {
         scene->setBrushable(true);
-        scene->getMapInfo()->changeMapTile(scene, QPointF(rt.x, rt.y), rt.rtype);
+        scene->getMapInfo()->setSaveChar(true);
+        if(rt.utype == Terrain::Water || rt.utype == Terrain::Rock || rt.utype == Terrain::Tree || rt.utype == Terrain::Wall)
+            brushSize = 2;
+        scene->getMapInfo()->brush_size(scene, QPointF(rt.x, rt.y), rt.rtype, brushSize);
+        QString x, y;
+        x.setNum(rt.x);
+        y.setNum(rt.y);
+        y.prepend(x);
+        if(scene->getAddedItems().contains(y))
+        {
+            QMessageBox::warning(0,"Error!","Cannot put tile on assets");
+            // qDebug() << y;
+            return;
+        }
+        else
+        {
+            scene->setBrushable(true);
+            scene->getMapInfo()->changeMapTile(scene, QPointF(rt.x, rt.y), rt.rtype);
+            if(rt.utype == Terrain::Water || rt.utype == Terrain::Rock || rt.utype == Terrain::Tree || rt.utype == Terrain::Wall)
+            {
+                if(scene->getLoc().contains(y) == true)
+                {
+                    scene->removeLastInLoc();
+                    qDebug() << scene->getLoc();
+                }
+            }
+            if(rt.rtype == Terrain::Water || rt.rtype == Terrain::Rock || rt.rtype == Terrain::Tree || rt.rtype == Terrain::Wall)
+            {
+                if(scene->getLoc().contains(y) == false)
+                {
+                    scene->appendInLoc(y);
+                    qDebug() << scene->getLoc();
+                }
+            }
+        }
         changeLayout(rt.x, rt.y, rt.rtype);
     }
 
@@ -400,6 +486,12 @@ void MainWindow::writeMapFile(QIODevice *file){
         for (itr3 = units.begin(); itr3 != units.end(); itr3++) {
             stream << itr3->name << " " << t << " " << itr3->x << " " << itr3->y << endl;
         }
+    }
+
+    // write ai triggers
+    stream << curMap.getTriggers().length() << endl;
+    for( int i = 0; i < curMap.getTriggers().length(); i++){
+        stream << curMap.getTriggers().at(i)->infoAI() << endl;
     }
 
     file->close();
@@ -550,7 +642,6 @@ void MainWindow::changeLayout(int x, int y, Terrain::Type type)
 {
     int newX = x / 32;
     int newY = y / 32;
-
     int n = newY * curMap.getMapDim().width() + newX;
     statusBar()->showMessage("x: " + QString::number(newX) + ", y: " + QString::number(newY) + ", n: " + QString::number(n));
 
@@ -589,7 +680,7 @@ void MainWindow::changeLayout(int x, int y, Terrain::Type type)
     {//Prevent a duplicate or something not undone from being pushed onto the stack
         if(undoTiles.isEmpty() || (!undoTiles.isEmpty()
             && (rt.utype != undoTiles.top().utype
-                ||rt.x != undoTiles.top().x
+                || rt.x != undoTiles.top().x
                 || rt.y != undoTiles.top().y)))
             //If there are neither previous tiles nor duplicates,
             //push the previous and new tile of the current x and y
@@ -635,6 +726,11 @@ void MainWindow::changeAsset(int x, int y, QString asset, int player)
     Unit unit = Unit(asset, newX, newY);
 
     curMap.addUnit(unit, player);
+}
+
+void MainWindow::changeProjectName(QString projectName)
+{
+    curProjectName = projectName;
 }
 
 
@@ -883,7 +979,12 @@ void MainWindow::on_actionBrush_size_4_triggered()
 {
     scene->CurBrushSize = 4;
 }
-
+void MainWindow::on_actionGridlines_toggled(bool arg1)
+{
+    scene->setGridlines(arg1);
+    scene->update();
+//    QApplication::processEvents();
+}
 
 
 
@@ -953,71 +1054,36 @@ void MainWindow::open_DgAssets(){
 }
 
 void MainWindow::open_DTrigger(QGraphicsScene *scene , Tile *tile){
-    DgAddTrigger window(this);
-    if ( window.exec() != QDialog::Accepted ){
+    DgAddTrigger wTrigger(tile, this);
+    if ( wTrigger.exec() != QDialog::Accepted ){
         scene->removeItem(tile);
         return;
     }
 
-    AITrigger *trigger = new AITrigger(window.name);
-    trigger->setMarker(tile);
-    trigger->setTimer(window.time);
-    trigger->setRange(0);
-    trigger->startTimer(this);
-    trigger->setCondition(window.condition);
-    trigger->setTriggerFunction(window.trigger);
-    trigger->setType(window.type);
+    AITrigger* trigger = wTrigger.aiTrigger;
 
     curMap.addTrigger(trigger);
-    bool checked = ui->actionHide_Triggers->isChecked();
-    if ( checked == false ){
-        trigger->displayRange(scene);
-    }
-
-    trigger->getMarker()->setVisible(!checked);
-
-}
-
-void MainWindow::hideTriggers(bool visible){
-    for(AITrigger *trigger : curMap.getTriggers()){
-        QGraphicsItem *item = qgraphicsitem_cast<QGraphicsItem*>(trigger->getMarker());
-        if ( scene->items().contains( item) ){
-            item->setVisible(visible);
-            if( visible == 0 && trigger->isRangeOn()){
-                trigger->removeRange(scene);
-            }
-            else if (visible != 0 || trigger->isRangeOn() == false ){
-                trigger->displayRange(scene);
-            }
-        }
-    }
-}
-
-void MainWindow::on_actionHide_Trigger_triggered()
-{
-    bool enable = !(ui->actionHide_Triggers->isChecked());
-    hideTriggers(enable);
 }
 
 void MainWindow::setupAssets(){
     // grab all the asset files
-    QString path = ":/data/img";
-    QString colorFile = ":/data/img/Colors.png";
-    QString goldmineTool = ":/data/img/GoldMine.dat";
-    QString peasantTool = ":/data/img/Peasant.dat";
-    QString archerTool = ":/data/img/Archer.dat";
-    QString knightTool = ":/data/img/Knight.dat";
-    QString rangerTool = ":/data/img/Ranger.dat";
-    QString townhallTool = ":/data/img/TownHall.dat";
-    QString barracksTool = ":/data/img/Barracks.dat";
-    QString blacksmithTool = ":/data/img/Blacksmith.dat";
-    QString cannontowerTool = ":/data/img/CannonTower.dat";
-    QString castleTool = ":/data/img/Castle.dat";
-    QString farmTool = ":/data/img/Farm.dat";
-    QString guardtowerTool = ":/data/img/GuardTower.dat";
-    QString keepTool = ":/data/img/Keep.dat";
-    QString lumbermillTool = ":/data/img/LumberMill.dat";
-    QString scouttowerTool = ":/data/img/ScoutTower.dat";
+    QString path = ":/data/default/img";
+    QString colorFile = ":/data/default/img/Colors.png";
+    QString goldmineTool = ":/data/default/img/GoldMine.dat";
+    QString peasantTool = ":/data/default/img/Peasant.dat";
+    QString archerTool = ":/data/default/img/Archer.dat";
+    QString knightTool = ":/data/default/img/Knight.dat";
+    QString rangerTool = ":/data/default/img/Ranger.dat";
+    QString townhallTool = ":/data/default/img/TownHall.dat";
+    QString barracksTool = ":/data/default/img/Barracks.dat";
+    QString blacksmithTool = ":/data/default/img/Blacksmith.dat";
+    QString cannontowerTool = ":/data/default/img/CannonTower.dat";
+    QString castleTool = ":/data/default/img/Castle.dat";
+    QString farmTool = ":/data/default/img/Farm.dat";
+    QString guardtowerTool = ":/data/default/img/GuardTower.dat";
+    QString keepTool = ":/data/default/img/Keep.dat";
+    QString lumbermillTool = ":/data/default/img/LumberMill.dat";
+    QString scouttowerTool = ":/data/default/img/ScoutTower.dat";
 
 
 
@@ -1080,7 +1146,6 @@ void MainWindow::updateUIPlayers(){
             buttons.at(i)->setDisabled(true);
     }
 }
-
 void MainWindow::changecursor(QString currentTool){
     asset = curMap.getAsset(currentTool);
     if(currentTool == "Peasant" || currentTool == "Archer" || currentTool == "Knight" || currentTool == "Ranger")
@@ -1104,3 +1169,4 @@ void MainWindow::changecursor(QString currentTool){
     QCursor cursorTarget = QCursor(pixmap);
     ui->graphicsView->setCursor(cursorTarget);
 }
+

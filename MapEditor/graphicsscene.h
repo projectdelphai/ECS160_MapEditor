@@ -28,15 +28,24 @@ public:
     bool withinBounds(QGraphicsSceneMouseEvent *mouseEvent);
     void setBrushable(bool b);
     MapView2 * getMapInfo();
+    QVector<QString> getAddedItems();
+    QVector<QString> getLoc();
+    void removeLastInLoc();
+    void appendInLoc(QString str);
+    bool getBrushing();
     QString curTool;
     int CurBrushSize = 1;
     int curPlayer;
+    void setGridlines(bool);
+
 signals:
     void changedLayout(int x, int y, Terrain::Type type);
     void changedAsset(int x, int y, QString asset, int curPlayer);
     void open_DTrigger(QGraphicsScene* scene, Tile* );
 public slots:
 
+protected:
+    void drawForeground(QPainter *painter, const QRectF &rect);
 private:
     QObject *parent;
     MapView2 *mapInfo;
@@ -52,6 +61,7 @@ private:
     QPoint rubberband;
     QMediaPlayer * music;
     QList<QGraphicsItem*> itemList;
+    bool gridON;
 };
 
 #endif // GRAPHICSSCENE_H

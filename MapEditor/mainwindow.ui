@@ -1138,7 +1138,7 @@
       <property name="backgroundBrush">
        <brush brushstyle="SolidPattern">
         <color alpha="128">
-         <red>0</red>
+         <red>255</red>
          <green>0</green>
          <blue>0</blue>
         </color>
@@ -1225,7 +1225,8 @@
     </property>
     <addaction name="actionAnimate"/>
     <addaction name="actionZoom_Out"/>
-    <addaction name="actionHide_Triggers"/>
+    <addaction name="separator"/>
+    <addaction name="actionGridlines"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -1458,6 +1459,14 @@
    </property>
    <property name="text">
     <string>Hide Triggers</string>
+   </property>
+  </action>
+  <action name="actionGridlines">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Gridlines</string>
    </property>
   </action>
  </widget>

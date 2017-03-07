@@ -70,6 +70,7 @@ public:
     // change tile at some pos and tiles around it
     void changeMapTile(QGraphicsScene *scene , QPointF point , Terrain::Type type);
     void brush_size(QGraphicsScene *scene , QPointF point , Terrain::Type type, int brush_size);
+    void setSaveChar(bool b);
 
 private:
     void defaultMap();
@@ -102,6 +103,7 @@ private:
     QMap<QString,Texture*> assets;
     QVector<AITrigger*> triggers;
     QChar prevChar;
+    bool saveChar;
 };
 
 #endif // MAPVIEW2_H
