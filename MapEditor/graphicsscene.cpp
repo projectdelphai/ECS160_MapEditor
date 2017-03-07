@@ -229,7 +229,6 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
         }
         else
         {//Loads/Animates the assets
-
             int besho = 2;
             if(large)
             {
@@ -240,6 +239,7 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
                 QMessageBox::warning(0,"Cannot place","Place somewhere else away from border!");
                 return;
             }
+
             brushable = false;
 
             if (curTool == "GoldMine")

@@ -546,8 +546,6 @@ void MainWindow::wheelEvent(QWheelEvent *event)
     }
 }
 
-
-
 void MainWindow::changeLayout(int x, int y, Terrain::Type type)
 {
     int newX = x / 32;
