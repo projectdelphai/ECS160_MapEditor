@@ -21,6 +21,7 @@ public:
     virtual void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent);
     virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent);
     virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent);
+    void keyPressEvent(QKeyEvent *keyEvent);
     void delayUnit(int millisecondsToWait);
     void addToolItem(QGraphicsSceneMouseEvent *mouseEvent);
     void removeToolItem(QGraphicsSceneMouseEvent *mouseEvent);
@@ -50,13 +51,16 @@ private:
     MapView2 *mapInfo;
     bool brushing;
     bool brushable;
+    bool large;
     QVector<QString> addedItems;
     QVector<QString> tempXY;
     QVector<QString> loc;
     QMap<QString,Texture*> *assets;
     QString tempX, tempY, x, y;
     int posX, posY, widthXheight = 0;
+    QPoint rubberband;
     QMediaPlayer * music;
+    QList<QGraphicsItem*> itemList;
     bool gridON;
 };
 

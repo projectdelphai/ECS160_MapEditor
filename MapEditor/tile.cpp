@@ -12,12 +12,12 @@ Tile::Tile(Terrain::Type type){ // not sure if needed
 Tile::Tile(QString typeStr,QPixmap texturePix):QGraphicsPixmapItem(texturePix){
     typeStr = typeStr;
     texturePix = texturePix;
-
 }
 
 Tile::Tile(Terrain::Type type,QPixmap texturePix): QGraphicsPixmapItem(texturePix){
     Tile::type = type;
     Tile::texturePix = texturePix;
+    setFlag(ItemIsSelectable);
     note = "test";
 }
 
