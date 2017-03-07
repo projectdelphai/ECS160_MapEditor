@@ -32,7 +32,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->setupUi(this);
     ui->graphicsView->setMouseTracking(true);
     ui->graphicsView_2->setMouseTracking(true);
-    ui->graphicsView->setDragMode(QGraphicsView::RubberBandDrag);
     curTool = "hand";
     undone = false;
 
@@ -689,8 +688,6 @@ void MainWindow::changeLayout(int x, int y, Terrain::Type type)
 
     layout[n] = c;
     curMap.setMapLayout(layout);
-
-
 }
 
 Terrain::Type MainWindow::getTileType(QChar tile)
@@ -1148,6 +1145,7 @@ void MainWindow::updateUIPlayers(){
 }
 void MainWindow::changecursor(QString currentTool){
     asset = curMap.getAsset(currentTool);
+    ui->graphicsView->setDragMode(QGraphicsView::NoDrag);
     if(currentTool == "Peasant" || currentTool == "Archer" || currentTool == "Knight" || currentTool == "Ranger")
         cursorImage = asset->colorPlayerImg[curPlayer][20];
     else if (currentTool == "TownHall" || currentTool == "Barracks" || currentTool == "Farm" || currentTool == "ScoutTower" || currentTool == "LumberMill" || currentTool == "Blacksmith")
@@ -1156,11 +1154,14 @@ void MainWindow::changecursor(QString currentTool){
         cursorImage = asset->colorPlayerImg[curPlayer][1];
     else if (currentTool == "GoldMine")
         cursorImage = asset->imageList[0];
-    else
+    else if (currentTool == "hand")
     {
         ui->graphicsView->setCursor(Qt::ArrowCursor);
+        ui->graphicsView->setDragMode(QGraphicsView::RubberBandDrag);
         return;
     }
+    else
+        return;
     QPixmap pixmap = QPixmap::fromImage(cursorImage);
     QPainter painter(&pixmap);
     painter.setOpacity(0);
