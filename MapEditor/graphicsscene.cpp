@@ -5,7 +5,6 @@
 #include "texture.h"
 #include "mainwindow.h"
 #include <QMediaPlayer>
-
 #include <QUrl>
 
 GraphicsScene::GraphicsScene(QObject *parent, MapView2 *curMap, QMap<QString, Texture *> *loadedAssets) : QGraphicsScene(parent)
@@ -15,6 +14,10 @@ GraphicsScene::GraphicsScene(QObject *parent, MapView2 *curMap, QMap<QString, Te
     GraphicsScene::assets = loadedAssets;
     brushing = false;
     brushable = false;
+    large = false;
+    music = new QMediaPlayer();
+    gridON = false;
+
 }
 
 void GraphicsScene::delayUnit(int millisecondsToWait)
@@ -26,6 +29,15 @@ void GraphicsScene::delayUnit(int millisecondsToWait)
     }
 }
 
+void GraphicsScene::removeLastInLoc()
+{
+    loc.removeLast();
+}
+
+void GraphicsScene::appendInLoc(QString str)
+{
+    loc.append(str);
+}
 
 void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
 {
@@ -46,7 +58,6 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
         Terrain *terrain = mapInfo->getTerrain();
         Terrain::Type type;
         Texture *asset = 0;
-        QMediaPlayer * music = new QMediaPlayer();
 
 
         if (curTool == "grass")
@@ -67,92 +78,97 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
         else if (curTool == "Peasant")
         {
             asset = mapInfo->getAsset("Peasant");
-            music->setMedia(QUrl("qrc:/data/snd/peasant/ready.wav"));
+            music->setMedia(QUrl("qrc:/data/default/snd/peasant/ready.wav"));
             widthXheight = 1;
             frames = 40;
         }
         else if (curTool == "Ranger")
         {
             asset = mapInfo->getAsset("Ranger");
-            music->setMedia(QUrl("qrc:/data/snd/archer/ready.wav"));
+            music->setMedia(QUrl("qrc:/data/default/snd/archer/ready.wav"));
             widthXheight = 1;
             frames = 40;
         }
         else if (curTool == "Archer")
         {
             asset = mapInfo->getAsset("Archer");
-            music->setMedia(QUrl("qrc:/data/snd/archer/ready.wav"));            
+            music->setMedia(QUrl("qrc:/data/default/snd/archer/ready.wav"));            
             widthXheight = 1;
             frames = 40;
         }
         else if (curTool == "Knight")
         {
             asset = mapInfo->getAsset("Knight");
-            music->setMedia(QUrl("qrc:/data/snd/knight/ready.wav"));
+            music->setMedia(QUrl("qrc:/data/default/snd/knight/ready.wav"));
             widthXheight = 1;
             frames = 40;
         }
         else if (curTool == "GoldMine")
         {
             asset = mapInfo->getAsset("GoldMine");
-            music->setMedia(QUrl("qrc:/data/snd/buildings/gold-mine.wav"));
+            music->setMedia(QUrl("qrc:/data/default/snd/buildings/gold-mine.wav"));
             widthXheight = 4;
             frames = 1;
+            large = true;
         }
         else if (curTool == "TownHall")
         {
             asset = mapInfo->getAsset("TownHall");
-            music->setMedia(QUrl("qrc:/data/snd/misc/thunk.wav"));
+            music->setMedia(QUrl("qrc:/data/default/snd/misc/thunk.wav"));
             widthXheight = 4;
             frames = 3;
+            large = true;
         }
         else if (curTool == "Barracks")
         {
             asset = mapInfo->getAsset("Barracks");
 
-            music->setMedia(QUrl("qrc:/data/snd/misc/thunk.wav"));
+            music->setMedia(QUrl("qrc:/data/default/snd/misc/thunk.wav"));
             widthXheight = 3;
             frames = 3;
+            large = true;
         }
-        else if (curTool == "BlackSmith")
+        else if (curTool == "Blacksmith")
         {
             asset = mapInfo->getAsset("Blacksmith");
-            music->setMedia(QUrl("qrc:/data/snd/buildings/blacksmith.wav"));
+            music->setMedia(QUrl("qrc:/data/default/snd/buildings/blacksmith.wav"));
             widthXheight = 3;
             frames = 3;
+            large = true;
         }
         else if (curTool == "CannonTower")
         {
             asset = mapInfo->getAsset("CannonTower");
-            music->setMedia(QUrl("qrc:/data/snd/misc/thunk.wav"));
+            music->setMedia(QUrl("qrc:/data/default/snd/misc/thunk.wav"));
             widthXheight = 2;
             frames = 2;
         }
         else if (curTool == "Castle")
         {
             asset = mapInfo->getAsset("Castle");
-            music->setMedia(QUrl("qrc:/data/snd/misc/thunk.wav"));
+            music->setMedia(QUrl("qrc:/data/default/snd/misc/thunk.wav"));
             widthXheight = 4;
             frames = 2;
+            large = true;
         }
         else if (curTool == "Farm")
         {
             asset = mapInfo->getAsset("Farm");
-            music->setMedia(QUrl("qrc:/data/snd/buildings/farm.wav"));
+            music->setMedia(QUrl("qrc:/data/default/snd/buildings/farm.wav"));
             widthXheight = 2;
             frames = 3;
         }
         else if (curTool == "GuardTower")
         {
             asset = mapInfo->getAsset("GuardTower");
-            music->setMedia(QUrl("qrc:/data/snd/misc/construct.wav"));
+            music->setMedia(QUrl("qrc:/data/default/snd/misc/construct.wav"));
             widthXheight = 2;
             frames = 2;
         }
         else if (curTool == "ScoutTower")
         {
             asset = mapInfo->getAsset("ScoutTower");
-            music->setMedia(QUrl("qrc:/data/snd/misc/construct.wav"));
+            music->setMedia(QUrl("qrc:/data/default/snd/misc/construct.wav"));
             widthXheight = 2;
             frames = 3;
         }
@@ -160,16 +176,19 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
         {
             asset = mapInfo->getAsset("Keep");
 
-            music->setMedia(QUrl("qrc:/data/snd/misc/thunk.wav"));
+            music->setMedia(QUrl("qrc:/data/default/snd/misc/thunk.wav"));
             widthXheight = 4;
             frames = 2;
+            large = true;
         }
+
         else if (curTool == "LumberMill")
         {
             asset = mapInfo->getAsset("LumberMill");
-            music->setMedia(QUrl("qrc:/data/snd/buildings/lumber-mill.wav"));
+            music->setMedia(QUrl("qrc:/data/default/snd/buildings/lumber-mill.wav"));
             widthXheight = 3;
             frames = 3;
+            large = true;
         }
         else if (curTool == "hand")
         {
@@ -179,7 +198,7 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
         else if( curTool == "Trigger"){
             brushable = false;
             QImage image;
-            image.load(":/data/img/Trigger.png");
+            image.load(":/data/default/img/Trigger.png");
             Tile *item = new Tile("Trigger", QPixmap::fromImage(image));
             item->setPos(x,y);
             item->setZValue(10);
@@ -193,6 +212,7 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
            //imageDx = *terrain->getImageTile(type);
            // tile change
             brushable = true;
+            mapInfo->setSaveChar(true);
             mapInfo-> brush_size(this, mouseEvent->scenePos(),type,CurBrushSize);
             QString x, y;
             x.setNum(item->scenePos().x());
@@ -201,19 +221,19 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
             if(addedItems.contains(y))
             {
                 QMessageBox::warning(0,"Error!","Cannot put tile on assets");
-                qDebug() << y;
+               // qDebug() << y;
                 return;
             }
             else
             {
                 brushable = true;
+                mapInfo->setSaveChar(false);
                 mapInfo->changeMapTile(this, mouseEvent->scenePos(),type);
                 if(type == Terrain::Water || type == Terrain::Rock || type == Terrain::Tree || type == Terrain::Wall)
                 {
                     if(loc.contains(y) == false)
                     {
                         loc.append(y);
-                        qDebug() << loc;
                     }
                 }
             }
@@ -222,8 +242,18 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
         }
         else
         {//Loads/Animates the assets
-            brushable = false;
+            int besho = 2;
+            if(large)
+            {
+                besho = widthXheight;
+            }
+            if(x==0||y==0|| (x/32) + besho>= mapInfo->getMapDim().width()||(y/32)+besho >= mapInfo->getMapDim().height())
+            {
+                QMessageBox::warning(0,"Cannot place","Place somewhere else away from border!");
+                return;
+            }
 
+            brushable = false;
             if (curTool == "GoldMine")
                 imageDx = asset->imageList[0];
             else
@@ -273,12 +303,11 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
                     Tile * pixItem = new Tile(type, pixmap);
                     pixItem->setPos(x, y);
                     addItem(pixItem);
-                    delayUnit(500);
+                    //delayUnit(500);
                     if(i != frames-1)
                         removeItem(pixItem);
                 }
-
-                // play background music
+                 // play background music
                 music->play();
                 for(int i = 0; i < widthXheight; i++)
                 {
@@ -290,7 +319,6 @@ void GraphicsScene::addToolItem(QGraphicsSceneMouseEvent *mouseEvent)
                         addedItems.append(tempY);
                     }
                 }
-                qDebug() << addedItems;
             }
             else
             {
@@ -344,7 +372,7 @@ void GraphicsScene::removeToolItem(QGraphicsSceneMouseEvent *mouseEvent)
                 }
             }
             this->removeItem(item);
-            qDebug() << addedItems;
+            //qDebug() << addedItems;
         }
         else
             return;
@@ -361,11 +389,28 @@ MapView2 * GraphicsScene::getMapInfo()
     return mapInfo;
 }
 
+QVector<QString> GraphicsScene::getAddedItems()
+{
+    return addedItems;
+}
+
+QVector<QString> GraphicsScene::getLoc()
+{
+    return loc;
+}
+
+bool GraphicsScene::getBrushing()
+{
+    return brushing;
+}
+
 void GraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
     if (mouseEvent->button() == Qt::LeftButton && withinBounds(mouseEvent))
         brushing = true;
         brushable = true;
+    rubberband = mouseEvent->scenePos().toPoint();
+    QGraphicsScene::mousePressEvent(mouseEvent);
 }
 
 void GraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent){
@@ -377,11 +422,49 @@ void GraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
     if (mouseEvent->button() == Qt::LeftButton && withinBounds(mouseEvent) && brushable) {
         addToolItem(mouseEvent);
-        brushing = false;
+        brushing = false;        
     }
     if (mouseEvent->button() == Qt::RightButton){
         removeToolItem(mouseEvent);
         brushing = false;
+    }
+   QRect rect(rubberband, mouseEvent->scenePos().toPoint());
+   QPainterPath pp;
+   pp.addRect(rect);
+   setSelectionArea(pp);
+   itemList = selectedItems();
+   QGraphicsScene::mouseReleaseEvent(mouseEvent);
+}
+
+void GraphicsScene::keyPressEvent(QKeyEvent *keyEvent)
+{
+    if(keyEvent->key() == Qt::Key_D)
+    {
+        for (int i=0; i<itemList.size(); i++)
+        {
+            Tile *item = (Tile *)this->itemAt(itemList[i]->scenePos(), QTransform());
+            posX = item->scenePos().x();
+            posY = item->scenePos().y();
+            QString x, y;
+            x.setNum(item->scenePos().x());
+            y.setNum(item->scenePos().y());
+            y.prepend(x);
+            if (addedItems.contains(y))
+            {
+                for(int i = 0; i < widthXheight; i++)
+                {
+                    for(int j = 0; j < widthXheight; j++)
+                    {
+                        tempX.setNum(posX + 32*i);
+                        tempY.setNum(posY + 32*j);
+                        tempY.prepend(tempX);
+                        addedItems.removeOne(tempY);
+                    }
+                }
+                this->removeItem(itemList[i]);
+                //qDebug() << addedItems;
+            }
+        }
     }
 }
 
@@ -389,4 +472,29 @@ bool GraphicsScene::withinBounds(QGraphicsSceneMouseEvent *mouseEvent)
 {//Checks to see if the mouse event occurs within map bounds to prevent crashing
     return mouseEvent->scenePos().x() >= 0 && mouseEvent->scenePos().x() < width()
             && mouseEvent->scenePos().y() >= 0 && mouseEvent->scenePos().y() < height();
+}
+
+void GraphicsScene::setGridlines(bool showGrid){
+    gridON = showGrid;
+}
+
+void GraphicsScene::drawForeground(QPainter *painter, const QRectF &rect){
+    if( !gridON){
+        return;
+    }
+    const int gridSize = 32;
+    qreal left = int(rect.left()) - (int(rect.left()) % gridSize);
+    qreal top = int(rect.top()) - (int(rect.top()) % gridSize);
+
+    QVarLengthArray<QLineF, 100> lines;
+
+    for (qreal x = left; x < rect.right(); x += gridSize)
+        lines.append(QLineF(x, rect.top(), x, rect.bottom()));
+    for (qreal y = top; y < rect.bottom(); y += gridSize)
+        lines.append(QLineF(rect.left(), y, rect.right(), y));
+
+    qDebug() << lines.size();
+
+    painter->drawLines(lines.data(), lines.size());
+
 }

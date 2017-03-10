@@ -4,45 +4,43 @@
 #include <QObject>
 #include <QString>
 #include <QPoint>
-#include <QTimer>
 #include <QWidget>
 #include "tile.h"
 #include <QDebug>
-#include <QGraphicsEllipseItem>
 
 class AITrigger
 {
 //    Q_OBJECT
 public:
     AITrigger(QString name);
+    AITrigger(QString name, QString type, bool persistence, QString event, QStringList trigArgsList, QStringList eventArgsList);
     QString infoAI() const;
-    void startTimer(QWidget *widget);
-    void setMarker(Tile *tile);
-    void setTimer(double);
-    void setRange(double);
-    void setCondition(QString &cond);
-    void setTriggerFunction(QString &trig);
-    void setType(QString &type);
 
-    bool isRangeOn();
-    double getTimer();
-    Tile* getMarker();
-    void hook();
-    void displayRange(QGraphicsScene *scene);
-    void removeRange(QGraphicsScene *scene);
+    // gets
+    Tile* getTile();
+    QString getType();
+    QPoint* getPos();
+
+    // sets
+    void setTile(Tile *tile);
+    void setName(QString name);
+    void setType(QString type);
+    void setPersistence(bool checked);
+    void setPosition(int x, int y);
+    void setEvent(QString &func);
+    void setTrigArgsList(QStringList &list);
+    void setEventArgsList(QStringList &list);
 
 private:
     QString triggerName;
+    QString type;
     QPointF position;
-    double time;
-    QTimer *timer;
-    Tile *tile;
-    double radius;
-    QGraphicsEllipseItem *circleRange;
-    QString condition;
-    QString triggerFunction;
-    QString triggerType;
+    bool persistence;
+    QString event;
+    QStringList trigArgsList;
+    QStringList eventArgsList;
 
+    Tile *tile;
 };
 
 
