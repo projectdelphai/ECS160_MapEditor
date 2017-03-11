@@ -57,10 +57,10 @@ void ExportToWeb::on_etwButton_clicked()
     multiPart->append(mapPart);
 
     // Official site url
-    //QUrl url("http://54.218.34.58/mapupload/");
+    QUrl url("http://54.218.34.58/mapupload/");
 
     // Unofficial testing url
-    QUrl url("http://24.10.17.214/mapupload/");
+    //QUrl url("http://24.10.17.214/mapupload/");
 
     QNetworkRequest request(url);
 
